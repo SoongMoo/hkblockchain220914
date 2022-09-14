@@ -1,0 +1,167 @@
+PS C:\Users\user> cd ~
+PS C:\Users\user> cd /
+PS C:\> mkdir testProject
+
+
+    디렉터리: C:\
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2022-09-14   오후 5:18                testProject
+
+
+PS C:\> ls
+
+
+    디렉터리: C:\
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2022-09-08   오후 5:02                Intel
+d-----      2022-09-14   오후 3:06                javatest
+d-----      2021-06-05   오후 9:10                PerfLogs
+d-r---      2022-09-14  오전 10:28                Program Files
+d-r---      2022-09-13   오후 1:19                Program Files (x86)
+d-----      2022-09-14   오후 5:18                testProject
+d-r---      2022-09-08   오후 4:29                Users
+d-----      2022-09-08   오후 4:59                Windows
+d-----      2022-09-08   오후 4:44                Windows.old
+-a----      2022-01-03   오후 7:07            189 Install.log
+
+
+PS C:\> cd testProject
+PS C:\testProject> ls
+
+
+    디렉터리: C:\testProject
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----      2022-09-14   오후 5:22            110 TestClass.java
+
+
+PS C:\testProject> cat TestClass.java
+public class TestClass{
+        public static void main(String [] args){
+                System.out.println("hello java");
+        }
+}
+PS C:\testProject> javac TestClass.java
+PS C:\testProject> ls
+
+
+    디렉터리: C:\testProject
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----      2022-09-14   오후 5:24            422 TestClass.class
+-a----      2022-09-14   오후 5:22            110 TestClass.java
+
+
+PS C:\testProject> java TestClass
+hello java
+PS C:\testProject> mkdir src
+
+
+    디렉터리: C:\testProject
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2022-09-14   오후 5:26                src
+
+
+PS C:\testProject> ls
+
+
+    디렉터리: C:\testProject
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2022-09-14   오후 5:26                src
+-a----      2022-09-14   오후 5:24            422 TestClass.class
+-a----      2022-09-14   오후 5:22            110 TestClass.java
+
+
+PS C:\testProject> mkdir bin
+
+
+    디렉터리: C:\testProject
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2022-09-14   오후 5:26                bin
+
+
+PS C:\testProject> ls
+
+
+    디렉터리: C:\testProject
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2022-09-14   오후 5:26                bin
+d-----      2022-09-14   오후 5:26                src
+-a----      2022-09-14   오후 5:24            422 TestClass.class
+-a----      2022-09-14   오후 5:22            110 TestClass.java
+
+
+PS C:\testProject> cd src
+PS C:\testProject\src> ls
+PS C:\testProject\src> ls
+
+
+    디렉터리: C:\testProject\src
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----      2022-09-14   오후 5:30            106 SmClass.java
+
+
+PS C:\testProject\src> cat SmClass.java
+public class SmClass{
+        public static void main(String [] args){
+                System.out.println("hello sm");
+        }
+}
+/// 오류
+PS C:\testProject\src> javac ../bin SmClass.java
+javac: invalid flag: ../bin
+Usage: javac <options> <source files>
+use -help for a list of possible options
+///
+
+PS C:\testProject\src> javac -d ../bin SmClass.java
+PS C:\testProject\src> ls ../bin
+
+
+    디렉터리: C:\testProject\bin
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----      2022-09-14   오후 5:33            416 SmClass.class
+
+
+PS C:\testProject\src> java ../bin/SmClass
+오류: 기본 클래스 ...bin.SmClass을(를) 찾거나 로드할 수 없습니다.
+PS C:\testProject\src> cd ../bin
+PS C:\testProject\bin> java SmClass
+hello sm
+PS C:\testProject\bin> ls
+
+
+    디렉터리: C:\testProject\bin
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----      2022-09-14   오후 5:33            416 SmClass.class
