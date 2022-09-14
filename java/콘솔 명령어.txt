@@ -1,0 +1,56 @@
+cd : 디렉터리 이동
+cd 디렉터리명
+cd ~ :  홈디렉터리
+cd - : 바로 전 디렉터리
+cd .. : 이전 디렉터리
+cd . : 현제 디렉터리
+
+type  파일명
+cat 파일명
+
+dir :  디렉터리 리스트 확인
+ls
+
+dir 디렉터리명 : 디렉터리명 경로에 있는 리스트
+ls 디렉터리명 : 디렉터리명 경로에 있는 리스트
+
+mkdir 디렉터리명
+rm 파일명
+rm -r 디렉터리명 
+
+cls 
+clear
+
+C:\Users\user\eclipse-workspace1
+/Users/user/eclipse-workspace1
+
+c:\
+/ : root 디렉터리
+
+현재 디렉터리가 C:\Users\user\eclipse-workspace1
+cd ../../     : C:\Users\
+cd  ..\..\  : C:\Users\
+
+./ : 현재 디렉터리
+
+cd / : root 디렉터리 
+        c:\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
