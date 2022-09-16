@@ -29,7 +29,7 @@ public class Ex10 {
 		// 대입 연산자
 		int i1 = 10; 
 		i1 = i1 + 1;
-		System.out.println(i); // 11
+		System.out.println(i1); // 11
 		i1++; // i1 = i1 + 1
 		System.out.println(i1); //12
 		i1+=1; // i1 = i1 + 1;
@@ -47,8 +47,6 @@ public class Ex10 {
 		i1 %= 3; //i1 = i1 % 3;
 		System.out.println(i1);
 		
-		
-		
-		
+		String str = null; //'\0';	
 	}
 }
