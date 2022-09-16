@@ -45,11 +45,6 @@ public class Ex05 {
 		double ddd = 2.0;
 		int result2 = (int)(ii + ddd);
 		char ch22 = '글';
-		System.out.println((char)ch22);
-		
-		
-		
-				
-		
+		System.out.println((int)ch22);
 	}
 }
