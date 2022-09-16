@@ -15,11 +15,10 @@ public class Ex06 {
 		System.out.println(res);
 		res = i1 * i;
 		System.out.println(res);
-		i = 3;
-		i1 = 10;
-		System.out.println(i1 % i); // 10 % 3
-		// i1을 i로 나눈 몫을 구하시오
-.		
-		
+		double d1 = 3;
+		double d2 = 10;
+		System.out.println(d2 % d1); // 10을 3으로 나눈 나머지
+		// d2을 d1으로 나눈 몫을 구하시오
+		System.out.println((int)(d2/d1));
 	}
 }
