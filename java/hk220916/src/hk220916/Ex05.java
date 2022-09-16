@@ -28,7 +28,24 @@ public class Ex05 {
 		System.out.println((int)ch1);
 		
 		
+		double dNum1 = 1.7;
+		float fNum2 = 0.9f;
 		
+		int iNum3 =(int)(dNum1 + fNum2);
+		//               double + float
+		//               double + double
+		//         (int)(1.7 + 0.9 = 2.6) = 2
+		System.out.println(iNum3);
+
+		iNum3 = (int)dNum1 + (int)fNum2;
+		//            1.7  + 0.9
+		//            1    + 0 = 1  
+		
+		int ii = 10;
+		double ddd = 2.0;
+		int result2 = (int)(ii + ddd);
+		char ch22 = '글';
+		System.out.println((char)ch22);
 		
 		
 		
