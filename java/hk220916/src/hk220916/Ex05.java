@@ -25,7 +25,13 @@ public class Ex05 {
 		System.out.println((char)iNum);
 		
 		char ch1 ='A';
-		System.out.println(ch1);
+		System.out.println((int)ch1);
+		
+		
+		
+		
+		
+		
 				
 		
 	}
