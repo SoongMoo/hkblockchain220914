@@ -18,8 +18,7 @@ public class Ex06 {
 		System.out.println(grade);
 		// 삼항연산자.
 		
-		
-		
-		
+		grade = (score  >= 60) ? 'T' : 'F';
+		System.out.println(grade);
 	}
 }
