@@ -28,12 +28,12 @@ public class Ex08 {
 		case 1: System.out.println(" 8 * 1 = " + 8 * 1  );break;
 		case 2: System.out.println(" 8 * 2 = " + 8 * 2  );break;
 		case 3: System.out.println(" 8 * 3 = " + 8 * 3  );break;
-		case 4: System.out.println(" 8 * 4 = " + 8 * 4  );break;
-		case 5: System.out.println(" 8 * 5 = " + 8 * 5  );break;
-		case 6: System.out.println(" 8 * 6 = " + 8 * 6  );break;
-		case 7: System.out.println(" 8 * 7 = " + 8 * 7  );break;
 		case 8: System.out.println(" 8 * 8 = " + 8 * 8  );break;
 		default : System.out.println(" 8 * 9 = " + 8 * 9  );break;
+		case 5: System.out.println(" 8 * 5 = " + 8 * 5  );break;
+		case 6: System.out.println(" 8 * 6 = " + 8 * 6  );break;
+		case 4: System.out.println(" 8 * 4 = " + 8 * 4  );break;
+		case 7: System.out.println(" 8 * 7 = " + 8 * 7  );break;
 		}
 	}
 }
