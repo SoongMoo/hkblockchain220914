@@ -21,6 +21,21 @@ public class Ex17 {
 			if(gop % 2 == 1) continue;
 			System.out.println("7 * " + gop + " = " + 7 * gop);
 		}
+		// while 짝수만 출력
+		int gop = 0;
+		while (gop <= 8) {
+			gop++;
+			if(gop % 2 == 1) continue;
+			System.out.println("7 * " + gop + " = " + 7 * gop);
+		}
+		// while 홀수만 출력
+		gop = 0;
+		while(gop <= 8) {
+			gop++;
+			if(gop % 2 == 0)continue;
+			System.out.println("7 * " + gop + " = " + 7 * gop);
+		}
+			
 	}
 
 }
