@@ -29,6 +29,4 @@ public class Calculator { // 사용자 자료형
 		return result;
 	}
 	
-	
-	
 }
