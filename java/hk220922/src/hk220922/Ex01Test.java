@@ -14,10 +14,23 @@ public class Ex01Test {
 		 * 다음과 같이 출력되게 하시오.
 		 * "성남에 사는 나이가 30인 이숭무님이 30000원짜리 손선풍기를 사셨습니다."
 		 */
+		int i = 10;
+		 int j ;
+		 j = i;
+		 				// 객체 / 인스턴스
 		Goods goods = new Goods();
+		 //객체주소/주소변수/참조변수
+		Goods goods1 = goods;
+		
+		System.out.println(goods);
+		System.out.println(goods1);
+		
+		Goods goods2 = new Goods();
+		System.out.println(goods2);
+		
 		goods.setGoodsContent("값 싼 선풍기입니다.");
 		goods.setGoodsName("손선풍기");
-		goods.setGoodsPrice(30000);
+		goods1.setGoodsPrice(30000);
 		
 		Member member = new Member();
 		member.setMemberAddr("성남");
