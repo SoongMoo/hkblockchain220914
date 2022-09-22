@@ -34,10 +34,7 @@ public class Ex01Test {
 		System.out.println(
 				memberAddr + "에 사는 나이가 " +
 				memberAge + "인 이숭무님이 " + 
-				goodsName + "원짜리 " + 
+				goodsPrice + "원짜리 " + 
 				goodsName + "를 사셨습니다.");
-		
-		
-		
 	}
 }
