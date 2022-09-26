@@ -10,7 +10,7 @@ public class Student {
 		this.studentName = studentName;
 		this.money = money;
 	}
-	public void takeBus(Bus bus) {
+	public void takeBus(Bus bus) { // Bus bus = bus1
 		bus.take(1000);
 		this.money -= 1000;
 	}
