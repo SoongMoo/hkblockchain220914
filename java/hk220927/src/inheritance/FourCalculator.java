@@ -25,7 +25,7 @@ public class FourCalculator extends Calculator{
 	 */
     // 메서드 오버라이딩 : 상속받은 부모클래스의 메서드를 다시 정의한 것
 	// 오버라이딩된 메서드가 우선순위가 높다.
-	
+	@Override
 	public int div() { 
 		if(num2 == 0) {
 			return 0;
@@ -40,6 +40,7 @@ public class FourCalculator extends Calculator{
 		result = num1 - num2;
 		return result;
 	}
+	
 	public int mul() {
 		result = num1 * num2;
 		return result;
