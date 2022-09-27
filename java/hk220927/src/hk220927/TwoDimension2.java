@@ -24,6 +24,24 @@ public class TwoDimension2 {
 			}
 			System.out.println();
 		}
+		
+		int [][] arr2 = new int [3][4];
+		arr2[0] = new int[4];
+		arr2[1] = new int[4];
+		arr2[2] = new int[4];
+		
+		int [][] arr3 = new int [3][];
+		arr3[0] = new int[2];
+		arr3[1] = new int[4];
+		arr3[2] = new int[3];
+		
+		int [][] arr4 = new int [3][];
+		arr4[0] = new int[]{1,2};
+		arr4[1] = new int[] {1,2,3,4};
+		arr4[2] = new int[] {1,2,3};
+		
+		int [] aaa;
+		aaa = new int[] {1,2,3};
+		int [] bbb = {1,2,3,4};
 	}
-
 }
