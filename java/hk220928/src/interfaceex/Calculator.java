@@ -14,6 +14,11 @@ public abstract class Calculator implements Calc {
 		// TODO Auto-generated method stub
 		return  num1 - num2;
 	}
-
+	
+	@Override
+	public void description(){
+		System.out.println("재정의 구현합니다");
+	}
+	
 
 }

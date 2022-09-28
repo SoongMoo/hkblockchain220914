@@ -25,5 +25,4 @@ public class SchedulerTest1 {
 			p.fff();
 		}
 	}
-
 }
