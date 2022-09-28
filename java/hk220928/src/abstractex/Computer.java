@@ -4,9 +4,8 @@ package abstractex;
 public abstract class Computer { // 추상 클래스
 	int num1;
 	static int num2;
-	final int num3 = 30;
-	Computer(){}
-	Computer(int num1){}
+	final int num3 = 10;
+
 	public abstract void display(); // 추상 메서드
 	public abstract void typing();
 	public void turnOn()
