@@ -6,10 +6,9 @@ import java.util.Scanner;
 public class Lotto {
 
 	public static void main(String[] args) {
-		ArrayList<Integer> lottoNum =
-				new ArrayList<Integer>();
+		ArrayList<Integer> lottoNum = new ArrayList<Integer>();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("그매 갯수를 입력하세요");
+		System.out.println("구매 갯수를 입력하세요");
 		int cnt = sc.nextInt();
 		for(int num = 1 ; num <= cnt ; num++) {
 			for(int i = 1 ; i <= 45 ; i++) {
