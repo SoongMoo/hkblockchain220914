@@ -23,5 +23,7 @@ public class WrapperTest {
 		
 		String str = "10";
 		System.out.println(Integer.parseInt(str) + 10);
+		str = "10.0";
+		System.out.println(Double.parseDouble(str) + 15.3);
 	}
 }
