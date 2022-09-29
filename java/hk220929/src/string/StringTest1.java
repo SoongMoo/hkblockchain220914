@@ -40,6 +40,5 @@ public class StringTest1 {
 		
 		System.out.println(str5.indexOf("i", str5.indexOf("i")+1));
 		
-		
 	}
 }

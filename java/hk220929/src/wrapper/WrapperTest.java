@@ -20,7 +20,8 @@ public class WrapperTest {
 		int num2 = num1; // 언박싱
 		int num3 = 10;
 		num1 = num3; // 오토 박싱
-
+		
+		String str = "10";
+		System.out.println(Integer.parseInt(str) + 10);
 	}
-
 }
