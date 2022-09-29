@@ -25,12 +25,27 @@ public class AccountTest {
 				int money = Integer.parseInt(sc.nextLine());
 				Account acc = new Account(accNum,accName,money);
 				map.put(accNum, acc);
+				System.out.println();
 				break;
 			case "2" :
 				System.out.println("입금");
+				System.out.print("계좌번호를 입력해주세요. : ");
+				accNum = sc.nextLine();
+				acc = map.get(accNum);
+				System.out.print("입금 금액을 입력해주세요. : ");
+				money = Integer.parseInt(sc.nextLine());
+				acc.deposit(money);
+				System.out.println();
 				break;
 			case "3" :
 				System.out.println("출금");
+				System.out.print("계좌번호를 입력해주세요. : ");
+				accNum = sc.nextLine();
+				acc = map.get(accNum);
+				System.out.print("출금 금액을 입력해주세요. : ");
+				money = Integer.parseInt(sc.nextLine());
+				acc.withdraw(money);
+				System.out.println();
 				break;
 			case "4" :
 				System.out.println("계좌 정보");
@@ -39,6 +54,7 @@ public class AccountTest {
 					Account ac = map.get(key);
 					ac.showInfo();
 				}
+				System.out.println();
 				break;
 			case "5" :
 				System.out.println("프로그램이 종료되었습니다.");
