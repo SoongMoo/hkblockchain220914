@@ -47,3 +47,6 @@ https://github.com/oracle-samples/db-sample-schemas/releases
 
 맥에 오라클 설치 : 
 https://goldencrab.tistory.com/entry/oracle-%EC%84%A4%EC%B9%98
+
+oracle 11g
+https://github.com/oracle-samples/db-sample-schemas/releases
