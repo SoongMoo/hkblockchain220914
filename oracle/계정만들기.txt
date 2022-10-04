@@ -53,8 +53,9 @@ https://github.com/oracle-samples/db-sample-schemas/releases
 
 
 
-
-SQL> @?/demo/schema/human_resources/hr_main.sql
+SQL> conn system/1234
+SQL> alter session set "_ORACLE_SCRIPT"=true;
+SQL> @?/demo/schema/human_resources/hr_main.sql;
 
 specify password for HR as parameter 1:
 1의 값을 입력하십시오: hr
