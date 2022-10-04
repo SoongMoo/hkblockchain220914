@@ -41,6 +41,10 @@ alter user smrit account unlock;
 --- 사용자 비밀번호 변경
 alter user smrit identified by oracle;
 
+-- 계정 삭제
+alter session set "_ORACLE_SCRIPT"=true;
+drop user 사용자계정;
+
 
 샘플 데이터 : 
 https://github.com/oracle-samples/db-sample-schemas/releases
