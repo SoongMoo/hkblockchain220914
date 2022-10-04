@@ -9,6 +9,38 @@ alter user 사용자계정 default tablespace users quota unlimited on users;
 
 
 
+-- 새 사용자 만들기
+
+alter session set "_ORACLE_SCRIPT"=true;
+
+create user smrit identified by oracle;
+
+grant resource,create session, connect, dba  to smrit;
+
+alter user smrit default tablespace users quota unlimited on users;
+
+--- 만든 smrit 계정 검색하기
+select * from dba_users where username = 'SMRIT';
+
+
+--- hr 계정 만들기
+select * from dba_users where username = 'HR';
+
+alter session set "_ORACLE_SCRIPT"=true;
+
+create user hr identified by hr;
+
+grant resource,create session, connect, dba  to hr;
+
+alter user hr default tablespace users quota unlimited on users;
+
+select * from dba_users where username = 'HR';
+
+--- 사용자 계정 락 풀기
+alter user smrit account unlock;
+--- 사용자 비밀번호 변경
+alter user smrit identified by oracle;
+
 
 샘플 데이터 : 
 https://github.com/oracle-samples/db-sample-schemas/releases
