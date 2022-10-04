@@ -48,8 +48,7 @@ https://github.com/oracle-samples/db-sample-schemas/releases
 맥에 오라클 설치 : 
 https://goldencrab.tistory.com/entry/oracle-%EC%84%A4%EC%B9%98
 
-oracle 11g
-https://github.com/oracle-samples/db-sample-schemas/releases
+
 
 
 
@@ -76,3 +75,9 @@ specify connect string as parameter 6:
 6의 값을 입력하십시오: localhost:1521/xe
 
 
+human_resources/hr_cre.sql
+human_resources/hr_popul.sql
+human_resources/hr_idx.sql
+human_resources/hr_code.sql
+human_resources/hr_comnt.sql
+human_resources/hr_analz.sql
