@@ -74,3 +74,5 @@ specify log path as parameter 5:
 
 specify connect string as parameter 6:
 6의 값을 입력하십시오: localhost:1521/xe
+
+
