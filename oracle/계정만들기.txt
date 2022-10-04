@@ -13,26 +13,26 @@ alter user 사용자계정 default tablespace users quota unlimited on users;
 
 alter session set "_ORACLE_SCRIPT"=true;
 
-create user smrit identified by oracle;     --- 11g 상용할 때
+create user smrit identified by oracle;     --- 11g 사용할 때
 
-grant resource,create session, connect, dba  to smrit;     --- 11g 상용할 때
+grant resource,create session, connect, dba  to smrit;     --- 11g 사용할 때
 
-alter user smrit default tablespace users quota unlimited on users;    --- 11g 상용할 때
+alter user smrit default tablespace users quota unlimited on users;    --- 11g 사용할 때
 
 --- 만든 smrit 계정 검색하기
 select * from dba_users where username = 'SMRIT';
 
 
 --- hr 계정 만들기
-select * from dba_users where username = 'HR';
+select * from dba_users where username = 'HR';     
 
-alter session set "_ORACLE_SCRIPT"=true;
+alter session set "_ORACLE_SCRIPT"=true;   --- 11g에서는 실행 안함
 
-create user hr identified by hr;
+create user hr identified by hr;   --- 11g에서는 실행 안함
 
-grant resource,create session, connect, dba  to hr;
+grant resource,create session, connect, dba  to hr;   --- 11g에서는 실행 안함
 
-alter user hr default tablespace users quota unlimited on users;
+alter user hr default tablespace users quota unlimited on users;   --- 11g에서는 실행 안함
 
 select * from dba_users where username = 'HR';
 
