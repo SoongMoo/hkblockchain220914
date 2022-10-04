@@ -52,7 +52,7 @@ https://goldencrab.tistory.com/entry/oracle-%EC%84%A4%EC%B9%98
 
 
 
-SQL> conn system/1234
+사용자명 입력: sys as sysdba 또는 SQL> conn /as sysdba
 SQL> alter session set "_ORACLE_SCRIPT"=true;
 SQL> @?/demo/schema/human_resources/hr_main.sql;
 
