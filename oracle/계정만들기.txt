@@ -50,3 +50,26 @@ https://goldencrab.tistory.com/entry/oracle-%EC%84%A4%EC%B9%98
 
 oracle 11g
 https://github.com/oracle-samples/db-sample-schemas/releases
+
+
+
+
+SQL> @?/demo/schema/human_resources/hr_main.sql
+
+specify password for HR as parameter 1:
+1의 값을 입력하십시오: hr
+
+specify default tablespeace for HR as parameter 2:
+2의 값을 입력하십시오: users
+
+specify temporary tablespace for HR as parameter 3:
+3의 값을 입력하십시오: temp
+
+specify password for SYS as parameter 4:
+4의 값을 입력하십시오: 1234
+
+specify log path as parameter 5:
+5의 값을 입력하십시오: C:\app\user\product\21c
+
+specify connect string as parameter 6:
+6의 값을 입력하십시오: localhost:1521/xe
