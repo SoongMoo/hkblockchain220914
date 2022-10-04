@@ -30,7 +30,7 @@ alter session set "_ORACLE_SCRIPT"=true;   --- 11g에서는 실행 안함
 
 create user hr identified by hr;   --- 11g에서는 실행 안함
 
-grant resource,create session, connect, dba  to hr;   --- 11g에서는 실행 안함
+grant resource,create session, connect  to hr;   --- 11g에서는 실행 안함
 
 alter user hr default tablespace users quota unlimited on users;   --- 11g에서는 실행 안함
 
