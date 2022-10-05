@@ -1,7 +1,0 @@
-select last_name, job_id, department_id, hire_date -- 3
-from hr.employees              -- 1
-where department_id = 80       -- 2
-order by hire_date ; --- 4select last_name, job_id, department_id, hire_date -- 3
-from hr.employees              -- 1
-where department_id = 80       -- 2
-order by hire_date ; --- 4
