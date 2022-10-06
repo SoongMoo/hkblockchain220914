@@ -1,36 +1,36 @@
--- projection : ¿øÇÏ´Â ¿­À» Ãâ·Â, µ¥ÀÌÅÍ °¡°øÇÑ Ãâ·Â
--- selection : ¿øÇÏ´Â ÇàÀ» Ãâ·Â, where
+-- projection : ì›í•˜ëŠ” ì—´ì„ ì¶œë ¥,  ê°€ê³µí•œ ë°ì´í„° ì¶œë ¥
+-- selection : ì›í•˜ëŠ” í–‰ì„ ì¶œë ¥, where
 select job_id from hr.employees;
 
---- »ç¿øµé Á¤º¸ Áß »ç¿ø¹øÈ£, ÀÌ¸§ , ±Þ¿©, Á÷¹«¸¦ Ãâ·ÂÇÏ´Â µ¥
---- Á÷¹«°¡ 'FI_ACCOUNT'ÀÎ »ç¿øµé¸¸ Ãâ·ÂÇÏ¼¼¿ä.
+--- ì‚¬ì›ë“¤ ì •ë³´ ì¤‘ ì‚¬ì›ë²ˆí˜¸, ì´ë¦„ , ê¸‰ì—¬, ì§ë¬´ë¥¼ ì¶œë ¥í•˜ëŠ” ë°
+--- ì§ë¬´ê°€ 'FI_ACCOUNT'ì¸ ì‚¬ì›ë“¤ë§Œ ì¶œë ¥í•˜ì„¸ìš”.
 select employee_id, first_name, salary, job_id
 from hr.employees
 where job_id = 'FI_ACCOUNT';
 
--- Á÷¹«¿¡ '_A'°¡ ÀÖ´Â »ç¿øµéÀ» Ãâ·ÂÇÏ½Ã¿À.
+-- ì§ë¬´ì— '_A'ê°€ ìžˆëŠ” ì‚¬ì›ë“¤ì„ ì¶œë ¥í•˜ì‹œì˜¤.
 select * from hr.employees
 where job_id like '%\_A%'  ESCAPE '\';
 
--- projection : ¿øÇÏ´Â ¿­À» ¼±ÅÃ : select
--- selection : ¿øÇÏ´Â ÇàÀ» ¼±ÅÃ  : where : if
---                              ºñ±³, ³í¸® ¿¬»êÀÚ
+-- projection : ì›í•˜ëŠ” ì—´ì„ ì„ íƒ : select
+-- selection : ì›í•˜ëŠ” í–‰ì„ ì„ íƒ  : where : if
+--                              ë¹„êµ, ë…¼ë¦¬ ì—°ì‚°ìž
 --                            Like     not
--- AC_ACCOUNT, AD_PRES, PR_REPÀÌ Á÷¹«°¡ ¾Æ´Ñ 
--- »ç¿øµéÀ» Ãâ·ÂÇÏ¼¼¿ä.
+-- AC_ACCOUNT, AD_PRES, PR_REPì´ ì§ë¬´ê°€ ì•„ë‹Œ 
+-- ì‚¬ì›ë“¤ì„ ì¶œë ¥í•˜ì„¸ìš”.
 select * from hr.employees
 where job_id NOT in ('AC_ACCOUNT', 'AD_PRES', 'PR_REP');
 
--- ºÎ¼­°¡ ¾ø´Â Á÷¿øÀ» Ãâ·Â
+-- ë¶€ì„œê°€ ì—†ëŠ” ì§ì›ì„ ì¶œë ¥
 select * from hr.employees
 where department_id is null;
 
--- ºÎ¼­°¡ ÀÖ´Â Á÷¿øÀ» Ãâ·Â
+-- ë¶€ì„œê°€ ìžˆëŠ” ì§ì›ì„ ì¶œë ¥
 select * from hr.employees
 where department_id is not null;
 
---- ÀÌ¸§ÀÌ Douglas°ú Susan »çÀÌ¿¡ ÀÖ´Â Á÷¿øÀ» Ãâ·ÂÇÏ´Âµ¥ 
--- Á÷¹«°¡ 'K_'¸¦ Æ÷ÇÔÇÏ´Â Á÷¿ø¸¸ Ãâ·ÂÇÏ¼¼¿ä.
+--- ì´ë¦„ì´ Douglasê³¼ Susan ì‚¬ì´ì— ìžˆëŠ” ì§ì›ì„ ì¶œë ¥í•˜ëŠ”ë° 
+-- ì§ë¬´ê°€ 'K_'ë¥¼ í¬í•¨í•˜ëŠ” ì§ì›ë§Œ ì¶œë ¥í•˜ì„¸ìš”.
 select * from hr.employees
 where first_name between 'Douglas' and 'Susan'  
   and job_id like '%K\_%' ESCAPE '\';
@@ -54,7 +54,7 @@ select last_name , lower(last_name)
        ,job_id , initcap(job_id)
 from hr.employees;
 
---- ¼ºÀÌ higginsÁ÷¿øÀÇ Á¤º¸¸¦ Ãâ·ÂÇÏ¼¼¿ä.
+--- ì„±ì´ higginsì§ì›ì˜ ì •ë³´ë¥¼ ì¶œë ¥í•˜ì„¸ìš”.
 select * 
 from hr.employees
 where last_name = initcap('higgins');
@@ -63,7 +63,7 @@ select *
 from hr.employees
 where lower(last_name) = 'higgins';
 
--- ¼ºÀÌ KINGÀÎ Á÷¿øÀ» Ãâ·ÂÇÏ¼¼¿ä
+-- ì„±ì´ KINGì¸ ì§ì›ì„ ì¶œë ¥í•˜ì„¸ìš”
 select * from hr.employees
 where upper(last_name) = 'KING';
 
@@ -73,8 +73,8 @@ where  last_name = initcap('KING');
 select CONCAT('Hello', 'World')
 from dual;
 
----¸ðµç »ç¿øÀ» ¼º°ú ÀÌ¸§Àº ºÙ¿©¼­ Ãâ·ÂÇÏ°í
--- ÀÔ»çÀÏ°ú Á÷¹«¸¦ Ãâ·ÂÇÏ¼¼¿ä.
+---ëª¨ë“  ì‚¬ì›ì„ ì„±ê³¼ ì´ë¦„ì€ ë¶™ì—¬ì„œ ì¶œë ¥í•˜ê³ 
+-- ìž…ì‚¬ì¼ê³¼ ì§ë¬´ë¥¼ ì¶œë ¥í•˜ì„¸ìš”.
 -- OConnellDonald, 07/06/21, SH_CLERK
 select last_name || first_name , hire_date, job_id
 from hr.employees;
@@ -83,7 +83,7 @@ select concat(last_name, first_name) , hire_date, job_id
 from hr.employees;
 
 -- OConnell Donald, 07/06/21, SH_CLERK
--- concat(ÀÎ¼ö1, ÀÎ¼ö2)
+-- concat(ì¸ìˆ˜1, ì¸ìˆ˜2)
 select concat(last_name,  concat(' ' , first_name)) 
       , hire_date, job_id
 from hr.employees;
@@ -98,8 +98,8 @@ select SUBSTR('HelloWorld',-3,1) from dual;
 select SUBSTR('HelloWorld',-3,2) from dual;
 select SUBSTR('HelloWorld',-3,3) from dual;
 select SUBSTR('HelloWorld',-5,3) from dual;
--- ºÎ¼­Á¤º¸¿¡¼­ ºÎ¼­¹øÈ£ , ºÎ¼­¸í, ºÎ¼­ÀåÀ» Ãâ·ÂÇÏ´Âµ¥
--- ºÎ¼­¸íÀ» 2¹øÂ° ºÎÅÍ 5±ÛÂ¥¸¸ Ãâ·ÂÇÏ½Ã¿À.
+-- ë¶€ì„œì •ë³´ì—ì„œ ë¶€ì„œë²ˆí˜¸ , ë¶€ì„œëª…, ë¶€ì„œìž¥ì„ ì¶œë ¥í•˜ëŠ”ë°
+-- ë¶€ì„œëª…ì„ 2ë²ˆì§¸ ë¶€í„° 5ê¸€ì§œë§Œ ì¶œë ¥í•˜ì‹œì˜¤.
 select department_id, substr(department_name,2, 5)
      , manager_id
 from hr.departments;
@@ -120,15 +120,15 @@ from dual;
 select INSTR('HelloWorld', 'o', -1) -- 7 
 from dual;
 
----»ç¿øÁ¤º¸ Áß¿¡ »ç¿ø¹øÈ£ , ÀÌ¸§, ÀÌ¸ÞÀÏ, ÀÌ¸ÞÀÏ¿¡¼­ 'S'°¡ ÀÖ´Â 
--- À§Ä¡µµ Ãâ·Â
+---ì‚¬ì›ì •ë³´ ì¤‘ì— ì‚¬ì›ë²ˆí˜¸ , ì´ë¦„, ì´ë©”ì¼, ì´ë©”ì¼ì—ì„œ 'S'ê°€ ìžˆëŠ” 
+-- ìœ„ì¹˜ë„ ì¶œë ¥
 select employee_id, first_name, email, instr(email,'S')
 from hr.employees;
 
--- substr°ú instrÀ» °°ÀÌ »ç¿ë
--- »ç¿ø¹øÈ£, ÀÌ¸§, ±Þ¿©, ÀÌ¸ÞÀÏ, ÀÌ¸ÞÀÏ¿¡¼­ 'S'ÀÖ´Â À§Ä¡ ºÎÅÍ 
--- 5±ÛÀÚ¸¦ Ãâ·ÂÇÏ½Ã¿À.
--- ´Ü, 'S'°¡ ¾ø´Â °æ¿ì Ã¹±ÛÀÚ ºÎÅÍ 5±ÛÀÚ
+-- substrê³¼ instrì„ ê°™ì´ ì‚¬ìš©
+-- ì‚¬ì›ë²ˆí˜¸, ì´ë¦„, ê¸‰ì—¬, ì´ë©”ì¼, ì´ë©”ì¼ì—ì„œ 'S'ìžˆëŠ” ìœ„ì¹˜ ë¶€í„° 
+-- 5ê¸€ìžë¥¼ ì¶œë ¥í•˜ì‹œì˜¤.
+-- ë‹¨, 'S'ê°€ ì—†ëŠ” ê²½ìš° ì²«ê¸€ìž ë¶€í„° 5ê¸€ìž
 select employee_id, first_name, salary, email
      , substr(email, instr(email,'S') , 5)
 from hr.employees;
@@ -142,7 +142,7 @@ select last_name, LENGTH(last_name)
        ,email, length(email)
 from hr.employees;
 
---- ÀÌ¸§ÀÇ ±æÀÌ°¡ 6°³ ÀÌ»óÀÎ Á÷¿ø¸¸ Ãâ·ÂÇÏ½Ã¿À.
+--- ì´ë¦„ì˜ ê¸¸ì´ê°€ 6ê°œ ì´ìƒì¸ ì§ì›ë§Œ ì¶œë ¥í•˜ì‹œì˜¤.
 select * from hr.employees
 where length(first_name) >= 6;
 
@@ -165,13 +165,13 @@ select rpad(
     ,
     length(
     substr('02-123-1970', 1 , instr('02-123-1970','-',-1)-1)
-    ), -- 02-123ÀÇ ±æÀÌ 6
+    ), -- 02-123ì˜ ê¸¸ì´ 6
     '*')
     || substr('02-123-1970', -5, 5)
 from dual;
 
--- ÀÌ¸ÞÀÏ¿¡¼­ ¾Õ¿¡¼­ 2±ÛÀÚ¸¦ Ãâ·ÂÇÏ°í 
--- ³ª¸ÓÁö´Â ¿À¸¥ÂÊ¿¡ *·Î Ã¤¿ö¼­ Ãâ·ÂÇÏ¼¼¿ä.
+-- ì´ë©”ì¼ì—ì„œ ì•žì—ì„œ 2ê¸€ìžë¥¼ ì¶œë ¥í•˜ê³  
+-- ë‚˜ë¨¸ì§€ëŠ” ì˜¤ë¥¸ìª½ì— *ë¡œ ì±„ì›Œì„œ ì¶œë ¥í•˜ì„¸ìš”.
 select employee_id, first_name, email
       , rpad(substr(email,1,2), length(email), '*' )
 from hr.employees;
@@ -180,8 +180,8 @@ from hr.employees;
 select REPLACE('JACK and JUE','J','BL')
 from dual;
 
--- Á÷¹«°¡ _AS°¡ ÀÖ´Ù¸é abc·Î º¯°æÇÏ½Ã¿À,
--- »ç¿ø¹øÈ£ , ÀÌ¸§, Á÷¹«, º¯°æµÈ Á÷¹«
+-- ì§ë¬´ê°€ _ASê°€ ìžˆë‹¤ë©´ abcë¡œ ë³€ê²½í•˜ì‹œì˜¤,
+-- ì‚¬ì›ë²ˆí˜¸ , ì´ë¦„, ì§ë¬´, ë³€ê²½ëœ ì§ë¬´
 select employee_id, first_name, job_id
     , replace(job_id, '_AS','abc')
 from hr.employees
@@ -194,90 +194,90 @@ select '\hello world\', trim('\hello world\')
       ,rtrim('  hello world '),ltrim('  hello world ')
 from dual;
 
---- ÀÌ¸§ÀÌ '   Donald   'ÀÇ »ç¿ø Á¤º¸¸¦ Ãâ·ÂÇÏ½Ã¿À.
+--- ì´ë¦„ì´ '   Donald   'ì˜ ì‚¬ì› ì •ë³´ë¥¼ ì¶œë ¥í•˜ì‹œì˜¤.
 select * from hr.employees
 where first_name = trim('   Donald   ');
 
 
---- round() : ¹Ý¿Ã¸² 
+--- round() : ë°˜ì˜¬ë¦¼ 
 select round(15.19345, 3), round(15.19355, 3)
       , round(145.5554,2), round(145.5554,1)
       , round(145.5554,0), round(145.5554,-1)
       , round(145.5554,-2)
 from dual;
---- trunc() : Àý»è
+--- trunc() : ì ˆì‚­
 select trunc(15.19345, 3), trunc(15.19355, 3)
       , trunc(145.5554,2), trunc(145.5554,1)
       , trunc(145.5554,0), trunc(145.5554,-1)
       , trunc(145.5554,-2)
 from dual;
 
---- mod() : ³ª¸ÓÁö
+--- mod() : ë‚˜ë¨¸ì§€
 select mod(10, 3)
 from dual;
 
---- »ç¿øÁ¤º¸¸¦ Ãâ·ÂÇÒ ¶§ ÀÌ¸§ , ±Þ¿©, ±Þ¿©¸¦ 5000À¸·Î ³ª´« ³ª¸ÓÁö¸¦ Ãâ·Â
---- Á÷¹«°¡ SA_REPÀÎ »ç¿ø
+--- ì‚¬ì›ì •ë³´ë¥¼ ì¶œë ¥í•  ë•Œ ì´ë¦„ , ê¸‰ì—¬, ê¸‰ì—¬ë¥¼ 5000ìœ¼ë¡œ ë‚˜ëˆˆ ë‚˜ë¨¸ì§€ë¥¼ ì¶œë ¥
+--- ì§ë¬´ê°€ SA_REPì¸ ì‚¬ì›
 select first_name, salary, mod(salary, 5000)
 from hr.employees;
 
 --- sysdate
-select sysdate --- ÇöÀç ³¯Â¥ Ãâ·Â
+select sysdate --- í˜„ìž¬ ë‚ ì§œ ì¶œë ¥
 from dual;
 
---- »ç¿ø¹øÈ£ , ÀÌ¸§, ±Þ¿©, ÀÔ»çÀÏ, ÀÔ»çÀÌ·ÎºÎÅÍ ¸îÀÏ Áö³µ´ÂÁö Ãâ·Â
+--- ì‚¬ì›ë²ˆí˜¸ , ì´ë¦„, ê¸‰ì—¬, ìž…ì‚¬ì¼, ìž…ì‚¬ì´ë¡œë¶€í„° ëª‡ì¼ ì§€ë‚¬ëŠ”ì§€ ì¶œë ¥
 select employee_id, first_name, salary, hire_date
      ,  trunc(sysdate - hire_date,0)
      , trunc((sysdate - hire_date) / 365, 0)
      , trunc(mod((sysdate - hire_date) , 365), 0)
 from hr.employees;
 
---- ÀÌ¸§ ±Þ¿©, ÀÔ»çÀÏ, ÀÔ»çÇÑ ³¯·ÎºÎÅÍ ¸îÁÖ°¡ µÇ¾ú´Â Áö Ãâ·Â
+--- ì´ë¦„ ê¸‰ì—¬, ìž…ì‚¬ì¼, ìž…ì‚¬í•œ ë‚ ë¡œë¶€í„° ëª‡ì£¼ê°€ ë˜ì—ˆëŠ” ì§€ ì¶œë ¥
 select first_name, salary , hire_date
       ,trunc((sysdate - hire_date) / 7) week
 from hr.employees;
 
--- ±Þ¿©¸¦ 500À¸·Î ³ª´« ³ª¸ÓÁö°¡ 400 ÀÌ»óÀÎ »ç¿øµéÀ» Ãâ·ÂÇÏ½Ã¿À.
+-- ê¸‰ì—¬ë¥¼ 500ìœ¼ë¡œ ë‚˜ëˆˆ ë‚˜ë¨¸ì§€ê°€ 400 ì´ìƒì¸ ì‚¬ì›ë“¤ì„ ì¶œë ¥í•˜ì‹œì˜¤.
 --  employee_id, first_name, hire_date, job_id, salary
 select  employee_id, first_name, hire_date, job_id, salary
 from hr.employees
 where mod(salary , 500) >= 400;
 
----  ¿À´Ã ³¯Â¥ºÎÅÍ ´ÙÀ½ ±Ý¿äÀÏÀº ¸îÀÏÀÔ´Ï±î?
-select next_day(sysdate,'±Ý'), next_day(sysdate,'±Ý¿äÀÏ')
+---  ì˜¤ëŠ˜ ë‚ ì§œë¶€í„° ë‹¤ìŒ ê¸ˆìš”ì¼ì€ ëª‡ì¼ìž…ë‹ˆê¹Œ?
+select next_day(sysdate,'ê¸ˆ'), next_day(sysdate,'ê¸ˆìš”ì¼')
 from dual;
--- ÀÔ»çÇÑ ´ÙÀ½ ¿ù¿äÀÏÀº ¸îÀÏ ÀÏ±î¿ä?
--- ÀÌ¸§ , ¼º, Á÷¹«, ÀÔ»çÀÏ
+-- ìž…ì‚¬í•œ ë‹¤ìŒ ì›”ìš”ì¼ì€ ëª‡ì¼ ì¼ê¹Œìš”?
+-- ì´ë¦„ , ì„±, ì§ë¬´, ìž…ì‚¬ì¼
 select first_name, last_name, job_id, hire_date
-      , next_day(hire_date,'¿ù')
+      , next_day(hire_date,'ì›”')
 from hr.employees;
 
----ÇöÀç ³¯Â¥·ÎºÎÅÍ 5°³¿ù ÈÄ
+---í˜„ìž¬ ë‚ ì§œë¡œë¶€í„° 5ê°œì›” í›„
 select add_months(sysdate, 5)
 from dual;
 
--- Neena°¡ ÀÔ»çÇÏ°í 3°³¿ù ÈÄ°¡ Á¤Á÷¿øÀÌ µÇ´Â ³¯ÀÌ´Ù.
--- ÀÌ¸§ , ¼º , ÀÔ»çÀÏ, Á÷¹«, »ç¿ø¹øÈ£µµ °°ÀÌ Ãâ·Â
+-- Neenaê°€ ìž…ì‚¬í•˜ê³  3ê°œì›” í›„ê°€ ì •ì§ì›ì´ ë˜ëŠ” ë‚ ì´ë‹¤.
+-- ì´ë¦„ , ì„± , ìž…ì‚¬ì¼, ì§ë¬´, ì‚¬ì›ë²ˆí˜¸ë„ ê°™ì´ ì¶œë ¥
 select first_name, last_name, job_id, employee_id
       , hire_date, add_months(hire_date, 3)
 from hr.employees
 where first_name = 'Neena' or last_name='Neena';
 
--- ÀÔ»çÇÑ ÀÌÈÄ ´ÙÀ½ ¸ñ¿äÀÏÀÌ '01/01/18'ÀÎ»ç¿øÀ» ±¸ÇÏ½Ã¿À.
+-- ìž…ì‚¬í•œ ì´í›„ ë‹¤ìŒ ëª©ìš”ì¼ì´ '01/01/18'ì¸ì‚¬ì›ì„ êµ¬í•˜ì‹œì˜¤.
 select * from hr.employees
-where next_day(hire_date,'¸ñ') = '01/01/18';
+where next_day(hire_date,'ëª©') = '01/01/18';
 
--- ¸¶Áö¸· ³¯Â¥
+-- ë§ˆì§€ë§‰ ë‚ ì§œ
 select last_day(sysdate)
 from dual;
 
---- ¸¶Áö¸· ³¯ÀÌ 29ÀÏÀÎ »ç¿øµéÀ» Ãâ·ÂÇÏ¼¼¿ä.
--- ¼º, ÀÔ»çÀÏ, ¸¶Áö¸·³¯ Ãâ·Â
+--- ë§ˆì§€ë§‰ ë‚ ì´ 29ì¼ì¸ ì‚¬ì›ë“¤ì„ ì¶œë ¥í•˜ì„¸ìš”.
+-- ì„±, ìž…ì‚¬ì¼, ë§ˆì§€ë§‰ë‚  ì¶œë ¥
 select last_name, hire_date , last_day(hire_date)
 from hr.employees
 where last_day(hire_date) like '%/02/29';
 
--- ÀÔ»çÀÏ·ÎºÎÅÍ ¸î³âÀÌ µÇ¾ú´ÂÁö, ¸îÀÏÀÌ µÇ¾ú´ÂÁö, ¸îÁÖ°¡ µÇ¾ú´ÂÁö
+-- ìž…ì‚¬ì¼ë¡œë¶€í„° ëª‡ë…„ì´ ë˜ì—ˆëŠ”ì§€, ëª‡ì¼ì´ ë˜ì—ˆëŠ”ì§€, ëª‡ì£¼ê°€ ë˜ì—ˆëŠ”ì§€
 -- employee_id, job_id, hire_date
 select employee_id, job_id, hire_date
     , trunc((sysdate - hire_date) / 365) year
@@ -286,6 +286,6 @@ select employee_id, job_id, hire_date
     , trunc(months_between(sysdate , hire_date)) months
 from hr.employees;
 
--- ÀÔ»çÇÑÁö 230°³¿ùÀÌ Áö³­ »ç¿øµéÀ» Ãâ·ÂÇÏ½Ã¿À
+-- ìž…ì‚¬í•œì§€ 230ê°œì›”ì´ ì§€ë‚œ ì‚¬ì›ë“¤ì„ ì¶œë ¥í•˜ì‹œì˜¤
 select * from hr.employees
 where months_between(sysdate, hire_date) >= 230;
