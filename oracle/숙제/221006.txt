@@ -126,15 +126,6 @@ from employees;
 select commission_pct, nvl(commission_pct, 0)
 from employees;
 
--- 20. 커미션이 null이라면 커미션 값을 0으로 대입하여 이름, 부서, 입사일, 직무,
---     급여, 커미션, 그리고 년봉을 출력하세요.
-select first_name, department_id, hire_date, job_id, salary
-      , commission_pct, nvl(commission_pct,0)
-      , (salary + salary * nvl(commission_pct,0)) *12
-from employees;
-
-select nvl(commission_pct, 100)
-from employees;
 
 --- 숫자함수 
 --- round() : 반올림 
