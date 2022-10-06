@@ -237,3 +237,131 @@ from job_history;
 -- 36. 입사한지 200개월이 지난 사원들을 출력하시오.
 select * from employees
 where months_between(sysdate, hire_date) >= 200;
+
+
+==========================================================================================================
+
+--- 19. 성이 모두 소문자인 grant와 모두 대문자인 'GRANT'로 직원테이블에서
+--- 해당 사원을 찾으려 한다.
+select * from hr.employees
+where last_name = initcap('grant') or last_name = initcap('GRANT');
+
+select * from hr.employees
+where lower(last_name) = 'grant' or upper(last_name) = 'GRANT';
+
+---20. 'GranT'로 입력했을때 사원테이블에서 성이 'Grant'인 사원을 찾으시오
+select * from hr.employees where last_name = initcap('GranT');
+select * from hr.employees where lower(last_name) = lower('GranT');
+select * from hr.employees where upper(last_name) = upper('GranT');
+
+
+-- 21. 성은 모두 대문자로 변환하고 이름 모두 소문자로 변환하여
+-- 성과 이름을 붙여 출력할 때 ' 나는 GRANT douglas 입니다'로 
+-- 출력되게 하시오
+select '나는 ' || upper(last_name) || ' ' || lower(first_name) || '입니다.'
+from hr.employees;
+
+-- 22. 성과 이름을 붙여 출력
+select concat(last_name, first_name) from hr.employees;
+
+--- 23. 성이 Davies에서 av만 출력하시오.
+select SUBSTR(last_name,2,2) from hr.employees;
+
+--- 24. 성이 두번째 글자부터 모두 출력하시오.
+select substr(last_name,2) from hr.employees;
+
+--- 25. 성의 마지막 글자에서 두글자만 가져오시오.
+select substr(last_name,-2,2) from HR.employees;
+
+--- 26. 성의 뒤에 on으로 끝나는 사람을 찾으시오
+select * from hr.employees where last_name like '%on';
+
+-- 27. 성의 뒤에 세번째 글자가 so인 사람을 출력하시오
+select * from hr.employees where last_name like '%so_';
+
+-- 28. 직원 정보를 출력하는데 이메일은 왼쪽에서 3글자만 출력하시오.
+--     직원번호, 성, 급여, 직무, 이메일
+select employee_id, last_name, salary, job_id, substr(email,1,3)
+from hr.employees;
+
+-- 29. 직원 정보를 출력하는데 이메일은 오른쪽에서 3글자만 출력하시오.
+-- 직원번호, 성, 급여, 직무, 이메일
+select employee_id, last_name, salary, job_id, substr(email,-3)
+from hr.employees;
+
+-- 30. 직원 정보를 출력하는데 이메일은 오른쪽에서 3글자만 출력하고 나머지는 ‘-’로 출력
+---    직원번호, 성, 급여, 직무, 이메일
+select employee_id, last_name, salary, job_id, 
+       lpad(substr(email,-3),length(email),'-') email
+from hr.employees;
+
+
+--- 31. o가 있는 성중 o가 몇번째에 있는 위치인지 출력하시오. 
+--      직원번호 성, 성의 위치, 직무
+select employee_id, last_name, instr(last_name,'o')
+from HR.employees;
+
+--- 32. oc가 있는 성중 oc가 몇번째에 있는 위치인지 출력하시오.  
+-- 직원번호 성, 성의 위치, 직무
+select employee_id, last_name, instr(last_name, 'oc')
+from hr.employees;
+
+--33. 직무에 RE가 있는 경우 RE부터 3글자만 출력하시오.
+--    직원번호 성,  직무, 가공된 직무
+select employee_id, last_name, job_id, substr(job_id, instr(job_id,'RE'), 3)
+from hr.employees;
+
+--- 34. 직원번호, 성, 입사일 , 급여, 
+--- 급여를 10칸에 출력하고 나머지 공간 앞에 * 표시가 되게 하자.
+select employee_id, last_name, hire_date, lpad(salary, 10, '*')
+from hr.employees;
+
+-- 35. 직원번호, 성, 입사일 , 급여, 
+--- 급여를 10칸에 출력하고 나머지 공간 뒤에 * 표시가 되게 하자.
+select employee_id, last_name, hire_date, rpad(salary, 10, '*')
+from hr.employees;
+
+-- 36. 직원번호, 성, 입사일, 직무를 출력하는데 
+---    직무에 RE가 있다면 RE를 AB로 변경하여 출력.
+select employee_id, last_name, hire_date, replace(job_id,'RE','AB')
+from hr.employees;
+
+-- 37. 직원번호, 연락처, 커미션, 부서번호,급여
+-- 급여를 3000으로 나누었을 때의 나머지를 출력하시오.
+select employee_id, phone_number, commission_pct, department_id, salary,
+       mod(salary, 3000)
+from hr.employees;
+
+-- 38. 2002년도부터 입사한 직원들을 출력하시오
+select * from HR.employees where to_char(hire_date,'yyyy') >= '2002';
+
+select * from HR.employees where hire_date >= '02/01/01';
+
+-- 39. 올해는 오늘까지 몇주가 지났는지 확인하시오.
+select trunc((sysdate - to_date('2021/01/01')) / 7, 0)
+from dual;
+
+-- 40. 직원마다 몇년 근무했지를 출력하시오. 직원번호, 성, 연락처,부서, 근무년수
+select employee_id, last_name, phone_number, department_id,
+       trunc(((sysdate - hire_date) / 365), 0)
+from hr.employees;
+
+-- 41. 근속년수 8년 이상인 사원들만 출력하시오
+select * from hr.employees
+where (sysdate-hire_date) / 365 >= 8;
+
+-----------------------------------------------------------------------
+--- 42. 예시 : 게시판리스트에서 제목을 5글자****인 것 처럼 
+--- 직원의 성을 3글자만 출력 뒤에 *을 세번찍어서 출력하시오.
+--- 직원번호, 입사일, 성
+select employee_id, hire_date , rpad(substr(last_name,1,3),6, '*')
+from hr.employees;
+-------------------------------------------------------------------------
+--- 43. 홍길동은 몇글자입니까?
+select length('홍길동') from dual;
+-------------------------------------------------------------------------
+
+--- 44. )"홍길동 \n"으로 되어 있는 것을 html에서 행 바꿈이되도록
+---      "홍길동 <br>"변경하시오.
+select replace('홍길동 \n','\n','<br />')
+from dual;
