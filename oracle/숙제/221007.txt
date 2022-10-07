@@ -1,0 +1,321 @@
+-- 20. 커미션이 null이라면 커미션 값을 0으로 대입하여 이름, 부서, 입사일, 직무,
+--     급여, 커미션, 그리고 년봉을 출력하세요.
+select first_name, department_id, hire_date, job_id, salary
+      , commission_pct, nvl(commission_pct,0)
+      , (salary + salary * nvl(commission_pct,0)) *12
+from employees;
+
+---37. 03/06/17이후에 입사한 사람은?
+select * from employees where hire_date > '03/06/17';
+select * from employees where hire_date > to_date('03/06/17','yy-mm-dd');
+
+---38. 17/06/03(일월년)이후에 입사한 사람은?
+select * from employees where hire_date > to_date('17/06/03','dd-mm-yy');
+-- 06/17/03(월일년)이후에 입사한 사람은?
+select * from employees where hire_date > to_date('06/17/03', 'mm-dd-yy');
+
+-- 39. 문자 변환함수 : 날짜를 문자 변환
+--               날짜         문자
+---            RR-MM-DD =>  'yyyy-mm-dd'
+---            RR-MM-DD =>  'dd-mm-yy'
+---            RR-MM-DD =>  'mm-dd-yy'
+select to_char(sysdate, 'yy-mm-dd'), sysdate, to_char(sysdate,'dd-mm-yy'),
+       to_CHAR(sysdate, 'yyyy-mm-dd'),
+       TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MI:SS.SSSSS AM'),
+       TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS.SSSSS AM'),
+       TO_CHAR(SYSDATE, 'YYYY-MONDD HH24:MI:SS.SSSSS AM')
+from dual;
+
+-- 날짜를 문자열로 변경하여 날짜 비교   -- 사전 순서 
+-- 40. 25-04-2003 보다 늦게 입사한 사람을 출력 
+--                                    RR-MM-DD
+--- 잘못된 비교 방법
+SELECT * FROM EMPLOYEES WHERE TO_CHAR(HIRE_DATE, 'DD-MM-YYYY') > '25-04-2003';
+
+-- 문자열을 날짜로 변경하여 날짜 비교
+SELECT * FROM EMPLOYEES WHERE HIRE_DATE > TO_DATE('25-04-2003', 'DD-MM-YYYY');
+
+--숫자를 문자열로
+--- 1,234,567 => W1,234,567, $1,234,567, $1,234,567-
+SELECT TO_CHAR(1234567.890, '9,999,999'),
+        TO_CHAR(1234567.890, '9,999,999.00'),
+        TO_CHAR(1234567.890, '$9,999,999.00'),
+        TO_CHAR(1234567.890, 'L9,999,999.00'),
+        TO_CHAR(-1234567.890, 'L9,999,999.00MI')
+FROM DUAL;
+
+-- 41. 이름, 성, 직무 부서 그리고 급여를 세자리씩 ,를 찍고 $가 출력되게 하시오.
+SELECT  first_name, last_name, job_id, department_id,
+        to_char(salary, '$99,999,999mi'),
+        to_char(-salary, '$99,999,999mi') --회계 파트
+FROM EMPLOYEES;
+
+-- 42. janette또는 JANETTE 또는 jaNette 값을 전달 받았다.
+---   이름이 'Janette'인 사원을 출력하시오.
+SELECT * FROM EMPLOYEES
+WHERE first_name = INITCAP('janette') 
+      OR first_name = INITCAP('JANETTE') 
+      OR first_name = INITCAP('jaNette');
+
+SELECT * FROM EMPLOYEES
+WHERE LOWER(FIRST_NAME) = LOWER('janette') ;
+      
+SELECT * FROM EMPLOYEES
+WHERE LOWER(FIRST_NAME) = 'janette' OR UPPER(FIRST_NAME) = 'JANETTE'
+    OR LOWER(FIRST_NAME) = LOWER('jaNette');
+
+--- 표현식 :  SWITCH(변수) ~ CASE 조건 :  연산식; break; default :연산식
+---          CASE 변수 WHEN 조건 THEN 연산식 else 연산식 end
+
+-- 43. --- job_id이 'IT_PROG' 급여를 10%상승
+--                  'ST_CLERK' 급여를 15%상승
+--                  'SA_REP' 급여를 20%상승
+--                   그이외는 급여
+-- 성, 이름, 급여도 같이 출력
+SELECT LAST_NAME, FIRST_NAME, salary, job_id,
+       CASE job_id when 'IT_PROG' then salary + salary * 0.1
+                   when 'ST_CLERK' then salary + salary * 0.15
+                   when 'SA_REP' then salary + salary * 0.2
+                   else salary end sal
+from employees;
+
+SELECT LAST_NAME, FIRST_NAME, salary, job_id,
+       decode ( job_id , 'IT_PROG'  , salary + salary * 0.1
+                       , 'ST_CLERK' , salary + salary * 0.15
+                       , 'SA_REP'   , salary + salary * 0.2
+                       , salary ) sal
+from employees;
+
+
+SELECT LAST_NAME, FIRST_NAME, salary, job_id,
+       CASE  when job_id ='IT_PROG' then salary + salary * 0.1
+             when job_id = 'ST_CLERK' then salary + salary * 0.15
+             when job_id = 'SA_REP' then salary + salary * 0.2
+             else salary end sal
+from employees;
+
+--- 44. 성, 이름, 직무, 급여, 급여에 따른 직책도 같이 출력하세요.
+--- 급여가 3000이하이면 사원 
+--        5000이하이면 주임
+--        7000이하이면 대리
+--        9000이하이면 과장
+--       11000이하이면 차장
+--       13000이하이면 부장
+--       그 이상 이면 임원
+select last_name, first_name, job_id, salary , 
+        case  when salary <= 3000 then '사원'
+              when salary <= 5000 then '주임'
+              when salary <= 7000 then '대리'
+              when salary <= 9000 then '과장'
+              when salary <= 11000 then '차장'
+              when salary <= 13000 then '부장'
+              else '임원' end grade
+from employees;
+
+-- 45. 급여에 따른 세금을 출력하고 싶다. 이름 , 성, 급여, 직무, 세금을 출력하시오.
+---  급여를 2000으로 나눈 몫이 0이면 급여의 0%
+---                         1이면 급여의 9%
+---                         2이면 급여의 20%
+---                         3이면 급여의 30%
+---                         4이면 급여의 40%
+---                         5이면 급여의 42%
+---                         6이면 급여의 44%
+---                         이외 급여의 45% 세금이다.
+-- trunc(salary / 2000)
+                   
+select first_name, last_name, salary, job_id, 
+    case trunc(salary / 2000, 0) when 0 then salary * 0.00
+                                 when 1 then salary * 0.09
+                                 when 2 then salary * 0.20
+                                 when 3 then salary * 0.30
+                                 when 4 then salary * 0.40
+                                 when 5 then salary * 0.42
+                                 when 6 then salary * 0.44
+                                 else salary * 0.45 end tex
+from employees;
+
+select first_name, last_name, salary, job_id, 
+    decode ( trunc(salary / 2000, 0) , 0 , salary * 0.00
+                                     , 1 , salary * 0.09
+                                     , 2 , salary * 0.20
+                                     , 3 , salary * 0.30
+                                     , 4 , salary * 0.40
+                                     , 5 , salary * 0.42
+                                     , 6 , salary * 0.44
+                                     , salary * 0.45 ) tex
+from employees;
+
+
+-- 1. 성과 이름을 붙여서 출력하시오.
+select '나의 이름은 ' || last_name || first_name || '입니다.'
+from employees;
+--concat
+select concat('나의 이름은 ',CONCAT(last_name, concat(first_name,'입니다'))) 
+from employees;
+
+-- 2. nvl
+-- 성, 이름, 직무, 급여, 커미션을 포함한 년봉
+select last_name, first_name, job_id, salary, 
+       (salary + salary * nvl(commission_pct,0)) * 12 year_sal
+from employees;
+
+-- 3. nvl2
+select last_name, first_name, job_id, salary,
+--           널이 아니면 두번째 값 출력
+--           널이면 세번째 값 출력
+       nvl2(commission_pct, (salary + salary *  commission_pct) * 12,
+                            salary * 12)
+from employees;
+
+-- 4. nullif
+select first_name, length(first_name),
+       last_name, length(last_name),
+       --       exp1                  exp2
+       nullif(length(first_name), length(last_name)) result
+       -- exp1과 exp2가 같으면  null출력
+       -- exp1과 exp2가 다르면 exp1를 출력
+from employees;
+
+---5.coalesce함수
+--                          exp1           exp2  exp3  exp4
+select last_name, coalesce(commission_pct, salary, 10) comm
+           --             exp1가 널이 아니면 exp1를 출력
+           --             exp1가 널이면 exp2를 출력 
+           --             exp1과 exp2가 모두 null이면 exp3출력
+from employees;
+
+--  다중행 함수
+---6. 급여를 제일 많이 받는 사람과 적게 받는 사람을 출력, 급여 평균
+select max(salary), min(salary) ,  avg(salary)
+from employees;
+
+--- 7. 급여를 받는 사람의 수와, 부서를 가지고 있는 사람의 수를 출력하시오.
+select * from employees;
+select count(salary), count(department_id)
+from employees;
+--- 다중행 함수는 null값은 제외하고 계산을 한다.
+
+-- 8. 커미션을 받는 사원들의 커미션의 평균과 직원 전체의 커미션 평균을 구하시오.
+select avg(commission_pct), sum(commission_pct) / count(*)
+from employees;
+-- 다중행 함수는 null값을 포함하지 않으므로 전체의 값을 구할때 값이 다를 수 있다.
+
+--9. 전체의 사원의 수를 구하시오. (행 전체의 갯수)
+select count(*) from employees;
+
+-- 10. 제일 늦게 입사한 사원과 제일 처음에 입사한 사원을 출력하시오.
+select max(hire_date), min(hire_date)
+from employees;
+
+--11.직무에 'REP'를 가지고 있는 사원들 중 제일 많이 받는 급여와 적게 받는 급여를 출력,
+--    평균 급여와 사원의 수, 급여의 합계 
+select max(salary), min(salary), avg(salary), count(*), sum(salary) 
+from employees
+where job_id like '%REP%';
+
+---       107                 107
+select first_name,salary, to_char(hire_date, 'dd-mm-yyyy')
+from employees;
+
+--다중행 함수를 사용하는 경우 다중행 함수만 사용해야 한다. 컬럼을 추가 할 수 없다.
+--select first_name, sum(salry)
+--from employees;
+
+-- 12.80번 부서에서 커미션을 받는 사원의 수와 최대 커미션 값과 최소 커미션 값을 출력
+--     부서에 속해 있는 사원의 수 
+select count(commission_pct), max(commission_pct), min(commission_pct),
+       count(*)
+from employees
+where department_id = 80;
+
+-- 13. 중복되지 않은 부서는?
+select  distinct(department_id)
+from employees;
+
+-- 14. 중복되지 않은 부서의 수는?
+select count(distinct(department_id))
+from employees; -- null 은 부서가 아니므로 제외
+
+-- 15. 커미션의 받는 사원의 커미션 평균과 
+--    커미션을 받지 않는 사원의 커미션의 평균을 구하시오.
+select trunc(avg(commission_pct), 4), 
+       trunc(sum(commission_pct) / count(*),4),
+       trunc(avg(nvl(commission_pct,0)),4)
+from employees;
+
+--- 16. 90인부서의 급여의 평균, 합계, 최대, 최소, 사원의 수
+select avg(salary), sum(salary), max(salary), min(salary),count(*)
+from employees
+where department_id = 90;
+--      80인부서의 급여의 평균, 합계, 최대, 최소, 사원의 수
+select avg(salary), sum(salary), max(salary), min(salary),count(*)
+from employees
+where department_id = 80;
+--      70인부서의 급여의 평균, 합계, 최대, 최소, 사원의 수
+--      ...
+select avg(salary), sum(salary), max(salary), min(salary),count(*)
+from employees
+where department_id = 70;
+
+-- 17. 각 부서별 부서의 급여의 평균, 합계, 최대, 최소, 사원의 수
+select department_id, --  group by절에 있는 컬럼은 select절에 사용 가능하다.
+       trunc(avg(salary),2), sum(salary), max(salary), min(salary),count(*)
+from employees
+group by department_id
+order by  department_id;
+
+-- 18. 같은 직무를 하는 사원들 중 제일 먼저 들어 온 사원가 제일 늦게 들어온 사원의 
+---    입사일을 출력하시오.
+---             늦게 들어온 날    빨리 들어온 날
+select job_id, max(hire_date), min(hire_date)
+from employees
+group by job_id
+order by job_id;
+
+-- 19. 사원번호,  이름, 입사일, 직무, 부서를 출력할 때.
+-- 부서는 오름차순으로 정렬하고 각 부서의 직무를 오름차순으로 정렬하여 출력하시오.   
+select department_id, job_id, employee_id, first_name, hire_date
+from employees
+order by department_id, job_id;
+
+-- 20.  각 부서의 직무별 급여 평균 , 합계, 담당하는 사원의 수를 출력
+select department_id, job_id , trunc(avg(salary)), sum(salary), count(*)
+from employees
+group by department_id, job_id
+order by department_id, job_id;
+
+-- 20. 90부서에서 직무별 급여 합계와 평균 구하시오.
+select job_id, avg(salary), sum(salary) 
+from employees                  -- 1
+where department_id = 90        -- 2
+group by job_id ;                -- 3
+
+-- 21. 각부서에서 직무가 같은 사원들 중 입사일이 같은 사원의 수를 구하시오.
+-- 사원수가 2명이상만 출력
+select department_id, job_id, hire_date, count(*)
+from employees                            --1                     
+group by department_id, job_id, hire_date
+having count(*) >= 2;  -- group 함수의 조건이 있는 경우 having절을 사용                   
+
+-- 22. 평균급여가 7000이상인 부서만 출력하시오.평균 급여 높은 것 부터 출력하시오.
+select department_id, avg(salary) sal
+from employees
+group by department_id
+having avg(salary) >= 7000
+-- order by avg(salary) desc;
+-- order by sal desc;
+order by 2 desc;
+
+-- 23. 부서의 직원 수가 10명 미만이 부서를 출력하시오.
+select department_id , count(*)
+from hr.employees
+group by department_id
+having count(*) < 10;
+
+-- 25. 직무에 'REP'가 포함되어 있지 않은 직무별 급여의 평균, 합계, 최소, 
+--- 최대 값을 출력할때 급여의 합계가 13000이상인 직무만 출력하시오.
+select job_id, avg(salary), sum(salary), min(salary), max(salary)
+from hr.employees
+where job_id not like '%REP%'
+group by job_id
+having sum(salary) >= 13000;
