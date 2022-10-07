@@ -237,7 +237,7 @@ select count(distinct(department_id))
 from employees; -- null 은 부서가 아니므로 제외
 
 -- 15. 커미션의 받는 사원의 커미션 평균과 
---    커미션을 받지 않는 사원의 커미션의 평균을 구하시오.
+--    커미션을 받지 않는 사원을 포함한 커미션의 평균을 구하시오.
 select trunc(avg(commission_pct), 4), 
        trunc(sum(commission_pct) / count(*),4),
        trunc(avg(nvl(commission_pct,0)),4)
