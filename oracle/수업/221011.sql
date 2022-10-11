@@ -356,8 +356,10 @@ select * from hr.departments;
 select distinct department_id
 from hr.employees;
 
--- 사원부서를 출력하세요..
+-- 사원이 없는 부서를 출력하세요..
 select e.department_id, d.department_id , department_name
 from hr.employees e right outer join hr.departments d
 ON e.department_id = d.department_id
 where e.department_id is null;
+
+select * from hr.employees;
