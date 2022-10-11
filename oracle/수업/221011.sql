@@ -207,14 +207,62 @@ where e.job_id = 'SH_CLERK';
 select employee_id, first_name, -- employees
          department_id, department_name, -- departments
             job_id, job_title --- jobs
-from hr.jobs j NATURAL join hr.employees e 
-               NATURAL join  hr.departments d
+from hr.jobs  NATURAL join hr.employees  
+               NATURAL join  hr.departments 
+where job_id = 'SH_CLERK';
+
+select employee_id, first_name, -- employees
+         d.department_id, department_name, -- departments
+         j.job_id, job_title --- jobs
+from hr.jobs j join hr.employees e 
+on j.job_id = e.job_id join  hr.departments d
+on e.department_id = d.department_id
+and e.manager_id = d.manager_id
 where e.job_id = 'SH_CLERK';
-               
+
+
 select employee_id, first_name, -- employees
          department_id, department_name, -- departments
             job_id, job_title --- jobs
 from hr.jobs join hr.employees
 using (job_id) join  hr.departments 
-using(department_id)
+using(department_id) -- manager_id
 where job_id = 'SH_CLERK';
+
+select employee_id, first_name, -- employees
+         department_id, department_name, -- departments
+            job_id, job_title --- jobs
+from hr.jobs join hr.employees
+using (job_id) join  hr.departments 
+using(department_id, manager_id) -- 
+where job_id = 'SH_CLERK';
+
+-- 직원정보 사원번호, 이름 , 급여, 직무를 출력할 때
+-- 부서정보 테이블서 부서명, 우편번호를 출력하며,
+-- 주소테이블에서 우편번호에 해당하는 주소를 출력하세요.
+select employee_id, first_name, salary, job_id,
+       d.department_id, department_name, 
+       l.location_id , street_address
+from hr.employees e, hr.departments d, hr.locations l 
+where e.department_id = d.department_id
+  and d.location_id = l.location_id;
+
+select employee_id, first_name, salary, job_id,
+       d.department_id, department_name, 
+       l.location_id , street_address
+from hr.employees e join hr.departments d 
+on e.department_id = d.department_id join  hr.locations l
+on d.location_id = l.location_id;
+
+select employee_id, first_name, salary, job_id,
+       department_id, department_name, 
+       location_id , street_address
+from hr.employees NATURAL  join hr.departments
+                  NATURAL  join  hr.locations;
+
+select employee_id, first_name, salary, job_id,
+       department_id, department_name, 
+       location_id , street_address
+from hr.employees  join hr.departments
+using(department_id) join  hr.locations
+using(location_id);
