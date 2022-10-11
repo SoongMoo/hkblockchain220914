@@ -111,3 +111,15 @@ and e.department_id = d.department_id;
 select first_name, last_name, hire_date,
       manager_id, department_id, department_name
 from hr.employees NATURAL  join  hr.departments;
+--- 비교할 컬럼을 적어주지 않아도 된다.
+select first_name, last_name, hire_date,
+      manager_id, department_id, department_name
+from hr.employees e join  hr.departments d
+USING (DEPARTMENT_ID, manager_id);
+
+select first_name, last_name, hire_date,
+      e.manager_id, department_id, department_name
+from hr.employees e join  hr.departments d
+USING (DEPARTMENT_ID);
+--- using절에서 사용한 컬럼은 select 절에 테이블별칭을 주지 않는다.
+-- `
