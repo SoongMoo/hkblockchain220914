@@ -83,8 +83,9 @@ SELECT EMPLOYEE_ID, FIRST_NAME, SALARY, DEPARTMENT_ID,
 FROM HR.employees NATURAL join HR.jobs ;
 --on e.JOB_ID = j.JOB_ID
 --- 두 테이블의 컬럼명이 같아야 한다.
-
+--                                             상사
 select * from  hr.employees; --department_id,manager_id
+--                                               부서장
 select * from hr.departments; --department_id , manager_id
 --
 select first_name, last_name, hire_date
