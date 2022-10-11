@@ -266,3 +266,98 @@ select employee_id, first_name, salary, job_id,
 from hr.employees  join hr.departments
 using(department_id) join  hr.locations
 using(location_id);
+
+
+-- jobs        employees                  departments            locations       COUNTRIES
+-- job_id   job_id  department_id  department_id  location_id location_id COUNTRIE_id
+
+--jobs,   employees,departments   ,locations    ,COUNTRIES
+--job_id           department_id   location_id   contrie_id
+
+-- 직원 정보 중 사원번호, 이름 , 직무를 출력할 때 직무내용을 출력하고
+-- 부서번호와 부서명을 출력하세요.
+select employee_id, first_name,
+       j.job_id, job_title,
+       d.department_id, department_name
+from hr.jobs j, hr.employees e, hr.departments d
+where j.job_id = e.job_id 
+and   e.department_id = d.department_id;
+
+select employee_id, first_name,
+       j.job_id, job_title,
+       d.department_id, department_name
+from hr.jobs j join hr.employees e
+on j.job_id = e.job_id join hr.departments d
+on  e.department_id = d.department_id;
+
+
+--- 직원 정보를 구하는 사원 번호 이름 급여 입사일을 출력할 때
+--  직무의 상한값과 하한값을 출력하고 
+--  각부서의 부서명을 하고 부서의 우편번호와 주소를 출력하세요.
+
+SELECT EMPLOYEE_ID, FIRST_NAME, SALARY, HIRE_DATE
+       ,J.JOB_ID, max_salary, J.MIN_SALARY
+       ,D.DPARTMENT_ID, DEPARTMENT_NAME
+       ,L.LOCATION_ID ,l.street_address 
+FROM HR.jobs J, HR.employees E, HR.departments D, HR.locations L
+WHERE J.JOB_ID = E.JOB_ID
+AND E.DEPARTMENT_ID = D.DEPARTMENT_ID
+AND D.LOCATION_ID = L.LOCATION_ID;
+--- 최소 N-1의  조간이 필요하다
+SELECT EMPLOYEE_ID, FIRST_NAME, SALARY, HIRE_DATE
+       ,J.JOB_ID, max_salary, J.MIN_SALARY
+       ,D.DPARTMENT_ID, DEPARTMENT_NAME
+       ,L.LOCATION_ID ,l.street_address 
+FROM HR.jobs J JOIN HR.employees E
+ON J.JOB_ID = E.JOB_ID JOIN  HR.departments D
+ON E.DEPARTMENT_ID = D.DEPARTMENT_ID JOIN HR.locations L
+ON D.LOCATION_ID = L.LOCATION_ID;
+
+-- 부서가 없는 직원 출력
+select employee_id, first_name, salary, department_id
+from hr.employees
+where department_id is null;
+-- 사원번호 , 이름, 급여, 직무, 부서번호, 부서명,
+select employee_id, first_name, salary, job_id,
+      e.department_id , d.department_id, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id;
+
+select * from hr.departments;
+select * from hr.employees;
+
+select employee_id, first_name, salary, job_id,
+      e.department_id , d.department_id, department_name
+from hr.employees e left outer join hr.departments d
+on e.department_id = d.department_id;
+
+select employee_id, first_name, salary, job_id,
+      e.department_id , d.department_id, department_name
+from hr.departments d  right outer join hr.employees e
+on e.department_id = d.department_id;
+
+select employee_id, first_name, salary, job_id,
+      e.department_id , d.department_id, department_name
+from hr.departments d  full outer join hr.employees e
+on e.department_id = d.department_id;
+
+select employee_id, first_name, salary, job_id,
+      e.department_id , d.department_id, department_name
+from hr.employees e , hr.departments d
+where e.department_id = d.department_id(+);
+
+select employee_id, first_name, salary, job_id,
+      e.department_id , d.department_id, department_name
+from hr.employees e , hr.departments d
+where d.department_id(+) = e.department_id;
+
+select * from hr.departments;
+
+select distinct department_id
+from hr.employees;
+
+-- 사원부서를 출력하세요..
+select e.department_id, d.department_id , department_name
+from hr.employees e right outer join hr.departments d
+ON e.department_id = d.department_id
+where e.department_id is null;
