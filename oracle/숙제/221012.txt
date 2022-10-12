@@ -1,0 +1,326 @@
+--1. 성, 이름 , 급여, 부서, 부서명, 지역번호, 우편주소를 출력하시오
+select last_name, first_name, salary, d.department_id, department_name, l.location_id, street_address
+from hr.employees e join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id;
+--2. 부서가 없는 직원과 직원이 없는 부서를 출력하며 지역과 우편주소를 출력하시오.
+select employee_id, first_name, last_name, salary, d.department_id, department_name,l.location_id, street_address
+from hr.employees e full outer join hr.departments d
+on e.department_id = d.department_id
+left outer join hr.locations l
+on d.location_id = l.location_id;
+--3. 직무, 직무내용, 부서명, 우편주소를 이름과 함께 출력하시오.
+select j.job_id, job_title, department_name, street_address
+from hr.employees e join hr.jobs j
+on j.job_id = e.job_id
+join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id;
+--4. 이름, 성, 부서명, 지역번호를 사원번호가 152인 사원만 출력하시오
+select last_name, first_name, department_name, l.location_id
+from hr.employees e join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id
+where employee_id = 152;
+--5. 직원번호, 이름, 성, 직무, 직무내용, 부서명, 우편번호, 지역번호, 지역명, 국가명을 출력하시오 
+select e.employee_id, first_name, last_name, j.job_id, job_title, department_name, l.location_id, r.region_id, region_name, country_name
+from hr.employees e join hr.jobs j
+on e.job_id = j.job_id
+join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id
+join hr.countries c
+on l.country_id = c.country_id
+join hr.regions r
+on c.region_id = r.region_id;
+
+
+--1. 직원번호, 성, 이름, 이메일, 부서번호, 부서명을 출력해주세요.
+select employee_id, last_name, first_name, email, d.department_id, department_name
+from hr.employees e join hr.departments d
+on e.department_id = d.department_id;
+--2. 직무번호, 직무내용, 성, 이름, 입사일을 출력하고,
+--직무번호가 'SA_REP' 이며 입사일이 '020816' 일부터 '050921'까지인 직원정보를 출력해주세요.
+select j.job_id, job_title, last_name, first_name, hire_date
+from hr.jobs j join hr.employees e
+on j.job_id = e.job_id 
+where j.job_id = 'SA_REP'
+and hire_date between '020816' and '050921';
+--3. 직원번호, 성, 이름, 부서번호, 부서명을 출력하며 커미션을 받지 않는사람만 출력해주세요.
+select employee_id, last_name, first_name, d.department_id, department_name
+from hr.employees e join hr.departments d
+on e.department_id = d.department_id
+where commission_pct is null;
+--4. 직원번호, 성, 이름, 부서번호, 부서명, 지역번호, 주소를 출력하고 도시가 'Toronto'에 사는 사람만 출력해주세요. 
+select employee_id, last_name, first_name, d.department_id, department_name, l.location_id, street_address
+from hr.employees e join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id
+where city = 'Toronto';
+--5. 직무내용, 성, 이름, 부서명, 주소, 출신국가를 출력하고 직원이 없는 모든국가를 출력해주세요.
+select job_title, last_name, first_name, department_name, street_address, country_name
+from hr.jobs j join hr.employees e
+on j.job_id = e.job_id
+join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id
+full outer join hr.countries c
+on l.country_id = c.country_id;
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+-- 1. 부서번호가 60인 사원의 성, 이름, 사원 번호, 급여, 부서명을 출력하시오.
+select first_name, last_name, e.employee_id, 
+        salary, d.department_id, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id
+and e.department_id = 60;
+
+-- 2. 급여가 4800인 사원의 사원 번호,직무 번호, 직무명, 최소급여, 최대급여를 출력하시오.
+select salary, e.employee_id, j.job_id, job_title, min_salary, max_salary
+from hr.employees e, hr.jobs j
+where e.job_id = j.job_id
+and e.salary = 4800;
+
+-- 3. 지역번호가 1700인 사원의 성과 이름, 전화번호, 고용일을 출력하시오.
+select location_id, first_name, last_name, phone_number, hire_date
+from hr.employees e, hr.departments d 
+where e.department_id = d.department_id
+and d.location_id = 1700;
+
+--4.최소 급여가 4000인 직무를 가진 사원의 성, 이름, 직무명을 출력하시오.
+select min_salary, first_name, last_name, j.job_id
+from hr.employees e, hr.jobs j
+where e.job_id = j.job_id
+and j.min_salary = 4000;
+
+-- 5.지역 번호가 4인 국가의 번호와 이름을 출력하시오.
+select r.region_id, c.country_id, country_name
+from hr.regions r,hr.countries c
+where r.region_id = c.region_id
+and r.region_id = 4;
+
+--6. 지역 번호와 주소, 우편번호, 도시명이 출력되도록 하시오.
+-- 단, UK인 국가만 나오도록 출력하시오.
+select l.location_id, street_address, postal_code, city, c.country_id
+from hr.locations l, hr.countries c
+where l.country_id = c.country_id
+and l.country_id = 'UK';
+
+-- 7.평균 급여가 가장 높은 직무를 출력하시오.
+select job_id, AVG(salary)
+from hr.employees
+group by job_id
+having AVG(salary) = (select MAX(AVG(salary))
+                    from hr.employees
+                    group by job_id);
+                    
+-- 8. 우편번호가 비어있는 주소와 도시명을 출력하시오.
+select street_address, city, postal_code
+from hr.locations
+where postal_code is null;
+
+-- 9. 부서번호가 50인 사원의 입사일과 퇴사일을 출력하시오.
+select department_id, start_date, end_date
+from hr.jobs j, hr.job_history h
+where j.job_id = h.job_id
+and h.department_id = 50;
+
+-- 10. 나라 번호, 나라명, 지역 번호, 지역명을 출력하시오
+-- 단 region_id 가 1인 것만 출력되도록 하시오.
+select c.country_id, country_name, r.region_id, region_name
+from hr.countries c, hr.regions r
+where c.region_id = r.region_id
+and c.region_id = 1;
+
+
+---------------------------------------------------------------------
+-- 1. 이름이 'Daniel'부터 'Irene'인 사원들의
+-- 사원번호, 이름, 급여
+-- 부서 번호, 부서명을 출력하시오
+-- 단, 이름을 기준으로 오름차순으로 정렬하시오.
+select employee_id, first_name, salary
+        , e.department_id, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id
+and first_name between 'Daniel' and 'Irene'
+order by first_name;
+
+-- 2. 부서별로 가장 높은 급여를 출력하시오.
+-- 단, 부서 번호를 기준으로 내림차순으로 정렬하시오.
+select department_id, max(salary)
+from hr.employees
+group by department_id
+order by department_id desc;
+
+-- 3. 직무에 'MA'가 들어가는 사원 중
+-- 급여가 8000이 넘는 사원의 
+-- 사원번호, 이름, 성, 직무
+-- 부서 번호, 부서명을 출력하시오.
+select employee_id, first_name, last_name, job_id
+        , e.department_id, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id
+and job_id like '%MA%';
+
+-- 4. 커미션이 null인 값은 0으로 바꾸고
+-- 커미션을 포함한 사원들의 연봉을 구하시오
+-- 사원 번호, 이름, 급여, 커미션, 연봉 출력
+-- 단, 연봉의 별칭을 YEAR_SAL 로 표시하시오
+select employee_id, first_name, salary, nvl(commission_pct, 0)
+        , (salary * (1 + nvl(commission_pct, 0)) * 12) year_sal
+from hr.employees;
+
+-- 5. 부서번호가 20, 50, 80인 부서의 부서번호와 
+-- 평균 급여, 최대 급여, 최소 급여, 급여 총 합을 출력하시오
+select department_id, avg(salary), max(salary), min(salary), sum(salary)
+from hr.employees
+where department_id in (20, 50, 80)
+group by department_id;
+
+-- 6. 최소 급여가 4000인 직무명, 
+-- 해당 직무를 가진 직원의 성, 이름, 급여를 출력하시오.
+select min_salary, j.job_id
+        , last_name, first_name, salary
+from hr.jobs j, hr.employees e
+where j.job_id = e.job_id
+and min_salary = 4000;
+
+-- 7.  부서 번호
+-- 해당 부서의 직원 번호, 성, 
+-- 지역 번호, 주소를 출력하시오.
+-- 단, 부서가 없는 직원도 출력한다.
+select e.department_id, employee_id, last_name
+        , d.location_id
+        , street_address
+from hr.employees e left outer join hr.departments d
+on e.department_id = d.department_id left outer join hr.locations l
+on d.location_id = l.location_id
+order by e.department_id;
+
+
+-- 8. 직원 번호가 150번부터 173번인 직원의
+-- 부서 번호, 부서명
+-- 직원 번호, 성, 이름
+-- 직무명, 직무 내용을 출력하시오
+-- 단, 직원 번호를 기준으로 내림차순으로 정렬하시오.
+select d.department_id, department_name
+        , employee_id, last_name, first_name
+        , j.job_id, job_title
+from hr.jobs j join hr.employees e 
+on e.job_id = j.job_id
+join hr.departments d
+on d.department_id = e.department_id
+where employee_id between 150 and 173
+order by employee_id desc;
+
+
+-- 9. 지역번호가 2700인 부서의 부서번호와 주소를 출력하시오
+select l.location_id, department_id, street_address
+from hr.departments d, hr.locations l
+where l.location_id = d.location_id
+and l.location_id = 2700;
+
+
+-- 10. 이름에 'AN'이 들어가는 직원의
+-- 직원 번호, 이름, 부서, 부서명을 출력하시오
+-- 단, 이름은 소문자, 대문자 상관없음
+select employee_id, first_name
+        , d.department_id, department_name
+from hr.employees e left outer join hr.departments d
+on e.department_id = d.department_id
+where upper(first_name) like '%AN%';
+
+
+-- 11. 이름에 'AN'이 들어가지 않는 직원의
+-- 직원 번호, 이름, 부서, 부서명, 직무명, 직무내용을 출력하시오
+-- 단, 이름은 소문자, 대문자 상관없음
+select employee_id, first_name
+        , d.department_id, department_name
+        , j.job_id, job_title
+from hr.employees e left outer join hr.departments d 
+on e.department_id = d.department_id
+left outer join hr.jobs j
+on e.job_id = j.job_id
+where upper(first_name) not like '%AN%';
+
+-------------------------------------------------------------------------------------------------------------------------------------
+--1번 직원 정보 중 사원번호, 이름, 직무를 출력할 때 직무내용을 출력하고
+-- 부서장과 지역번호를 출력하세요
+
+select employee_id, first_name, j.job_id, job_title,
+        d.manager_id, location_id
+from hr.jobs j, hr.employees e, hr.departments d
+where e.job_id = j.job_id
+and e.manager_id = d.manager_id;
+
+--2번 직원정보 사원번호, 이름 , 급여, 직무, 직무내용을 출력할때
+-- 부서 정보 테이블에서 부서명, 부서장을 출력하시오.
+
+
+select employee_id, first_name, salary, j.job_id, job_title
+       , d.department_id, d.manager_id
+from hr.jobs j, hr.employees e, hr.departments d
+where e.job_id = j.job_id
+and e.department_id = d.department_id
+and e.manager_id = d.manager_id;
+
+--3번-- 직원, 성, 급여, 직무, 직무내용을 출력하고 
+  -- 직무 히스토리 테이블에서 각 직무의 시작일과 마지막일 을 출력하시오.
+
+select j1.employee_id, first_name, salary, j.job_id, job_title,
+        start_date, end_Date
+from hr.jobs j, hr.employees e, hr.job_history j1
+where e.job_id = j.job_id
+and  e.employee_id = j1.employee_id; 
+
+--4번 직원, 직무, 부서, 부서명 using 사용하여 출력하시오.
+
+select employee_id, job_id, department_id, department_name
+from hr.jobs  join job_history
+using(job_id) join hr.departments
+using(department_id);
+
+-- 5번
+ -- countries 테이블에서 국가번호 와 국가 이름 출력하고
+ -- regions 테이블에서 국가별 분류번호 와 분류이름을 출력하시오
+select country_id,country_name, r.region_id, region_name
+from hr.COUNTRIES c, hr.REGIONS r
+where c.region_id = r.region_id;
+
+--6. 직원번호, 성, 이름, 직무, 부서번호, 지역번호, 직무내용, 주소를 출력
+select employee_id, last_name, first_name, j.job_id, d.department_id, l.location_id,
+       job_title, street_address
+from hr.jobs j, hr.employees e, hr.departments d, hr.locations l
+where j.job_id = e.job_id and e.department_id = d.department_id 
+and d.location_id = l.location_id;
+
+-- 7. 커미션이 null인 사람의 부서명을 출력하시오
+select commission_pct, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id
+and commission_pct is null;
+
+-- 8. 부서장의 성, 이름, 커미션을 출력하시오.
+select last_name, first_name, commission_pct
+from hr.employees e, hr.departments d
+where e.employee_id = d.department_id;
+
+-- 9. 부서장을 상사로 둔 직원들의 성, 이름, 이메일을 출력하시오.
+select last_name, first_name, email
+from hr.employees e, hr.departments d
+where e.manager_id = d.manager_id;
+
+-- 10. 직원이 없는 부서를 ansi join 방식으로 출력하시오.
+select e.department_id, d.department_id, department_name
+from hr.employees e , hr.departments d
+where e.department_id(+) = d.department_id
+and e.department_id is null;
+
