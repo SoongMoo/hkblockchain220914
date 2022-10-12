@@ -264,3 +264,90 @@ from hr.job_history j, hr.employees e, hr.departments d
 where j.employee_id = e.employee_id and e.department_id = d.department_id
 and j.end_date-j.start_date > 1825;
 
+---------------------------------------------------------------------------
+-- 1) 부서가 없는 직원과 직원이 없는 부서를 출력하고 부서의 이름까지 출력하시오.
+select employee_id
+    , d.department_id, department_name
+from hr.employees e full outer join hr.departments d
+on e.department_id = d.department_id
+where e.department_id is null ;
+
+-- 2) 직원번호, 이름, 부서번호, 부서명, 지역번호, 주소, city를 출력하는데 CITY가 'London'인 사원을 출력하시오.
+select employee_id, first_name
+    , d.department_id, department_name
+    , l.location_id, street_address, city
+from hr.employees e, hr.departments d, hr.locations l
+where e.department_id = d.department_id
+and d.location_id = l.location_id
+and city = 'London';
+
+-- 3) 직무에 'IT'가 들어가는 사원 중 급여가 3000이상인 사원을 출력하시오.
+--    직원번호, 직원이름, 직무번호, 직무, 급여 출력
+select employee_id, first_name, salary
+    , d.department_id, department_name
+    ,j.job_id
+from hr.employees e, hr.departments d, hr.jobs j
+where j.job_id = e.job_id
+and e.department_id = d.department_id
+and j.job_id like '%IT%'
+and salary > 3000;
+
+-- 4) 직무에 'IT'가 들어가지 않는 사원의 사원번호, 이름, 급여, 부서번호, 부서, 직무를 출력하시오.
+--    단, 급여를 내림차순으로 정렬
+select employee_id, first_name, salary
+    , d.department_id, department_name
+    , j.job_id
+from hr.employees e, hr.departments d, hr.jobs j
+where e.job_id = j.job_id
+and e.department_id = d.department_id
+order by salary desc;
+
+-- 5) 지역번호가 1700인 사원의 사원번호, 사원이름, 부서번호, 부서이름, 지역번호, 주소, 도시를 구하시오.
+select employee_id, first_name
+     , d.department_id, department_name
+     , l.location_id, street_address, city
+from hr.employees e, hr.departments d, hr.locations l
+where e.department_id = d.department_id
+and d.location_id = l.location_id
+and l.location_id = 1700;
+
+-- 6) 부서장이 존재하지 않는 부서의 국가명을 출력하시오
+select manager_id, department_name, country_name
+from hr.departments d join hr.locations l
+on d.location_id = l.location_id join hr.countries c
+on l.country_id = c.country_id
+and manager_id is null;
+
+-- 7) 도시명이 o로 끝나는 도시의 지역코드가 2 이하인 도시명, 국가명, 지역번호, 지역명을 출력하시오
+select city, c.region_id, country_name, region_name
+from hr.locations l, hr.countries c, hr.regions r
+where l.country_id = c.country_id
+and c.region_id = r.region_id
+and city like '%o'
+and c.region_id >= 2;
+
+-- 8) 부서명이 g 로 끝나는 부서의 국가코드를 모두 출력하시오
+select d.location_id, department_name, l.country_id
+from hr.departments d join hr.locations l
+on d.location_id = l.location_id join hr.countries c
+on l.country_id = c.country_id
+and department_name like '%g';
+
+-- 9) AD 로 시작하는 직무를 가진 사원 중 직무 내용이 t로 끝나는 사원의 이름, 직무, 직무내용을 출력하시오
+select first_name, e.job_id, job_title
+from hr.jobs j join hr.employees e
+on j.job_id = e.job_id
+and e.job_id like 'AD%'
+and job_title like '%t';
+
+-- 10) 입사일이 2004년도 이후이며 현재 직무의 최저 연봉이 4000 이상인 직원의
+--     이름, 연봉, 최저연봉, 입사일, 부서명, 부서의 주소를 출력하시오
+select first_name, salary, min_salary, hire_date, department_name, street_address
+from hr.jobs j, hr.employees e, hr.departments d, hr.locations l
+where j.job_id = e.job_id
+and e.department_id = d.department_id
+and d.location_id = l.location_id
+and to_char(hire_date, 'yy/mm/dd') > '04%'
+and min_salary >= 4000
+order by hire_date;
+
