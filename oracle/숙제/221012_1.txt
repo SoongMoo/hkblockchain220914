@@ -173,3 +173,94 @@ where department_id is not null;
 
 
 ---------------------------------------------------------------------------
+
+-- 1. countrys 테이블에서 번호,이름, regoin_id를 출력하면서
+      regions 테이블에서 분류이름을 같이 출력하세요
+      locations 테이블에서 국가번호와 도시를 출력하세요
+
+select c.country_id, country_name, c.region_id,
+       region_name, l.country_id, city
+from hr.regions r , hr.countries c, hr.locations l
+where r.region_id = c.region_id
+and c.country_id = l.country_id;
+
+-- 2. 부서번호 부서명을 출력하면서
+      부서번호가 100이내이면서 직원 번호가  200이상인것만 출력하세요
+select employee_id, last_name, d.department_id, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id
+and d.department_id <= 100
+and employee_id >=200;
+
+
+-- 3. 부서 테이블에서 부서번호,부서장, 지역번호와
+      지역 테이블에서 도시 국가번호를 출력하면서
+      국가 테이블에서 국가번호 국가 이름을 출력하세요.
+
+select department_id, manager_id, l.location_id
+       city, c.country_id, country_name
+from hr.departments d, hr.locations l, hr.countries c
+where d.location_id = l.location_id
+and l.country_id = c.country_id;
+
+-- 4. 직원번호 성 이메일 직무 직무 내용출력하면서
+      직무번호 중 AD_PRES 이면서
+      이메일 길이가 5인 사원만 출력하시오
+
+select employee_id, first_name, email, j.job_id, job_title
+from hr.jobs j, hr.employees e
+where j.job_id = e.job_id
+and e.job_id = 'AD_PRES'
+and length(email) = 5;
+
+select department_id, manager_id, l.location_id
+       city, c.country_id, country_name
+from hr.departments d join hr.locations l
+on d.location_id = l.location_id join hr.countries c
+on l.country_id = c.country_id;
+
+-- 5. 부서번호, 부서명, 지역번호, 국가 번호를 출력하세요
+      국가 번호 us만 출력 하세요
+
+select department_id, department_name, l.location_id, c.country_id
+from hr.departments d, hr.locations l, hr.countries c
+where d.location_id = l.location_id
+and l.country_id = c.country_id
+and c.country_id = 'US';
+
+-- 6. 직원번호, 성, 이름, 주소, 직무, 부서번호, 지역번호, 직무내용, 나라 이름을 출력
+
+select employee_id, last_name, first_name, j.job_id, d.department_id, l.location_id,
+       job_title, street_address, country_name
+from hr.jobs j, hr.employees e, hr.departments d, hr.locations l, hr.countries c
+where j.job_id = e.job_id and e.department_id = d.department_id 
+and d.location_id = l.location_id and l.country_id = c.country_id;
+
+-- 7. 직무가 'ST_CLERK'인 사람의 국적은?
+
+select last_name, first_name, j.job_id, country_name
+from hr.jobs j, hr.employees e, hr.departments d, hr.locations l, hr.countries c
+where j.job_id = e.job_id and e.department_id = d.department_id
+and d.location_id = l.location_id and l.country_id = c.country_id
+and j.job_id = 'ST_CLERK';
+
+-- 8. 마케팅 부서의 사원의 연봉은?
+
+select salary, first_name, last_name, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id
+and department_name = 'Marketing';
+
+-- 9. 직원이 없는 부서의 개수를 구하시오.
+
+select count(*)
+from hr.departments
+where manager_id is null;
+
+-- 10. 직무 히스토리 테이블에서 시작일과 마지막일이 5년 이상 차이나는 직원의 성, 이름, 부서명을 출력
+
+select last_name, first_name, department_name
+from hr.job_history j, hr.employees e, hr.departments d
+where j.employee_id = e.employee_id and e.department_id = d.department_id
+and j.end_date-j.start_date > 1825;
+
