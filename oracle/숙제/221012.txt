@@ -324,3 +324,91 @@ from hr.employees e , hr.departments d
 where e.department_id(+) = d.department_id
 and e.department_id is null;
 
+----------------------------------------------------------------------------
+-- 1) 해당 직무의 최저급여를 받는 사원의 정보를 출력하시오
+--    사번, 이름, 직무, 급여, 최저급여
+select employee_id, first_name, e.job_id, salary, min_salary
+from hr.jobs j join hr.employees e
+on j.job_id = e.job_id
+where salary = min_salary;
+
+-- 2) 부서 위치가 1800인 부서의 국가코드, 국가명, 지역코드, 지역명을 출력하시오
+select d.location_id, l.country_id, country_name, c.region_id, region_name
+from hr.departments d, hr.locations l, hr.countries c, hr.regions r
+where d.location_id = l.location_id
+and l.country_id = c.country_id
+and c.region_id = r.region_id
+and d.location_id = 1800;
+
+-- 3) 부서장이며 급여가 해당 직무의 최저 급여 이상인 사원의 정보를 출력하시오
+-- 사번, 성, 직무, 부서명, 상사, 급여, 최저급여
+select employee_id, last_name, department_name, salary, min_salary
+from hr.jobs j, hr.employees e, hr.departments d
+where j.job_id = e.job_id
+and e.department_id = d.department_id
+and e.employee_id = d.manager_id
+and salary >= min_salary;
+
+-- 4) 사번이 201번인 퇴사자와 사번 및 부서번호가 같은 사원의 정보를 출력하시오
+--    사번, 이름, 부서번호, 부서명
+select e.employee_id, first_name, e.department_id, department_name
+from hr.job_history jh, hr.employees e, hr.departments d
+where jh.employee_id = e.employee_id
+and jh.department_id = e.department_id
+and e.department_id = d.department_id
+and jh.employee_id = 201;
+
+-- 5) 상사가 있지만 부서장인 사원의 이름과 부서명을 출력하시오
+select last_name, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id
+and e.manager_id is not null
+and e.employee_id = d.manager_id;
+
+-- 6) 직원들 중 직무가 AD_VP인 사원의 직무내용을 출력하시오.
+--    직원 이름, 직원번호, 직업번호, 직무내용 출력
+select first_name, employee_id
+    , j.job_id, job_title
+from hr.employees e, hr.jobs j
+where e.job_id = j.job_id
+and j.job_id = 'AD_VP';
+
+-- 7) 부서장이 상사인 직원의 부서이름과 최저연봉, 최고연봉을 구하시오.
+--    이름, 부서장번호, 부서번호, 최저연봉, 최고연봉 출력
+select first_name
+     , (max_salary) * 12, (min_salary) * 12
+     , d.department_id, department_name  
+from hr.employees e, hr.departments d, hr.jobs j
+where e.department_id = d.department_id
+and e.manager_id = d.manager_id;
+
+-- 8) 입사일이 '03/06/17' 이후인 사원들의 부서와 지역번호를 출력
+--    사원번호, 이름, 입사일, 부서번호, 부서명, 지역번호 출력
+select employee_id, first_name, hire_date
+    , d.department_id, department_name
+    , l.location_id
+from hr.employees e, hr.departments d, hr.locations l
+where e.department_id = d.department_id
+and d.location_id = l.location_id
+and hire_date = '03/06/17';
+
+-- 9) 이름이 'Payam' 직원의 퇴사일을 구하시오.
+--    사원번호, 이름, 부서번호, 부서이름, 퇴사일을 출력
+select e.employee_id, first_name
+    , d.department_id , department_name
+    , end_date
+from hr.employees e, hr.departments d, hr.job_history jh
+where e.employee_id = jh.employee_id
+and e.department_id = d.department_id
+and e.department_id = jh.department_id
+and d.department_id = jh.department_id
+and first_name = 'Payam';
+
+-- 10) 사원이 없는 부서의 주소를 출력하세요.
+--     부서번호, 부서이름, 주소 출력
+select d.department_id, department_name
+    , l.location_id
+from hr.employees e right outer join hr.departments d
+on e.department_id = d.department_id join hr.locations l
+on d.location_id = l.location_id
+where e.department_id is null;
