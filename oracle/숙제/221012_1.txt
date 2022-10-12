@@ -1,3 +1,121 @@
+1. 상사가없는 부서명을 출력해주세요.
+select department_name, manager_id
+from hr.departments
+where manager_id is null;
+
+2. 직원번호, 성, 이름, 직무번호, 직무명을 출력하고 최대급여가 20000이상인 직원을 출력해주세요.
+select employee_id, last_name, first_name, j.job_id, job_title
+from hr.jobs j, hr.employees e
+where j.job_id = e.job_id and max_salary >= 20000;
+
+3. 직원번호, 성, 이름, 부서번호, 지역번호, 우편번호를 출력하는데 우편번호가 없는 직원을 출력해주세요.
+select employee_id, last_name, first_name, d.department_id, l.location_id, postal_code
+from hr.employees e, hr.departments d, hr.locations l
+where e.department_id = d.department_id and d.location_id = l.location_id and postal_code is null;
+
+4. 부서번호, 부서명, 지역번호, 도시를 출력하고 부서번호가 80인 도시를 출력해주세요.
+select d.department_id, department_name, l.location_id, city
+from hr.departments d, hr.locations l
+where d.location_id = l.location_id and d.department_id = 80;
+
+5. 사원번호, 성, 이름, 부서번호, 부서명을 출력하고 이름이 'james'인 사람을 출력(문자함수사용)
+select employee_id, last_name, first_name, d.department_id, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id and lower(first_name) = 'james';
+
+6. 성, 이름, 부서번호, 부서명을 출력하고 03년부터 05년까지 오름차순으로 출력해주세요.
+select last_name, first_name, hire_date, d.department_id, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id and hire_date > '03/01/01' and hire_date < '05/12/31'
+order by hire_date;
+
+7. 직무명, 사원번호, 성, 이름, 급여를 출력하고 급여가 3000에서 5000사이를 구하고 급여를 오름차순으로 나열하세요.
+select job_title, employee_id, last_name, first_name, salary
+from hr.jobs j, hr.employees e
+where j.job_id = e.job_id and salary between 3000 and 5000
+order by salary;
+
+8. 사원번호, 성, 이름, 급여, 부서, 부서명을 출력하고, 
+급여가 6000이상인 직원을 내림차순으로 정렬한 다음 이름을 앞에 3글자만 표기하고 나머지는 '*'로 표기하세요.
+select employee_id, last_name, rpad(substr(first_name,1,3),10,'*') first_name, salary, d.department_id, department_name
+from hr.employees e, hr.departments d
+where e.department_id = d.department_id and salary >= 6000
+order by salary desc;
+
+--9.미국 출신이 아닌 직원의 성, 이름, 직무내용, 국가명, 주소, 우편 번호를 출력
+select last_name, first_name, job_title, country_name, street_address, l.location_id
+from hr.jobs j join hr.employees e
+on j.job_id = e.job_id
+join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id
+join hr.countries c
+on l.country_id = c.country_id
+where country_name != 'United States of America';
+
+--10.'RE'가 직무에 포함되지 않으며 근속 년수가 10년 이상인 사원들을 출력하시오
+--이름, 급여, 직무, 직무내용, 주소, 국가명, 우편번호순으로 
+select first_name, salary, j.job_id, job_title, street_address, country_name, l.location_id
+from hr.jobs j join hr.employees e
+on j.job_id = e.job_id
+join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id
+join hr.countries c
+on l.country_id = c.country_id
+where j.job_id not like '%RE%'
+and (sysdate-hire_date)/365>=10;
+
+--11.직원정보를 출력하는데 커미션이 null일 경우 0.01%의 커미션을 주기로 합의하여 이를 YEARSAL로 $표기와 함께 세자리씩 급여와 출력하고 직무내용, 주소와 출생 국가를 출력하시오
+--직원번호, 이름, 성, 급여, 커미션을 포함한 연봉, 직무, 직무내용, 주소, 출생국
+select employee_id, first_name, last_name, to_char(salary,'$999,999,999') salary, to_char((salary*(1+nvl(commission_pct,0.01))*12),'$999,999,999') yearsal, job_title, street_address, country_name
+from hr.jobs j join hr.employees e
+on j.job_id = e.job_id
+join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id
+join hr.countries c
+on l.country_id = c.country_id;
+
+--12.국가와 대륙의 정보를 모두 출력하시오
+--국가번호, 국가명, 지역번호, 대륙명
+select country_id, country_name, r.region_id, region_name
+from hr.countries c join hr.regions r
+on c.region_id = r.region_id;
+
+--13.직무가 'AC_MGR'과 'ST_CLERK'사이에있는 미국에 사는 직원들의 정보를 출력하시오
+--사원번호, 이름, 성, 직무, 직무내용, 부서번호, 부서명, 국가명
+select employee_id, first_name, last_name, j.job_id, job_title, d.department_id, department_name, country_name
+from hr.jobs j join hr.employees e 
+on j.job_id = e.job_id
+join hr.departments d
+on e.department_id = d.department_id
+join hr.locations l
+on d.location_id = l.location_id
+join hr.countries c
+on l.country_id = c.country_id
+where j.job_id between 'AC_MGR' and 'ST_CLERK'
+and country_name != 'United States of America';
+
+--14.직원정보를 출력하는데 사원번호가 128에서 188사이이면서 'R'을 직무에 포함하는 직원정보와 부서 정보를 출력하시오
+select employee_id, last_name, first_name, hire_date, j.job_id, d.department_id, department_name, location_id
+from hr.employees e join hr.jobs j
+on e.job_id = j.job_id
+join hr.departments d
+on e.department_id = d.department_id
+where employee_id between 128 and 188
+and j.job_id like '%R%';
+
+--15.부서정보를 출력하는데 도시,국가코드, 국가명을 포함하여 부서정보가 없는 도시도 포함하여 출력하시오
+select department_id, department_name, l.location_id, city, c.country_id, country_name
+from hr.departments d  right outer join hr.locations l
+on d.location_id = l.location_id
+join hr.countries c
+on l.country_id = c.country_id;
+---------------------------------------------------------------------------
 -- 1. 성, 입사일, 직무명, 직무내용, 부서번호, 부서명 출력
 -- 부서가 60인 데이터를 입사일 기준으로 정렬
 select last_name, hire_date,e.job_id
