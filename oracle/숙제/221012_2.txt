@@ -100,7 +100,7 @@ select employee_id, first_name,
        d.department_id , department_name
 from hr.employees e right outer join hr.departments d
 on e.department_id = d.department_id
-where department_id not between 200 and 260;
+where e.department_id not between 200 and 260;
 
 17. 사원정보와 부서정보를 출력할 때 사원이 없는 부서도 출력하되
 사원번호가 홀수인 것 만 출력하시오.
