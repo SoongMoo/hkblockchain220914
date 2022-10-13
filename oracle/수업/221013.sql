@@ -1,4 +1,4 @@
---Ä«Æ¼½Ã¾È °ö
+--ì¹´í‹°ì‹œì•ˆ ê³±
 --A   B
 --1   4
 --2   5
@@ -38,7 +38,7 @@ select * from hr.employees
 where employee_id = (select manager_id from hr.employees
 where employee_id = 103);
 
---- 90ÀÎ ºÎ¼­ÀÇ Æò±Õ ±Ş¿©
+--- 90ì¸ ë¶€ì„œì˜ í‰ê·  ê¸‰ì—¬
 select trunc(avg(salary),-3)
 from hr.employees
 where department_id = 90;
@@ -48,7 +48,7 @@ where salary > (select trunc(avg(salary),-3)
 from hr.employees
 where department_id = 90);
 
---  Rogers»ç¿øº¸´Ù ¸ÕÀú ÀÔ»çÇÑ »ç¿øÀ» ±¸ÇÏ½Ã¿À?
+--  Rogersì‚¬ì›ë³´ë‹¤ ë¨¼ì € ì…ì‚¬í•œ ì‚¬ì›ì„ êµ¬í•˜ì‹œì˜¤?
 select hire_date from hr.employees
 where last_name = 'Rogers';
 
@@ -56,7 +56,7 @@ select * from hr.employees
 where hire_date < (select hire_date from hr.employees
                    where last_name = 'Rogers');
 
--- RogersÀÇ Á÷¹«¿Í °°°í RogersÀÇ ±Ş¿©º¸´Ù ¸¹ÀÌ ¹Ş´Â »ç¿øÀ» ±¸ÇÏ½Ã¿À.
+-- Rogersì˜ ì§ë¬´ì™€ ê°™ê³  Rogersì˜ ê¸‰ì—¬ë³´ë‹¤ ë§ì´ ë°›ëŠ” ì‚¬ì›ì„ êµ¬í•˜ì‹œì˜¤.
 select job_id from hr.employees
 where last_name = 'Rogers'; --- ST_CLERK
 
@@ -69,7 +69,7 @@ where job_id = (select job_id from hr.employees
 AND SALARY > (select salary from hr.employees
              where last_name = 'Rogers');
 
---- ±Ş¿©¸¦ Á¦ÀÏ Àû°Ô ¹Ş´Â Á÷¿øÀ» Ãâ·ÂÇÏ¼¼¿ä.
+--- ê¸‰ì—¬ë¥¼ ì œì¼ ì ê²Œ ë°›ëŠ” ì§ì›ì„ ì¶œë ¥í•˜ì„¸ìš”.
 SELECT min(salary)
 from hr.employees;
 
@@ -77,7 +77,7 @@ select * from hr.employees
 where salary = (SELECT min(salary)
 from hr.employees);
 
--- »ç¿ø¹øÈ£, ÀÌ¸§ , Á÷¹« , ±Ş¿©, RogersÀÇ ÀÔ»çÀÏµµ °°ÀÌ Ãâ·ÂÇÏ¼¼¿ä,
+-- ì‚¬ì›ë²ˆí˜¸, ì´ë¦„ , ì§ë¬´ , ê¸‰ì—¬, Rogersì˜ ì…ì‚¬ì¼ë„ ê°™ì´ ì¶œë ¥í•˜ì„¸ìš”,
 select hire_date from hr.employees
 where last_name = 'Rogers';
 select employee_id, first_name, job_id, salary, 
@@ -85,8 +85,8 @@ select employee_id, first_name, job_id, salary,
         where last_name = 'Rogers') Rogers_hire_date
 from hr.employees;
 
--- °¢ ºÎ¼­ÀÇ ÃÖ¼Ò±Ş¿©°¡ 50ÀÎ ºÎ¼­ÀÇ ÃÖ¼Ò ±Ş¿©º¸´Ù Å« 
--- ºÎ¼­¿Í ÃÖ¼Ò±İ¾×À» Ãâ·ÂÇÏ¼¼¿ä.
+-- ê° ë¶€ì„œì˜ ìµœì†Œê¸‰ì—¬ê°€ 50ì¸ ë¶€ì„œì˜ ìµœì†Œ ê¸‰ì—¬ë³´ë‹¤ í° 
+-- ë¶€ì„œì™€ ìµœì†Œê¸ˆì•¡ì„ ì¶œë ¥í•˜ì„¸ìš”.
 select min(salary)
 from hr.employees
 where department_id = 50;
@@ -98,11 +98,11 @@ having min(salary) > (select min(salary)
                       from hr.employees
                       where department_id = 50);
 
--- ´ÙÁßÇà ¼­ºêÄõ¸®
---- Taylor»ç¿øÀÌ °¡Áø Á÷¹«¿Í °°Àº Á÷¹«¸¦ ÇÏ°í ÀÖ´Â »ç¿øµéÀ» Ãâ·Â
+-- ë‹¤ì¤‘í–‰ ì„œë¸Œì¿¼ë¦¬
+--- Taylorì‚¬ì›ì´ ê°€ì§„ ì§ë¬´ì™€ ê°™ì€ ì§ë¬´ë¥¼ í•˜ê³  ìˆëŠ” ì‚¬ì›ë“¤ì„ ì¶œë ¥
 select job_id from hr.employees
 where last_name = 'Taylor';
--- 'SA_REP'¶Ç´Â 'SH_CLERK'¸¦ ÇÏ´Â »ç¿øµéÀ» ±¸ÇÏ½Ã¿À.
+-- 'SA_REP'ë˜ëŠ” 'SH_CLERK'ë¥¼ í•˜ëŠ” ì‚¬ì›ë“¤ì„ êµ¬í•˜ì‹œì˜¤.
 select * from hr.employees
 where job_id = 'SA_REP' or job_id = 'SH_CLERK';
 
@@ -113,14 +113,14 @@ select * from hr.employees
 where job_id  in  (select job_id from hr.employees
                 where last_name = 'Taylor');
 
---- Rogers¿Í °°Àº Á÷¹«¸¦ ÇÏ´Â »ç¿øµéÀ» ±¸ÇÏ°Ô¿ä.
+--- Rogersì™€ ê°™ì€ ì§ë¬´ë¥¼ í•˜ëŠ” ì‚¬ì›ë“¤ì„ êµ¬í•˜ê²Œìš”.
 select * from hr.employees
 where job_id in (select job_id from hr.employees 
                 where last_name = 'Rogers');
                 
--- Haas»ç¿øÀÌ ÇÏ´Â Á÷¹«¿Í °°Àº Á÷¹«¸¦ ÇÏ´Â Á÷¿øµéÀ» ±¸ÇÏ¼¼¿ä.
+-- Haasì‚¬ì›ì´ í•˜ëŠ” ì§ë¬´ì™€ ê°™ì€ ì§ë¬´ë¥¼ í•˜ëŠ” ì§ì›ë“¤ì„ êµ¬í•˜ì„¸ìš”.
 
--- °¢ ºÎ¼­ÀÇ ÃÖ¼Ò ±Ş¿©¸¦ ¹Ş´Â »ç¿øµéÀ» ±¸ÇÏ½Ã¿À.
+-- ê° ë¶€ì„œì˜ ìµœì†Œ ê¸‰ì—¬ë¥¼ ë°›ëŠ” ì‚¬ì›ë“¤ì„ êµ¬í•˜ì‹œì˜¤.
 select min(salary) from hr.employees
 group by department_id;
 
@@ -129,19 +129,19 @@ where salary in (select min(salary) from hr.employees
 group by department_id);
 
 
----4200, 4800, 6000, 9000ÀÇ ÃÖ¼Òº¸´Ù Å« ±Ş¿©¸¦ ¹Ş´Â »ç¿øÀ» ±¸ÇÏ½Ã¿À.
+---4200, 4800, 6000, 9000ì˜ ìµœì†Œë³´ë‹¤ í° ê¸‰ì—¬ë¥¼ ë°›ëŠ” ì‚¬ì›ì„ êµ¬í•˜ì‹œì˜¤.
 select * from hr.employees
 where salary > any (4200, 4800, 6000, 9000);
--- 60ÀÎ ºÎ¼­ ÃÖ¼Ò ±Ş¿©º¸´Ù ´õ ¸¹ÀÌ ¹Ş´Â Á÷¿øµéÀ» ±¸ÇÏ½Ã¿À.
+-- 60ì¸ ë¶€ì„œ ìµœì†Œ ê¸‰ì—¬ë³´ë‹¤ ë” ë§ì´ ë°›ëŠ” ì§ì›ë“¤ì„ êµ¬í•˜ì‹œì˜¤.
 select * from hr.employees
 where salary > (select min(salary) from hr.employees
-                where department_id = 60); -- ´ÜÀÏÇà
+                where department_id = 60); -- ë‹¨ì¼í–‰
 select * from hr.employees
 where salary > any (select salary from hr.employees
-                where department_id = 60); -- ´ÙÁßÇà
+                where department_id = 60); -- ë‹¤ì¤‘í–‰
 
--- Á÷¹«°¡ 'IT_PROG'ÀÎ »ç¿øµé Áß ±Ş¿©¸¦ Á¦ÀÏ ¸¹ÀÌ ¹Ş´Â »ç¶÷º¸´Ù ÀÛ°Ô
--- ¹Ş´Â »ç¿øµéÀ» ±¸ÇÏ½Ã¿À.
+-- ì§ë¬´ê°€ 'IT_PROG'ì¸ ì‚¬ì›ë“¤ ì¤‘ ê¸‰ì—¬ë¥¼ ì œì¼ ë§ì´ ë°›ëŠ” ì‚¬ëŒë³´ë‹¤ ì‘ê²Œ
+-- ë°›ëŠ” ì‚¬ì›ë“¤ì„ êµ¬í•˜ì‹œì˜¤.
 select Max(salary) from hr.employees
 where job_id = 'IT_PROG';
 
@@ -149,13 +149,13 @@ select * from hr.employees
 where salary < (select Max(salary) from hr.employees
 where job_id = 'IT_PROG');
 
--- ´ÙÁß Çà ¿¬»êÀÚ 
+-- ë‹¤ì¤‘ í–‰ ì—°ì‚°ì 
 select * from hr.employees
 where salary < any (select salary from hr.employees        
                     where job_id = 'IT_PROG');
 -- in , any, all
--- Á÷¹«°¡ IT_PROGÀÎ »ç¿øµéÀÇ ±Ş¿©Áß Á¦ÀÏ ¸¹ÀÌ ¹Ş´Â ±Ş¿©º¸´Ù ´õ ¸¹ÀÌ 
--- ¹Ş´Â »ç¿øÀ» ±¸ÇÏ½Ã¿À.
+-- ì§ë¬´ê°€ IT_PROGì¸ ì‚¬ì›ë“¤ì˜ ê¸‰ì—¬ì¤‘ ì œì¼ ë§ì´ ë°›ëŠ” ê¸‰ì—¬ë³´ë‹¤ ë” ë§ì´ 
+-- ë°›ëŠ” ì‚¬ì›ì„ êµ¬í•˜ì‹œì˜¤.
 select MAX(salary) from hr.employees
 where job_id = 'IT_PROG';
 
@@ -166,8 +166,8 @@ select * from hr.employees
 where salary > all (select salary from hr.employees
                 where job_id = 'IT_PROG') ;
 
--- Á÷¹«°¡ IT_PROGÀÎ »ç¿øµéÀÇ ±Ş¿©Áß Á¦ÀÏ ÀÛ°Ô ¹Ş´Â ±Ş¿©º¸´Ù ´õ ÀÛ°Ô 
--- ¹Ş´Â »ç¿øÀ» ±¸ÇÏ½Ã¿À.
+-- ì§ë¬´ê°€ IT_PROGì¸ ì‚¬ì›ë“¤ì˜ ê¸‰ì—¬ì¤‘ ì œì¼ ì‘ê²Œ ë°›ëŠ” ê¸‰ì—¬ë³´ë‹¤ ë” ì‘ê²Œ 
+-- ë°›ëŠ” ì‚¬ì›ì„ êµ¬í•˜ì‹œì˜¤.
 select MIN(salary) from hr.employees
 where job_id = 'IT_PROG';
 
@@ -179,7 +179,7 @@ select * from hr.employees
 where salary < all (select salary from hr.employees
                 where job_id = 'IT_PROG');
                 
--- °¡Àå ¸¹Àº »ç¿øÀÌ ÇÏ´Â Á÷¹«´Â ¹«¾ùÀÏ±î?
+-- ê°€ì¥ ë§ì€ ì‚¬ì›ì´ í•˜ëŠ” ì§ë¬´ëŠ” ë¬´ì—‡ì¼ê¹Œ?
 select max(count(*)) from hr.employees
 group by job_id;
 
@@ -195,9 +195,9 @@ where job_id = (select job_id from hr.employees
                                    from hr.employees
                                    group by job_id));
 
--- ´ÙÁßÇà ¿¬»êÀÚ »ç¿ë
--- Á÷¹«°¡ IT_PROG¿¡¼­  Á¦ÀÏ ¸¹ÀÌ ¹Ş´Â ±Ş¿©º¸´Ù ´õ ¸¹ÀÌ ¹Ş´Â »ç¿øÀ» 
--- ±¸ÇÏ´Âµ¥ IT_PROG´Â Á¦¿ÜÇØ¼­ Ãâ·ÂÇÏ½Ã¿À.
+-- ë‹¤ì¤‘í–‰ ì—°ì‚°ì ì‚¬ìš©
+-- ì§ë¬´ê°€ IT_PROGì—ì„œ  ì œì¼ ë§ì´ ë°›ëŠ” ê¸‰ì—¬ë³´ë‹¤ ë” ë§ì´ ë°›ëŠ” ì‚¬ì›ì„ 
+-- êµ¬í•˜ëŠ”ë° IT_PROGëŠ” ì œì™¸í•´ì„œ ì¶œë ¥í•˜ì‹œì˜¤.
 SELECT * FROM HR.EMPLOYEES
 WHERE SALARY > ALL (SELECT salary
                     FROM HR.employees
@@ -212,11 +212,11 @@ select * from hr.employees
 where job_id  = ANY  (select job_id from hr.employees
                 where last_name = 'Taylor');
 
--- 90ÀÎ ºÎ¼­ÀÇ ±Ş¿©¿Í °°Àº ±Ş¿©¸¦ ¹Ş´Â »ç¿øµéÀ» ±¸ÇÏ½Ã¿À.
+-- 90ì¸ ë¶€ì„œì˜ ê¸‰ì—¬ì™€ ê°™ì€ ê¸‰ì—¬ë¥¼ ë°›ëŠ” ì‚¬ì›ë“¤ì„ êµ¬í•˜ì‹œì˜¤.
 SELECT * FROM HR.EMPLOYEES
 WHERE SALARY IN (SELECT salary from hr.employees
                  where department_id = 90);
--- 90ÀÎ ºÎ¼­ÀÇ ±Ş¿©¿Í °°Áö ¾ÊÀº »ç¿øµéÀ» ±¸ÇÏ½Ã¿À.
+-- 90ì¸ ë¶€ì„œì˜ ê¸‰ì—¬ì™€ ê°™ì§€ ì•Šì€ ì‚¬ì›ë“¤ì„ êµ¬í•˜ì‹œì˜¤.
 SELECT * FROM HR.EMPLOYEES
 WHERE SALARY not IN (SELECT salary from hr.employees
                  where department_id = 90);
@@ -258,7 +258,7 @@ union all
 select employee_id, job_id from hr.job_history
 order by 1;
 
--- INTERSECT : ±³ÁıÇÕ
+-- INTERSECT : êµì§‘í•©
 select employee_id, job_id from hr.employees
 INTERSECT
 select employee_id, job_id from hr.job_history
@@ -284,11 +284,12 @@ from hr.job_history;
 select * from hr.job_history;
 
 desc hr.departments;
-
+---------------------------------------------
 DEPARTMENT_ID   NOT NULL NUMBER(4)    
 DEPARTMENT_NAME NOT NULL VARCHAR2(30) 
 MANAGER_ID               NUMBER(6)    
 LOCATION_ID              NUMBER(4);
+---------------------------------------------
 drop table departments;
 create table departments(
     DEPARTMENT_ID NUMBER not null,
@@ -300,6 +301,7 @@ create table departments(
 desc departments;
 select * from departments;
 desc hr.employees;
+---------------------------------------------------------------------
 EMPLOYEE_ID    NOT NULL NUMBER(6)    
 FIRST_NAME              VARCHAR2(20) 
 LAST_NAME      NOT NULL VARCHAR2(25) 
@@ -311,7 +313,7 @@ SALARY                  NUMBER(8,2)
 COMMISSION_PCT          NUMBER(2,2)  
 MANAGER_ID              NUMBER(6)    
 DEPARTMENT_ID           NUMBER(4)
-
+-------------------------------------------------------------------
 drop table employees;
 
 desc employees;
@@ -329,14 +331,17 @@ values(199,'Douglas','Grant', 'DGRANT','650.507.9844','08/01/13',
 'SH_CLERK',2600,null,124,50);
 01071461970
 select * from hr.employees;
+
 insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
 PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY,
 MANAGER_ID,DEPARTMENT_ID )
 values(198,'Donald','OConnell','DOCONNEL','650.507.9833',
 '07/06/21','SH_CLERK',2600,124,50);
+
 insert into employees
 values(200,'Jennifer','Whalen','JWHALEN','515.123.4444',
 '03/09/17','AD_ASST',4400,null,101,10);
+
 insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
 PHONE_NUMBER, JOB_ID, SALARY, MANAGER_ID,DEPARTMENT_ID)
 values(201,'Michael','Hartstein','MHARTSTE','515.123.5555',
@@ -347,12 +352,12 @@ PHONE_NUMBER,hire_date, JOB_ID, SALARY,commission_pct,
 MANAGER_ID,DEPARTMENT_ID)
 values(202,'Pat','Fay','PFAY','603.123.6666',default,'MK_REP',
 6000,default,201,20);
+
 insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
 PHONE_NUMBER,hire_date, JOB_ID, SALARY,commission_pct,
 MANAGER_ID,DEPARTMENT_ID)
 values(203,'Susan','Mavris','SMAVRIS','515.123.7777',
 sysdate,'HR_REP',6500,null,101,40);
-
 
 insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
 PHONE_NUMBER,hire_date, JOB_ID, SALARY,commission_pct,
@@ -363,5 +368,5 @@ default, 101, 70);
 
 select * from employees;
 
---- ¸¶Áö¸· »ç¿ø ¹øÈ£ÀÇ ´ÙÀ½À» °ªÀ» °¡Áö°í ¿À½Ã¿À.
+--- ë§ˆì§€ë§‰ ì‚¬ì› ë²ˆí˜¸ì˜ ë‹¤ìŒì„ ê°’ì„ ê°€ì§€ê³  ì˜¤ì‹œì˜¤.
 select max(employee_id) +1 from employees;
