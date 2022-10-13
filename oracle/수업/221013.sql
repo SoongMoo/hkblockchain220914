@@ -312,6 +312,8 @@ COMMISSION_PCT          NUMBER(2,2)
 MANAGER_ID              NUMBER(6)    
 DEPARTMENT_ID           NUMBER(4)
 
+drop table employees;
+
 desc employees;
 select * from employees;
 
@@ -335,4 +337,31 @@ values(198,'Donald','OConnell','DOCONNEL','650.507.9833',
 insert into employees
 values(200,'Jennifer','Whalen','JWHALEN','515.123.4444',
 '03/09/17','AD_ASST',4400,null,101,10);
+insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
+PHONE_NUMBER, JOB_ID, SALARY, MANAGER_ID,DEPARTMENT_ID)
+values(201,'Michael','Hartstein','MHARTSTE','515.123.5555',
+'MK_MAN','13000',100,20);
+
+insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
+PHONE_NUMBER,hire_date, JOB_ID, SALARY,commission_pct,
+MANAGER_ID,DEPARTMENT_ID)
+values(202,'Pat','Fay','PFAY','603.123.6666',default,'MK_REP',
+6000,default,201,20);
+insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
+PHONE_NUMBER,hire_date, JOB_ID, SALARY,commission_pct,
+MANAGER_ID,DEPARTMENT_ID)
+values(203,'Susan','Mavris','SMAVRIS','515.123.7777',
+sysdate,'HR_REP',6500,null,101,40);
+
+
+insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
+PHONE_NUMBER,hire_date, JOB_ID, SALARY,commission_pct,
+MANAGER_ID,DEPARTMENT_ID)
+values( (select max(employee_id) +1 from employees) ,'Hermann',
+'Baer', 'HBAER', '515.123.8888', sysdate, 'PR_REP',10000,
+default, 101, 70);
+
 select * from employees;
+
+--- 마지막 사원 번호의 다음을 값을 가지고 오시오.
+select max(employee_id) +1 from employees;
