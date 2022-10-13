@@ -106,7 +106,7 @@ where d.department_id not between 200 and 260;
 사원번호가 홀수인 것 만 출력하시오.
 select employee_id, first_name,
        d.department_id , department_name
-from hr.employees e left outer join hr.departments d
+from hr.employees e right outer join hr.departments d
 on e.department_id = d.department_id
 where mod(employee_id, 2) = 1; 
 
