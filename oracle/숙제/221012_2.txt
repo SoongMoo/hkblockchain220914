@@ -111,6 +111,9 @@ where mod(employee_id, 2) = 1;
 
 18. 직원의 직원정보와 직무내역을 출력하는 직무내역이 없는
 직원도 출력하시오. job_history도 이용
+select first_name, e.employee_id, salary, jh.JOB_ID, START_DATE, END_DATE
+from hr.employees e left outer join hr.job_history jh
+on e.employee_id = jh.employee_id;
 
 19. 직무에 4번째에서 6번째까지 PRO가 있다면 it_program으로 출력
                                  ACC가 있다면 finance_account
@@ -126,8 +129,21 @@ select case substr(job_id , 4,3) when 'PRO' then 'it_program'
              나머지는 사원으로 출력하시오.
 
 21. 부서별 급여의 평균이 5000이상인 부서만 출력하시오.
+select department_id, avg(salary)
+from hr.employees
+group by department_id
+having avg(salary) >= 5000;
+
 
 22. 급여가 10000이상인 사원들중 부서별 급여 평균이 16000이상인 부서만 출력하시오
+select department_id ,avg(salary)  from hr.employees
+where department_id in (select distinct department_id from hr.employees
+                        where salary >= 10000)
+group by department_id
+having avg(salary) >= 16000;
+
+
+
 
 23. 입사일이 2005년도  이전에 입사한 사람들 중 부서별 최대급여가 8000이상인 부서와 최대 급여를 출력하시오.
 select department_id, max(salary) from hr.employees
@@ -143,16 +159,27 @@ having max(salary) >= 10000;
 
 25. 직무에 'REP'포함하고 있지 않은 사원들중 직무별 급여의 합계가 3000을 초과하는 직무와 급여의 합계를 출력하시오.
 또한 급여의 합계를 내림차순으로 정렬하여 출력
+select job_id, sum(salary)
+from hr.employees
+where job_id not like '%REP%'
+group by job_id
+having sum(salary) > 3000;
 
 26.  직원의 25-10-2020까지의 근무일수를 계산하시오.
 직원번호, 부서번호, 입사일, 근무일수
+select to_date('25-10-2020','dd-mm-yyyy') - hire_date
+from hr.employees;
 
 27. '01-01-2005'에 입사한 사원을 출력하시오.
 직원번호, 부서번호, 입사일, 근무일수
+select * from hr.employees
+where hire_date = to_date('01-01-2005','dd-mm-yyyy');
 
 28. 연봉(급여*12) : 급여는 커미션까지 포함된다.
 직원의 년봉을 구하시오.
  직원번호, 부서번호, 급여, 년봉
+select employee_id, department_id, salary, salary * (1 + nvl(commission_pct,0)) * 12 year_sal
+from hr.employees;
 
 29.  'IT_PROG' 이면 급여를  1.10*salary
       'ST_CLERK' 이면 급여를  1.15*salary
@@ -181,6 +208,9 @@ GROUP by department_id
 having count(*) > 5;
 
 33. 각 부서에 있는 사원의 직무별 급여의 평균을 구하시오.
+select department_id, job_id, avg(salary)
+from hr.employees
+group by department_id, job_id
 
 34. 사원번호, 이름 , 급여, 입사일 , 부서번호, 부서명, 직무번호, 직무명을 출력할 때 담당하지 않는 직무도 출력하고 사원이 없는 직무도 출력하시오.
 select employee_id, first_name, salary, hire_date, 
