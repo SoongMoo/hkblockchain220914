@@ -368,5 +368,5 @@ default, 101, 70);
 
 select * from employees;
 
---- 마지막 사원 번호의 다음을 값을 가지고 오시오.
+--- 마지막 사원 번호의 다음 값을 가지고 오시오.
 select max(employee_id) +1 from employees;
