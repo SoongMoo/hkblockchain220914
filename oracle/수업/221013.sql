@@ -283,5 +283,56 @@ from hr.job_history;
 
 select * from hr.job_history;
 
+desc hr.departments;
+
+DEPARTMENT_ID   NOT NULL NUMBER(4)    
+DEPARTMENT_NAME NOT NULL VARCHAR2(30) 
+MANAGER_ID               NUMBER(6)    
+LOCATION_ID              NUMBER(4);
+drop table departments;
+create table departments(
+    DEPARTMENT_ID NUMBER not null,
+    DEPARTMENT_NAME VARCHAR2(30) not null,
+    MANAGER_ID NUMBER(6),
+    LOCATION_ID NUMBER(4)
+);  
+
+desc departments;
+select * from departments;
+desc hr.employees;
+EMPLOYEE_ID    NOT NULL NUMBER(6)    
+FIRST_NAME              VARCHAR2(20) 
+LAST_NAME      NOT NULL VARCHAR2(25) 
+EMAIL          NOT NULL VARCHAR2(25) 
+PHONE_NUMBER            VARCHAR2(20) 
+HIRE_DATE      NOT NULL DATE         default sysdate  
+JOB_ID         NOT NULL VARCHAR2(10) 
+SALARY                  NUMBER(8,2) 
+COMMISSION_PCT          NUMBER(2,2)  
+MANAGER_ID              NUMBER(6)    
+DEPARTMENT_ID           NUMBER(4)
+
+desc employees;
+select * from employees;
+
+INSERT INTO departments(department_name, department_id,
+ manager_id, location_id)
+VALUES ('Public Relations',70,  100, 1700);
 
 
+insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
+PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY,COMMISSION_PCT, 
+MANAGER_ID,DEPARTMENT_ID )
+values(199,'Douglas','Grant', 'DGRANT','650.507.9844','08/01/13',
+'SH_CLERK',2600,null,124,50);
+01071461970
+select * from hr.employees;
+insert into employees(EMPLOYEE_ID,FIRST_NAME,LAST_NAME,EMAIL,
+PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY,
+MANAGER_ID,DEPARTMENT_ID )
+values(198,'Donald','OConnell','DOCONNEL','650.507.9833',
+'07/06/21','SH_CLERK',2600,124,50);
+insert into employees
+values(200,'Jennifer','Whalen','JWHALEN','515.123.4444',
+'03/09/17','AD_ASST',4400,null,101,10);
+select * from employees;
