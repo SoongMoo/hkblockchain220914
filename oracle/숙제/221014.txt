@@ -1,4 +1,4 @@
-문제 1) 회원 테이블을 만드시오. 각 컬럼에 제약 조건을 부여 하시오.
+문제 1) 회원 테이블을 만드시오. 각 컬럼에 제약 조건을 부여 하시오. 제약 조건은 alter문을 이용할것 , 열레벨과 테이블 레벨 둘다 실습해 보세요.
 Table MEMBER
 ================================
 USER_ID     	NOT NULL 	VARCHAR2(20)  
@@ -17,7 +17,7 @@ USER_ID     : primary key (MEMBER_USER_ID_PK)
 USER_EMAIL : unique (member_USER_EMAIL_UU)
 USER_REGIST  : 디펄트 값은 sysdate
 
-문제2) 게시판 테이블을 만들고 각 컬럼에 제약조건을 부여 하시오.
+문제2) 게시판 테이블을 만들고 각 컬럼에 제약조건을 부여 하시오.제약 조건은 alter문을 이용할것 , 열레벨과 테이블 레벨 둘다 실습해 보세요.
 Table BOARD
 ====================================
 BOARD_NUM     	NOT NULL 	NUMBER         
