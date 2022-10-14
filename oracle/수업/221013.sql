@@ -4,6 +4,7 @@
 --2   5
 --3 
 --{1,4}{1,5}{2,4}{2,5}{3,4}{3,5}
+
 select first_name, last_name, salary,
         e.department_id, department_name
 from hr.employees e, hr.departments d; 
