@@ -1,4 +1,3 @@
-
 create table departments(
     DEPARTMENT_ID NUMBER not null,
     DEPARTMENT_NAME VARCHAR2(30) not null,
@@ -157,6 +156,69 @@ where employee_id = 178;
 ROLLBACK;
 SELECT * FROM EMPLOYEES
 where employee_id = 178;
+
+113번의 직무를 AC_MGR로 변경하시고 급여를 12000로 변경하세요;
+select job_id , salary from employees
+where employee_id = 113;
+
+update employees
+set job_id = 'AC_MGR' ,
+    salary = 12000
+where employee_id = 113;
+
+113번의 직무를 114번의 직무 변경하고 급여는 200번 급여로 변경하세요.;
+select job_id from employees
+where employee_id = 114; -- PU_MAN
+select salary from employees
+where employee_id = 200;  --- 4400
+
+update employees
+set job_id = 'PU_MAN',
+    salary = 4400
+where employee_id = 113;
+
+update employees
+set job_id = (select job_id from employees
+                where employee_id = 114),
+    salary = (select salary from employees
+                where employee_id = 200)
+where employee_id = 113;
+select * from employees
+where employee_id = 113;
+
+113번의 직무와 급여를 200번 직무와 급여로 변경하시오.;
+UPDATE employees
+SET (job_id, salary) = (SELECT job_id, salary
+                        FROM employees
+                        WHERE employee_id = 200)
+WHERE employee_id = 113;
+
+UPDATE employees
+SET job_id = (SELECT job_id
+                FROM employees
+                WHERE employee_id = 200),
+    salary = (SELECT salary
+                FROM employees
+                WHERE employee_id = 200)
+WHERE employee_id = 113;
+
+
+200번의 직무를 가진 사원에 대해 부서를 100번 사원의 부서로 변경 하세요;
+select job_id from employees
+where employee_id = 200;
+select department_id from employees
+where employee_id = 100;
+
+update employees
+set department_id = 90
+where job_id = 'AD_ASST';
+
+update employees
+set department_id = (select department_id from hr.employees
+                        where employee_id = 100)
+where job_id = (select job_id from hr.employees
+                        where employee_id = 200);
+
 
 
 
