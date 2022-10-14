@@ -462,3 +462,29 @@ select * from dEPARTMENTS;
 INSERT INTO departments
 select * from hr.departments;
 select * from departments;
+
+--- constraint ªË¡¶
+desc dept;
+select * from dba_constraints
+where table_name = 'DEPT';
+alter table dept 
+drop column ADDR;
+
+alter table dept
+drop constraint DEPT_LOC_UU; 
+
+--- count update
+drop table num_test;
+create table num_test(
+    seq int,
+    num int
+);
+insert into num_test(seq, num)values(1, 1);
+insert into num_test(seq, num)values(2, 1);
+select * from num_test;
+
+update num_test
+set num = num + 1
+where seq = 2;
+
+select * from num_test;
