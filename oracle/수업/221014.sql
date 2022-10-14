@@ -334,3 +334,35 @@ select * from dept;
 insert into dept(deptno, dname, loc,  create_date)
 values(3, '이숭무', '125', sysdate);
 select * from dept;
+
+insert into dept(deptno, dname, loc,  create_date)
+values(1, '이숭무', '125', sysdate);
+
+select * from dba_constraints
+where table_name = 'DEPT';
+
+drop table dept;
+create table dept( -- 열레벨
+    deptno number(2) constraint dept_deptno_PK primary key,
+    --NULL을 ("SMRIT"."DEPT"."DEPTNO") 안에 삽입할 수 없습니다
+    dname varchar2(14) ,
+    loc varchar2(13) not null constraint dept_loc_UU UNIQUE, 
+    email varchar2(50) constraint dept_email_UU UNIQUE,
+    create_date date default sysdate
+);
+
+select * from dba_constraints
+where table_name = 'DEPT';
+insert into dept(deptno, dname, email, create_date)
+values(1, '이숭무', 'high', sysdate);
+-- NULL을 ("SMRIT"."DEPT"."LOC") 안에 삽입할 수 없습니다
+
+insert into dept(deptno, dname,loc, email, create_date)
+values(1, '이숭무','123', 'high', sysdate);
+select * from dept;
+insert into dept(deptno, dname,loc, email, create_date)
+values(1, '이숭무','124', 'land', sysdate);
+-- 무결성 제약 조건(SMRIT.DEPT_DEPTNO_PK)에 위배됩니다
+insert into dept(deptno, dname,loc, email, create_date)
+values(2, '이숭무','123', 'land', sysdate);
+-- 무결성 제약 조건(SMRIT.DEPT_LOC_UU)에 위배됩니다
