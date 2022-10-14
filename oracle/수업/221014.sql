@@ -219,6 +219,51 @@ set department_id = (select department_id from hr.employees
 where job_id = (select job_id from hr.employees
                         where employee_id = 200);
 
+CREATE TABLE dept(   
+    deptno NUMBER(2), 
+    dname CHAR(14), ---巢/咯 , F/M 
+    loc VARCHAR2(13), 
+    create_date DATE DEFAULT SYSDATE
+); 
+--------java--------------------
+public class Dept{
+   int deptno;
+   String dname;
+   String loc;
+   Date createDate;
+};
+----------------------------------
+insert into dept(deptno, dname, loc)
+values(1, '捞件公', '12234');
+select * from dept;
+insert into dept(deptno, dname, loc, create_date)
+values(2, '捞件公', null, sysdate);
+insert into dept(deptno, dname, create_date)
+values(2, '捞件公',  default);
+insert into dept(deptno, dname, loc, create_date)
+values(4, '捞件公', '23232', 
+        to_date('03-12-1999','dd-mm-yyyy')); -- RR-MM-DD
+select * from dept;
+insert into dept(deptno, dname, loc, create_date)
+values(5, '捞件公', '23232', '1999-10-30');
+DESCRIBE dept;
 
+create table test1(
+    dno int not null,
+    dname Integer    
+);
 
+--insert into test1(dname)values(2);
+insert into test1(dno,dname)values(1,2);
+select * from test1;
+insert into test1(dno)values(1);
+
+constraint : 力距炼扒;
+- NOT NULL
+? UNIQUE
+? PRIMARY KEY
+? FOREIGN KEY
+? CHECK
+
+select * from dept;
 
