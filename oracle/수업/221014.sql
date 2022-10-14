@@ -346,7 +346,7 @@ create table dept( -- 열레벨
     deptno number(2) constraint dept_deptno_PK primary key,
     --NULL을 ("SMRIT"."DEPT"."DEPTNO") 안에 삽입할 수 없습니다
     dname varchar2(14) ,
-    loc varchar2(13) not null constraint dept_loc_UU UNIQUE, 
+    loc varchar2(13) not null constraint dept_loc_UU UNIQUE , 
     email varchar2(50) constraint dept_email_UU UNIQUE,
     create_date date default sysdate
 );
@@ -365,4 +365,100 @@ values(1, '이숭무','124', 'land', sysdate);
 -- 무결성 제약 조건(SMRIT.DEPT_DEPTNO_PK)에 위배됩니다
 insert into dept(deptno, dname,loc, email, create_date)
 values(2, '이숭무','123', 'land', sysdate);
--- 무결성 제약 조건(SMRIT.DEPT_LOC_UU)에 위배됩니다
+-- 무결성 제약 조건(SMRIT.DEPT_LOC_UU)에 위배됩니다.
+
+drop table dept;
+create table dept( -- 테이블레이벨
+    deptno number(2) ,
+    dname varchar2(14),
+    loc varchar2(13) not null, -- not null은 열레벨
+    email varchar2(50),
+    create_date date default sysdate,
+    constraint dept_deptno_PK primary key(deptno),
+    constraint dept_loc_UU unique(loc),
+    constraint dept_email_UU unique(email)
+);
+
+select * from dba_constraints
+where table_name = 'DEPT';
+
+drop table dept;
+create table dept(
+    deptno number(2),
+    dname varchar2(14),
+    loc varchar2(13),
+    create_date date
+);
+desc dept;
+alter table dept
+add (
+     email varchar2(50) not null 
+                        constraint dept_email_UU unique,
+     addr varchar2(100)
+);
+desc dept;
+alter table dept
+modify (
+    create_date date default sysdate,
+    loc varchar2(13) constraint dept_loc_UU unique
+);
+select * from dba_constraints
+where table_name = 'DEPT';
+alter table dept
+modify deptno number(2)
+       constraint dept_deptno_PK primary key;
+       
+select * from dba_constraints where table_name = 'DEPT';
+desc dept;
+
+alter table dept
+drop column email; -- 삭제는 동시에 여러 걸럼을 삭제 할 수 없다.
+desc dept;
+
+drop table dept;
+create table dept(
+    deptno number(2),
+    dname varchar2(14),
+    loc varchar2(13),
+    create_date date
+);
+alter table dept -- 테이블 레벨
+add( addr varchar2(100) not null,
+     constraint dept_deptno_PK primary key(deptno),
+     constraint dept_loc_UU unique(loc)
+);
+alter table dept
+modify (loc varchar2(13) not null,
+        create_date date default sysdate
+);
+select * from dba_constraints where table_name = 'DEPT';
+desc dept;
+
+drop table employees;
+drop table departments;
+---- table 복사하기
+create table employees
+as
+select * from hr.employees where 1=2;
+select * from employees;
+
+drop table employees;
+create table employees
+as 
+select * from hr.employees;
+
+create table departments
+(deptno, dname, manid, loc) 
+as 
+select * from hr.departments;
+
+select * from departments;
+drop table departments;
+create table departments
+as
+select * from hr.departments where 1=2;
+select * from dEPARTMENTS;
+
+INSERT INTO departments
+select * from hr.departments;
+select * from departments;
