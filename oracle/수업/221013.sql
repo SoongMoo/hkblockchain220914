@@ -285,10 +285,10 @@ select * from hr.job_history;
 
 desc hr.departments;
 ---------------------------------------------
-DEPARTMENT_ID   NOT NULL NUMBER(4)    
-DEPARTMENT_NAME NOT NULL VARCHAR2(30) 
-MANAGER_ID               NUMBER(6)    
-LOCATION_ID              NUMBER(4);
+--DEPARTMENT_ID   NOT NULL NUMBER(4)    
+--DEPARTMENT_NAME NOT NULL VARCHAR2(30) 
+--MANAGER_ID               NUMBER(6)    
+--LOCATION_ID              NUMBER(4)
 ---------------------------------------------
 drop table departments;
 create table departments(
@@ -302,19 +302,32 @@ desc departments;
 select * from departments;
 desc hr.employees;
 ---------------------------------------------------------------------
-EMPLOYEE_ID    NOT NULL NUMBER(6)    
-FIRST_NAME              VARCHAR2(20) 
-LAST_NAME      NOT NULL VARCHAR2(25) 
-EMAIL          NOT NULL VARCHAR2(25) 
-PHONE_NUMBER            VARCHAR2(20) 
-HIRE_DATE      NOT NULL DATE         default sysdate  
-JOB_ID         NOT NULL VARCHAR2(10) 
-SALARY                  NUMBER(8,2) 
-COMMISSION_PCT          NUMBER(2,2)  
-MANAGER_ID              NUMBER(6)    
-DEPARTMENT_ID           NUMBER(4)
+--EMPLOYEE_ID    NOT NULL NUMBER(6)    
+--FIRST_NAME              VARCHAR2(20) 
+--LAST_NAME      NOT NULL VARCHAR2(25) 
+--EMAIL          NOT NULL VARCHAR2(25) 
+--PHONE_NUMBER            VARCHAR2(20) 
+--HIRE_DATE      NOT NULL DATE         default sysdate  
+--JOB_ID         NOT NULL VARCHAR2(10) 
+--SALARY                  NUMBER(8,2) 
+--COMMISSION_PCT          NUMBER(2,2)  
+--MANAGER_ID              NUMBER(6)    
+--DEPARTMENT_ID           NUMBER(4)
 -------------------------------------------------------------------
 drop table employees;
+create table employees(
+        EMPLOYEE_ID     NUMBER(6)  NOT NULL  ,
+        FIRST_NAME              VARCHAR2(20) ,
+        LAST_NAME       VARCHAR2(25) NOT NULL,
+        EMAIL           VARCHAR2(25) NOT NULL,
+        PHONE_NUMBER            VARCHAR2(20), 
+        HIRE_DATE       DATE         ,
+        JOB_ID          VARCHAR2(10) NOT NULL,
+        SALARY                  NUMBER(8,2),  
+        COMMISSION_PCT          NUMBER(2,2),  
+        MANAGER_ID              NUMBER(6) ,   
+        DEPARTMENT_ID           NUMBER(4)
+);
 
 desc employees;
 select * from employees;
