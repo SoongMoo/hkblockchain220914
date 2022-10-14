@@ -266,4 +266,71 @@ constraint : 제약조건;
 ? CHECK
 
 select * from dept;
+drop table dept;
+select * from dept;
 
+create table dept(
+    deptno number(2) primary key,
+    dname varchar2(14),
+    loc varchar2(13),
+    create_date date default sysdate
+);
+insert into dept(deptno,dname,loc,create_date )
+values(1, '이숭무', '1234', default);
+select * from dept;
+--insert into dept(deptno,dname,loc,create_date )
+--values(1, '이장범', '2334', sysdate);
+insert into dept(deptno,dname,loc,create_date )
+values(2, '이숭무', '1234', sysdate);
+select * from dept;
+drop table dept;
+create table dept(
+    deptno number(2) primary key,
+    dname varchar2(14) ,
+    loc varchar2(13) primary key, 
+    --테이블에는 하나의 기본 키만 가질 수 있습니다.
+    create_date date default sysdate
+);
+
+create table dept(
+    deptno number(2) primary key,
+    --NULL을 ("SMRIT"."DEPT"."DEPTNO") 안에 삽입할 수 없습니다
+    dname varchar2(14) ,
+    loc varchar2(13) UNIQUE, 
+    email varchar2(50) UNIQUE,
+    create_date date default sysdate
+);
+insert into dept(dname,loc, email, create_date )
+values('이숭무', '122' ,'high', sysdate);
+
+insert into dept(deptno, dname,loc, email, create_date )
+values(1,'이숭무', '122' ,'high', sysdate);
+select * from dept;
+insert into dept(deptno, dname,loc, email, create_date )
+values(2,'이숭무', '123' ,'land', sysdate);
+select * from dept;
+
+insert into dept(deptno, dname,loc, create_date )
+values(3,'이숭무', '124' , sysdate);
+select * from dept;
+drop table dept;
+create table dept(
+    deptno number(2) primary key,
+    --NULL을 ("SMRIT"."DEPT"."DEPTNO") 안에 삽입할 수 없습니다
+    dname varchar2(14) ,
+    loc varchar2(13) not null UNIQUE, 
+    email varchar2(50) UNIQUE,
+    create_date date default sysdate
+);
+insert into dept(deptno, dname, loc, email, create_date)
+values(1, '이숭무', '123', 'high', sysdate);
+select * from dept;
+insert into dept(deptno, dname,  email, create_date)
+values(2, '이숭무',  'land', sysdate);
+select * from dept;
+insert into dept(deptno, dname, loc,  create_date)
+values(2, '이숭무', '124', sysdate);
+select * from dept;
+insert into dept(deptno, dname, loc,  create_date)
+values(3, '이숭무', '125', sysdate);
+select * from dept;
