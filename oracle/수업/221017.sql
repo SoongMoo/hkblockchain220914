@@ -243,3 +243,41 @@ alter table contract_company
 add (constraint coco_contnum_pk primary key(cont_number));
 alter table order1
 add(constraint order1_orderno_pk primary key(order_no));
+-------------------------------------------------------------
+alter table supply_book
+add(constraint subook_bookno_pk primary key(book_no),
+    constraint subook_contnum_pk primary key(cont_number));
+---테이블에는 하나의 기본 키만 가질 수 있습니다.
+
+alter table  supply_book
+add (constraint subook_bkno_connum_pk
+        primary key(book_no, cont_number));
+select * from user_cons_columns
+where table_name ='SUPPLY_BOOK';
+    
+alter table chk_book
+add (constraint ckbk_memno_bkno_pk 
+        primary key(chk_no, member_no,book_no)); 
+select * from user_cons_columns
+where table_name ='CHK_BOOK';    
+
+alter table  order_list
+add(constraint orlist_orderno_bookno_pk primary key(
+        order_no, book_no));
+select * from user_cons_columns
+where table_name ='ORDER_LIST';
+------- FOREIGN KEY----
+alter table contract_company
+add(CONSTRAINT concom_pubconum_fk foreign key(pub_co_num)
+    REFERENCES publisher (pub_co_num));
+select * from user_cons_columns
+where table_name ='CONTRACT_COMPANY';
+
+alter table supply_book
+add(constraint subk_bookno_fk foreign key(book_no)
+    references book(book_no),
+    constraint subk_contnum_fk foreign key(cont_number)
+    references contract_company(cont_number));
+select * from user_cons_columns
+where table_name ='SUPPLY_BOOK';
+    
