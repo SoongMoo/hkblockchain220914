@@ -295,4 +295,4 @@ alter table  order_list
 add(constraint order1_orderno_fk foreign key (order_no)
     references order1(order_no),
     constraint order1_bookno_fk foreign key (book_no)
-    references book(book_no))
+    references book(book_no));
