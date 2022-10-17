@@ -280,4 +280,19 @@ add(constraint subk_bookno_fk foreign key(book_no)
     references contract_company(cont_number));
 select * from user_cons_columns
 where table_name ='SUPPLY_BOOK';
+
+alter table chk_book 
+add(constraint chbk_memno_fk foreign key (member_no)
+    references member(member_no),
+    constraint chbk_bookno_fk foreign key (book_no)
+    references book(book_no));
+
+alter table  order1
+add(constraint order1_memno_fk foreign key (member_no)
+    references member(member_no));
     
+alter table  order_list
+add(constraint order1_orderno_fk foreign key (order_no)
+    references order1(order_no),
+    constraint order1_bookno_fk foreign key (book_no)
+    references book(book_no))
