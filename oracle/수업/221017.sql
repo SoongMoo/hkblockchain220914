@@ -339,6 +339,7 @@ create table d(
     d1 number,   --- pk
     d2 varchar2(20)
 );
+
 alter table a
 add (constraint a_a1_pk primary key (a1));
 
@@ -354,15 +355,15 @@ add( constraint d_d1_pk primary key (d1));
 
 alter table b
 add(constraint b_a1_fk  foreign key(a1)
-    references a(a1));
+    references a(a1) on delete cascade  );
 
 alter table c
 add(constraint c_a1_b1_fk foreign key(a1,b1)
-    references b(a1, b1));
+    references b(a1, b1) on delete cascade );
     
 alter table d
 add(constraint d_a1_b1_fk foreign key(a1,b1)
-    references b(a1, b1));
+    references b(a1, b1) on delete set null );
 
 insert into a(a1, a2)
 values(1, 'a');
@@ -384,3 +385,6 @@ select * from d;
 delete from c;
 delete from b;
 delete from a;
+
+select * from d;
+select * from c;
