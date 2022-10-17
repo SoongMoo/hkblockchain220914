@@ -246,12 +246,16 @@ select * from user_tables;
 
 alter table member
 add ( constraint mem_memno_pk primary key(member_no));
+
 alter table publisher
 add (constraint pub_pubconnum_pk primary key(pub_co_num));
+
 alter table book
 add (constraint book_bkno_pk primary key(book_no));
+
 alter table contract_company
 add (constraint coco_contnum_pk primary key(cont_number));
+
 alter table order1
 add(constraint order1_orderno_pk primary key(order_no));
 -------------------------------------------------------------
