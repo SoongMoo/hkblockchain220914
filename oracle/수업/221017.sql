@@ -311,3 +311,76 @@ add(constraint order1_orderno_fk foreign key (order_no)
     references order1(order_no),
     constraint order1_bookno_fk foreign key (book_no)
     references book(book_no));
+    
+
+drop table d;
+drop table c;
+drop taBLE b;
+drop table a;
+
+create table a(
+    a1 number,  -- pk
+    a2 varchar2(15)
+);
+create table b(
+    b1 number,   -- pk
+    b2 varchar2(15),
+    a1 number    -- pk/fk
+);
+create table c( 
+    b1 number, --pk / FK
+    a1 number, --pk / FK
+    c1 number, --pk 
+    c2 varchar2(20)
+);
+create table d(
+    b1 number,  --fk
+    a1 number,  --fk
+    d1 number,   --- pk
+    d2 varchar2(20)
+);
+alter table a
+add (constraint a_a1_pk primary key (a1));
+
+alter table b
+add( constraint b_a1_b1_pk primary key (a1,b1));
+
+alter table c
+add( constraint c_a1_b1_c1__pk primary key (a1,b1,c1));
+
+alter table d
+add( constraint d_d1_pk primary key (d1));
+--------------------------------------------------
+
+alter table b
+add(constraint b_a1_fk  foreign key(a1)
+    references a(a1));
+
+alter table c
+add(constraint c_a1_b1_fk foreign key(a1,b1)
+    references b(a1, b1));
+    
+alter table d
+add(constraint d_a1_b1_fk foreign key(a1,b1)
+    references b(a1, b1));
+
+insert into a(a1, a2)
+values(1, 'a');
+select * from a;
+
+insert into b(b1,b2, a1)
+values(11, 'b11', 1);
+select * from b;
+
+insert into c(c1,c2, a1, b1)
+values(111,'C111',1,11);
+
+insert into d(d1,d2,a1,b1)
+values(1111,'D1111',1,11);
+
+delete from d;
+select * from d;
+
+delete from c;
+delete from b;
+delete from a;
