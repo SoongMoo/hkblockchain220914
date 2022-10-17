@@ -169,6 +169,14 @@ select * from user_constraints
 where table_name ='EMPLOYEES';
 
 -----------------------------------------------------
+drop table order_list;
+drop table order1;
+drop table chk_book;
+drop table supply_book;
+drop table contract_company;
+drop table book;
+drop table publisher;
+drop table member;
 create table member(
     member_no varchar2(15),
     member_name varchar2(21) not null,
@@ -178,6 +186,7 @@ create table member(
     member_mobile  varchar2(30),
     pay_method varchar2(16)
 );
+
 create table publisher(
     pub_co_num varchar2(15) ,
     pub_name varchar2(20) not null,
@@ -186,12 +195,14 @@ create table publisher(
     bank_no varchar2(7) not null,
     account_num varchar2(16) not null
 );
+
 create table book(
     book_no number ,
     book_name varchar2(20),
     book_ck number(6,3) ,
     book_qty number 
 );
+
 create table contract_company(
     cont_number number not null,
     cont_status number not null,
@@ -208,7 +219,7 @@ create table supply_book(
 
 create table chk_book(
     chk_no number not null,
-    member_no number not null,
+    member_no varchar2(15) not null,
     book_no number(6,3) not null,
     reg_date date not null
 );
