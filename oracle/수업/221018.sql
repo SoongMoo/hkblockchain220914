@@ -154,3 +154,83 @@ select department_name, sum(salary), avg(salary), min(salary)
 from departments d, employees e
 where d.department_id = e.department_id
 group by department_name;
+
+
+create or REPLACE view dept_sum_vu
+    (name, sumsal, avgsal, minsal, maxsal)
+as 
+select department_name, sum(salary), avg(salary), min(salary)
+       , max(salary)
+from departments d  join employees e
+on d.department_id = e.department_id
+group by department_name;
+
+70부서의 사원번호, 이름, 직무 , 급여, 입사일을 출력하는 뷰를 만드시오.
+뷰명은 empvu70;
+desc employees;
+
+create or replace view empvu70
+as 
+select employee_id, last_name, email, job_id, hire_date, salary,
+        department_id
+from employees
+where department_id = 70;
+
+select * from empvu70;
+DML작업;
+select * from employees;
+
+select * from empvu70;
+
+insert into empvu70(employee_id, last_name, email, job_id,
+            hire_date, salary, department_id)
+values(300, '이', 'high','강사', sysdate, 10000, 50);
+--- "DEPARTMENT_ID": 부적합한 식별자
+insert into empvu70(employee_id, last_name, email, job_id,
+            hire_date, salary)
+values(300, '이', 'high','강사', sysdate, 10000);
+
+select * from empvu70;---뷰를 통해 실제 테이블에 insert를 할 수 있다.
+select * from employees;
+
+insert into empvu70(employee_id, last_name,email,job_id,hire_date,
+                    salary, department_id)
+values(301,'박', 'land', '학생', sysdate, 100, 50 );
+select * from empvu70;
+select * from employees;
+insert into empvu70(employee_id, last_name,email,job_id,hire_date,
+                    salary, department_id)
+values(302,'상', 'highland', '학생', sysdate, 100, 70 );
+select * from empvu70;
+select * from employees;
+
+delete from empvu70
+where employee_id = 301;
+---0개 행 이(가) 삭제되었습니다.
+
+delete from empvu70
+where employee_id = 302;
+select * from empvu70;
+select * from employees;
+
+update empvu70
+set salary = 10000;뷰에서 보이는 것만 update가 가능하다.
+
+insert into empvu70(employee_id, last_name,email,job_id,hire_date,
+                    salary, department_id)
+values(302,'상', 'highland', '학생', sysdate, 100, 30 );
+select * from empvu70;
+update empvu70
+set department_id = 50;
+---- 뷰에서 보이는 것만 insert가 되거나 update가 되도록하지
+select * from empvu70;
+update employees
+set department_id = 70
+where employee_id = 204;
+
+create or replace view empvu70
+as 
+select employee_id, last_name, email, job_id, hire_date, salary,
+        department_id
+from employees
+where department_id = 70;
