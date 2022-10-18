@@ -233,4 +233,54 @@ as
 select employee_id, last_name, email, job_id, hire_date, salary,
         department_id
 from employees
-where department_id = 70;
+where department_id = 70
+WITH CHECK OPTION constraint empvu70_CK;
+
+select * from empvu70;
+
+update empvu70
+set department_id = 50;
+뷰의 WITH CHECK OPTION의 조건에 위배 됩니다;
+
+insert into empvu70(employee_id, last_name,email,job_id,hire_date,
+                    salary, department_id)
+values(303,'상', 'highland', '학생', sysdate, 100, 30 );
+--- 뷰의 WITH CHECK OPTION의 조건에 위배 됩니다
+insert into empvu70(employee_id, last_name,email,job_id,hire_date,
+                    salary, department_id)
+values(303,'장', 'high11', '학생', sysdate, 100, 70 );
+select * from empvu70;
+
+create table viewupd1(
+    c1 number,
+    c2 int
+);
+create table viewupd2(
+    c1 number,
+    c3 number
+);
+insert into viewupd1 values(1,1);
+insert into viewupd2 values(1,1);
+
+create or replace view v_viewupd
+as 
+select v1.c1 , c2, c3
+from viewupd1 v1, viewupd2 v2
+where v1.c1 = v2.c1;
+
+select * from v_viewupd;
+update v_viewupd
+set c2 = 10     --viewiupd1
+where c1 = 1;
+select * from v_viewupd;
+update v_viewupd
+set c3 = 10     --viewupd2
+where c1 = 1;
+select * from v_viewupd;
+
+join을 한 경우 테이블별로 update를 하면 수정이 된다.;
+
+update v_viewupd
+set c2= 20, c3 =20
+where c1 = 1;
+-- 조인 뷰에 의하여 하나 이상의 기본 테이블을 수정할 수 없습니다.
