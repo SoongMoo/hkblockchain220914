@@ -357,3 +357,57 @@ create table seqTest(
 insert into seqTest(num2,name)
 values(dept_deptid_seq.NEXTVAL, '이숭무');
 select * from seqTest;
+
+
+select * from user_sequences
+where sequence_name = 'EMPSEQ';
+
+
+select * 
+from employees   --1
+where last_name ='OConnell'; --2
+
+create index emplastidx
+on employees (last_name);
+
+select department_id ,avg(salary)
+from employees
+group by department_id
+having avg(salary) > 3000;
+
+select employee_id, first_name
+from employees
+where substr(first_name, 1, 2) = 'Oc'  ;
+
+create index empsub ---함수기반의 index
+on employees(substr(first_name, 1, 2)); 
+
+
+create index hanjeun ---함수기반의 index
+on employees(start_time, end_time)); 
+
+select * from employees
+order by departmenrt_id, job_id;
+
+create index empidx
+on employees(department_id, job_id);
+
+
+
+select * from departments;
+
+insert into departments(department_id, department_name,
+manager_id, location_id, min_salary)
+values(300,'Administration',200,1700, 10000);                  
+
+alter table departments
+add (min_salary number,
+     max_salary number);
+     
+alter table departments
+drop (min_salary, max_salary);
+
+
+SELECT INDEX_NAME, TABLE_NAME 
+FROM USER_INDEXES
+WHERE TABLE_NAME = 'EMPLOYEES';
