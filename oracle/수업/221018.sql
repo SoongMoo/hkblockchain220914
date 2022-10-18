@@ -62,10 +62,95 @@ insert into CHECKEXAM1
 values(1, 99, 80, 'a', 'b');
 -- 체크 제약조건(SMRIT.CH_VALUE2_CK)이 위배되었습니다
 insert into CHECKEXAM1
-values(1, 99, 100, 'a', 'b')
+values(1, 99, 100, 'a', 'b');
 
+insert into departments
+select * from hr.departments;
 
+insert into employees
+select * from hr.employees;
 
+select employee_id, first_name , 
+        salary * ( 1+ nvl(commission_pct , 0)) year_sal
+from employees;
 
+create view year_sal
+as
+select employee_id, first_name , 
+        salary * ( 1+ nvl(commission_pct , 0)) year_sal
+from employees;
 
+select * from year_sal;
 
+create view emp80
+as
+select * from employees
+where department_id = 80;
+select * from  emp80;
+
+--- 50인 부서의 이름 , 직무 , 사원번호, 연봉를 출력하는 뷰를 만드세요.
+-- 뷰명은 salvu50
+drop view salvu50;
+create OR REPLACE view salvu50
+ (ID_NUMBER, NAME, jobid, ANN_SALARY, did)
+as
+select employee_id, first_name, job_id, salary * 12,
+       department_id
+from employees
+where department_id = 50;
+
+select * from salvu50;
+
+create OR REPLACE view salvu50
+as
+select employee_id ID_NUMBER, first_name NAME,
+        job_id jobid, salary * 12 ANN_SALARY,
+       department_id did
+from employees
+where department_id = 50;
+
+-- 각 부서별 급여의 최소값 , 급여의 최대값, 급여의 평균, 합계를 
+-- 출력할 수 있는 뷰를 만드시오.
+-- 뷰명은 dept_sum_vu
+-- 컬럼명의 별칭은 부서명은 name, 최소값 minsal, 최대값은 maxsal,
+-- 평균은 avgsal, 합계는 sumsal
+create or REPLACE view dept_sum_vu
+    (name, minsal, maxsal, avgsal, sumsal)
+as 
+select department_id , min(salary), max(salary), avg(salary),
+       sum(salary)
+from employees
+group by department_id;
+
+select * from dept_sum_vu;
+
+--- 부서번호, 부서명, 급여 출력
+select department_id, deparment_name, salary
+from departments d, employees e
+where d.department_id = e.department_id;
+
+-- 부서명, 급여 출력
+select  deparment_name, salary
+from departments d, employees e
+where d.department_id = e.department_id;
+
+-- 부서명, 급여의 합계, 평균, 최대값, 최소값을 구하시오.
+select department_name, sum(salary), avg(salary), min(salary)
+       , max(salary)
+from departments d, employees e
+where d.department_id = e.department_id
+group by department_name;
+
+--- 각 부서명별 급여의 최소값 , 급여의 최대값, 급여의 평균, 합계를 
+-- 출력할 수 있는 뷰를 만드시오.
+-- 뷰명은 dept_sum_vu
+-- 컬럼명의 별칭은 부서명은 name, 최소값 minsal, 최대값은 maxsal,
+-- 평균은 avgsal, 합계는 sumsal
+create or REPLACE view dept_sum_vu
+    (name, sumsal, avgsal, minsal, maxsal)
+as 
+select department_name, sum(salary), avg(salary), min(salary)
+       , max(salary)
+from departments d, employees e
+where d.department_id = e.department_id
+group by department_name;
