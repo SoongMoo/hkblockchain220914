@@ -278,9 +278,82 @@ set c3 = 10     --viewupd2
 where c1 = 1;
 select * from v_viewupd;
 
-join을 한 경우 테이블별로 update를 하면 수정이 된다.;
+-- join을 한 경우 테이블별로 update를 하면 수정이 된다.;
 
 update v_viewupd
 set c2= 20, c3 =20
 where c1 = 1;
 -- 조인 뷰에 의하여 하나 이상의 기본 테이블을 수정할 수 없습니다.
+select * from empvu70;
+
+insert into empvu70(employee_id, last_name,email,job_id,hire_date,
+                    salary, department_id)
+values(304,'장', 'high11', '학생', sysdate, 100, 70 );
+
+select * from empvu70;
+
+
+create or replace view empvu70
+as 
+select employee_id, last_name, email, job_id, hire_date, salary,
+        department_id
+from employees
+where department_id = 70
+WITH READ ONLY; --DML문 작업 거부 , 읽기 전용
+-- 읽기 전용 뷰에서는 DML 작업을 수행할 수 없습니다.
+insert into empvu70(employee_id, last_name,email,job_id,hire_date,
+                    salary, department_id)
+values(305,'장', 'high11', '학생', sysdate, 100, 70 );
+
+drop view empvu70;
+
+시퀀스
+CREATE SEQUENCE  empseq;
+select empseq.nextval from dual;
+
+CREATE SEQUENCE dept_deptid_seq
+INCREMENT BY 10
+START WITH 400
+MAXVALUE 9999
+NOCACHE
+NOCYCLE;
+
+
+alter SEQUENCE dept_deptid_seq
+INCREMENT BY 20
+MAXVALUE 999999
+NOCACHE
+NOCYCLE;
+
+drop SEQUENCE dept_deptid_seq;
+
+select dept_deptid_seq.NEXTVAL from dual;
+select dept_deptid_seq.CURRVAL from dual;
+
+insert into employees(employee_id, last_name, email, 
+                    job_id, hire_date, salary)
+values( (select max(employee_id) + 10  from employees),
+         '이숭무', 'high', '선생님', sysdate, 10000 );
+select * from employees;
+
+insert into employees(employee_id, last_name, email, 
+                    job_id, hire_date, salary)
+values( dept_deptid_seq.NEXTVAL,
+         '이숭무', 'high', '선생님', sysdate, 10000 );
+
+select * from employees;
+
+insert into departments(department_id, department_name)
+values(dept_deptid_seq.NEXTVAL, '강사부');
+select * from departments;
+desc departments;
+
+select max(employee_id) + 10 from employees;
+
+create table seqTest(
+    num2 number,
+    name varchar2(30)
+);
+insert into seqTest(num2,name)
+values(dept_deptid_seq.NEXTVAL, '이숭무');
+select * from seqTest;
