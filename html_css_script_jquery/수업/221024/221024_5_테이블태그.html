@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>테이블태그</title>
+ </head>
+ <body>
+  <table border=1 width="800" >
+	<tr><th>1행1열</th><td>1행2열</td><td>1행3열</td></tr>
+	<tr><th>2행1열</th><td>2행2열</td><td>2행3열</td></tr>
+  </table>
+  <hr>
+  <h2>colspan, rowspan 속성 – 행 또는 열 합치기</h2>
+  <table border="1">
+    <colgroup>
+		<col style='width:100px; '>
+		<col style='width:300px; '>
+		<col style='width:100px; '>
+		<col style='width:300px; '>
+	</colgroup>
+  	<tr>
+		<td height = "12px" ></td>
+		<td height = "12px"></td>
+		<td height = "12"></td>
+		<td height = "12"></td>
+    </tr>
+	<tr>
+		<td height = "12" rowspan=2></td>
+		<td height = "12" colspan = 3></td>
+    </tr>
+	<tr>
+		<td height = "12"></td>
+		<td height = "12"></td>
+		<td height = "12"></td>
+    </tr>
+  </table>
+  <hr>
+  <table border=1>
+    <caption>
+		<strong>Modern Browser</strong>
+		<p>국내에서 자주 사용하는 브라우저</p>
+	</caption>
+    <colgroup >
+		<col style="width:300px">
+		<col style="width:200px">
+		<col style="width:350px">
+	</colgroup>
+	<tr><th>브라우저</th><th>제조업체</th><th>다운로드</th></tr>
+	<tr><th>크롬</th><td>구글</td><td>http:</td></tr>
+	<tr><th>파이어폭드</th><td>모질라</td><td>http:</td></tr>
+	<tr><th>엣지</th><td>마소</td><td>http:</td></tr>
+	
+  </table>
+  <figure>
+  	<figcaption>
+		국내에서 자주 사용하는 <b>모던 브라우저</b>
+	</figcaption>
+  <table border=1>
+    <colgroup >
+		<col style="width:300px">
+		<col style="width:200px">
+		<col style="width:350px">
+	</colgroup>
+	<tr><th>브라우저</th><th>제조업체</th><th>다운로드</th></tr>
+	<tr><th>크롬</th><td>구글</td><td>http:</td></tr>
+	<tr><th>파이어폭드</th><td>모질라</td><td>http:</td></tr>
+	<tr><th>엣지</th><td>마소</td><td>http:</td></tr>
+  </table>
+  </figure>
+ </body>
+</html>

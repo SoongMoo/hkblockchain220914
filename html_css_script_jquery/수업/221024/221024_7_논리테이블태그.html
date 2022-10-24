@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>논리 테이블 태그</title>
+ </head>
+ <body>
+  <table border = 1>
+  <caption>
+	<strong>요금표</strong>
+  </caption>
+    <colgroup>
+		<col style="width:200px">
+		<col style="width:200px">
+		<col style="width:200px">
+		<col style="width:200px">
+	</colgroup>
+	<thead>
+  	<tr><th          >방 이름 </th><th>대상      </th><th>크기             </th><th>가격                </th></tr>
+	</thead>
+	
+	<tfoot>
+	<tr><th colspan=4>바깥채 전체를 렌트합니다.</th>                                                          </tr>
+	</tfoot>
+
+	<tbody>
+	<tr><th          >유채방  </th><td>여성오미도리</td><td rowspan = 3>4인실</td><td rowspan=4>1인 20000원</td></tr>
+	<tr><th rowspan=2>동백방  </th><td>동성도미도리</td>                                                     </tr>
+	<tr>                         <td>가족1팀   </td>                                                     </tr>
+	<tr><th          >천해양방 </th><td>-       </td><td>2인실            </td>                            </tr>
+	</tbody>	
+  </table>  
+ </body>
+</html>
