@@ -127,11 +127,11 @@ select street_address, city, postal_code
 from hr.locations
 where postal_code is null;
 
--- 9. 부서번호가 50인 사원의 입사일과 퇴사일을 출력하시오.
-select department_id, start_date, end_date
-from hr.jobs j, hr.job_history h
-where j.job_id = h.job_id
-and h.department_id = 50;
+-- 9. 부서번호가 50인 사원의 직무시작과 직무종료일을 출력하시오.
+select e.department_id, e.employee_id, start_date, end_date
+from hr.employees e, hr.job_history h
+where e.employee_id = h.employee_id
+and e.department_id = 50;
 
 -- 10. 나라 번호, 나라명, 지역 번호, 지역명을 출력하시오
 -- 단 region_id 가 1인 것만 출력되도록 하시오.
