@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+ </head>
+ <body>
+  <form action="https://www.google.com/search" method="get" name="frm">
+  <!-- https://search.daum.net/nate?id=이숭무&pw=12345 : url-->
+  <!--                             |<-   쿼리스트링 ->|  -->
+  	<table border=1>
+		<tr><td><input type="text" name="q"/></td>
+			<td rowspan=2>
+				<input type="submit" value="전송" />
+			</td>
+		</tr>
+		<tr><td><input type="password" name="pw" /></td>
+		</tr>
+	</table>
+	<input type="hidden" name="hdn" value="test" />  
+  </form>
+ </body>
+</html>

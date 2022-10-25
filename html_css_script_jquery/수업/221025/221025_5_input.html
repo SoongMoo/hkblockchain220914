@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+ </head>
+ <body>
+  <a href="https://www.google.com/search?q=jsp">jsp search</a>
+  <form action="#" method="get" name="frm">
+    사원번호 : <input type="text" name="eid" value="hk00001" readonly /><br />
+	아이디 : <input type="text" name="id" size="30" placeholder="아이디/이메일"  required autofocus/><br />
+	비밀번호 : <input type="password" name="pw" size="30" minlength="8"  maxlength="12" required /><br />
+	이메일 : <input type="email" name="email" size="30" placeholder="@이가 있어야함" /><br />
+	검색 : <input type="search" name="search" /><br />
+	검색 : <input type="search" name="search"  /><br />
+	주소 : <input type="url" name="addr" placeholder="http://으로 시작"/><br />
+	연락처 : <input type="tel" name="phone" placeholder="모바일에서 사용"/><br />
+	수량 : <input type="number" name="qty" min=1 max=10 value="1" step="2"/>개<br />
+	주문개수 : <input type="range" name="qty1" min=1 max=10 value="5" step="2"/>개<br />
+	색상 : <input type="color" name="clr" value="#c11f1f"/><br />
+	날짜 : <input type="date" name="date" value="2022-10-22"/><br />
+	월 : <input type="month" name="mon" value="2022-07"/><br />
+	주 : <input type="week" name="wk" value="2022-W43"/><br />
+	시간 : <input type="time" name="tm" value="16:17"/><br />
+	현지시간 : <input type="datetime-local" name="dl" value="2022-10-22T09:30"/><br />
+    날짜 : <input type="text" placeholder="1999-10-10" value="2022-10-25" />
+	<hr />
+	<h3> 리스트 </h3>
+	<select name="slt1">
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+	</select><br />
+
+	<select name="slt2" size=2>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+	</select><br />
+	
+	<select name="slt3">
+		<option value="">==번호를 선택해주세요==</option>
+		<option value="A">1</option>
+		<option value="B" selected>2</option>
+		<option value="C">3</option>
+		<option value="D">4</option>
+	</select><br />
+	<select >
+		<option value="archi">건축공학과</option>
+		<option value="mechanic">기계공학과</option>
+		<option value="indust">산업공학과</option>
+		<option value="elec">전기전자공학과</option>
+		<option value="computer">컴퓨터공학과</option>
+		<option value="chemical">화학공학과</option>
+	</select><br />
+
+	<select name="slt4" size=3 multiple>
+		<option value="">==번호를 선택해주세요==</option>
+		<option value="A">1</option>
+		<option value="B" selected>2</option>
+		<option value="C">3</option>
+		<option value="D">4</option>
+	</select><br />
+	<select name="local" multiple>
+		<optgroup label="alphabet">
+			<option>A</option>
+			<option selected>B</option>
+			<option>C</option>
+			<option>D</option>
+		</optgroup>
+		<optgroup label="korea">
+			<option>가</option>
+			<option selected>나</option>
+			<option>다</option>
+			<option>라</option>
+		</optgroup>
+	</select><br />
+	<hr />
+	<input type="text" id="interest" list="choices">
+	<datalist id="choices">
+		<option value="grammar" label="문법"></option>
+		<option value="voca" label="어휘"></option>
+		<option value="speaking" label="회화"></option>
+		<option value="news" label="뉴스청취"></option>
+	</datalist><br/>
+	<hr />
+	자기소개서<br />
+	<textarea name="desc" cols="100" rows="20">bnngvzsikjvbfiujzsbvi</textarea><br />
+	
+	성별 : <input type="radio" name="gender" value="M" checked/>남
+	      <input type="radio" name="gender" value="F" />여<br />
+	수신여부 : <input type="radio" name="send" value="Y" checked/>발송
+	        <input type="radio" name="send" value="N" />미발송<br />
+	
+	취미 : <input type="checkbox" name="interest" value="java"/>자바
+		  <input type="checkbox" name="interest" value="html"/>html
+		  <input type="checkbox" name="interest" value="javascript"/>자바스크립트<br />
+
+    <input type="submit" value="전송" />
+	<button type="submit" >전송</button>
+	<input type="reset" value="취소" />
+	<input type="image" src="images/cover.jpg" alt="전송" width=50 height=50/>
+	<input type="button" value="다음페이지" onclick="javascript:location='http://www.naver.com'" />
+	<button type="button" onclick="javascript:location='http://www.naver.com'">이동</button>
+  </form>
+ </body>
+</html>
+<!--- text, paswword, select, radio, checkbox --->
