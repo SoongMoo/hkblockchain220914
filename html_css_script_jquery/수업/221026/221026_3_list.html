@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+	.book1{
+		list-style-type:upper-alpha
+	}
+	.book2{
+		list-style-type:lower-alpha
+	}
+	.image{
+		list-style-image:url("images/dot.png");
+	}
+	#inside{
+		list-style-position:inside;
+	}
+	#outside{
+		list-style-position:outside;
+	}
+	#liststyle{
+		list-style:url("images/dot.png"), inside;
+	}
+	.book3{
+		list-style-type:lower-roman;
+	}
+	.book4{
+		list-style-type:upper-roman;
+	}
+	.book5{
+		list-style-type:decimal-leading-zero;
+	}
+	#boolit{
+		list-style-type:square /*circle disc */
+	}
+  </style>
+ </head>
+ <body>
+ <ol class="book5" >
+    <li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ol>
+ <ol class="book4" >
+    <li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ol>
+  <ol class="book3" >
+    <li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ol>
+  <ol class="book1" >
+    <li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ol>
+  <ol class="book2" >
+    <li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ol>
+  <ol class="image" >
+    <li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ol>
+  <ul id="boolit">
+	<li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ul>
+  <ul id="inside">
+	<li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ul>
+  <ul id="outside">
+	<li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ul>
+  <ul id="liststyle">
+	<li>Do it! 시리즈</li>
+    <li>된다 시리즈</li>
+    <li>DCM 프로 사진가</li>
+    <li>데이터과학 시리즈</li>
+  </ul>
+ </body>
+</html>
