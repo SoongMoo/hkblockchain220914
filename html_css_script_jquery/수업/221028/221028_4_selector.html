@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+     ul {
+		 list-style:none;
+     }
+	 a[target="_blank"]{
+	 	padding:20px;
+		background:url("images/bg_bul.gif") no-repeat center right;
+	 }
+	 [class ~= "button"]{
+		border: 2px solid black;
+		box-shadow: rgba(0,0,0,0.4) 5px 5px;
+	 }
+	 li{
+		margin-top:20px;
+	 }
+	 .flat{
+		background:blue;
+		color:white;
+	 }
+	 a[title|="us"]{
+		background:url("images/bg_bul.gif") no-repeat center right;
+	 }
+	a[title|="jap"]{
+		color:blue;
+		padding: 5px;
+	}
+	a[href *= "w3c"]{
+		font-size:25px;
+	}
+  </style>
+ </head>
+ <body>
+	<h1>HTML5 표준안 사이트 </h1>
+	<ul>
+		<li><a href="http://www.w3c.org/TR/html" target="_blank">HTML</a></li>
+		<li><a href="https://www.w3.org/TR/selectors" class="button">CSS Selector Level 3</a></li>
+		<li><a href="https://www.w3.org/TR/css3-mediaqueries" class="flat button">미디어쿼리</a></li>		
+	</ul>  
+	<ul>
+		<li>외국어 서비스 : </li>
+		<li><a href="#" title="us">영어</a></li>
+		<li><a href="#" title="us-english">영어</a></li>
+		<li><a href="#" title="japanese">일본어</a></li>
+	</ul>
+ </body>
+</html>

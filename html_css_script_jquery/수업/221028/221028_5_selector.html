@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+  	ul {
+		 list-style:none;
+    }
+	li{
+		display:inline-block;
+		font-size: 14px;
+	}
+	a[title^="eng"]{
+		background:url("images/us.png") no-repeat center left;
+		padding-left:20px;
+		color:black;
+	}
+	a[title^="jap"]{
+		background: url(images/jp.png) no-repeat left center;
+		padding-left:20px;
+		color:red;
+	}
+	a[title ^= "chi"]{
+		text-decoration: none;
+	}
+	a[href $= "hwp"]{
+		background: url(images/hwp_icon.gif) center right no-repeat;
+		padding-right: 25px; 
+	}
+	a[href $= "xls"]{
+		background: url(images/excel_icon.gif) center right no-repeat;
+		padding-right: 25px; 
+	}
+  </style>
+ </head>
+ <body>
+	<ul>
+		<li>외국어 서비스 : </li>
+		<li><a href="#" title="english">영어</a></li>
+		<li><a href="#" title="japanese">일본어</a></li>
+		<li><a href="#" title="chinese">중국어</a></li>
+	</ul>  
+	<h3>회사 소개 파일 다운 받기</h3>
+	<ul>
+		<li><a href="intro.hwp">hwp 파일</a></li>
+		<li><a href="intro.xls">엑셀 파일</a></li>
+	</ul>
+ </body>
+</html>
