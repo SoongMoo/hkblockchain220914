@@ -1,0 +1,38 @@
+    *{margin:0; padding:0}
+	body{font: 12px "굴림";}
+	.main-menu ul {
+		list-style:none;
+		margin:28px 20px;
+	}
+	.main-menu ul li{
+		display:inline-block;
+		line-height:40px;
+		padding:10px 30px;
+		border:1px solid black;
+	}
+	.main-menu{
+		width:500px;
+		border:1px solid black;
+		margin:50px auto;
+		height:120px;
+	}
+	.main-menu li a{
+		text-decoration: none;
+		color:black;
+	}
+	.main-menu ul li:hover{
+		background-color:blue;
+	}
+	.main-menu ul li a:hover{
+		color:yellow;
+	}
+	.main-menu ul li:first-child{
+		border-top-left-radius:10px;
+		border-bottom-left-radius:10px;
+		margin-right:80px;
+	}
+	.main-menu ul li:last-child{
+		border-top-right-radius:10px;
+		border-bottom-right-radius:10px;
+		float:right;
+	}
