@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script>
+	var dan = Number(prompt("원하는 단을 입력하세요.?", 2));
+	var gop = 1;
+	while (gop <= 9)
+	{
+		document.write(dan + " * " + gop + " = " + dan*gop +"<br />" );
+		gop += 1;
+	}
+	//for문
+	var dan = Number(prompt("원하는 단을 입력하세요.?", 2));
+	for (var gop = 1; gop < 10 ; gop+=1)
+	{
+		document.write(dan + " * " + gop + " = " + dan*gop +"<br />" );
+	}
+	var dan = Number(prompt("원하는 단을 입력하세요.?", 2));
+	for (var gop = 9; gop >= 1 ; gop-- )
+	{
+		document.write(dan + " * " + gop + " = " + dan*gop +"<br />" );
+	}
+	///  3단 7단 까지 출력하되 4곱부터 6곱까지만 출력하세요
+	var startDan = Number(prompt("시작단을 입력해주세요. :", 2));
+	var endDan = Number(prompt("마지막단을 입력해주세요. :", 9));
+	var startGop = Number(prompt("시작곱을 입력해주세요. :", 1));
+	var endGop = Number(prompt("마지막곱을 입력해주세요. :", 9));
+    for (var dan = startDan ; dan <= endDan ;  dan++)
+    {	
+		document.write(dan +"시작 <br />")
+		for (var gop = startGop; gop <= endGop ; gop++)
+		{
+			document.write(dan + " * " + gop + " = " + dan*gop +"<br />" );
+		}
+		document.write(dan +"끝 <br />")
+    }
+	
+
+
+
+
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

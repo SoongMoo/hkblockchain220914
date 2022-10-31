@@ -71,7 +71,6 @@
   document.getElementById("name").innerHTML="이숭무";
   var inputText ="<input type='text' />";
   document.getElementById('name').innerHTML=inputText;
-  //////////
   var inputText ="<table border=1 width='600px'>";
   var i = 1;
   while(i <= 10){
@@ -80,7 +79,6 @@
   }
   inputText +="</table>";
   document.getElementById('name').innerHTML=inputText;
- ///////////
  </script>
  </body>
 </html>
