@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+<script>
+	var korNum = 60;
+	var engNum = 70;
+	var mathNum = 80;
+	var avg = (korNum + engNum + mathNum) / 3
+	// 평균이 70이상이고 각 과목의 점수가 60이상이면 true아니면 false
+	var result = avg >= 70 && korNum >= 60 && engNum >= 60 && mathNum >= 60;
+	// 비교(관계) 연산자 
+	document.write(result + "<br />");
+	result = korNum > engNum;
+	document.write(result + "<br />");
+	result = korNum < engNum;
+	document.write(result + "<br />");
+	result = korNum >= engNum;
+	document.write(result + "<br />");
+	result = korNum <= engNum;
+	document.write(result + "<br />");
+	result = korNum == engNum;
+	document.write(result + "<br />");
+	result = korNum != engNum;
+	document.write(result + "<br />");
+	// 대입연산
+	var num1 = 10;
+	var num2 = 30;
+	num1 += 5;//num1 = num1 + 5;
+	document.write(num1 +"<br />");
+	num1 -= 5;//num1 = num1 - 5;
+	document.write(num1 +"<br />");
+	num1 *= 5;//num1 = num1 * 5;
+	document.write(num1 +"<br />");
+	num1 /= 5;//num1 = num1 / 5;
+	document.write(num1 +"<br />");
+	num1 %= 5; //num1 = num1 % 5;
+	document.write(num1 +"<br />");
+    // 증가감 연산자
+	num1++;
+	document.write(num1 +"<br />");
+	++num1;
+	document.write(num1 +"<br />");
+	document.write(++num1 +"<br />"); // 선행연산자
+	document.write(num1++ +"<br />"); // 후행연산자
+	document.write(num1 +"<br />");
+	// 논리 연산 (&&:and, ||:or , !:not)
+	bool1 = true;
+	bool2 = false;
+	result = bool1 && bool2;
+	document.write(result +"<br />");
+	var gender = "여성";
+	var age = 30;
+	// 여성이면서 30이상이면 true;
+	result = gender == "여성" && age >= 30;
+	document.write(result +"<br />");
+	// 4년마다 윤년이고 100년마다는 평년이다. 하지만 400년마다는 윤년이다.
+	// 2030년 윤년이면  true, 평년이면 false를 출력하세요.
+	
+	var year = 2030;
+	result =  year % 4 == 0 && year % 100 != 0 || 
+			  year % 400 == 0;
+	document.write(result +"<br />");
+	/*
+	Z = num1  +   num2; // 이항연산자.
+	//  항   연산자  항
+	num1++;   // 일항연산자.
+
+	  Z    =    5;
+	//항  연산자  항	
+	// 3항 연산자.
+	result  ?   결과1    :    결과2;
+	1항   연산자   2항   연산자   3항
+	*/
+	
+	num1 = 30;
+	num2 = 50;
+	num1 > num2 ? document.write("크다"): // true
+	              document.write("작다");  // false
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

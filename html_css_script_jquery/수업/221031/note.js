@@ -1,0 +1,1 @@
+document.write("note.js에서 실행된 javascript");
