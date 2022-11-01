@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script>
+  // 기본자료형: 정수, 실수, 문자, 문자열 , 부울
+  // 기본 API : Date, String, Math, Array : 자료형
+  // Date객체
+  var todate = new Date();
+  // 현재 달 
+  var toMonth = todate.getMonth();
+  document.write(toMonth + 1 + "<br />") ; // 0월 ~ 11월 + 1
+  // 현재 day
+  document.write("오늘은 "+ todate.getDate()+ "일입니다.<br />");
+  // 요일 
+  document.write("오늘은 "+ todate.getDay()+ "요일입니다.<br />");
+  // 주일 : 일 ~~~ 주말 : 토요일, 일: 0 ~ 토:6
+  switch (todate.getDay())
+  {
+  case 0 : week = "일"; break;
+  case 1 : week = "월"; break;
+  case 2 : week = "화"; break;
+  case 3 : week = "수"; break;
+  case 4 : week = "목"; break;
+  case 5 : week = "금"; break;
+  case 6 : week = "토"; break;
+			   
+  }
+  document.write("오늘은 "+ week + "요일입니다.<br />");
+  //시
+  document.write("현재 시간은 "+ todate.getHours()+ "시입니다.<br />");
+  //분
+  document.write("현재 시간은 "+ todate.getMinutes()+ "분입니다.<br />");
+  // 초
+  document.write("현재 시간은 "+ todate.getSeconds()+ "초입니다.<br />");
+  // 시간 : timestamp : 1970년1월1일0시0분부터 현재 시간까지를 ms
+  document.write("현재 시간은 "+ todate.getTime()+ "입니다.<br />");
+      //                  11월
+  var day = new Date(2021,10,14,12,30,35);
+  //                  년   월 일  시 분  초
+  document.write(day.getFullYear() + "<br />");
+  document.write(day.getMonth() + 1 + "<br />");
+  day.setFullYear(2022);
+  document.write(day.getFullYear() + "<br />");
+  day.setMonth(9);
+  document.write(day.getMonth() + 1 + "<br />");
+  day.setMinutes(23);
+  document.write(day.getMinutes() + "<br />");
+  // 2022-11-01
+  document.write(day.getFullYear() + "-" + (day.getMonth() + 1) +"-"+day.getDate() +"<br />");
+  var arrDayStr = ['일','월','화','수','목','금','토'];
+  //                0     1  2    3   4    5   6
+  document.write("오늘은 "+ arrDayStr[day.getDay()] + "요일입니다.<br />");
+  // 날짜를 문자열로 변환
+  //Thu May 17 2018 17:15:11 GMT+0900 (대한민국 표준시)
+  document.write(day.toString() + "<br />" );
+  //Thu May 17 2018
+  document.write(day.toDateString() + "<br />");
+  //2018. 5. 17. 오후 5:15:11
+  document.write(day.toLocaleString() + "<br />" );
+  //2018. 5. 17.
+  document.write(day.toLocaleDateString() + "<br />");
+
+ /* 
+  var dt1 = new Date('2011-12-01');
+  var dt2 = new Date('2010-12-04');
+  var result_str = dt1.getInterval(dt2)+'일 차이납니다.';
+  document.write(result_str + "<br />");
+ */
+  </script>
+</head>
+ <body>
+  
+ </body>
+</html>
