@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script>
+	// 생성자를 가지는 함수 :  class
+	function comFactory(cpuInfo,ramInfo, hddInfo){ // 생성자
+		this.cpu=cpuInfo;
+		this.ram=ramInfo;
+		this.hdd=hddInfo;
+		this.totInfo=function(){
+			document.write("제조업체:한국전자 <br />");
+			document.write("cpu는 " + this.cpu + "<br />");
+		}
+	}
+	var com = new comFactory("2.8", "8G", "2T");
+	var com1 = new comFactory("3.0", "16G" , "4T");
+	document.write(com.cpu +"<br />");
+	document.write(com.hdd +"<br />");
+	document.write(com1.cpu +"<br />");
+	document.write(com1.hdd +"<br />");
+	com.totInfo();
+	com1.totInfo();
+  </script>
+ </head>
+ <body>
+  
+ </body>
+</html>

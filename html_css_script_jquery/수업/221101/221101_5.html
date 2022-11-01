@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script>
+	// 자료형과 변수, 연산자, 제어문, 함수
+	// 상수, 변수, 함수
+	//   매개변수 , 가인자 
+	// f(x, y) = 2x + 3y +4
+	//        인자, 실인자
+	// z = f(2, 3) 
+	//       parameter
+	function f(x , y){ // 피호출 함수
+		z = 2*x + 3*y +4;
+		document.write(z);
+	}
+	// argument
+	f(2, 3);//호출함수
+	function greet(){
+		alert("안녕하세요.");	
+	}
+	var num = 1;
+	function nextGallery(){
+		num++;
+		if (num > 7) num = 1;
+		document.getElementById("gallery").src="images/img"+num+".jpg";
+	}
+	function prevGallery(){
+		num--;
+		if (num < 1) num = 7;
+		document.getElementById("gallery").src="images/img"+num+".jpg";
+	}
+  </script>
+ </head>
+ <body>
+  <button type="button" onclick="greet()">버튼</button><br />
+  <button type="button" onclick="greet()">버튼1</button><br />
+  <hr />
+  <a href="javascript:prevGallery();"><img src="images/left_btn.png" /></a>
+  <img src="images/img1.jpg" id="gallery" />
+  <a href="javascript:nextGallery();"><img src="images/right_btn.png" /></a>
+ </body>
+</html>
