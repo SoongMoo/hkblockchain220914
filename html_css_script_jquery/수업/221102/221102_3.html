@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script>
+  	var fontColor = ["#123456","#987654", "#abcdef", "#123","#abc"];
+	var i = -1;
+	function font_color(){
+		i++;
+		if (i >= fontColor.length) i = 0;
+		//document.querySelector("#p2").style.color=fontColor[i];
+		document.getElementById("p2").style.color=fontColor[i];
+	}
+	i = 1;
+	function image(){
+		i++;
+		if (i > 7) i = 1;
+		//document.getElementById("image").src="images/img"+i+".jpg";
+		document.getElementById("image").setAttribute("src","images/img"+i+".jpg");
+	}
+	function p1(){
+		var ele = document.getElementById("p1");
+		if(ele.innerHTML == "글씨가 있어요."){
+			ele.innerHTML = "내용이 변경 되었어요.";
+		}else{
+			ele.innerHTML = "글씨가 있어요.";
+		}
+	}
+  </script>
+ </head>
+ <body>
+  <h1 id="p2">글자 색상이 변경 된다.</h1>	
+  <button onclick="font_color();">글자 색 바꾸기</button>
+  <p id="p1">글씨가 있어요.</p>		
+  <button onclick="p1();">innerHTML</button><br/>
+  <img id="image" src="images/img7.jpg"/><br/>
+  <button onclick="image();">이미지 변경</button>
+ </body>
+</html>
