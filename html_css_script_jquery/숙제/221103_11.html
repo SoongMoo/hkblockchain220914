@@ -10,9 +10,9 @@
 		$("#right_content").mouseover(function(){
 			clearInterval(interval);
 		});
-        $("#right_content").mouseleave(function(){
+        	$("#right_content").mouseleave(function(){
 			interval = setInterval(up_content, 1000); 
-        });
+        	});
 	});
 	function up_content(){
 		$("#right_content li:last").after($("#right_content li:first"));
