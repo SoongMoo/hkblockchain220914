@@ -44,9 +44,21 @@
 	$("#btn9").click(function(){
 		$("<li>이전에 요소추가</li>").insertBefore($("#list3 li").eq(2));
 	});
-	
-	
-
+	//10 두번째요소에 class 속성 추가
+	$("#btn10").click(function(){
+		$("#list3 li").eq(1).addClass("obj3")
+	});
+	// 11.첫번째 요소의 class명을 obj2 변경하자., class를 obj4 추가
+	$("#btn11").click(function(){
+		$("#list3 li").eq(0).attr("class","obj2");
+		$(".obj2").css("color","purple");
+		$("#list3 li").eq(0).addClass("obj4");
+		$(".obj4").css("border","2px solid #ccc");
+	});
+	$("#btn12").click(function(){
+		alert($("#list3 li").eq(0).attr("class"));
+		$(".theTitle1").text($("#list3 li").eq(0).attr("class"));
+	});
   });
 	
   </script>
@@ -72,5 +84,6 @@
 	<li>list_4</li>
 	<li>list_5</li>
   </ul>  
+  <h2 class="theTitle1">obj5</h2>
  </body>
 </html>
