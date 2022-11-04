@@ -1,0 +1,34 @@
+
+                               request                          front-end server
+                             index.html 요청                WEBSERVER/httpserver
+웹브리우저 ========================> www.naver.com  ( A ) 223.130.195.95                        python
+                             index.html 응답(asci)                html                                                              asp
+                               response                                                                                                 php
+                                                                                                                                            jsp
+			 search.naver요청                                                  search.naver요청               back-end server
+웨브라우저 =======================> search.naver.com ( B )  ==============> WAS(WEB APPLICATION SERVER)
+               <=======================                                <=============                   ||                                                                                                 
+                search.naver에 해당하는html코드응답                                  html형식 변환 전송                   ||
+                                                                                                                                              || <===> DB
+
+W/S(80)     +   WAS(8080)
+Apache          Tomcat       =>      ApacheTomcat 
+
+
+
+keyword = 'jsp,안드로이드';
+select 파일명, 내용 from movie
+where content like '%jsp% or content like '%안드로이드%';
+
+데이터베이스가 상품이라면 프로그램 포장지이다,.
+
+
+
+
+
+
+
+
+
+
+
