@@ -20,7 +20,7 @@ keyword = 'jsp,안드로이드';
 select 파일명, 내용 from movie
 where content like '%jsp% or content like '%안드로이드%';
 
-데이터베이스가 상품이라면 프로그램 포장지이다,.
+데이터베이스가 상품이라면 프로그램은 포장지이다,.
 
 
 
