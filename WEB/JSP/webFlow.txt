@@ -1,15 +1,15 @@
 
-                               request                          front-end server
-                             index.html 요청                WEBSERVER/httpserver
-웹브리우저 ========================> www.naver.com  ( A ) 223.130.195.95                        python
-                             index.html 응답(asci)                html                                                              asp
-                               response                                                                                                 php
-                                                                                                                                            jsp
-			 search.naver요청                                                  search.naver요청               back-end server
-웨브라우저 =======================> search.naver.com ( B )  ==============> WAS(WEB APPLICATION SERVER)
-               <=======================                                <=============                   ||                                                                                                 
-                search.naver에 해당하는html코드응답                                  html형식 변환 전송                   ||
-                                                                                                                                              || <===> DB
+                request             front-end server
+                index.html 요청    WEBSERVER/httpserver
+웹브리우저 ========================> www.naver.com  ( A ) 223.130.195.95                python
+            index.html 응답(asci)        html                                            asp
+               response                                                                  php
+                                                                                         jsp
+	        search.naver요청                          search.naver요청          back-end server
+웨브라우저 =======================> search.naver.com ( B ) =================>      WAS(WEB APPLICATION SERVER)
+          <=======================                        <=================            ||                                  
+ search.naver에 해당하는html코드응답                       html형식 변환 전송            ||
+                                                                                        || <===> DB
 
 W/S(80)     +   WAS(8080)
 Apache          Tomcat       =>      ApacheTomcat 
