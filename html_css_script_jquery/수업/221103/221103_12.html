@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+  <script>
+	$(function(){
+		$("#btn").click(function(){
+			$("#appd").append('<div id = "appd"><input type="text" size="6"/><input type="text" size="15" name="ddd"/><button type="button" id= "btn" onclick="del(this);">삭제</button></div>');
+		});
+	});
+	function del(obj1){
+		$(obj1).parent().remove();
+	}
+  </script>
+ </head>
+ <body>
+ <form name="frm" action="#">
+ 이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전화번호<br />
+ 다음 항목을 추가하시려면 <span id= "btn" style="color:red">추가</span>를 누르세요.   
+ <div id = "appd">
+	 <input type="text" size="6"/>
+	 <input type="text" size="15" name="ddd"/>
+	 
+ </div>
+
+</form> 
+ </body>
+</html>
