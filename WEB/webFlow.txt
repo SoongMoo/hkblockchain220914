@@ -21,3 +21,9 @@ select 파일명, 내용 from movie
 where content like '%jsp% or content like '%안드로이드%';
 
 데이터베이스가 상품이라면 프로그램은 포장지이다,.
+
+MVC모델
+M(Model : dto, DAO ) : 데이터를 저장 또는 처리 
+V(View : jsp ) : 프리젠테이션 로직 
+C(controller) : servlet
+<!--  servlet 과 jsp  -->
