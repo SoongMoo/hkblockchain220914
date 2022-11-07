@@ -8,12 +8,12 @@
 	        search.naver요청                          search.naver요청          back-end server
 웨브라우저 =======================> search.naver.com ( B ) =================>      WAS(WEB APPLICATION SERVER)
           <=======================                        <=================            ||                                  
- search.naver에 해당하는html코드응답                       html형식 변환 전송            ||
+ search.naver에 해당하는html코드응답                               html형식 변환 전송            ||
                                                                                         || <===> DB
 
 W/S(80)     +   WAS(8080)
 Apache          Tomcat       =>      ApacheTomcat 
-
+             servletContainer
 
 
 keyword = 'jsp,안드로이드';
@@ -27,3 +27,16 @@ M(Model : dto, DAO ) : 데이터를 저장 또는 처리
 V(View : jsp ) : 프리젠테이션 로직 
 C(controller) : servlet
 <!--  servlet 과 jsp  -->
+
+http://localhost:9090/ServletTest/search?forward=next
+<---------------------------------------------------->url
+                     <------------------>             uri
+                                         <-----------> 쿼리스트링
+					 
+http://localhost:9090/JspTest/main/main.jsp
+<------------------------------------------>url
+                     <--------------------->uri
+
+http://localhost:9090/JspTest/한글.naver
+<-------------------------------------->url
+                     <----------------->uri
