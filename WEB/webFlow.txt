@@ -13,7 +13,9 @@
 
 W/S(80)     +   WAS(8080)
 Apache          Tomcat       =>      ApacheTomcat 
-             servletContainer
+             servletContainer(request, response)
+	     doGet(request, response), doPost(request, response)
+	     
 
 
 keyword = 'jsp,안드로이드';
@@ -53,3 +55,10 @@ MVC 모델
 	                             ||           DTO/VO      
 			       page - controller <======> DAO <===> DB 
 게시판 / 상품관리 / 직원관리 / 회원관리 / 로그인 : 이론
+
+                                                      변수명     = 값   & 변수명       = 값    &변수명        = 값
+http://localhost:8080/MVCProject1/boardRegist.board?boardWriter=zv+zdv&boardSubject=zv+szv+&boardContent=zv+sz+vs
+<--------------------------------------------------------------------------------------------------------------->url
+                     <----------------------------> uri
+		     <---------->contextPath        <------------------------------------------------------------>쿼리스트링
+
