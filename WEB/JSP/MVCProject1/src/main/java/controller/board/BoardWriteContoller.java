@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 
 import model.BoardDTO;
+import model.DAO.BoardDAO;
 
 public class BoardWriteContoller {
 	public void execute(HttpServletRequest request) {
@@ -23,7 +24,7 @@ public class BoardWriteContoller {
 		dto.setBoardSubject(boardSubject);
 		dto.setBoardContent(boardContent);
 		dto.setWriterIp(writerIP);
-		
-			
+		BoardDAO dao = new BoardDAO();
+		dao.boardInsert(dto);
 	}
 }

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 public class BoardDTO {
 	Integer boardNum;
 	String boardWriter;
@@ -7,6 +9,13 @@ public class BoardDTO {
 	String boardContent;
 	String writerIP;	 
 	Integer visitCount;
+	Date boardDate;
+	public Date getBoardDate() {
+		return boardDate;
+	}
+	public void setBoardDate(Date boardDate) {
+		this.boardDate = boardDate;
+	}
 	
 	public Integer getBoardNum() {
 		return boardNum;

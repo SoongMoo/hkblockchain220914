@@ -29,6 +29,8 @@ public class BoardFrontController extends HttpServlet
 		//  command = requestURI.substring(contextPath.length())
 		//  command = "/boardList.board"
 		if(command.equals("/boardList.board")) {
+			BoradListController action = new BoradListController();
+			action.execute(request);
 			RequestDispatcher dispatcher =     
 	                 request.getRequestDispatcher("/board/boardList.jsp");
 			dispatcher.forward(request, response);
