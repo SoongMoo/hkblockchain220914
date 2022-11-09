@@ -15,11 +15,11 @@
 	</thead>
 	<tbody>
 		<c:forEach items="${lists }" var="dto">
-		<tr><td>${dto.boardNum }</td><td>${dto.boardWriter }</td>
+		<tr><td><a href="boardDetail.board?num=${dto.boardNum }">${dto.boardNum }</a></td><td>${dto.boardWriter }</td>
 		    <td>${dto.boardSubject }</td><td>${dto.visitCount }</td></tr>
 		</c:forEach>
 	</tbody>
-</table>
+</table><br />
 <a href="boardWrite.board">글쓰기</a>
 </body>
 </html>

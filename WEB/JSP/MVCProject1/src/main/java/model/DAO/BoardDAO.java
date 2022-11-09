@@ -34,6 +34,83 @@ public class BoardDAO {
 		return conn;
 	}
 	////
+	public void boardDel(String num) {
+		con = getConnection();
+		sql = "delete from board where board_Num = ?";
+		System.out.println(sql);
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, num);
+			int i =  pstmt.executeUpdate();
+			System.out.println(i + "개가 삭제되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public void boardUpdate(BoardDTO dto) {
+		con = getConnection();
+		sql = " update  board "
+			+ " set board_content = ?,"
+			+ "    board_subject = ?,"
+			+ "    board_writer = ?"
+			+ " where board_num = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getBoardContent());
+			pstmt.setString(2, dto.getBoardSubject());
+			pstmt.setString(3, dto.getBoardWriter());
+			pstmt.setInt(4, dto.getBoardNum());
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 수정되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void visitCount(String num) {
+		con = getConnection();
+		sql = " update board "
+				+ " set visit_count = visit_count + 1 "
+				+ " where board_num = ? ";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, num);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public BoardDTO selectOne(String num) {
+		BoardDTO dto = null;
+		con = getConnection();
+		sql = " select BOARD_NUM, BOARD_WRITER, BOARD_SUBJECT, BOARD_CONTENT, "
+			+ "WRITER_IP, VISIT_COUNT,BOARD_DATE "
+			+ " from board "
+			+ " where board_num = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new BoardDTO();
+				dto.setBoardDate(rs.getDate("BOARD_DATE"));
+				dto.setBoardContent(rs.getString("BOARD_CONTENT"));
+				dto.setBoardNum(rs.getInt("BOARD_NUM"));
+				dto.setBoardSubject(rs.getString("BOARD_SUBJECT"));
+				dto.setBoardWriter(rs.getString("BOARD_WRITER"));
+				dto.setVisitCount(rs.getInt("VISIT_COUNT"));
+				dto.setWriterIp(rs.getString("WRITER_IP"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	public List<BoardDTO> selectAll() {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		con = getConnection();

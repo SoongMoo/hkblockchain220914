@@ -43,6 +43,26 @@ public class BoardFrontController extends HttpServlet
 			BoardWriteContoller action = new BoardWriteContoller();
 			action.execute(request);
 			response.sendRedirect("boardList.board");
+		}else if(command.equals("/boardDetail.board")) {
+			BoardDetailController action = new BoardDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher =     
+	                 request.getRequestDispatcher("/board/boardInfo.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/boardUpdate.board")) {
+			BoardDetailController action = new BoardDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher =     
+	                 request.getRequestDispatcher("/board/boardModify.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/boardModify.board")) {
+			BoardModifyController action = new BoardModifyController();
+			action.execute(request);
+			response.sendRedirect("boardDetail.board?num="+request.getParameter("boardNum"));
+		}else if(command.equals("/boardDel.board")) {
+			BoardDelController action = new BoardDelController();
+			action.execute(request);
+			response.sendRedirect("boardList.board");
 		}
 		
 	}

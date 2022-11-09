@@ -7,9 +7,17 @@ public class BoardDTO {
 	String boardWriter;
 	String boardSubject;
 	String boardContent;
-	String writerIP;	 
+	String writerIp;	 
 	Integer visitCount;
 	Date boardDate;
+	
+	public String getWriterIp() {
+		return writerIp;
+	}
+	public void setWriterIp(String writerIp) {
+		this.writerIp = writerIp;
+	}
+	
 	public Date getBoardDate() {
 		return boardDate;
 	}
@@ -40,12 +48,6 @@ public class BoardDTO {
 	}
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
-	}
-	public String getWriterIp() {
-		return writerIP;
-	}
-	public void setWriterIp(String writerIP) {
-		this.writerIP = writerIP;
 	}
 	public Integer getVisitCount() {
 		return visitCount;
