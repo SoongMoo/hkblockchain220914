@@ -19,7 +19,7 @@
 	<tr><td>제조일</td>
 	    <td><input type="Date" name="goodsDate" /></td></tr>
 	<tr><td>제품설명</td>
-		<td><textarea rows="10" cols="60"></textarea></td></tr>
+		<td><textarea rows="10" cols="60" name="goodsContent"></textarea></td></tr>
 	<tr><td>수량</td>
 	    <td><input type="number" name="goodsQty" min=1 step="1" value="1"/></td></tr>
 	<tr><td>제조사</td>

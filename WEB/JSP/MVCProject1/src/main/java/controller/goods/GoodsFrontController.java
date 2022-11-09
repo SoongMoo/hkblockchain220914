@@ -17,6 +17,8 @@ public class GoodsFrontController extends HttpServlet implements Servlet {
 		String contextPath = request.getContextPath();
 		String command = requestURI.substring(contextPath.length());
 		if(command.equals("/goodsList.goods")) {
+			GoodsListController action = new GoodsListController();
+			action.execute(request);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/goodsList.jsp");
 			dispatcher.forward(request, response);
 		}else if(command.equals("/goodsWrite.goods")) {
