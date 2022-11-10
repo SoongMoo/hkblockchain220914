@@ -32,7 +32,7 @@ public class BoardFrontController extends HttpServlet
 			BoradListController action = new BoradListController();
 			action.execute(request);
 			RequestDispatcher dispatcher =     
-	                 request.getRequestDispatcher("/board/boardList.jsp");
+	                    request.getRequestDispatcher("/board/boardList.jsp");
 			dispatcher.forward(request, response);
 		}else if(command.equals("/boardWrite.board")) {
 			RequestDispatcher dispatcher =     

@@ -10,7 +10,6 @@ import model.DAO.BoardDAO;
 public class BoradListController {
 	public void execute(HttpServletRequest request) {
 		BoardDAO dao = new BoardDAO();
-		
 		List<BoardDTO> list = dao.selectAll();
 		request.setAttribute("lists", list);
 	}

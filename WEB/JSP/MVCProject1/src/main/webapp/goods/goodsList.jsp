@@ -12,7 +12,7 @@
 <table border = 1>
  <tr><td>상품번호</td><td>상품명 </td><td>가격 </td></tr>
  <c:forEach items="${lists }" var="dto" >
- 	<tr><td>${dto.goodsNum }</td><td>${dto.goodsName } </td><td>${dto.goodsPrice } </td></tr>
+ 	<tr><td><a href="goodsDetail.goods?num=${dto.goodsNum }">${dto.goodsNum }</a></td><td>${dto.goodsName } </td><td>${dto.goodsPrice } </td></tr>
  </c:forEach>
 </table>
 <a href="goodsWrite.goods">상품등록</a> 

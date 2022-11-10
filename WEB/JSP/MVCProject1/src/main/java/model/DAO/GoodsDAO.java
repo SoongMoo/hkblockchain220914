@@ -31,7 +31,73 @@ public class GoodsDAO {
 		}
 		return conn;
 	}
-	
+	public void goodsDelete(String num) {
+		con = getConnection();
+		sql = " delete from goods1 "
+			+ " where goods_num = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, num);
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 삭제되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public void goodsUpdate(GoodsDTO dto) {
+		con = getConnection();
+		sql = "update goods1 "
+			+ " set goods_name = ? ,"
+			+ "     goods_price = ? ,"
+			+ "     goods_content = ? ,"
+			+ "     goods_qty = ?,"
+			+ "     goods_company = ? ,"
+			+ "     goods_date = ? "
+			+ " where goods_num = ? ";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getGoodsName());
+			pstmt.setInt(2, dto.getGoodsPrice());
+			pstmt.setString(3, dto.getGoodsContent());
+			pstmt.setInt(4, dto.getGoodsQty());
+			pstmt.setString(5, dto.getGoodsCompany());
+			pstmt.setDate(6, new java.sql.Date(dto.getGoodsDate().getTime()));
+			pstmt.setInt(7, dto.getGoodsNum());
+			int i = pstmt.executeUpdate();
+			System.out.println(i+"개가 수정되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public GoodsDTO selectOne(String num) {
+		GoodsDTO dto = null;
+		con = getConnection();
+		sql = " select goods_num,goods_name,goods_price,goods_content, "
+			+ "        goods_qty, goods_company, goods_date "
+			+ " from goods1 "
+			+ " where goods_num = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new GoodsDTO();
+				dto.setGoodsCompany(rs.getString("goods_company"));
+				dto.setGoodsContent(rs.getString("goods_content"));
+				dto.setGoodsDate(rs.getDate("goods_date"));
+				dto.setGoodsName(rs.getString("goods_name"));
+				dto.setGoodsNum(rs.getInt("goods_num"));
+				dto.setGoodsPrice(rs.getInt("goods_price"));
+				dto.setGoodsQty(rs.getInt("goods_qty"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 	public List<GoodsDTO> selectAll(){
 		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
 		con = getConnection();

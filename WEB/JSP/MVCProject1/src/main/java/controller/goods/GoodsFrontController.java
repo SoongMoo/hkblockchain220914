@@ -28,6 +28,24 @@ public class GoodsFrontController extends HttpServlet implements Servlet {
 			GoodsRegistController action = new GoodsRegistController();
 			action.execute(request);
 			response.sendRedirect("goodsList.goods");
+		}else if(command.equals("/goodsDetail.goods")) {
+			GoodsDetailController action = new GoodsDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/goodsDetail.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/goodsUpdate.goods")) {
+			GoodsDetailController action = new GoodsDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("goods/goodsModify.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/goodsModify.goods")) {
+			GoodsModifyController action = new GoodsModifyController();
+			action.execute(request);
+			response.sendRedirect("goodsDetail.goods?num="+request.getParameter("goodsNum"));
+		}else if(command.equals("/goodsDelete.goods")) {
+			GoodsDeleteController action = new GoodsDeleteController();
+			action.execute(request);
+			response.sendRedirect("goodsList.goods");
 		}
 	}
 	@Override
