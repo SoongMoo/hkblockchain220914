@@ -1,0 +1,11 @@
+create table employee(
+	EMP_NUM 		varchar2(20), 
+	EMP_NAME 		varchar2(50),
+	EMP_ID   		varchar2(13), 
+	EMP_PW 			varchar2(15),
+	EMP_HIRE_DATE 	date, 
+	EMP_EMAIL 		varchar2(50),
+	EMP_SALARY 		number,
+	EMP_PHONE 		varchar2(13)
+)
+이용해서 직원관리페이지를 만들고 주소는 *.emp로 하자,

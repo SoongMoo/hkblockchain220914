@@ -26,4 +26,22 @@
   	<servlet-name>goods</servlet-name>
   	<url-pattern>*.goods</url-pattern>
   </servlet-mapping>
+ 
+  <servlet>
+  	<servlet-name>member</servlet-name>
+  	<servlet-class>controller.member.MemberFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>member</servlet-name>
+  	<url-pattern>*.mem</url-pattern>
+  </servlet-mapping>
+  
+  	<servlet>
+		<servlet-name>emp</servlet-name>
+		<servlet-class>controller.employee.EmployeeFrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>emp</servlet-name>
+		<url-pattern>*.emp</url-pattern>
+	</servlet-mapping>
 </web-app>
