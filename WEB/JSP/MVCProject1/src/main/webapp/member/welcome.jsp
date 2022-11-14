@@ -9,6 +9,6 @@
 </head>
 <body>
 ${userName }님 가입이 완료되었습니다.<br />
-<a href="<c:url value='/'/>" >메인으로 가기</a>
+<a href="<c:url value='/' />" >메인으로 가기</a>
 </body>
 </html>

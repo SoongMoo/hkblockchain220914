@@ -52,13 +52,28 @@ public class MemberFrontController extends HttpServlet implements Servlet{
 			MemberDeleteController action  = new MemberDeleteController();
 			action.execute(request);
 			response.sendRedirect("memberList.mem");
+		}else if(command.equals("/memberAgree.mem")) {
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("member/agree.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/memberJoin.mem")) {
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("member/memberJoinForm.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/memberJoinOk.mem")) {
+			MemberJoinController action = 
+					new MemberJoinController();
+			action.execute(request);
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("member/welcome.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 	@Override
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) 
 					throws ServletException, IOException {
-
+			
 	}
 }
 

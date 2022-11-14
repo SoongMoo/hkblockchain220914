@@ -34,6 +34,30 @@ public class MemberDAO {
 		}
 		return conn;
 	}
+	public void memberJoin(MemberDTO dto) {
+		con = getConnection();
+		sql = "insert into member(MEM_NUM,MEM_NAME,MEM_REGI_DATE,MEM_ID,MEM_PW,"
+				+ "MEM_PHONE1,MEM_PHONE2, MEM_ADDR,MEM_EMAIL,MEM_birth  )"
+				+ "values(("
+				+ "select concat('hkusr',nvl(max(substr(MEM_NUM,6)),10000) + 1 ) from member),"
+				+ "?, sysdate,?,?,?,?,?,?,? )";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,dto.getMemName() );
+			pstmt.setString(2,dto.getMemId() );
+			pstmt.setString(3,dto.getMemPw() );
+			pstmt.setString(4,dto.getMemPhone1() );
+			pstmt.setString(5,dto.getMemPhone2() );
+			pstmt.setString(6,dto.getMemAddr() );
+			pstmt.setString(7,dto.getMemEmail() );
+			pstmt.setDate(8,new java.sql.Date(dto.getMemBirth().getTime()));
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 삽입되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	public void memberDelete(String num) {
 		con = getConnection();
 		sql = "delete from member where mem_num = ?";
