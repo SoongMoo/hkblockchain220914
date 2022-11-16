@@ -33,19 +33,18 @@ public class LoginDAO {
 	public AuthInfo loginCk(String userId) {
 		AuthInfo authInfo = null;
 		con = getConnection();
-		sql = "select mem_Id user_id, mem_Email user_email,"
-				+ "       mem_pw user_pw, 'mem' grade"
+		sql = "select mem_id user_id, mem_email user_email, mem_pw user_pw , 'mem' grade"
 				+ " from member "
-				+ " where mem_id = ? "
+				+ " where mem_id = ?"
 				+ " union "
-				+ " select emp_id, emp_email, emp_pw , 'emp'"
-				+ " from employee "
-				+ " where emp_id = ? ";
+				+ " select emp_id, emp_email, emp_pw, 'emp'"
+				+ " from employee"
+				+ " where emp_id = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userId);
-			rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery(); // select문 실행
 			if(rs.next()) {
 				authInfo = new AuthInfo();
 				authInfo.setGrade(rs.getString("grade"));
@@ -59,3 +58,8 @@ public class LoginDAO {
 		return authInfo;
 	}
 }
+
+
+
+
+

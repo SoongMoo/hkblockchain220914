@@ -34,13 +34,42 @@ public class MemberDAO {
 		}
 		return conn;
 	}
+	public MemberDTO selectId(String userId) {
+		MemberDTO dto = null;
+		con = getConnection();
+		sql = "select " + COLUMNS + " from member where mem_id = ? ";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new MemberDTO();
+				dto.setMemAddr(rs.getString("mem_addr"));
+				dto.setMemBirth(rs.getTimestamp("mem_birth"));
+				dto.setMemEmail(rs.getString("mem_email"));
+				dto.setMemGender(rs.getString("mem_gender"));
+				dto.setMemId(rs.getString("mem_id"));
+				dto.setMemName(rs.getString("mem_name"));
+				dto.setMemNum(rs.getString("mem_num"));
+				dto.setMemPhone1(rs.getString("mem_phone1"));
+				dto.setMemPhone2(rs.getString("mem_phone2"));
+				dto.setMemPw(rs.getString("mem_pw"));
+				dto.setMemRegiDate(rs.getDate("mem_regi_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
 	public void memberJoin(MemberDTO dto) {
 		con = getConnection();
 		sql = "insert into member(MEM_NUM,MEM_NAME,MEM_REGI_DATE,MEM_ID,MEM_PW,"
-				+ "MEM_PHONE1,MEM_PHONE2, MEM_ADDR,MEM_EMAIL,MEM_birth  )"
+				+ "MEM_PHONE1,MEM_PHONE2, MEM_ADDR,MEM_EMAIL,MEM_birth,mem_gender  )"
 				+ "values(("
 				+ "select concat('hkusr',nvl(max(substr(MEM_NUM,6)),10000) + 1 ) from member),"
-				+ "?, sysdate,?,?,?,?,?,?,? )";
+				+ "?, sysdate,?,?,?,?,?,?,?,? )";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,dto.getMemName() );
@@ -51,6 +80,7 @@ public class MemberDAO {
 			pstmt.setString(6,dto.getMemAddr() );
 			pstmt.setString(7,dto.getMemEmail() );
 			pstmt.setDate(8,new java.sql.Date(dto.getMemBirth().getTime()));
+			pstmt.setString(9, dto.getMemGender());
 			int i = pstmt.executeUpdate();
 			System.out.println(i + "개가 삽입되었습니다.");
 		} catch (SQLException e) {

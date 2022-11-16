@@ -67,6 +67,16 @@ public class MemberFrontController extends HttpServlet implements Servlet{
 			RequestDispatcher dispatcher = 
 					request.getRequestDispatcher("member/welcome.jsp");
 			dispatcher.forward(request, response);
+		}else if(command.equals("/mypage.mem")) {
+			RequestDispatcher dispatcher =
+					request.getRequestDispatcher("mypage.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/memberDscript.mem")) {
+			UserDetailController action= new UserDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher =
+					request.getRequestDispatcher("mypage/userDetail.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 	@Override

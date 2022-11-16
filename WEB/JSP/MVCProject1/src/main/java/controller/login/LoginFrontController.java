@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +24,13 @@ public class LoginFrontController extends HttpServlet
 			LoginProController action = 
 					new LoginProController();
 			action.execute(request, response);
-			
 		}else if(command.equals("/hklogout.login")) {
+			// 쿠키 삭제
+			Cookie cookie = new Cookie("autoLogin","");
+			cookie.setPath("/");
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
+			
 			HttpSession session = request.getSession();
 			session.invalidate();
 			response.sendRedirect(contextPath + "/");
@@ -33,7 +39,6 @@ public class LoginFrontController extends HttpServlet
 	@Override
 	protected void doPost(HttpServletRequest requset, 
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+
 	}
 }

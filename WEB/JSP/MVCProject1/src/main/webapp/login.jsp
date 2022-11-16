@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +11,11 @@
 <form action="hklogin.login" method="get">
 	<table border = 1>
 		<tr><td colspan=2>
-				로그인 유지 | 아이디 저장
+				<input type="checkbox" name="autoLogin" value="autoLogin"/>로그인 유지 | 
+				<input type="checkbox" name="storeId" value="store"/>아이디 저장
 			</td></tr>
 		<tr><td>
-			<input type="text" name="userId"  valus="${userId }" />
+			<input type="text" name="userId"  value="${userId }" />
 			<br /><span style="color:red;">${errId }</span>
 			</td>
 			<td rowspan=2>
