@@ -7,6 +7,9 @@ import model.DAO.BoardDAO;
 
 public class BoardModifyController {
 	public void execute(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {}
 		String boardNum = request.getParameter("boardNum");
 		String boardWriter = request.getParameter("boardWriter");
 		String boardSubject = request.getParameter("boardSubject");
