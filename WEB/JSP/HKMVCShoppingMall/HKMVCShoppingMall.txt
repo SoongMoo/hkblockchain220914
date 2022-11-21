@@ -1,0 +1,296 @@
+상품         goods
+상품번호         goods_Num            varchar2(20)                 pk
+상품명            goods_Name          varchar2(20)
+상품 가격        goods_Price           number
+상품 설명        goods_Content       varchar2(2000)
+상품 이미지     goods_Image          varchar2(200)
+제조사            company             varchar2(20)
+상품등록일      goods_regi_date     date
+상품수정일      goods_upd_date       date
+
+회원       members
+회원번호         member_Num      varchar2(20)              pk
+회원아이디      member_Id          varchar2(20)              uk
+회원비밀번호   member_Pw         varchar2(20)
+회원명           mamber_Name      varchar2(20)
+회원연락처     member_Phone1   varchar2(20)
+회원 주소      member_Addr        varchar2(200)
+회원성별       member_Gender    char(1)
+회원생년월일  member_Birth       Date
+회원이메일    member_email       varchar2(30)
+
+구매    purchase
+구매번호               purchase_Num         number      pk
+구매총합계금액       total_Price              number
+배송지                  location                 varchar2(20)
+받는 사람 연락처     receive_phone         varchar2(20)
+받는 사람 이름        receive_name          varchar2(20)
+
+
+구매리스트      purchase_list
+구매수량              purchase_qty           number   
+
+배송        delivery
+송장번호             delivery_num         number                      pk
+배송등록일          delivery_date         date
+
+결제            payments
+결제방법             payment_method        varchar2(20)
+결제일                payment_date            date
+승인날짜             conform_date             date
+결제회사             payment_company      varchar2(20)
+승인번호             conform_num            number
+
+후기        reviews       
+후기번호   review_num          number                    pk 
+후기제목   review_subject      varchar2(20)
+후기내용   review_content     varchar2(2000)
+
+상품문의  inquire
+문의 번호   inquire_num    number                         pk          
+문의제목    inquire_subject   varchar2(20)
+문의내용    inquire_content  varchar2(2000)
+
+직원     employees
+직원번호          employee_num    varchar2(20)            pk
+직원비밀번호    employee_pw      varchar2(20)
+직원명             employee_name  varchar2(20)
+직원주소          employee_addr   varchar2(200)
+직원 연락처      employee_phone  varchar2(20)
+입사일            employee_hire_date date 
+
+장바구니   carts
+수량                cart_qty    number
+등록일             cart_date
+
+
+관심 상품   wish
+등록일         wish_date    number
+
+
+
+C : insert , R: select, U :update , D:delete : 게시판
+
+/* 상품 */
+CREATE TABLE goods (
+	goods_Num VARCHAR2(20) NOT NULL, /* 상품번호 */
+	goods_Name VARCHAR2(20) NOT NULL, /* 상품명 */
+	goods_Price NUMBER NOT NULL, /* 가격 */
+	goods_Content VARCHAR2(2000) NOT NULL, /* 상품설명 */
+	goods_Image VARCHAR2(200) NOT NULL, /* 상품이미지 */
+	company VARCHAR2(20) NOT NULL, /* 제조사 */
+	goods_regi_date DATE NOT NULL, /* 상품등록일 */
+	goods_upd_date DATE NOT NULL, /* 상품수정일 */
+	employee_num VARCHAR2(20), /* 직원번호 */
+	employee_upt_num VARCHAR2(20) /* 수정직원번호 */
+);
+
+
+/* 배송 */
+CREATE TABLE delivery (
+	delivery_num NUMBER NOT NULL, /* 송장번호 */
+	purchase_Num NUMBER NOT NULL, /* 구매번호 */
+	delivery_date DATE NOT NULL /* 배송등록일 */
+);
+
+/* 결제 */
+CREATE TABLE payments (
+	purchase_Num NUMBER NOT NULL, /* 구매번호 */
+	payment_method VARCHAR2(20) NOT NULL, /* 결제방법 */
+	payment_date DATE NOT NULL, /* 결제일 */
+	conform_date DATE NOT NULL, /* 승인날짜 */
+	payment_company VARCHAR2(20) NOT NULL, /* 카드사 */
+	conform_num NUMBER NOT NULL /* 승인번호 */
+);
+
+
+/* 회원 */
+CREATE TABLE members (
+	member_Num VARCHAR2(20) NOT NULL, /* 회원번호 */
+	member_Id VARCHAR2(20) NOT NULL, /* 회원아이디 */
+	member_Pw VARCHAR2(20) NOT NULL, /* 회원비밀번호 */
+	member_Name VARCHAR2(20) NOT NULL, /* 회원명 */
+	member_Phone1 VARCHAR2(20) NOT NULL, /* 회원연락처 */
+	member_Addr VARCHAR2(200) NOT NULL, /* 회원주소 */
+	member_Gender CHAR(1) NOT NULL, /* 회원성별 */
+	member_Birth DATE NOT NULL, /* 회원생년월일 */
+	member_email VARCHAR2(30) NOT NULL /* 회원이메일 */
+);
+
+/* 구매리스트 */
+CREATE TABLE purchase_list (
+	purchase_Num NUMBER NOT NULL, /* 구매번호 */
+	goods_Num VARCHAR2(20) NOT NULL, /* 상품번호 */
+	purchase_qty NUMBER NOT NULL /* 구매수량 */
+);
+
+
+/* 후기 */
+CREATE TABLE reviews (
+	review_num NUMBER NOT NULL, /* 후기번호 */
+	member_Num VARCHAR2(20) NOT NULL, /* 회원번호 */
+	goods_Num VARCHAR2(20) NOT NULL, /* 상품번호 */
+	review_subject VARCHAR2(20) NOT NULL, /* 후기제목 */
+	review_content VARCHAR2(2000) NOT NULL /* 후기내용 */
+);
+
+
+/* 직원 */
+CREATE TABLE employees (
+	employee_num VARCHAR2(20) NOT NULL, /* 직원번호 */
+	employee_pw VARCHAR2(20) NOT NULL, /* 직원비밀번호 */
+	employee_name VARCHAR2(20) NOT NULL, /* 직원명 */
+	employee_addr VARCHAR2(200) NOT NULL, /* 직원주소 */
+	employee_phone VARCHAR2(20) NOT NULL, /* 직원연락처 */
+	employee_hire_date DATE NOT NULL /* 입사일 */
+);
+
+
+/* 상품문의 */
+CREATE TABLE inquire (
+	inquire_num NUMBER NOT NULL, /* 문의번호 */
+	member_Num VARCHAR2(20) NOT NULL, /* 회원번호 */
+	goods_Num VARCHAR2(20) NOT NULL, /* 상품번호 */
+	inquire_subject VARCHAR2(20) NOT NULL, /* 문의제목 */
+	inquire_content VARCHAR2(2000) NOT NULL, /* 문의내용 */
+	employee_num VARCHAR2(20) /* 직원번호 */
+);
+
+
+/* 관심상품 */
+CREATE TABLE wish (
+	member_Num VARCHAR2(20) NOT NULL, /* 회원번호 */
+	goods_Num VARCHAR2(20) NOT NULL, /* 상품번호 */
+	wish_date NUMBER NOT NULL /* 등록일 */
+);
+
+/* 장바구니 */
+CREATE TABLE carts (
+	member_Num VARCHAR2(20) NOT NULL, /* 회원번호 */
+	goods_Num VARCHAR2(20) NOT NULL, /* 상품번호 */
+	cart_qty NUMBER NOT NULL, /* 수량 */
+	cart_date DATE NOT NULL /* 등록일 */
+);
+
+
+
+/* 구매 */
+CREATE TABLE purchase (
+	purchase_Num NUMBER NOT NULL, /* 구매번호 */
+	total_Price NUMBER NOT NULL, /* 구매총합계금액 */
+	location VARCHAR2(20) NOT NULL, /* 배송지 */
+	receive_phone VARCHAR2(20) NOT NULL, /* 받는사람이름 */
+	receive_name VARCHAR2(20) NOT NULL, /* 받는사람연락처 */
+	member_Num VARCHAR2(20) /* 회원번호 */
+);
+
+/* primary key */
+ALTER TABLE goods
+ADD CONSTRAINT PK_goods PRIMARY KEY (goods_Num	);
+
+ALTER TABLE delivery
+ADD CONSTRAINT PK_delivery PRIMARY KEY (delivery_num,purchase_Num);
+
+ALTER TABLE payments
+ADD CONSTRAINT PK_payments PRIMARY KEY (purchase_Num);
+
+ALTER TABLE members
+ADD CONSTRAINT PK_members	PRIMARY KEY (member_Num);
+
+ALTER TABLE purchase_list
+ADD CONSTRAINT PK_purchase_list	PRIMARY KEY (purchase_Num,goods_Num	);
+
+ALTER TABLE reviews
+ADD CONSTRAINT PK_reviews PRIMARY KEY (review_num,member_Num,goods_Num	);
+
+
+ALTER TABLE employees
+ADD CONSTRAINT PK_employees PRIMARY KEY (employee_num);
+
+
+ALTER TABLE inquire
+ADD CONSTRAINT PK_inquire	PRIMARY KEY (inquire_num,	member_Num,goods_Num	);
+
+
+ALTER TABLE wish
+ADD CONSTRAINT PK_wish	PRIMARY KEY (member_Num,goods_Num	);
+
+ALTER TABLE carts
+ADD	 CONSTRAINT PK_carts		PRIMARY KEY (member_Num,	goods_Num);
+
+ALTER TABLE purchase
+ADD CONSTRAINT PK_purchase	PRIMARY KEY (purchase_Num);
+
+/*  unique key */
+ALTER TABLE members
+ADD CONSTRAINT UU_members	unique (member_id);
+
+
+/* foreign key */
+ALTER TABLE goods
+ADD CONSTRAINT FK_employees_TO_goods 	FOREIGN KEY (	employee_num 	)
+     REFERENCES employees ( employee_num ) on delete set null;
+
+ALTER TABLE goods
+ADD CONSTRAINT FK_employees_TO_goods2	FOREIGN KEY (	employee_upt_num)
+REFERENCES employees ( employee_num	)  on delete set null;
+
+ALTER TABLE delivery
+ADD CONSTRAINT FK_purchase_TO_delivery	FOREIGN KEY (	purchase_Num	)
+REFERENCES purchase ( purchase_Num);
+
+ALTER TABLE payments
+ADD CONSTRAINT FK_purchase_TO_payments	FOREIGN KEY (purchase_Num)
+REFERENCES purchase (	purchase_Num);
+
+ALTER TABLE purchase_list
+ADD    CONSTRAINT FK_purchase_TO_purchase_list FOREIGN KEY (	purchase_Num	)
+   	    REFERENCES purchase (purchase_Num) on delete cascade;
+
+ALTER TABLE purchase_list
+ADD 	CONSTRAINT FK_goods_TO_purchase_list	FOREIGN KEY (		goods_Num 		)
+		REFERENCES goods (	goods_Num	) ;
+
+ALTER TABLE reviews
+ADD		CONSTRAINT FK_members_TO_reviews		FOREIGN KEY (		member_Num		)
+		REFERENCES members (		member_Num	) on delete cascade;
+
+ALTER TABLE reviews
+ADD		CONSTRAINT FK_goods_TO_reviews		FOREIGN KEY (	goods_Num	)
+		REFERENCES goods (	goods_Num	) on delete cascade;
+
+ALTER TABLE inquire
+ADD		CONSTRAINT FK_members_TO_inquire	FOREIGN KEY (	member_Num	)
+		REFERENCES members (member_Num	) on delete cascade;
+
+ALTER TABLE inquire
+ADD		CONSTRAINT FK_goods_TO_inquire	FOREIGN KEY (	goods_Num		)
+		REFERENCES goods (	goods_Num	) on delete cascade;
+
+ALTER TABLE inquire
+ADD		CONSTRAINT FK_employees_TO_inquire FOREIGN KEY (	employee_num	)
+		REFERENCES employees (	employee_num) on delete set null;
+
+ALTER TABLE wish
+ADD 	CONSTRAINT FK_members_TO_wish	FOREIGN KEY (member_Num)
+		REFERENCES members (	member_Num	) on delete cascade;
+
+ALTER TABLE wish
+ADD 	CONSTRAINT FK_goods_TO_wish	FOREIGN KEY (goods_Num)
+		REFERENCES goods (	goods_Num	) on delete cascade;
+
+ALTER TABLE carts
+ADD		CONSTRAINT FK_members_TO_carts	FOREIGN KEY (member_Num)
+		REFERENCES members (	member_Num	) on delete cascade;
+
+ALTER TABLE carts
+ADD		CONSTRAINT FK_goods_TO_carts	FOREIGN KEY (	goods_Num		)
+		REFERENCES goods (	goods_Num	) on delete cascade;
+
+ALTER TABLE purchase
+ADD		CONSTRAINT FK_members_TO_purchase	FOREIGN KEY (	member_Num		)
+		REFERENCES members (member_Num	) on delete set null;
+		
+alter table inquire 
+add (answer_reply varchar2(2000),/* 답변글 */
+     answer_date date);/* 답변글 날짜 */
