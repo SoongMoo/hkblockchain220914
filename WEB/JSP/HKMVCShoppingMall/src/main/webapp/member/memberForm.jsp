@@ -9,7 +9,7 @@
 <body>
 회원등록 페이지입니다.<br />
 <form action="memberRegist.mem"  method="get">
-회원번호 : <input type="text" name="memberNum" /> <br />
+회원번호 : <input type="text" name="memberNum" />자동부여<br />
 회원아이디 : <input type="text" name="memberId" /><br />
 회원비밀번호 : <input type="password" name="memberPw" /><br />
 회원비밀번호확인 : <input type="password" name="memberPwCon" /><br />

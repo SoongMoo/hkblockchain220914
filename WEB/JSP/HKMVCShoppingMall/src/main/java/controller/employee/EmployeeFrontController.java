@@ -19,6 +19,7 @@ public class EmployeeFrontController extends HttpServlet
 		String contextPath = request.getContextPath();
 		String command = requestURI.substring(contextPath.length());
 		if(command.equals("/employeeList.emp")) {
+			/// 전체보기
 			EmployeeListController action = 
 					new EmployeeListController();
 			action.execute(request);
@@ -27,15 +28,18 @@ public class EmployeeFrontController extends HttpServlet
 					request.getRequestDispatcher("employee/employeeList.jsp");
 			dispatcher.forward(request, response);
 		}else if(command.equals("/employeeJoin.emp")) {
+			// insert
 			RequestDispatcher dispatcher = 
 					request.getRequestDispatcher("employee/employeeForm.jsp");
 			dispatcher.forward(request, response);
 		}else if(command.equals("/employeeJoinOk.emp")) {
+			//insert
 			EmplouyeeJoinController action =
 					new EmplouyeeJoinController();
 			action.execute(request);
 			response.sendRedirect("employeeList.emp");
 		}else if(command.equals("/employeeDetail.emp")) {
+			// 상세보기
 			EmployeeDetailController action =
 					new EmployeeDetailController();
 			action.execute(request);
@@ -43,6 +47,7 @@ public class EmployeeFrontController extends HttpServlet
 					request.getRequestDispatcher("employee/employeeDetail.jsp");
 			dispatcher.forward(request, response);
 		}else if(command.equals("/employeeUpdate.emp")) {
+			// update
 			EmployeeDetailController action =
 					new EmployeeDetailController();
 			action.execute(request);
@@ -50,10 +55,12 @@ public class EmployeeFrontController extends HttpServlet
 					request.getRequestDispatcher("employee/employeeModify.jsp");
 			dispatcher.forward(request, response);
 		}else if(command.equals("/employeeModify.emp")) {
+			//update
 			EmployeeModifyController action = new EmployeeModifyController();
 			action.execute(request);
 			response.sendRedirect("employeeDetail.emp?num="+request.getParameter("employeeNum"));
 		}else if(command.equals("/employeedelete.emp")) {
+			// delete
 			EmployeeDeleteController action = new EmployeeDeleteController();
 			action.execute(request);
 			response.sendRedirect("employeeList.emp");

@@ -18,13 +18,53 @@ public class MemberFrontController extends HttpServlet
 		String contextPath = request.getContextPath();
 		String command = requestURI.substring(contextPath.length());
 		if(command.equals("/memberList.mem")) {
+			// 전체보기
+			MemberListController action =
+					new MemberListController();
+			action.execute(request);
 			RequestDispatcher dispatcher = 
 				request.getRequestDispatcher("member/memberList.jsp");
 			dispatcher.forward(request, response);
 		}else if(command.equals("/memberWrite.mem")) {
+			/// insert 
 			RequestDispatcher dispatcher =
 				request.getRequestDispatcher("member/memberForm.jsp");
 			dispatcher.forward(request, response);
+		}else if(command.equals("/memberRegist.mem")) {
+			/// insert 
+			MemberWriteController action = 
+					new MemberWriteController();
+			action.execute(request);
+			response.sendRedirect("memberList.mem");
+		}else if(command.equals("/memberDetail.mem")) {
+			//상세보기
+			MemberDetailController action = 
+					new MemberDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher = 
+				request.getRequestDispatcher("member/memberInfo.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/memberUpdate.mem")) {
+			// update
+			MemberDetailController action = 
+					new MemberDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher =
+				request.getRequestDispatcher("member/memberModify.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/memberModify.mem")) {
+			// update
+			MemberUpdateController action =
+					new MemberUpdateController();
+			action.execute(request);
+			response.sendRedirect("memberDetail.mem?memberNum="
+					+ request.getParameter("memberNum"));
+		}else if(command.equals("/memberdelete.mem")) {
+			// 삭제
+			MemberDeleteController action = 
+					new MemberDeleteController();
+			action.execute(request);
+			response.sendRedirect("memberList.mem");
 		}
 	}
 	@Override
