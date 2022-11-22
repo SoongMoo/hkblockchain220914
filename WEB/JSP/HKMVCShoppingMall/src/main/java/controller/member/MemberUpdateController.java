@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import model.DAO.MemberDAO;
 import model.DTO.MemberDTO;
 
+
+
+
 public class MemberUpdateController {
 	public void execute(HttpServletRequest request) {
 		String memberNum = request.getParameter("memberNum");

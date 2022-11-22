@@ -2,6 +2,8 @@ package model.DTO;
 
 import java.util.Date;
 
+
+
 public class MemberDTO {
 	String memberNum;
 	String memberId;

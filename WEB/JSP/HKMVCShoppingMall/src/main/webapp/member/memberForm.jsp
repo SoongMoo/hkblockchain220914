@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 회원비밀번호확인 : <input type="password" name="memberPwCon" /><br />
 회원명 : <input type="text" name="memberName" /><br />
 회원연락처 : <input type="tel" name="memberPhone" /><br />
-회원 주소 : <input type="text" name="memberAddr" /><br />
+회원주소 : <input type="text" name="memberAddr" /><br />
 회원성별 : <input type="radio" name="memberGender" value="F"/>여자
 		<input type="radio" name="memberGender" value="M"/>남자<br />
 회원생년월일 : <input type="date" name="memberBirth" /><br />
@@ -23,6 +24,7 @@
 <input type="submit" value="회원등록" />
 <input type="button" value="목록으로" 
 	onclick="javascript:location.href='memberList.mem'"/>
+<c:url value="/" />
 </form>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <title>userAgree.jsp</title>
 </head>
 <body>
-<form action="userRegist.nhn">
+<form action="userWrite.nhn" method="post">
 <input type="checkbox" required="required" />
 <input type="submit" value="동의" />
 </form>

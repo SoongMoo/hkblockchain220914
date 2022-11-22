@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import model.DAO.MemberDAO;
 import model.DTO.MemberDTO;
 
+
+
+
 public class MemberListController {
 	public void execute(HttpServletRequest request) {
 		MemberDAO dao = new MemberDAO();

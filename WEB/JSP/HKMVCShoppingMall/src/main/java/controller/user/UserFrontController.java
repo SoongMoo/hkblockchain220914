@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.member.MemberWriteController;
+
 public class UserFrontController extends HttpServlet 
 	implements Servlet{
 	protected void doProcess(HttpServletRequest request, 
@@ -22,10 +24,18 @@ public class UserFrontController extends HttpServlet
 			RequestDispatcher dispatcher =
 					request.getRequestDispatcher("user/userAgree.jsp");
 			dispatcher.forward(request, response);
+		}else if(command.equals("/userWrite.nhn")) {
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("user/userForm.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/userRegist.nhn")) {
+			/// insert 
+			UserWriteController action = 
+					new UserWriteController();
+			action.execute(request);
+			response.sendRedirect(request.getContextPath()+"/");
 		}
-		
 	}
-	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
