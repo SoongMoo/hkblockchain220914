@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.DTO.AuthInfo;
 import model.DTO.MemberDTO;
 
 public class LoginDAO {
@@ -33,32 +34,30 @@ public class LoginDAO {
 		}
 		return conn;
 	}
-	public MemberDTO selectOne(String userId) {
-		MemberDTO dto = null;
+	public AuthInfo selectOne(String userId) {
+		AuthInfo dto = null;
 		con = getConnection();
-		sql = " select MEMBER_NUM,MEMBER_ID,MEMBER_PW,MEMBER_NAME,MEMBER_PHONE1,"
-			+ "     MEMBER_ADDR, MEMBER_GENDER, MEMBER_BIRTH,MEMBER_EMAIL"
-			+ " from members "
-			+ " where member_id = ?";
+		sql = " select member_id user_id, member_pw user_pw, member_name user_name"
+			+ " from members"
+			+ " where member_id = ?"
+			+ " union"
+			+ " select EMPLOYEE_NUM , EMPLOYEE_pw, employee_name"
+			+ " from  employees "
+			+ " where EMPLOYEE_NUM = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, userId);
+			pstmt.setString(2, userId);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				dto = new MemberDTO();
-				dto.setMemberAddr(rs.getString("MEMBER_ADDR"));
-				dto.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
-				dto.setMemberEmail(rs.getString("MEMBER_EMAIL"));
-				dto.setMemberGender(rs.getString("MEMBER_GENDER"));
-				dto.setMemberId(rs.getString("MEMBER_ID"));
-				dto.setMemberName(rs.getString("MEMBER_NAME"));
-				dto.setMemberNum(rs.getString("MEMBER_NUM"));
-				dto.setMemberPhone(rs.getString("MEMBER_PHONE1"));
+				dto = new AuthInfo();
+				dto.setUserId(rs.getString("user_id"));
+				dto.setUserPw(rs.getString("user_pw"));
+				dto.setUserName(rs.getString("user_name"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return dto;
 	}
 }

@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LoginFrontController extends HttpServlet 
 	implements Servlet{
@@ -19,10 +20,13 @@ public class LoginFrontController extends HttpServlet
 		if(command.equals("/login.login")) {
 			UserLoginContoller action = new UserLoginContoller();
 			action.execte(request);
-			//response.sendRedirect(request.getContextPath()+"/");
+			response.sendRedirect(request.getContextPath()+"/");
+		}else if(command.equals("/logout.login")) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect(request.getContextPath()+"/");
 		}
 	}
-	
 	@Override
 	protected void doGet(HttpServletRequest req, 
 			HttpServletResponse resp) 

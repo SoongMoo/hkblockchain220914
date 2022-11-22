@@ -34,6 +34,45 @@ public class UserFrontController extends HttpServlet
 					new UserWriteController();
 			action.execute(request);
 			response.sendRedirect(request.getContextPath()+"/");
+		}else if(command.equals("/userMyPage.nhn")) {
+			RequestDispatcher dispatcher =
+					request.getRequestDispatcher("myPage.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/userInfo.nhn")) {
+			UserDetailController action = 
+					new UserDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher = 
+				request.getRequestDispatcher("myPage/userDetail.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/userModify.nhn")) {
+			UserDetailController action = 
+					new UserDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher =
+				request.getRequestDispatcher("myPage/userForm.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/userUpdate.nhn")) {
+			UserUpdateController action =
+					new UserUpdateController();
+			action.execute(request);
+			response.sendRedirect("userInfo.nhn");
+		}else if(command.equals("/userDelete.nhn")) {
+			RequestDispatcher dispatcher =
+				request.getRequestDispatcher("myPage/userDltPw.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/userDeleteOk.nhn")) {
+			UserDeleteController action = 
+					new UserDeleteController();
+			int i = action.execute(request);
+			if(i == 0) {
+				request.setAttribute("errPw", "비밀번호가 틀렸습니다.");
+				RequestDispatcher dispatcher =
+						request.getRequestDispatcher("myPage/userDltPw.jsp");
+				dispatcher.forward(request, response);
+			}else {
+				response.sendRedirect("logout.login");
+			}
 		}
 	}
 	@Override

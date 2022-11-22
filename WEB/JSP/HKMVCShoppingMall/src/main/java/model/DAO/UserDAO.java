@@ -33,6 +33,70 @@ public class UserDAO {
 		}
 		return conn;
 	}
+	public int memberDelete(String memberId,String memberPw) {
+		int i = 0;
+		con = getConnection();
+		sql = " delete from members "
+			+ " where member_id = ? and member_pw = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, memberPw);
+			i = pstmt.executeUpdate();
+			System.out.println(i + "개가 삭제되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+	public void memberUpdate(MemberDTO dto) {
+		con = getConnection();
+		sql = " update members"
+			+ " set MEMBER_PHONE1=?, "
+			+ "    MEMBER_ADDR = ? ,  "
+			+ "    MEMBER_EMAIL =? "
+			+ " where MEMBER_id = ? ";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getMemberPhone());
+			pstmt.setString(2, dto.getMemberAddr());
+			pstmt.setString(3, dto.getMemberEmail());
+			pstmt.setString(4, dto.getMemberId());
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 수정되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public MemberDTO selectOne(String memberId) {
+		MemberDTO dto = null;
+		con = getConnection();
+		sql = " select MEMBER_NUM,MEMBER_ID,MEMBER_PW,MEMBER_NAME,MEMBER_PHONE1,"
+			+ "     MEMBER_ADDR, MEMBER_GENDER, MEMBER_BIRTH,MEMBER_EMAIL"
+			+ " from members "
+			+ " where member_id = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new MemberDTO();
+				dto.setMemberAddr(rs.getString("MEMBER_ADDR"));
+				dto.setMemberBirth(rs.getDate("MEMBER_BIRTH"));
+				dto.setMemberEmail(rs.getString("MEMBER_EMAIL"));
+				dto.setMemberGender(rs.getString("MEMBER_GENDER"));
+				dto.setMemberId(rs.getString("MEMBER_ID"));
+				dto.setMemberName(rs.getString("MEMBER_NAME"));
+				dto.setMemberNum(rs.getString("MEMBER_NUM"));
+				dto.setMemberPhone(rs.getString("MEMBER_PHONE1"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
 	public void userInsert(MemberDTO dto) {
 		System.out.println("bngdikjbgiuv");
 		con = getConnection();
