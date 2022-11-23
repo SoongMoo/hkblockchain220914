@@ -35,6 +35,42 @@ public class EmployeeDAO {
 		}
 		return conn;
 	}
+	public String empPwCk(String employeeNum,String employeePw ) {
+		String ck = null;
+		con = getConnection();
+		sql = " select 1 from employees "
+			+ " where employee_num = ? "
+			+ " and employee_pw = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, employeeNum);
+			pstmt.setString(2, employeePw);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ck = rs.getString("1");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ck;
+	}
+	public void empPassword(String employeePw,
+			String employeeNum ) {
+		con = getConnection();
+		sql = " update employees "
+			+ " set employee_pw = ? "
+			+ " where employee_num = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, employeePw);
+			pstmt.setString(2, employeeNum);
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 수정되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void employeeDelete(String num) {
 		con = getConnection();
 		sql =" delete from employees "
@@ -49,6 +85,23 @@ public class EmployeeDAO {
 			e.printStackTrace();
 		}
 		
+	}
+	public void empUpdate(EmployeeDTO dto) {
+		con = getConnection();
+		sql = " update employees"
+			+ " set EMPLOYEE_ADDR = ?,"
+			+ "     EMPLOYEE_PHONE =?"
+			+ " where EMPLOYEE_NUM = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getEmployeeAddr());
+			pstmt.setString(2, dto.getEmployeePhone());
+			pstmt.setString(3, dto.getEmployeeNum());
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 수정되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	public void employeeUpdate(EmployeeDTO dto) {
 		con = getConnection();
@@ -147,14 +200,4 @@ public class EmployeeDAO {
 		}
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

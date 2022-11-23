@@ -13,7 +13,7 @@
 연락처 : ${dto.employeePhone }<br />
 주소 : ${dto.employeeAddr }<br />
 입사일 : ${dto.employeeHireDate }<br />
-<a href="empUpdate.naver?num=${dto.employeeNum }">수정</a> | 
+<a href="empUpdate.naver">수정</a> | 
 <a href="#">홈으로 가기</a>
 </body>
 </html>

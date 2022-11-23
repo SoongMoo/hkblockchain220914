@@ -29,9 +29,42 @@ public class EmpUserFrontcontroller extends HttpServlet
 			RequestDispatcher dispatcher = 
 					request.getRequestDispatcher("empMyPage/empDetail.jsp");
 			dispatcher.forward(request, response);
+		}else if(command.equals("/empUpdate.naver")) {
+			EmpDetailController action =
+					new EmpDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher = 
+				request.getRequestDispatcher("empMyPage/empUptForm.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/empModify.naver")) {
+			EmpModifyController action =
+					new EmpModifyController();
+			action.execute(request);
+			response.sendRedirect("empInfo.naver");
+		}else if(command.equals("/empPassword.naver")) {
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("empMyPage/empPwCon.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/empPwCon.naver")) {
+			EmpPasswordConController action =
+					new EmpPasswordConController();
+			String ck = action.execute(request);
+			if(ck != null) {
+				RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("empMyPage/empNewPw.jsp");
+				dispatcher.forward(request, response);
+			}else {
+				RequestDispatcher dispatcher = 
+						request.getRequestDispatcher("empMyPage/empPwCon.jsp");
+				dispatcher.forward(request, response);
+			}
+		}else if(command.equals("/empPasswordPro.naver")) {
+			EmpPasswordController action =
+					new EmpPasswordController();
+			action.execute(request);
+			response.sendRedirect("empInfo.naver");
 		}
 	}
-	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub

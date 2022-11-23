@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="empInfo.naver">내정보 보기</a>
+<a href="empInfo.naver">내정보 보기</a><br />
+<a href="empPassword.naver">비밀번호변경</a>
 </body>
 </html>
