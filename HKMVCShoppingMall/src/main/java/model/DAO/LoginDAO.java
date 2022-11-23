@@ -37,11 +37,11 @@ public class LoginDAO {
 	public AuthInfo selectOne(String userId) {
 		AuthInfo dto = null;
 		con = getConnection();
-		sql = " select member_id user_id, member_pw user_pw, member_name user_name"
+		sql = " select member_id user_id, member_pw user_pw, member_name user_name, 'mem' grade"
 			+ " from members"
 			+ " where member_id = ?"
 			+ " union"
-			+ " select EMPLOYEE_NUM , EMPLOYEE_pw, employee_name"
+			+ " select EMPLOYEE_NUM , EMPLOYEE_pw, employee_name , 'emp'"
 			+ " from  employees "
 			+ " where EMPLOYEE_NUM = ?";
 		try {
@@ -54,6 +54,7 @@ public class LoginDAO {
 				dto.setUserId(rs.getString("user_id"));
 				dto.setUserPw(rs.getString("user_pw"));
 				dto.setUserName(rs.getString("user_name"));
+				dto.setGrade(rs.getString("grade"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

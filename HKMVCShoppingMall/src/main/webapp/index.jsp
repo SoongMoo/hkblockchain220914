@@ -10,12 +10,17 @@
 <body>
 
 <c:if test="${!empty dto}">
-<a href="employeeList.emp">직원관리</a><br />
-<a href="memberList.mem">회원관리</a>
-<a href="logout.login">로그아웃</a>
-<a href="userMyPage.nhn">마이페이지</a>
-
-<a href="empMyPage.naver">마이페이지</a>
+	<a href="logout.login">로그아웃</a>
+	
+	<c:if test="${dto.grade == 'mem' }">
+	<a href="userMyPage.nhn">마이페이지</a>
+	</c:if>
+	
+	<c:if test="${dto.grade == 'emp' }">
+	<a href="employeeList.emp">직원관리</a><br />
+	<a href="memberList.mem">회원관리</a>	
+	<a href="empMyPage.naver">마이페이지</a>
+	</c:if>
 </c:if>
 
 <c:if test="${empty dto }">

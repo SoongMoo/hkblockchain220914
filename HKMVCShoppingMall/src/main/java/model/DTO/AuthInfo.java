@@ -4,6 +4,14 @@ public class AuthInfo {
 	String userId;
 	String userPw;
 	String userName;
+	String grade;
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	
 	public String getUserId() {
 		return userId;
 	}
