@@ -6,7 +6,7 @@
 상품 이미지     goods_Image          varchar2(200)
 제조사            company             varchar2(20)
 상품등록일      goods_regi_date     date
-상품수정일      goods_upd_date       date
+rs.nexdt()      goods_upd_date       date
 
 회원       members
 회원번호         member_Num      varchar2(20)              pk
