@@ -34,6 +34,20 @@ public class GoodsFrontController extends HttpServlet
 					new GoodsWriteController();
 			action.execute(request);
 			response.sendRedirect("goodsList.goods");
+		}else if(command.equals("/goodsDetail.goods")) {
+			GoodsDetailController action =
+					new GoodsDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("goods/goodsInfo.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/goodsUpdate.goods")) {
+			GoodsDetailController action =
+					new GoodsDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("goods/goodsModify.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 	@Override

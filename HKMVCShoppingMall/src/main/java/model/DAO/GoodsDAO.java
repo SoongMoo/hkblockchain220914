@@ -35,6 +35,40 @@ public class GoodsDAO {
 		}
 		return conn;
 	}
+	public GoodsDTO selectOne(String goodsNum) {
+		GoodsDTO dto = null;
+		con = getConnection();
+		sql = " select GOODS_NUM, GOODS_NAME, GOODS_PRICE, GOODS_CONTENT, "
+				+ "	      GOODS_IMAGE,"
+				+ "      COMPANY, GOODS_REGI_DATE, GOODS_UPD_DATE,"
+				+ "      EMPLOYEE_NUM, EMPLOYEE_UPT_NUM "
+				+ " from goods"
+				+ " where GOODS_NUM = ? ";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, goodsNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new GoodsDTO();
+				dto.setCompany(rs.getString("COMPANY"));
+				dto.setEmployeeNum(rs.getString("EMPLOYEE_NUM"));
+				dto.setEmployeeUptNum(rs.getString("EMPLOYEE_UPT_NUM"));
+				dto.setGoodsContent(rs.getString("GOODS_CONTENT"));
+				dto.setGoodsName(rs.getString("GOODS_NAME"));
+				dto.setGoodsNum(rs.getString("GOODS_NUM"));
+				dto.setGoodsPrice(rs.getInt("GOODS_PRICE"));
+				dto.setGoodsRegiDate(rs.getDate("GOODS_REGI_DATE"));
+				dto.setGoodsUpdDate(rs.getDate("GOODS_UPD_DATE"));
+				dto.setGoodsImage(rs.getString("GOODS_IMAGE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
 	public List<GoodsDTO> selectAll(){
 		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
 		con = getConnection();
