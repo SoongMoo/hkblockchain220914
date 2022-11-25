@@ -59,4 +59,24 @@
   	<servlet-name>goods</servlet-name>
   	<url-pattern>*.goods</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>main</servlet-name>
+  	<servlet-class>controller.main.MainFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>main</servlet-name>
+  	<url-pattern>*.main</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+  	<servlet-name>item</servlet-name>
+  	<servlet-class>controller.item.ItemFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>item</servlet-name>
+  	<url-pattern>*.item</url-pattern>
+  </servlet-mapping>   
+  
+
 </web-app>
