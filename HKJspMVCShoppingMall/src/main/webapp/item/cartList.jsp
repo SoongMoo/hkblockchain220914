@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="itemBuy.item" method="get" >
+<form action="itemBuy.item" method="get" onsubmit="return goodsCheck();">
 <table width="600" align = "center">
 <tr><td><input type="checkbox" id="checkBoxs" checked="checked" /></td>
 	<td>이미지</td><td>제품이름</td><td>수량</td><td>합계금액</td>
@@ -16,7 +16,7 @@
 </tr>
 <c:forEach items="${list }" var="dto">
 <tr>
-	<td><input type="checkbox" id="itemCk" checked="checked" /></td>
+	<td><input type="checkbox" id="itemCk" checked="checked" name="prodCk[]" /></td>
 	<td><img width="30" src="goods/images/${dto.goodsImage.split('`')[0] }" /></td><td>${dto.goodsName }</td>	
 	<td>
 		<a href="#">+</a> 
