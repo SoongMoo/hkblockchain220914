@@ -17,7 +17,7 @@
 <c:forEach items="${list }" var="dto">
 <tr>
 	<td><input type="checkbox" id="itemCk" checked="checked" /></td>
-	<td>${dto.goodsImage.split('`')[0] }</td><td>${dto.goodsName }</td>
+	<td><img width="30" src="goods/images/${dto.goodsImage.split('`')[0] }" /></td><td>${dto.goodsName }</td>	
 	<td>
 		<a href="#">+</a> 
 		${dto.cartQty } 
