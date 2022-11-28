@@ -35,6 +35,39 @@ public class ItemDAO {
 		}
 		return conn;
 	}
+	public CartListDTO selectOne(String memberNum, String goodNum) {
+		CartListDTO dto = null;
+		con = getConnection();
+		sql = " select MEMBER_NUM, g.GOODS_NUM, CART_QTY, CART_DATE "
+			+ "      , goods_name , CART_QTY * goods_price total_price"
+			+ "		 , goods_image "
+			+ " from carts c , goods g "
+			+ " where c.goods_num = g.goods_num "
+			+ " and MEMBER_NUM = ? and  c.goods_num = ?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memberNum);
+			pstmt.setString(2, goodNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto = new CartListDTO();
+				dto.setCartDate(rs.getDate("CART_DATE"));
+				dto.setCartQty(rs.getInt("CART_QTY"));
+				dto.setGoodsName(rs.getString("goods_name"));
+				dto.setGoodsNum(rs.getString("GOODS_NUM"));
+				dto.setMemberNum(rs.getString("MEMBER_NUM"));
+				dto.setTotalPrice(rs.getInt("total_price"));
+				dto.setGoodsImage(rs.getString("goods_image"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally { close(); }
+		
+		
+		return dto;
+	}
 	public void itemDelete(String memberNum, String goodNum) {
 		con = getConnection();
 		sql = " delete from carts where member_Num = ? and goods_Num = ? ";
