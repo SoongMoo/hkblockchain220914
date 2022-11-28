@@ -16,7 +16,7 @@
 			${dto.employeeNum }
 			</a>
 		</td>
-		<td>${dto.employeeName }</td><td>${dto.hireDate }</td></tr>
+		<td>${dto.employeeName }</td><td>${dto.employeeHireDate }</td></tr>
 	</c:forEach>
 </table>
 <a href="employeeJoin.emp">직원등록</a>

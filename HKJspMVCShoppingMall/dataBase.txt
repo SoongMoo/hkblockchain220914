@@ -294,3 +294,20 @@ ADD		CONSTRAINT FK_members_TO_purchase	FOREIGN KEY (	member_Num		)
 alter table inquire 
 add (answer_reply varchar2(2000),/* 답변글 */
      answer_date date);/* 답변글 날짜 */
+     
+     
+     
+     /* 시퀀스 */
+create SEQUENCE mem_seq
+start with 100000;
+
+create SEQUENCE goods_seq
+start with 100000;
+
+create SEQUENCE emp_seq
+start with 100000;
+
+
+
+
+

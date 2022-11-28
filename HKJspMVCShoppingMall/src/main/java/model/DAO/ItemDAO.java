@@ -35,6 +35,42 @@ public class ItemDAO {
 		}
 		return conn;
 	}
+	public void itemDelete(String memberNum, String goodNum) {
+		con = getConnection();
+		sql = " delete from carts where member_Num = ? and goods_Num = ? ";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memberNum);
+			pstmt.setString(2, goodNum);
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 삭되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+	}
+	public void itemQtyDown(String memberNum, String goodNum) {
+		System.out.println(memberNum);
+		System.out.println(goodNum);
+		con = getConnection();
+		sql  = " update carts "
+			 + " set CART_QTY = CART_QTY - 1 "
+			 + " where MEMBER_NUM = ? and GOODS_NUM = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memberNum);
+			pstmt.setString(2, goodNum);
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 수정되었습니다.");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+	}
 	public List<CartListDTO> cartList(String memberNum){
 		List<CartListDTO> list = new ArrayList();
 		con = getConnection();
@@ -63,6 +99,8 @@ public class ItemDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close();
 		}
 		
 		return list;
@@ -90,13 +128,14 @@ public class ItemDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
+	public void close() {
+		if(rs != null) try{rs.close();}catch(Exception e) {}
+		if(pstmt != null) try{pstmt.close();}catch(Exception e) {}
+		if(con != null) try{con.close();}catch(Exception e) {}
+	}
+
 }
