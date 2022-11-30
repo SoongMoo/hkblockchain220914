@@ -58,6 +58,21 @@ public class ItemFrontController extends HttpServlet
 			RequestDispatcher dispatcher = 
 					request.getRequestDispatcher("item/goodsOrder.jsp");
 			dispatcher.forward(request, response);
+		}else if(command.equals("/goodsOrder.item")) {
+			PurchaseController action =
+					new PurchaseController();
+			action.execute(request);
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("item/payment.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/purchaseList.item")) {
+			PurchaseListController action =
+					new PurchaseListController();
+			action.execute(request);
+			
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("item/purchaseList.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 	@Override

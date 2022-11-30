@@ -21,11 +21,18 @@ public class GoodsItemController {
 		MemberDTO memDTO = userDAO.selectOne(authInfo.getUserId());
 		List<CartListDTO> list = new ArrayList<CartListDTO>();
 		ItemDAO dao = new ItemDAO();
+		String nums ="";
+		int goodsTotalPrice = 0;
 		for(String goodsNum : goodsNums) {
 			CartListDTO dto = dao.selectOne(memDTO.getMemberNum(),goodsNum);
+			System.out.println(dto.getTotalPrice());
+			goodsTotalPrice += dto.getTotalPrice();
+			nums += goodsNum+"-";
 			list.add(dto);
 		}
 		request.setAttribute("list", list);
+		request.setAttribute("goodsTotalPrice", goodsTotalPrice);
+		request.setAttribute("goodsNums", nums);
 		
 	}
 }

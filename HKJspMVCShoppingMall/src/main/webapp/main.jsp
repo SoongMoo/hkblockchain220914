@@ -17,6 +17,7 @@
 	<a>구매내역 확인</a>
 	<a href="cartList.item">장바구니</a>
 	<a>관심상품</a>
+	<a href="purchaseList.item">구매리스트</a>
 	</c:if>
 	
 	<c:if test="${dto.grade == 'emp' }">

@@ -307,7 +307,11 @@ start with 100000;
 create SEQUENCE emp_seq
 start with 100000;
 
+alter table delivery
+add (delivery_state varchar2(30));
 
+create SEQUENCE purcase_seq
+start with 100000;
 
 
 
