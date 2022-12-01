@@ -24,7 +24,8 @@
 	<a href="memberList.mem">회원관리</a>	
 	<a href="empMyPage.naver">마이페이지</a>
 	<a href="goodsList.goods">상품리스트</a>
-	<a href="deleveryList." >배송정보 등록</a>
+	<a href="memPurchaseList.deli" >구매정보</a>
+	
 	</c:if>
 </c:if>
 
