@@ -8,16 +8,8 @@ public class PurchaseInfoDTO {
 	String memberNum;
 	String conformNum;
 	String deliveryState;
-	String reviewContent;
+	String reviewNum;
 	int totalPrice;
-	
-	public int getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-	
 	public String getGoodsNum() {
 		return goodsNum;
 	}
@@ -60,10 +52,17 @@ public class PurchaseInfoDTO {
 	public void setDeliveryState(String deliveryState) {
 		this.deliveryState = deliveryState;
 	}
-	public String getReviewContent() {
-		return reviewContent;
+	public String getReviewNum() {
+		return reviewNum;
 	}
-	public void setReviewContent(String reviewContent) {
-		this.reviewContent = reviewContent;
+	public void setReviewNum(String reviewNum) {
+		this.reviewNum = reviewNum;
 	}
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
 }

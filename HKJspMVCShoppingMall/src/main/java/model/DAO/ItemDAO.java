@@ -100,7 +100,7 @@ public class ItemDAO {
 		con = getConnection();
 		sql = " select g.goods_num, goods_image, goods_name,p.purchase_num "
 				+ "   , p.member_num "
-				+ "   , conform_num , delivery_state , review_content "
+				+ "   , conform_num , delivery_state , review_num "
 				+ "   , goods_price * PURCHASE_QTY total_price"
 				+ " from goods g join purchase_list pl "
 				+ " on g.goods_num = pl.goods_num join  purchase p"
@@ -122,7 +122,7 @@ public class ItemDAO {
 				dto.setGoodsNum(rs.getString("goods_num"));
 				dto.setMemberNum(rs.getString("member_num"));
 				dto.setPurchaseNum(rs.getInt("purchase_num"));
-				dto.setReviewContent(rs.getString("review_content"));
+				dto.setReviewNum(rs.getString("review_num"));
 				dto.setTotalPrice(rs.getInt("total_price"));
 				list.add(dto);
 			}
