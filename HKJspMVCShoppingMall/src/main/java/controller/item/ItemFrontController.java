@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.DTO.PurchaseDTO;
+
 public class ItemFrontController extends HttpServlet 
 	implements Servlet{
 	protected void doProcess(HttpServletRequest request, 
@@ -61,10 +63,9 @@ public class ItemFrontController extends HttpServlet
 		}else if(command.equals("/goodsOrder.item")) {
 			PurchaseController action =
 					new PurchaseController();
-			action.execute(request);
-			RequestDispatcher dispatcher = 
-					request.getRequestDispatcher("item/payment.jsp");
-			dispatcher.forward(request, response);
+			PurchaseDTO dto = action.execute(request);
+			response.sendRedirect("paymentOk.item?"
+					+ "purchaseNum=" + dto.getPuchaseNum());
 		}else if(command.equals("/purchaseList.item")) {
 			PurchaseListController action =
 					new PurchaseListController();
@@ -73,6 +74,26 @@ public class ItemFrontController extends HttpServlet
 			RequestDispatcher dispatcher = 
 					request.getRequestDispatcher("item/purchaseList.jsp");
 			dispatcher.forward(request, response);
+		}else if(command.equals("/paymentOk.item")) {
+			ItemTotalPriceConteroller action =
+					new ItemTotalPriceConteroller();
+			action.execute(request);
+			
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("item/payment.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/doPayment.item")) {
+			PaymentController action =
+					new PaymentController();
+			action.execute(request);
+			RequestDispatcher dispatcher = 
+					request.getRequestDispatcher("item/buyfinished.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/paymentDelete.item")) {
+			PaymentDeleteController action =
+					new PaymentDeleteController();
+			action.execute(request);
+			response.sendRedirect("purchaseList.item");
 		}
 	}
 	@Override

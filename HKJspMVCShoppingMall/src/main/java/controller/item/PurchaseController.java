@@ -11,7 +11,7 @@ import model.DTO.PurchaseDTO;
 import model.DTO.PurchaseListDTO;
 
 public class PurchaseController {
-	public void execute(HttpServletRequest request) {
+	public PurchaseDTO execute(HttpServletRequest request) {
 		
 		String goodsTotalPrice = request.getParameter("goodsTotalPrice");
 		String receiveName = request.getParameter("receiveName");
@@ -48,9 +48,6 @@ public class PurchaseController {
 				itemDAO.cartItemDelete(goodsNum,memberNum);
 			}
 		}
-				
-		String paymentMethod = request.getParameter("paymentMethod");
-		request.setAttribute("paymentMethod", paymentMethod);
-		
+		return dto;
 	}
 }

@@ -14,16 +14,21 @@
 <tr><td><c:if test="${empty dto.conformNum }">${dto.purchaseNum } / 입금대기중</c:if>
 		<c:if test="${!empty dto.conformNum }">${dto.purchaseNum } / ${dto.conformNum }</c:if>
 	</td>
-	<td>${dto.goodsName }</td>
+	<td><img src="goods/images/${dto.goodsImage.split('-')[0] }" 
+			width="30px"/>
+		${dto.goodsName }</td>
 	<td><c:if test="${empty dto.conformNum }">
+			 
 			<a href="paymentOk.item?purchaseNum=${dto.purchaseNum }" >결제하기</a>
 		</c:if>
-		<c:if test="${!empty dto.conformNum and empty dto.delivery_state}">결제취소</c:if>
-		<c:if test="${!empty dto.conformNum and !empty dto.delivery_state =='배송중'}">배송중</c:if>
+		<c:if test="${!empty dto.conformNum and empty dto.deliveryState}">
+			<a href="paymentDelete.item?purchaseNum=${dto.purchaseNum }" >결제취소</a>
+		</c:if>
+		<c:if test="${!empty dto.conformNum and dto.deliveryState == '배송중'}">배송중</c:if>
 		<c:if test="${dto.deliveryState == '배송완료' and empty dto.reviewContent }">리뷰등록</c:if>	
 		<c:if test="${!empty dto.reviewContent }">
-			리뷰수정 
-			리뷰삭제
+			<a href="goodsReviewUpdate.item?">리뷰수정</a> 
+			<a href="goodsReviewDelete.item?">리뷰삭제</a>
 		</c:if>	
 	</td></tr>
 </c:forEach>

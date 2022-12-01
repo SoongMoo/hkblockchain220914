@@ -49,13 +49,6 @@
 				<td><input type="text" name="receiveAddr" /></td></tr>
 			<tr><td>받는 사람 연락처 </td>
 				<td><input type="text" name="receivePhone" /></td></tr>
-			<tr><td>결제방법</td>
-				<td>
-					<select name="paymentMethod">
-							<option>카드</option>
-							<option>카카오페이</option>
-					</select>
-				</td></tr>
 		</table>
 	</td>
 	<td align = "left">

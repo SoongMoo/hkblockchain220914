@@ -10,6 +10,7 @@ import java.util.List;
 
 import model.DTO.CartDTO;
 import model.DTO.CartListDTO;
+import model.DTO.PaymentDTO;
 import model.DTO.PurchaseDTO;
 import model.DTO.PurchaseInfoDTO;
 import model.DTO.PurchaseListDTO;
@@ -38,19 +39,76 @@ public class ItemDAO {
 		}
 		return conn;
 	}
+	public void paymentDelete(String purchaseNum) {
+		con = getConnection();
+		sql = "delete from payments "
+			+ " where purchase_Num = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, purchaseNum);
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 삭제되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		
+	}
+	public void paymentInsert(PaymentDTO dto) {
+		con = getConnection();
+		sql = "insert into payments(PURCHASE_NUM,PAYMENT_METHOD,"
+				+ "        PAYMENT_DATE,CONFORM_DATE,PAYMENT_COMPANY,"
+				+ "        CONFORM_NUM, CARD_NUM)"
+				+ "values(?, ?, sysdate , sysdate, ?,"
+				+ "        to_char(sysdate,'yymmddMMss'),?)";
+		try {
+			pstmt= con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getPurchaseNum());
+			pstmt.setString(2, dto.getPaymentMethod());
+			pstmt.setString(3, dto.getPaymentCompany());
+			pstmt.setString(4, dto.getCarNum());
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 입력되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+	}
+	public int totalPrice(String purchaseNum) {
+		int totalPrice = 0;
+		con = getConnection();
+		sql = " select TOTAL_PRICE "
+			+ " from purchase "
+			+ " where PURCHASE_NUM = ? ";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, purchaseNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				totalPrice = rs.getInt("TOTAL_PRICE");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return totalPrice;
+	}
 	public List<PurchaseInfoDTO> purchaseItemSelect(String memberNum){
 		List<PurchaseInfoDTO> list = new ArrayList<PurchaseInfoDTO>();
 		con = getConnection();
 		sql = " select g.goods_num, goods_image, goods_name,p.purchase_num "
 				+ "   , p.member_num "
 				+ "   , conform_num , delivery_state , review_content "
+				+ "   , goods_price * PURCHASE_QTY total_price"
 				+ " from goods g join purchase_list pl "
 				+ " on g.goods_num = pl.goods_num join  purchase p"
 				+ " on pl.purchase_num = p.purchase_num left outer join payments pm"
 				+ " on p.purchase_num = pm.purchase_num left outer join delivery d"
 				+ " on p.purchase_num = d.purchase_num left outer join reviews re"
 				+ " on g.goods_num = re.goods_num"
-				+ " where p.member_num = ?";
+				+ " where p.member_num = ? ";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, memberNum);
@@ -65,6 +123,7 @@ public class ItemDAO {
 				dto.setMemberNum(rs.getString("member_num"));
 				dto.setPurchaseNum(rs.getInt("purchase_num"));
 				dto.setReviewContent(rs.getString("review_content"));
+				dto.setTotalPrice(rs.getInt("total_price"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -72,7 +131,6 @@ public class ItemDAO {
 		}finally {
 			close();
 		}
-		
 		return list;
 	}
 	public void cartItemDelete(String goodsNum,String memberNum) {

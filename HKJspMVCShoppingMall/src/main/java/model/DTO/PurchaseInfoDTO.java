@@ -9,6 +9,15 @@ public class PurchaseInfoDTO {
 	String conformNum;
 	String deliveryState;
 	String reviewContent;
+	int totalPrice;
+	
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
 	public String getGoodsNum() {
 		return goodsNum;
 	}

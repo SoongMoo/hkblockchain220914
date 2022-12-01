@@ -14,7 +14,6 @@
 	
 	<c:if test="${dto.grade == 'mem' }">
 	<a href="userMyPage.nhn">마이페이지</a>
-	<a>구매내역 확인</a>
 	<a href="cartList.item">장바구니</a>
 	<a>관심상품</a>
 	<a href="purchaseList.item">구매리스트</a>
@@ -25,6 +24,7 @@
 	<a href="memberList.mem">회원관리</a>	
 	<a href="empMyPage.naver">마이페이지</a>
 	<a href="goodsList.goods">상품리스트</a>
+	<a href="deleveryList." >배송정보 등록</a>
 	</c:if>
 </c:if>
 
