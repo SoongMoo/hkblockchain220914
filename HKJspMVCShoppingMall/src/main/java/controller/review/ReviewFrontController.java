@@ -28,6 +28,22 @@ implements Servlet{
 					new ReviewWriteController();
 			action.execute(request);
 			response.sendRedirect("purchaseList.item");
+		}else if(command.equals("/goodsReviewUpdate.review")) {
+			ReviewDetailController action =	new ReviewDetailController();
+			action.execute(request);
+			RequestDispatcher dispatcher =
+					request.getRequestDispatcher("review/reviewModify.jsp");
+			dispatcher.forward(request, response);
+		}else if(command.equals("/goodsReviewModify.review")) {
+			GoodsReviewUpdateController action =
+					new GoodsReviewUpdateController();
+			action.execute(request);
+			response.sendRedirect("purchaseList.item");
+		}else if(command.equals("/goodsReviewDelete.review")) {
+			GoodsReviewDeleteController action =
+					new GoodsReviewDeleteController();
+			action.execute(request);
+			response.sendRedirect("purchaseList.item");
 		}
 		
 	}

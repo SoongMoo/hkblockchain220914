@@ -25,12 +25,12 @@
 			<a href="paymentDelete.item?purchaseNum=${dto.purchaseNum }" >결제취소</a>
 		</c:if>
 		<c:if test="${!empty dto.conformNum and dto.deliveryState == '배송중'}">배송중</c:if>
-		<c:if test="${dto.deliveryState == '배송완료' and empty dto.reviewNum }">
+		<c:if test="${!empty dto.conformNum and dto.deliveryState == '배송완료' and empty dto.reviewNum }">
 			<a href="revireRegist.review?goodsNum=${dto.goodsNum }">리뷰등록</a>
 		</c:if>	
-		<c:if test="${!empty dto.reviewNum }">
-			<a href="goodsReviewUpdate.review?">리뷰수정</a> 
-			<a href="goodsReviewDelete.review?">리뷰삭제</a>
+		<c:if test="${!empty dto.conformNum and !empty dto.reviewNum }">
+			<a href="goodsReviewUpdate.review?reviewNum=${dto.reviewNum }">리뷰수정</a> 
+			<a href="goodsReviewDelete.review?reviewNum=${dto.reviewNum }">리뷰삭제</a>
 		</c:if>	
 	</td></tr>
 </c:forEach>
