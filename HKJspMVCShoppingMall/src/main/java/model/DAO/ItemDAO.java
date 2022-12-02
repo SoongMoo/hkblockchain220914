@@ -39,6 +39,52 @@ public class ItemDAO {
 		}
 		return conn;
 	}
+	public String wishSelect(String goodsNum,String memberNum) {
+		String str= null;
+		con = getConnection();
+		sql = " select goods_num from wish "
+			+ " where goods_num = ? and member_num = ? ";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, goodsNum);
+			pstmt.setString(2, memberNum);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				str = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return str;
+		
+	}
+	public void wishItem(String goodsNum,String memberNum) {
+		con = getConnection();
+		sql = " merge into wish w "
+			+ " using (select goods_num from goods where goods_num = ? ) g "
+			+ " on (w.goods_num = g.goods_num and w.member_num = ?) "
+			+ " When MATCHED THEN "
+			+ "    update set WISH_DATE = sysdate "
+			+ "    delete where member_num = ? and goods_num = ? "
+			+ " When not MATCHED THEN "
+			+ "    insert (MEMBER_NUM, GOODS_NUM, WISH_DATE) "
+			+ "    values(?,?,sysdate) ";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, goodsNum);
+			pstmt.setString(2, memberNum);
+			pstmt.setString(3, memberNum);
+			pstmt.setString(4, goodsNum);
+			pstmt.setString(5, memberNum);
+			pstmt.setString(6, goodsNum);
+			int i = pstmt.executeUpdate();
+			System.out.println(i + "개가 병합되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 	public void paymentDelete(String purchaseNum) {
 		con = getConnection();
 		sql = "delete from payments "

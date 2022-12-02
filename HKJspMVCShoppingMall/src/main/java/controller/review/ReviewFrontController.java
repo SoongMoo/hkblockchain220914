@@ -44,6 +44,13 @@ implements Servlet{
 					new GoodsReviewDeleteController();
 			action.execute(request);
 			response.sendRedirect("purchaseList.item");
+		}else if(command.equals("/reviewList.review")) {
+			ReviewListController action = 
+					new ReviewListController();
+			action.execute(request);
+			RequestDispatcher dispatcher =
+					request.getRequestDispatcher("review/revieList.jsp");
+			dispatcher.forward(request, response);
 		}
 		
 	}

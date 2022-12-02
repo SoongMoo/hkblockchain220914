@@ -94,6 +94,10 @@ public class ItemFrontController extends HttpServlet
 					new PaymentDeleteController();
 			action.execute(request);
 			response.sendRedirect("purchaseList.item");
+		}else if(command.equals("/wishItem.item")) {
+			GoodsWishItemController action =
+					new GoodsWishItemController();
+			action.execute(request);
 		}
 	}
 	@Override

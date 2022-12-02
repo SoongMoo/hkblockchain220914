@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.DTO.ReviewDTO;
 import model.DTO.ReviewDetailDTO;
@@ -37,6 +39,33 @@ public class ReviewDAO {
 		if(rs != null) try{rs.close();}catch(Exception e) {}
 		if(pstmt != null) try{pstmt.close();}catch(Exception e) {}
 		if(con != null) try{con.close();}catch(Exception e) {}
+	}
+	public List<ReviewDTO> selectAll(String goodsNum){
+		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
+		con = getConnection();
+		sql = "select REVIEW_NUM , MEMBER_NUM, GOODS_NUM"
+			+ ", REVIEW_SUBJECT,REVIEW_CONTENT "
+			+ " from reviews "
+			+ " where goods_Num = ?";	
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, goodsNum);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setGoodsNum(rs.getString("GOODS_NUM"));
+				dto.setMemberNum(rs.getString("MEMBER_NUM"));
+				dto.setReviewContent(rs.getString("REVIEW_CONTENT"));
+				dto.setReviewNum(rs.getInt("REVIEW_NUM"));
+				dto.setReviewSubject(rs.getString("REVIEW_SUBJECT"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return list;
 	}
 	public void reviewDelete(String reviewNum) {
 		con = getConnection();
