@@ -37,6 +37,8 @@ public class GoodsWriteController {
 		HttpSession session = request.getSession();
 		AuthInfo authInfo = (AuthInfo)session.getAttribute("dto");
 		String employeeNum = authInfo.getUserId();
+		
+		
 		GoodsDTO dto = new GoodsDTO();
 		dto.setCompany(company);
 		dto.setEmployeeNum(employeeNum);

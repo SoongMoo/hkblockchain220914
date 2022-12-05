@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +23,15 @@ public class LoginFrontController extends HttpServlet
 		System.out.println("sb gfvkjsbdgkjvsadg");
 		if(command.equals("/login.login")) {
 			UserLoginContoller action = new UserLoginContoller();
-			action.execte(request);
-			response.sendRedirect(request.getContextPath()+"/");
+			action.execte(request,response);
 		}else if(command.equals("/logout.login")) {
+			Cookie cookie = new Cookie("autoLogin","");
+			cookie.setPath("/");
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
+			System.out.println(cookie.getName());
+			
+			
 			HttpSession session = request.getSession();
 			session.invalidate();
 			response.sendRedirect(request.getContextPath()+"/");
@@ -34,7 +41,7 @@ public class LoginFrontController extends HttpServlet
 			dispatcher.forward(request, response);
 		}else if(command.equals("/login1.login")) {
 			UserLoginContoller action = new UserLoginContoller();
-			action.execte(request);
+			action.execte(request,response);
 			PrintWriter out = response.getWriter();
 			response.setContentType("text/html; charset=utf-8");
 			String str =  "<script language='javascript'>"

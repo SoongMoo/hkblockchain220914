@@ -98,6 +98,12 @@ public class ItemFrontController extends HttpServlet
 			GoodsWishItemController action =
 					new GoodsWishItemController();
 			action.execute(request);
+		}else if(command.equals("/buyItem.item")) {
+			CartInsertController action =
+					new CartInsertController();
+			action.execute(request);
+			response.sendRedirect("itemBuy.item?prodCk="
+					+request.getParameter("goodsNum"));
 		}
 	}
 	@Override

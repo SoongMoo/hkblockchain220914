@@ -9,6 +9,9 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 <script>
+	function buyItem(){
+		location.href="buyItem.item?goodsNum=${goodsDTO.goodsNum}&qty="+$("#qty").val();
+	}
 	$(function(){
 		$("#cartBtn").click(function(){
 			if(${dto != null}){
@@ -77,6 +80,7 @@
 		review();
 	});
 	function inquire(){
+		//location.href="inquireList.inq?goodsNum=${goodsDTO.goodsNum}"
 		$.ajax({
 			type : "POST",
 			url : "inquireList.inq",
@@ -124,7 +128,7 @@
 	<tr><td>${goodsDTO.company }</td></tr>
 	<tr><td>수량 : <input type="number" min="1" step="1" value="1" id="qty"/></td></tr>
 	<tr><td align="center"><button type="button" id="cartBtn">장바구니</button>
-						   <button type="button" id="butBtn">구매하기</button></td></tr>
+						   <button type="button" id="butBtn" onclick="buyItem()">구매하기</button></td></tr>
 	<tr><td colspan=2>${goodsDTO.goodsContent }<br/>
 		<c:forTokens items="${goodsDTO.goodsImage }" delims="`" var="image" begin="1">
 		<img src="goods/images/${image }"/>

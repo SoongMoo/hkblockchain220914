@@ -25,6 +25,7 @@
 	<a href="empMyPage.naver">마이페이지</a>
 	<a href="goodsList.goods">상품리스트</a>
 	<a href="memPurchaseList.deli" >구매정보</a>
+	<a href="inquire.inq" >상품문의</a>
 	
 	</c:if>
 </c:if>
@@ -32,10 +33,19 @@
 <c:if test="${empty dto }">
 <form action="login.login" method="get" >
 <table border=1>
-<tr><td colspan=2>로그인 유지 | 아이디 저장</td></tr>
-<tr><td><input type="text" name="userId" placeholder="아이디" /></td>
+<tr><td colspan=2>
+	<input type="checkbox" name="keeplogin" value="on"/>로그인 유지 | 
+	<input type="checkbox" name="storeId" value="store" 
+	<c:if test="${!empty storeId }">checked</c:if>
+	/>아이디 저장</td></tr>
+	
+<tr><td><input type="text" name="userId" placeholder="아이디" value="${storeId }"/><br />
+		<span style="color:red">${errId }</span>		
+	</td>
 	<td rowspan=2><input type="submit" value="로그인" /></td></tr>
-<tr><td><input type="password" name="userPw" placeholder="비밀번호" /></td></tr>
+<tr><td><input type="password" name="userPw" placeholder="비밀번호" /><br />
+		<span style="color:red">${errPw }</span>	
+	</td></tr>
 <tr><td colspan=2>아이디/비밀번호 찾기 | 
 	<a href="userAgree.nhn">회원가입</a>
 	</td></tr>
