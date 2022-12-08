@@ -1,5 +1,6 @@
 package controller.goods;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import model.DAO.GoodsDAO;
