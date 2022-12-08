@@ -9,7 +9,7 @@ public class GoodsDTO {
 	String goodsContent;
 	String company;
 	Date goodsRegiDate;
-	Date goodsUpdDate;
+	Date goodsUptDate;
 	String employeeNum;
 	String employeeUptNum;
 	String goodsImage;
@@ -56,11 +56,11 @@ public class GoodsDTO {
 	public void setGoodsRegiDate(Date goodsRegiDate) {
 		this.goodsRegiDate = goodsRegiDate;
 	}
-	public Date getGoodsUpdDate() {
-		return goodsUpdDate;
+	public Date getGoodsUptDate() {
+		return goodsUptDate;
 	}
-	public void setGoodsUpdDate(Date goodsUpdDate) {
-		this.goodsUpdDate = goodsUpdDate;
+	public void setGoodsUptDate(Date goodsUptDate) {
+		this.goodsUptDate = goodsUptDate;
 	}
 	public String getEmployeeNum() {
 		return employeeNum;

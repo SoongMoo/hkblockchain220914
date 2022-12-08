@@ -110,7 +110,7 @@ public class GoodsDAO {
 				dto.setGoodsNum(rs.getString("GOODS_NUM"));
 				dto.setGoodsPrice(rs.getInt("GOODS_PRICE"));
 				dto.setGoodsRegiDate(rs.getDate("GOODS_REGI_DATE"));
-				dto.setGoodsUpdDate(rs.getDate("GOODS_UPD_DATE"));
+				dto.setGoodsUptDate(rs.getDate("GOODS_UPD_DATE"));
 				dto.setGoodsImage(rs.getString("GOODS_IMAGE"));
 			}
 		} catch (SQLException e) {
@@ -141,7 +141,7 @@ public class GoodsDAO {
 				dto.setGoodsNum(rs.getString("GOODS_NUM"));
 				dto.setGoodsPrice(rs.getInt("GOODS_PRICE"));
 				dto.setGoodsRegiDate(rs.getDate("GOODS_REGI_DATE"));
-				dto.setGoodsUpdDate(rs.getDate("GOODS_UPD_DATE"));
+				dto.setGoodsUptDate(rs.getDate("GOODS_UPD_DATE"));
 				dto.setGoodsImage(rs.getString("GOODS_IMAGE"));
 				list.add(dto);
 			}

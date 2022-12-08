@@ -29,17 +29,17 @@ public class MainFrontController extends HttpServlet
 			
 			// 사용자가 가지고 있는 쿠키를 가지고 옴.
 			Cookie [] cookies = request.getCookies();
-			if(cookies != null && cookies.length > 0 ) {
+			if(cookies != null && cookies.length > 0){
 				for(Cookie cookie : cookies) {
 					System.out.println(cookie.getName());
-					if(cookie.getName().equals("store")) {
+					if(cookie.getName().equals("storeId")){
 						System.out.println(cookie.getValue());
 						request.setAttribute("storeId", cookie.getValue());
 					}
-					if(cookie.getName().equals("autoLogin")) {
-						HttpSession session = request.getSession();
+					if(cookie.getName().equals("autoLogin")){
 						AuthInfo authInfo = new AuthInfo();
 						authInfo.setUserId(cookie.getValue());
+						HttpSession session = request.getSession();
 						session.setAttribute("dto", authInfo);
 					}
 				}

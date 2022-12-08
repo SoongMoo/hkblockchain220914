@@ -28,10 +28,7 @@ public class LoginFrontController extends HttpServlet
 			Cookie cookie = new Cookie("autoLogin","");
 			cookie.setPath("/");
 			cookie.setMaxAge(0);
-			response.addCookie(cookie);
-			System.out.println(cookie.getName());
-			
-			
+			response.addCookie(cookie);	
 			HttpSession session = request.getSession();
 			session.invalidate();
 			response.sendRedirect(request.getContextPath()+"/");

@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:redirect url="/main.main"/>
+<script>
+location.href="main.main"
+</script>
 </body>
 </html>

@@ -57,9 +57,9 @@ public class GoodsFrontController extends HttpServlet
 					new GoodsUpdateController();
 			goodsUpdateController.execute(request);
 			response.sendRedirect(
-					"/goodsDetail.goods?goodsNum="
+					"goodsDetail.goods?goodsNum="
 							+request.getParameter("goodsNum"));
-		}else if(command.equals("/goodsdelete.goods")) {
+		}else if(command.equals("/goodsDel.goods")) {
 			GoodsDeletecontroller action =
 					new GoodsDeletecontroller();
 			action.execute(request);

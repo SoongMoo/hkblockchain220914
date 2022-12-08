@@ -18,7 +18,7 @@
 	<tr><th>등록한 사원</th><td>${dto.employeeNum }</td></tr>
 	<tr><th>등록일</th><td>${dto.goodsRegiDate }</td></tr>
 	<tr><th>마지막 수정 사원</th><td>${dto.employeeUptNum }</td></tr>
-	<tr><th>마지막 수정일</th><td>${dto.goodsUpdate }</td></tr>
+	<tr><th>마지막 수정일</th><td>${dto.goodsUptDate }</td></tr>
 	<tr><th colspan=2>
 		<c:forTokens items="${dto.goodsImage }" delims="`" var="img">
 		<img src="goods/images/${img }"/><br/>
