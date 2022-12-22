@@ -1,0 +1,26 @@
+(IOC)
+1. FrontController  @Controller
+2. 객체 생성 : new(x)  @Autowired
+
+
+jsp, spring => tomcat
+spring boot는 tomcat을 설치하지 않는다.
+
+jsp =
+controller : front-controller, page-controller
+model.dto : dto
+request
+
+spring: 
+contoller : front-controller : MemberContoller
+service : page-controller : MemberService
+DAO : Repository, 
+         Mapper : myBatis
+view : jsp
+domain : dto
+model
+
+spring boot : 
+	view : html
+                jsp
+
