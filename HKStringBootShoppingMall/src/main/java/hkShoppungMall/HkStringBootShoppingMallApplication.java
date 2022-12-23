@@ -1,5 +1,6 @@
 package hkShoppungMall;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 @Controller
+@MapperScan(value = {"hkShoppungMall"})
 public class HkStringBootShoppingMallApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HkStringBootShoppingMallApplication.class, args);
@@ -24,4 +26,6 @@ public class HkStringBootShoppingMallApplication {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	// PasswordEncoder passwordEncoder 
+	//                    = new BCryptPasswordEncoder();
 }
