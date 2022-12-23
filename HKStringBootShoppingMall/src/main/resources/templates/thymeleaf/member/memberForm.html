@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+보노보노 클럽 가입권유 페이지<br/>
+<form action="memberRegist" method="post" >
+회원 번호 (자동부여): <input type="text" name="memberNum" th:value="${memberNum}" /><br/>
+회원 아이디 : <input type="text" name="memberId" /><br/>
+회원 비밀번호 : <input type="password" name="memberPw" /><br/>
+회원 비밀번호 확인 : <input type="password" name="memberPwCon" /><br/>
+회원 이름 : <input type="text" name="memberName" /><br/> 
+회원 주소 : <input type="text" name="memberAddr" /> <br/>
+등록일 :  <input type="datetime-local" name="memberRegist" /><br/>
+성별 : <input type="radio" name="gender" value="F" />여자
+		<input type="radio" name="gender" value="M" />남자<br/>
+연락처 : <input type="tel" name="memberPhone" />  <br/>
+생년월일 : <input type="date" name="memberBirth" /><br/>
+회원 이메일 : <input type="email" name="memberEmail"/><br/>
+<input type="submit" value="회원 등록"/>
+</form>
+</body>
+</html>

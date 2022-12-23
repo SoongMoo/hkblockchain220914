@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hkShoppungMall.mapper.MemberMapper">
+<select id="memberNumGenerate" resultType="string">
+	select concat('hk',nvl(max(substr(member_num,3)),1000000)+ 1) 
+	from member
+</select>
+<insert id="memberInsert" 
+		parameterType="memDTO">
+	insert into member(member_Num,member_Id,member_Pw,member_Name, 
+						member_addr,member_regist,
+						gender,member_phone,member_birth, member_email)
+	values(#{memberNum},#{memberId},#{memberPw},#{memberName},#{memberAddr},
+	#{memberRegist},#{gender},#{memberPhone},#{memberBirth},#{memberEmail})
+</insert>
+</mapper>
