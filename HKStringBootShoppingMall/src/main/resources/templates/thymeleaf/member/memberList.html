@@ -6,6 +6,22 @@
 </head>
 <body>
 고객리스트<br />
-<a href="memberRegist">회원 등록</a>
+<a href="memberRegist">회원 등록</a><br />
+<table border="1">
+	<tr>
+		<td>번호</td>
+		<td>이름</td>
+		<td>아이디</td>
+		<td>생일</td>
+		<td>삭제</td>
+	</tr>
+	<tr th:each="memberDTO : ${list}">
+		<td>[[${memberDTO.memberNum}]]</td>
+		<td>[[${memberDTO.memberName}]]</td>
+		<td>[[${memberDTO.memberId}]]</td>
+		<td><span th:text="${#dates.format(memberDTO.memberBirth,'yyyy-MM-dd')}"></span></td>
+		<td>삭제</td>
+	</tr>
+</table>
 </body>
 </html>
