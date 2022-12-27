@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 import hkShoppungMall.mapper.MemberMapper;
 
 @Service
-public class MemberIdcheckService {
+public class MemberDeleteService {
 	@Autowired
 	MemberMapper memberMapper;
-	public String execute(String memberId) {
-		String memId = memberMapper.memberIdCheck(memberId);
-		return memId;
+	public Integer execute(String memberNum) {
+		Integer i = memberMapper.memberDelete(memberNum);
+		return i;
 	}
 }

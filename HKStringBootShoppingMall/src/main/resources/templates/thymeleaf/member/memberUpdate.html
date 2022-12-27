@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#memberEmail").on("keyup",function(){
+		$.ajax({
+			type:"post",
+			url:"memEmailCk",
+			dataType:"text",
+			data:{"memberEmail":$("#memberEmail").val(),"memberId":"[[${memberCommand.memberId}]]"},
+			success: function (result) {
+				$("#emailCk").html(result);
+				if(result =="사용 가능 이메일입니다."){
+					$("#emailCk").css("color" , "blue");
+				}else{
+					$("#emailCk").css("color" , "red");
+				}
+			},error : function () {
+				alert("코드에러 코드에러 ");
+				return;
+			}
+		});
+	});
+});
+</script>
+</head>
+<body>
+<form action="memberModify" method="post" id="frm"  th:object="${memberCommand}">
+<input type="hidden" name="memberPw" value="111111a!" />
+<input type="hidden" name="memberPwCon" value="111111a!" />
+[[${memberCommand.memberName}]]회원정보 <br />
+회원번호 : <input type="text" name="memberNum" th:value="${memberCommand.memberNum}" 
+			readonly="readonly" /><br />
+회원 아이디 : <input type="text" name="memberId" th:value="${memberCommand.memberId}" 
+			readonly="readonly" /><br />
+회원 이름 :  <input type="text" name="memberName" th:value="${memberCommand.memberName}" 
+		 /><br />
+회원 주소 : <input type="text" name="memberAddr" th:value="${memberCommand.memberAddr}" 
+		 /><br />
+등록일 : <input type="datetime-local" name="memberRegist" th:value="${memberCommand.memberRegist}" 
+		 /><br />
+성별 : <input type="radio" name="gender" value="F" th:checked="${memberCommand.gender=='F'}" />여자
+	 <input type="radio" name="gender" value="M" th:checked="${memberCommand.gender=='M'}" />남자 
+<br />
+연락처 : <input type="tel" name="memberPhone"  th:value="${memberCommand.memberPhone}"><br />
+생년월일 : <input type="date" name="memberBirth" 
+		th:value="${#dates.format(memberCommand.memberBirth,'yyyy-MM-dd')}" 
+		 /><br />
+회원 이메일 : <input type="email" name="memberEmail"  th:value="${memberCommand.memberEmail}" 
+			id="memberEmail">
+		 <span id="emailCk"></span>	
+			<br />
+<input type="submit" id="send" value="회원수정완료"/>
+</form>
+</body>
+</html>

@@ -3,18 +3,40 @@
 	"-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hkShoppungMall.mapper.MemberMapper">
-
-<select id="memberEmail" resultType="string" 
+<sql id="memberBase">
+member_Num memberNum ,member_Id memberId, 
+member_Pw memberPw,member_Name memberName, 
+member_addr memberAddr,member_regist memberRegist,
+gender gender,member_phone memberPhone,
+member_birth memberBirth, member_email memberEmail
+</sql>
+<delete id="memberDelete" parameterType="string">
+	delete from member
+	where member_Num = #{memberNum}
+</delete>
+<update id="memberUpdate" parameterType="memDTO">
+	update member
+	set member_Name = #{memberName}, member_addr = #{memberAddr},
+		member_regist = #{memberRegist},gender = #{gender},
+		member_phone = #{memberPhone},member_Birth =#{memberBirth},
+		member_email = #{memberEmail}
+	where   member_Num = #{memberNum}
+</update>
+<select id="selectOne" parameterType="string" resultType="memDTO">
+ select <include refid="memberBase" />
+ from member 
+ where member_Num = #{memberNum}
+</select>
+<select id="memberEmail" resultType="authInfo" 
 	parameterType="string">
-	select member_email from member 
+	select member_email userEmail, member_id userId  from member 
 	where member_email = #{memberEmail}
+	union
+	select emp_email , emp_id from employees 
+	where emp_email = #{memberEmail}
 </select>
 <select id="selectAll" resultType="memDTO">
- select member_Num memberNum ,member_Id memberId, 
- 		member_Pw memberPw,member_Name memberName, 
-		member_addr memberAddr,member_regist memberRegist,
-		gender gender,member_phone memberPhone,
-		member_birth memberBirth, member_email memberEmail
+ select <include refid="memberBase" />
  from member 
 </select>
 <select id="memberIdCheck" parameterType="string" 

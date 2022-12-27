@@ -7,6 +7,10 @@
 <body>
 고객리스트<br />
 <a href="memberRegist">회원 등록</a><br />
+	<form action="memList" method="get" >
+		회원 조회 : <input type="search" name="memberWord" size="50"/> 
+				<input type="submit" value="검색" />
+	</form>
 <table border="1">
 	<tr>
 		<td>번호</td>
@@ -16,8 +20,8 @@
 		<td>삭제</td>
 	</tr>
 	<tr th:each="memberDTO : ${list}">
-		<td>[[${memberDTO.memberNum}]]</td>
-		<td>[[${memberDTO.memberName}]]</td>
+		<td><a th:href="|memberDetail/${memberDTO.memberNum}|">[[${memberDTO.memberNum}]]</a></td>
+		<td>[[${memberDTO.memberName} ]]</td>
 		<td>[[${memberDTO.memberId}]]</td>
 		<td><span th:text="${#dates.format(memberDTO.memberBirth,'yyyy-MM-dd')}"></span></td>
 		<td>삭제</td>

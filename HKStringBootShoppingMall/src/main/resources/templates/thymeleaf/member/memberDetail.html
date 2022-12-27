@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>memberDetail.html</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script>
+$(function(){
+	$("#send").click(function(){
+		location.href="../memberModify?memberNum=[[${memberCommand.memberNum}]]";
+	});
+	$("#del").click(function(){
+		$.ajax({
+			type : "post",
+			url : "../memberDelete1",
+			data: {"memberNum":"[[${memberCommand.memberNum}]]"},
+			dataType : "text",
+			success :function(result){
+				if(result.trim() == '1'){
+					alert("회원이 정상적으로 삭제 되었습니다.");
+					location.href="../memberList";
+				}else{
+					alert("회원이 삭제되지 않았습니다.");
+					return false;
+				}
+			},
+			error : function() {
+				alert('에러가 나왔다 홀홀홀~');
+				return;
+			}
+		});
+	});
+});
+function send(){
+	location.href="../memberModify?memberNum=[[${memberCommand.memberNum}]]";
+}
+function del(){
+	location.href="../memberDelete?memberNum=[[${memberCommand.memberNum}]]";
+}
+function del1(){
+	$.ajax({
+		type : "post",
+		url : "../memberDelete1",
+		data: {"memberNum":"[[${memberCommand.memberNum}]]"},
+		dataType : "text",
+		success :function(result){
+			if(result.trim() == '1'){
+				alert("회원이 정상적으로 삭제 되었습니다.");
+				location.href="../memberList";
+			}else{
+				alert("회원이 삭제되지 않았습니다.");
+				return false;
+			}
+		},
+		error : function() {
+			alert('에러가 나왔다 홀홀홀~');
+			return;
+		}
+	});
+}
+</script>
+</head>
+<body>
+[[${memberCommand.memberName}]]회원정보 <br />
+회원번호 : [[${memberCommand.memberNum}]]<br />
+회원 아이디 : [[${memberCommand.memberId}]]<br />
+회원 이름 :  [[${memberCommand.memberName}]]<br />
+회원 주소 :  [[${memberCommand.memberAddr}]]<br />
+등록일 :  [[${memberCommand.memberRegist}]]<br />
+성별 : [[${memberCommand.gender}]]<br />
+연락처 : [[${memberCommand.memberPhone}]]<br />
+생년월일 :[[${memberCommand.memberBirth}]]<br />
+회원 이메일 : [[${memberCommand.memberEmail}]]<br />
+<form action="../memberModify" method="get" >
+<input type="hidden" name="memberNum" th:value="${memberCommand.memberNum}">
+<input type="submit" value="회원 수정"/>
+</form>
+<button type="button" onclick="send();">회원 수정</button>
+<button type="button" id="send" >회원 수정</button>
+<a th:href="@{../memberModify?(memberNum=${memberCommand.memberNum})}">회원 수정</a>
+<a th:href="|../memberModify?memberNum=${memberCommand.memberNum}|">회원 수정</a>
+<a th:href="|../memberDelete?memberNum=${memberCommand.memberNum}|">회원 삭제</a>
+<button type="button" onclick="javascript:del();">회원삭제</button>
+<button type="button" onclick="javascript:del1();">회원삭제</button>
+<button type="button" id="del">회원삭제</button>
+</body>
+</html>
