@@ -9,8 +9,44 @@
 <a href="/employee/empList">직원 관리</a><br />
 <a href="#">상품 관리</a><br />
 
-
-
 <a href="/mypage/memberDetail">내 정보 보기</a>
+
+<form action="/login/loginPro" name="frm" id="frm" method="post"  >
+<table border="1"  align="center">
+<tr>
+	<td colspan="3">
+		자동 로그인 <input type="checkbox" name="autoLogin" />
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		아이디 저장 <input type="checkbox" name="idStore"  >
+	</td>
+</tr>
+<tr>
+	<td>아이디</td>
+	<td>
+		<input type="text" name="userId" id="userId"  />
+	</td>
+	<td rowspan=2>
+						<!-- src="/static/images/img1.jpg" -->
+		<input type="image" th:src="@{/static/images/img1.jpg}" 
+			width="80" height="80" >
+	</td>
+</tr>
+	<tr>
+		<td>비밀번호</td>
+		<td>
+			<input type="password" name="userPw" id="userPw"><br />
+			
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<a href="/register/agree">회원가입</a>&nbsp;
+			<a href="/help/findId">아이디 찾기</a>&nbsp;
+			<a href="/help/findPassword">비밀번호 찾기</a>&nbsp
+		</td>
+	</tr>
+</table>
+</form>
+
 </body>
 </html>

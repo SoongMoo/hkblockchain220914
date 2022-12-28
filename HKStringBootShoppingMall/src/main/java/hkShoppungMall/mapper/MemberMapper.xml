@@ -56,8 +56,9 @@ member_birth memberBirth, member_email memberEmail
  from member 
  <where>
  	<if test="memberWord != null">
- 		member_num = #{memberWord} or member_name = #{memberWord}
- 		or member_id = #{memberWord}
+ 		member_num like '%'||#{memberWord}||'%' 
+ 		or member_name like '%'||#{memberWord}||'%'
+ 		or member_id like '%'||#{memberWord}||'%'
  	</if>
  </where> 
 </select>
