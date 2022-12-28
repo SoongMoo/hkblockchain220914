@@ -7,10 +7,12 @@
 <body>
 고객리스트<br />
 <a href="memberRegist">회원 등록</a><br />
-	<form action="memberList" method="get" >
-		회원 조회 : <input type="search" name="memberWord" size="50"/> 
+<form action="memberList" method="get" >
+		회원  : <input type="search" name="memberWord" size="50" 
+					th:value="${memberWord}"/> 
 				<input type="submit" value="검색" />
-	</form>
+</form>
+<form action="memberDels" method="post">
 <table border="1">
 	<tr>
 		<td>번호</td>
@@ -27,5 +29,6 @@
 		<td><input type="checkbox" name="memDels" th:value="${memberDTO.memberNum}"></td>
 	</tr>
 </table>
+</form>
 </body>
 </html>

@@ -10,6 +10,22 @@ member_addr memberAddr,member_regist memberRegist,
 gender gender,member_phone memberPhone,
 member_birth memberBirth, member_email memberEmail
 </sql>
+<delete id="membersDelete" parameterType="string">
+	delete from member
+	where member_Num in 
+	<foreach collection="memDels" item="memberNum" index="index"
+	open="(" close=")" separator=","	>
+		#{memberNum}
+	</foreach>
+</delete>
+<delete id="membersRemove" parameterType="hashMap">
+	delete from member
+	where member_Num in 
+	<foreach collection="memberNums" item="memberNum" index="index"
+	open="(" close=")" separator=","	>
+		#{memberNum}
+	</foreach>
+</delete>
 <delete id="memberDelete" parameterType="string">
 	delete from member
 	where member_Num = #{memberNum}
@@ -35,9 +51,15 @@ member_birth memberBirth, member_email memberEmail
 	select emp_email , emp_id from employees 
 	where emp_email = #{memberEmail}
 </select>
-<select id="selectAll" resultType="memDTO">
+<select id="selectAll" resultType="memDTO" parameterType="string">
  select <include refid="memberBase" />
  from member 
+ <where>
+ 	<if test="memberWord != null">
+ 		member_num = #{memberWord} or member_name = #{memberWord}
+ 		or member_id = #{memberWord}
+ 	</if>
+ </where> 
 </select>
 <select id="memberIdCheck" parameterType="string" 
 	resultType="string">

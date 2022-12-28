@@ -13,8 +13,9 @@ import hkShoppungMall.mapper.MemberMapper;
 public class MemberListService {
 	@Autowired
 	MemberMapper memberMapper;
-	public void execute(Model model) {
-		List<MemberDTO> list = memberMapper.selectAll() ; 
+	public void execute(Model model, String memberWord) {
+		List<MemberDTO> list = memberMapper.selectAll(memberWord) ; 
 		model.addAttribute("list",list);
+		model.addAttribute("memberWord", memberWord);
 	}
 }

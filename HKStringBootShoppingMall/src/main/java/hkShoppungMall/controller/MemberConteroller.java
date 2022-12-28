@@ -14,6 +14,7 @@ import hkShoppungMall.command.MemberCommand;
 import hkShoppungMall.domain.AuthInfo;
 import hkShoppungMall.service.EmailCheckService;
 import hkShoppungMall.service.member.MemberDeleteService;
+import hkShoppungMall.service.member.MemberDelsService;
 import hkShoppungMall.service.member.MemberDetailService;
 import hkShoppungMall.service.member.MemberListService;
 import hkShoppungMall.service.member.MemberModifyService;
@@ -38,9 +39,21 @@ public class MemberConteroller {
 	MemberModifyService memberModifyService;
 	@Autowired
 	MemberDeleteService memberDeleteService;
+	@Autowired
+	MemberDelsService memberDelsService;
+	@RequestMapping("memberDels")
+	public String memberDels(
+			// String memDels [] = request.getParameterValues("memDels");
+			@RequestParam(value = "memDels") String memDels []
+			) {
+		memberDelsService.execute(memDels);
+		return "redirect:memberList";
+	}
 	@RequestMapping("memberList")
-	public String memberList(Model model) {
-		memberListService.execute(model);
+	public String memberList(
+			@RequestParam(value = "memberWord" ,required = false ) String memberWord,
+			Model model) {
+		memberListService.execute(model, memberWord);
 		return "thymeleaf/member/memberList";
 	}
 	@RequestMapping(value="memberRegist", method = RequestMethod.GET)
@@ -59,6 +72,7 @@ public class MemberConteroller {
 	}
 	@RequestMapping("memberDelete")
 	public String memberDelete(
+			// String memberNum = request.getParameter("memberNum");
 			@RequestParam(value = "memberNum")String memberNum) {
 		Integer i = memberDeleteService.execute(memberNum);
 		if(i == 0) {

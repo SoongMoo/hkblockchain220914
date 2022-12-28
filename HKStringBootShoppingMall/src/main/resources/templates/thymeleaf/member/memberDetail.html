@@ -67,9 +67,11 @@ function del1(){
 회원 이름 :  [[${memberCommand.memberName}]]<br />
 회원 주소 :  [[${memberCommand.memberAddr}]]<br />
 등록일 :  [[${memberCommand.memberRegist}]]<br />
-성별 : [[${memberCommand.gender}]]<br />
+성별 :	<span th:if="${memberCommand.gender == 'M'}" th:text="남자"></span> 
+		<span th:if="${memberCommand.gender == 'F'}" th:text="여자"></span><br />
 연락처 : [[${memberCommand.memberPhone}]]<br />
-생년월일 :[[${memberCommand.memberBirth}]]<br />
+생년월일 : <span th:text="${#dates.format(memberCommand.memberBirth,'yyyy-MM-dd')}"></span>
+<br />
 회원 이메일 : [[${memberCommand.memberEmail}]]<br />
 <form action="../memberModify" method="get" >
 <input type="hidden" name="memberNum" th:value="${memberCommand.memberNum}">
