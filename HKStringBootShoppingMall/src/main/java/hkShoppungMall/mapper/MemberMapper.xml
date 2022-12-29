@@ -10,6 +10,12 @@ member_addr memberAddr,member_regist memberRegist,
 gender gender,member_phone memberPhone,
 member_birth memberBirth, member_email memberEmail
 </sql>
+<update id="joinOkUpdate" parameterType="string">
+	update member
+	set member_ok = 'Y'
+	where member_email = #{memberEmail} 
+	and member_ok is null
+</update>
 <delete id="membersDelete" parameterType="string">
 	delete from member
 	where member_Num in 

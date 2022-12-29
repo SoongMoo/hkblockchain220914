@@ -20,4 +20,5 @@ public interface MemberMapper {
 	public Integer memberDelete(String memberNum);
 	public Integer membersDelete(String memDels []);
 	public Integer membersRemove(HashMap<String, Object> condition);
+	public Integer joinOkUpdate(String memberEmail);
 }

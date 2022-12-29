@@ -9,8 +9,7 @@ member_email
 <sql id="AutoNum">
 	select nvl(max(substr(member_NUM,3)),100000) + 1 from member
 </sql>
-<insert id="memberInsert" 
-	parameterType="memDTO">
+<insert id="memberInsert" parameterType="memDTO">
 insert into member( <include refid="baseColumns1" /> )
 values(concat('hk',( <include refid="AutoNum" /> )),
 		#{memberId},#{memberPw},#{memberName},#{memberAddr},sysdate,

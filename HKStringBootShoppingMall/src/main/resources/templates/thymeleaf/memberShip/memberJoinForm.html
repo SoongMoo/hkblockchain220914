@@ -46,11 +46,24 @@ $(function(){
 			}
 		});
 	});
+	/// 아이디와 이메일이 사용 가능하다고 되어 있을 때만 submit이 되게
+	$("#submit").click(function(){
+		if($("#idCheck").text().trim() != "사용가능한 아이디입니다."){
+			alert("아이디 중복확인을 해 주세요.");
+			return false;
+		}
+		if($("#emailCheck").text().trim() != "사용 가능 이메일입니다."){
+			alert("이메일 중복확인을 해 주세요.");
+			return false;
+		}
+		this.submit();
+	});
 });	
+
 </script>
 </head>
 <body>
-<form action="memberJoinAction" method="post" name='frm' id="frm" th:object="${memberCommand}" >
+<form action="memberJoinAction" method="post" name='frm' id="frm1" th:object="${memberCommand}" >
 <input type="hidden" name="memberNum" value="1234567890"> 
 <span th:if="${#fields.hasErrors('memberNum')}" th:errors="*{memberNum}"></span>
 <input type="hidden" name="memberRegist" value="1999-12-30T00:00"> 
@@ -62,7 +75,7 @@ $(function(){
 		<tfoot>
 		<tr>
 			<th colspan="2">
-				<input type='submit' value='가입완료' />&nbsp;&nbsp;
+				<input type='submit' value='가입완료' id="submit" />&nbsp;&nbsp;
 				<input type='reset' value='다시 입력' />&nbsp;&nbsp;
 				<input type='button' value='가입 안함' 
 					onclick="javascript:location.href='/'"/>

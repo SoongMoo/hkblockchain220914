@@ -19,24 +19,23 @@ import hkShoppungMall.service.memberShip.MemberJoinService;
 @Controller
 @RequestMapping("register")
 public class MemberJoinController {
-	@Autowired
-	MemberJoinService  memberJoinService ;
-	
 	@ModelAttribute
 	MemberCommand getMemberCommand() {
 		return new MemberCommand();
 	}
+	
 	@RequestMapping(value = "agree", method = RequestMethod.GET)
 	public String agree() {
 		return "thymeleaf/memberShip/agree";
 	}
+	// http://localhost:8080/register/regist로 직잡 적아서 들어오는 것을 방지ㅏ
 	@RequestMapping(value = "regist" , method = RequestMethod.GET)
 	public String agree1() {
 		return "thymeleaf/memberShip/agree";
 	}
 	@RequestMapping(value = "regist" , method = RequestMethod.POST)
-	public String regist(@RequestParam(value = "agree", 
-			defaultValue = "false" ) Boolean agree) {
+	public String regist(
+			@RequestParam(value = "agree", defaultValue = "false" ) Boolean agree) {
 		if(agree == false) {
 			return "thymeleaf/membership/agree";
 		}
@@ -50,11 +49,12 @@ public class MemberJoinController {
 	IdcheckService idcheckService;
 	@Autowired
 	EmailCheckService emailCheckService ;
+	@Autowired
+	MemberJoinService  memberJoinService ;
 	
 	@RequestMapping(value = "memberJoinAction", method = RequestMethod.POST )
 	public String memberJoinAction1(
-			@Validated MemberCommand memberCommand, BindingResult result,
-			Model model) {
+			@Validated MemberCommand memberCommand, BindingResult result,Model model) {
 		if (result.hasErrors()) {
 			return "thymeleaf/memberShip/memberJoinForm";
 		}
