@@ -2,9 +2,6 @@ package hkShoppungMall.service.memberShip;
 
 
 
-import java.util.HashMap;
-
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,8 +12,7 @@ import hkShoppungMall.command.MemberCommand;
 import hkShoppungMall.domain.MemberDTO;
 import hkShoppungMall.mapper.MemberShipMapper;
 import hkShoppungMall.service.EmailSendService;
-import net.nurigo.java_sdk.api.Message;
-import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import hkShoppungMall.service.SMSSendService;
 @Service
 public class MemberJoinService {
 	@Autowired
@@ -27,6 +23,8 @@ public class MemberJoinService {
 	EmailSendService memberEmail;
 	@Autowired
 	JavaMailSender mailSender;
+	@Autowired
+	SMSSendService smsSendService;
 	public void execute(MemberCommand memberCommand, Model model) {
 		MemberDTO dto = new MemberDTO();
 		dto.setMemberBirth(memberCommand.getMemberBirth());
@@ -52,29 +50,12 @@ public class MemberJoinService {
 				dto.getMemberEmail());
 		
 		// SMS
-		String api_key = "NCSW6VCZXODXGPOX";
-		String api_secret = "UZMGJ9ADCK2LCTIEWQRITSVRXW3J0B3T";
-		Message coolsms = new Message(api_key, api_secret);
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("from", "01071461970");
-		params.put("to", dto.getMemberPhone());
 		content = "안녕하세요. 숭무쇼핑몰입니다.\n "
 				+ dto.getMemberName()
 				+ "님 가입을 환영합니다.\n"
 				+ "이메일로 본인인증을 부탁드립니다.";
-		params.put("text",content);
-		params.put("app_version", "JAVA SDK v2.2");
-		if(content.length() > 80) {
-			params.put("type", "LMS");
-		}else {
-			params.put("type", "SMS");
-		}
-		try {
-			JSONObject obj = (JSONObject) coolsms.send(params);
-		} catch (CoolsmsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		smsSendService.send("01071461970", dto.getMemberPhone(), 
+				content);
 	}
 }
 
