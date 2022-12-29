@@ -30,6 +30,7 @@ $(function () {
 </head>
 <body>
 <form action="empUpdate" method="post" th:object="${employeeCommand}">
+비밀번호 : <input type="hidden" name="empPwCon" value="1111111a!"/>
 아이디 : <input type="text" name="empId" th:value="${employeeCommand.empId}" readonly="readonly" id="empId" /><br />
 
 비밀번호 : <input type="password" name="empPw" />

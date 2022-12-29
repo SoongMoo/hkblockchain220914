@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hkShoppungMall.mapper.MemberShipMapper">
+<sql id="baseColumns1">
+member_Num ,member_Id ,member_Pw ,member_Name , member_addr,
+member_regist ,gender,member_phone ,member_birth, 
+member_email
+</sql>
+<sql id="AutoNum">
+	select nvl(max(substr(member_NUM,3)),100000) + 1 from member
+</sql>
+<insert id="memberInsert" 
+	parameterType="memDTO">
+insert into member( <include refid="baseColumns1" /> )
+values(concat('hk',( <include refid="AutoNum" /> )),
+		#{memberId},#{memberPw},#{memberName},#{memberAddr},sysdate,
+		#{gender},#{memberPhone},#{memberBirth},#{memberEmail})
+</insert>
+</mapper>

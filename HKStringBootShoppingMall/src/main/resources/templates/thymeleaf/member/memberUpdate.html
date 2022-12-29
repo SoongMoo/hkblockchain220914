@@ -38,21 +38,29 @@ $(function(){
 회원 아이디 : <input type="text" name="memberId" th:value="${memberCommand.memberId}" 
 			readonly="readonly" /><br />
 회원 이름 :  <input type="text" name="memberName" th:value="${memberCommand.memberName}" 
-		 /><br />
+		 />
+		 <span style="color:red" th:if="${#fields.hasErrors('memberName')}" th:errors="*{memberName}"></span>
+		 <br />
 회원 주소 : <input type="text" name="memberAddr" th:value="${memberCommand.memberAddr}" 
-		 /><br />
+		 />
+		 <span style="color:red" th:if="${#fields.hasErrors('memberAddr')}" th:errors="*{memberAddr}"></span><br />
 등록일 : <input type="datetime-local" name="memberRegist" th:value="${memberCommand.memberRegist}" 
-		 /><br />
+		 />
+	   <span style="color:red" th:if="${#fields.hasErrors('memberRegist')}" th:errors="*{memberRegist}"></span><br />
 성별 : <input type="radio" name="gender" value="F" th:checked="${memberCommand.gender=='F'}" />여자
 	 <input type="radio" name="gender" value="M" th:checked="${memberCommand.gender=='M'}" />남자 
+	<span style="color:red" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
 <br />
-연락처 : <input type="tel" name="memberPhone"  th:value="${memberCommand.memberPhone}"><br />
+연락처 : <input type="tel" name="memberPhone"  th:value="${memberCommand.memberPhone}">
+<span style="color:red" th:if="${#fields.hasErrors('memberPhone')}" th:errors="*{memberPhone}"></span><br />
 생년월일 : <input type="date" name="memberBirth" 
 		th:value="${#dates.format(memberCommand.memberBirth,'yyyy-MM-dd')}" 
-		 /><br />
-회원 이메일 : <input type="email" name="memberEmail"  th:value="${memberCommand.memberEmail}" 
+		 />
+		 <span style="color:red" th:if="${#fields.hasErrors('memberBirth ')}" th:errors="*{memberBirth}"></span><br />
+회원 이메일 : <input type="email" name="memberEmail"  th:value="${memberCommand.memberEmail }" 
 			id="memberEmail">
-		 <span id="emailCk"></span>	
+		 <span id="emailCk"></span>
+		 <span style="color:red" th:if="${#fields.hasErrors('memberEmail')}" th:errors="*{memberEmail}"></span>	
 			<br />
 <input type="submit" id="send" value="회원수정완료"/>
 </form>
