@@ -48,9 +48,8 @@ public class MemberJoinService {
 		String subject = "가입환영인사";
 		memberEmail.mailSend(content, subject, "administrator@gmail.com", 
 				dto.getMemberEmail());
-		
 		// SMS
-		content = "안녕하세요. 숭무쇼핑몰입니다.\n "
+		content = "안녕하세요. 숭무쇼핑몰입니다.\n"
 				+ dto.getMemberName()
 				+ "님 가입을 환영합니다.\n"
 				+ "이메일로 본인인증을 부탁드립니다.";

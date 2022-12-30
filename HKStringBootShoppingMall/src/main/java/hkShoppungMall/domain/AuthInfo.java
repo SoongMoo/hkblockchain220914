@@ -9,4 +9,8 @@ import lombok.Data;
 public class AuthInfo {
 	String userId;
 	String userEmail;
+	String userPw;
+	String phone;
+	String memberOk;
+	String grade;
 }

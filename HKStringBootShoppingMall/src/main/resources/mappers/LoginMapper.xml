@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hkShoppungMall.mapper.LoginMapper">
+<select id="loginSelect" parameterType="string" resultType="authInfo">
+	select member_id userId , member_email userEmail ,
+		   member_pw  userPw, member_phone phone, 
+		   member_Ok memberOk, 'mem' grade
+	from member
+	where member_id = #{userId}
+	union
+	select emp_id , emp_email, emp_pw , emp_phone, 'Y', 'emp'
+	from employees
+	where emp_id = #{userId}
+</select>
+</mapper>
+
