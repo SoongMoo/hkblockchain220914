@@ -299,9 +299,38 @@ create table voters(
     tx_id VARCHAR2(200) /* 투표시 발생한 트랜잭션 ID */
 );
 
+////////////////////////////////////////////////////
+
+alter table employees
+add (emp_num VARCHAR2(20));
+
+alter table employees
+add constraint emp_num_pk PRIMARY key(emp_num);
+
+alter table employees
+add (emp_num VARCHAR2(20));
+
+alter table employees
+add constraint emp_num_pk PRIMARY key(emp_num);
+
+alter table goods
+add (EMP_num VARCHAR2(20), 
+     goods_regi_date TIMESTAMP,
+     emp_upt_date TIMESTAMP,
+     emp_upt_num VARCHAR2(20));
+
+alter table goods
+add (constraint goods_EMP_num_FK foreign key(EMP_num)
+     REFERENCES employees(emp_num) on delete set null,
+     constraint goods_emp_upt_num_fk FOREIGN key(emp_upt_num)
+     REFERENCES employees(emp_num) on delete set null
+    );
 
 
-
+alter table goodsIpgo
+add (EMP_num varchar2(20) 
+     constraint goodsIpgo_emp_num_fk 
+     REFERENCES  employees(emp_num) on delete set null );
 
 
 
