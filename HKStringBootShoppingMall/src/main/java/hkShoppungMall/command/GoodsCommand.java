@@ -1,5 +1,7 @@
 package hkShoppungMall.command;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -16,4 +18,7 @@ public class GoodsCommand {
 	String goodsContent;
 	@NotNull(message = "상품 배송비를 입력하세요.")
 	Integer deliveryCost; 
+
+	MultipartFile goodsMain;
+	MultipartFile [] goodsImages;
 }

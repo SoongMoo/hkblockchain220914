@@ -48,6 +48,10 @@ public class GoodsController {
 		if(result.hasErrors()) {
 			return "thymeleaf/goods/goodsForm";
 		}
+		if(goodsCommand.getGoodsMain().getOriginalFilename().isEmpty()) {
+			result.rejectValue("goodsMain", "goodsCommand.goodsMain", "대문이미지를 선택하여주세요.");
+			return "thymeleaf/goods/goodsForm";
+		}
 		goodsWriteService.execute(goodsCommand, session);
 		return "redirect:goodsList";
 	}
