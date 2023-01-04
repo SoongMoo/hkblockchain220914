@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hkShoppungMall.mapper.GoodsMapper">
+<select id="goodsAutoNum" resultType="string">
+select 
+concat('goods',nvl(max(substr(goods_num,6)),10000)+1)from goods	
+</select>
+<insert id="goodsInsert" parameterType="goodsDTO">
+	insert into goods(GOODS_NUM , GOODS_NAME , GOODS_PRICE,
+						  GOODS_CONTENT, DELIVERY_COST, VISIT_COUNT
+						<if test="goodsMain != null">
+								,goods_Main
+						</if>
+						<if test="goodsImages != null">
+							,goods_images
+						</if>
+						<if test="goodsOriginal != null">
+							,goods_Original
+						</if>
+						<if test="goodsMainOrg != null">
+							,goods_Main_Org
+						</if>
+						  ,EMP_NUM,GOODS_REGI_DATE,EMP_UPT_DATE,EMP_UPT_NUM)
+	values(#{goodsNum},#{goodsName},
+		       #{goodsPrice},#{goodsContent},#{deliveryCost},0
+		        <if test="goodsMain != null">
+					,#{goodsMain}
+				</if>
+				<if test="goodsImages != null">
+					,#{goodsImages}
+				</if>	
+				<if test="goodsOriginal != null">
+					,#{goodsOriginal}
+				</if>
+				<if test="goodsMainOrg != null">
+					,#{goodsMainOrg}
+				</if>
+		       ,#{empNum}, sysdate, null, null)
+	
+</insert>
+<sql id="baseColumns">
+GOODS_NUM goodsNum , GOODS_NAME goodsName , GOODS_PRICE goodsPrice ,
+GOODS_CONTENT goodsContent , DELIVERY_COST deliveryCost, 
+VISIT_COUNT visitCount
+</sql>
+<select id="goodsList" resultType="goodsDTO" parameterType="string">
+select <include refid="baseColumns" />
+from goods
+<where>
+<if test="goodsWord != null">
+	GOODS_NAME like '%'||#{goodsWord}||'%'
+	or GOODS_CONTENT like '%'||#{goodsWord}||'%'
+	or GOODS_NUM like '%'||#{goodsWord}||'%'
+</if>
+</where>
+</select>
+<select id="goodsSelectOne" parameterType="string" resultType="goodsDTO">
+select <include refid="baseColumns" />
+from goods
+where GOODS_NUM = #{goodsNum}
+</select>
+<update id="goodsVisitCnt" parameterType="string">
+	update goods
+	set VISIT_COUNT = VISIT_COUNT + 1
+	where GOODS_NUM = #{goodsNum}
+</update>
+<update id="goodsUpdate" parameterType="goodsDTO">
+	update goods
+	<trim prefix="set" suffixOverrides="," >
+		GOODS_NAME = #{goodsName},
+		GOODS_PRICE = #{goodsPrice} ,
+		GOODS_CONTENT = #{goodsContent},
+		DELIVERY_COST = #{deliveryCost},
+	</trim>
+	<trim prefix="where" prefixOverrides="AND | OR">
+		and goods_num = #{goodsNum}
+	</trim>
+</update>
+<delete id="goodsDelete" parameterType="string">
+	delete from goods
+	where goods_num = #{goodsNum}
+</delete>
+</mapper>

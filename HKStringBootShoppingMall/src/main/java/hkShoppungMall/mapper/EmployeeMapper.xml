@@ -23,11 +23,15 @@
 	set emp_pw = #{empPw}
 	where emp_id = #{empId}
 </update>
-
+<sql id="empNum">
+concat('emp',nvl(max(substr(goods_num,4)),10000)+1)from employees
+</sql>
 <insert id="employeeInsert" parameterType="empDTO">
-	insert into employees(emp_id, emp_pw, emp_name,emp_addr,
+	insert into employees(emp_num,
+		emp_id, emp_pw, emp_name,emp_addr,
 							emp_phone ,emp_email  )
-	values(#{empId},#{empPw},#{empName},#{empAddr},#{empPhone},#{empEmail})
+	values((<include refid="empNum" />)	),
+	#{empId},#{empPw},#{empName},#{empAddr},#{empPhone},#{empEmail})
 </insert>
 <delete id="employeeDelete" parameterType="string">
 	delete from employees
@@ -50,7 +54,7 @@
 </resultMap>
 
 <select id="selectOne" resultMap="employeeBaseResultMap" parameterType="string" >
-	select emp_id empId, emp_pw empPw, emp_name empName,
+	select emp_num empNum, emp_id empId, emp_pw empPw, emp_name empName,
 			emp_addr empAddr, emp_phone empPhone, emp_email empEmail
 	from employees 
 	where emp_id = #{empId}
@@ -59,10 +63,8 @@
 		select count(*) from employees
 	</select>
 <select id="selectAll" resultType="empDTO" >
-
 	select  emp_id empId, emp_pw empPw, emp_name empName,
 			emp_addr empAddr, emp_phone empPhone, emp_email empEmail
 	from employees
-	
 </select>
 </mapper>

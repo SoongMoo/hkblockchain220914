@@ -19,9 +19,8 @@ public class DataBaseInfo {
 		//sessionFactory.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
 		sessionFactory.setMapperLocations(
 				applicationContext.getResources("classpath:mappers/**/*Mapper.xml"));
-		
-				
 		sessionFactory.setTypeAliasesPackage("hkShoppungMall.domain");
+		
 		return sessionFactory.getObject();
 	}
 	

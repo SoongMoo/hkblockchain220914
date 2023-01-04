@@ -54,13 +54,13 @@ $(function(){
 		<th>상품명</th><th>가격</th><th>조회수</th>
 		<th><input type="submit" value="삭제"/></th>
 	</tr>
-	<tr>
+	<tr th:each=" goodsCommand  , idx :  ${list}">
+		<th>[[${idx.count}]]</th>
+		<th><a th:href="|goodsDetail/${goodsCommand.goodsNum}|">[[${goodsCommand.goodsNum}]]</a></th>
 		<th></th>
-		<th></th>
-		<th></th>
-		<th></th>
-		<th></th>
-		<th></th>
+		<th>[[${goodsCommand.goodsName}]]</th>
+		<th>[[${goodsCommand.goodsPrice}]]</th>
+		<th>[[${goodsCommand.visitCount}]]</th>
 		<th><input type="checkbox" id="delete"  name="delete"/></th>
 	</tr>
 </table>

@@ -19,32 +19,36 @@
 	</ul>
 </div>
 <div id="MemberInfo">
-<form action="goodsRegist" method="post" th:object="${goodsCommand}" enctype="multipart/form-data">
+<form action="goodsRegist" method="post" th:object="${goodsCommand}">
 <table border=1>
 	<tr><th>제품 번호</th>
 		<td><input type="text" name="goodsNum"  th:value="${goodsCommand.goodsNum}"  readonly="readonly" /><br/>
-			goods10001번 부터 자동 부여
+			goods10001번 부터 자동 부여<br />
+			<span th:if="${#fields.hasErrors('goodsNum')}" th:errors="*{goodsNum}"></span>
 		</td>
 	</tr>
 	<tr>
 		<th>상품명</th>
-		<td><input type="text" name="goodsName" th:value="${goodsCommand.goodsName}" /><br/>
+		<td><input type="text" name="goodsName"  /><br/>
+		<span th:if="${#fields.hasErrors('goodsName')}" th:errors="*{goodsName}">
 		</td>
 	</tr>
 	<tr>
 		<th>상품 가격</th>
 		<td><input type="number" name="goodsPrice" min="1000" step="1000" value="1000"/><br/>
+		<span th:if="${#fields.hasErrors('goodsPrice')}" th:errors="*{goodsPrice}">
 		</td>
 	</tr>
 	<tr>
 		<th>상품 내용</th>
-		<td><textarea rows="6" cols="30" name="goodsContent">[[${goodsCommand.goodsName}]]</textarea>
-			
+		<td><span th:if="${#fields.hasErrors('goodsContent')}" th:errors="*{goodsContent}"></span><br />
+		<textarea rows="6" cols="30" name="goodsContent"></textarea>
 		 </td>
 	</tr>
 	<tr>
 		<th>배송비</th>
 		<td><input type="number" name="deliveryCost" min="2000" step="500" value="2000"/><br/>
+			<span th:if="${#fields.hasErrors('deliveryCost')}" th:errors="*{deliveryCost}"></span>
 		</td>
 	</tr>
 	<tr>
