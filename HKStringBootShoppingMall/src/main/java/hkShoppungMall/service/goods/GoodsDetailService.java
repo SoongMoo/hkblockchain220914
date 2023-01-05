@@ -11,9 +11,10 @@ import hkShoppungMall.mapper.GoodsMapper;
 public class GoodsDetailService {
 	@Autowired
 	GoodsMapper goodsMapper;
-	public void execute(Model model, String goodsNum) {
+	public GoodsDTO execute(Model model, String goodsNum) {
 		goodsMapper.goodsVisitCnt(goodsNum);
 		GoodsDTO dto = goodsMapper.goodsSelectOne(goodsNum);
 		model.addAttribute("goodsCommand", dto);
+		return dto;
 	}
 }

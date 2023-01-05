@@ -75,6 +75,16 @@ where GOODS_NUM = #{goodsNum}
 		GOODS_PRICE = #{goodsPrice} ,
 		GOODS_CONTENT = #{goodsContent},
 		DELIVERY_COST = #{deliveryCost},
+		EMP_UPT_DATE = sysdate,
+		EMP_UPT_NUM = #{empUptNum},
+		<if test="goodsImages != null">
+		 	GOODS_IMAGES= #{goodsImages}, 
+		 	GOODS_ORIGINAL = #{goodsOriginal} ,
+		</if>
+		<if test="goodsMain != null" >
+			 GOODS_MAIN = #{goodsMain} , 
+			 GOODS_MAIN_ORG = #{goodsMainOrg},
+		 </if>	 
 	</trim>
 	<trim prefix="where" prefixOverrides="AND | OR">
 		and goods_num = #{goodsNum}

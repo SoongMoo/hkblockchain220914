@@ -61,17 +61,15 @@ public class GoodsModifyService {
 			if(list != null) {
 				for(FileInfo fi : list ) {
 					if(lib.getGoodsMainOrg().equals(fi.getOrgFile())) {
-						model.addAttribute("goodsCommand", lib);
-						result.rejectValue("goodsMain", "goodsCommand.goodsMain", "대문이미지를 선택해주세요.");
+						result.reject("goodsMain", "대문이미지를 선택해주세요.");
 						return;
 					}
 				}
 			}
 		}
+		
 		// 서브이미지는 여러개의 
-		// 배열을 리스트로 변환 
-		String storeTotal = "";
-		String originalTotal = "";
+		// 디비로 부터 받은 파일정보를 리스트에 저장 
 		String [] images = lib.getGoodsImages().split("-");
 		String [] original = lib.getGoodsOriginal().split("-");
 		List<String> goodsImages = new ArrayList<String>();
@@ -82,6 +80,7 @@ public class GoodsModifyService {
 		for(String str: original) { 
 			goodsOriginal.add(str); 
 		}
+		// 디비로 부터 받은 파일 정보에서 session에 있는 파일정보 제거
 		if(list != null) {
 			for(FileInfo  fi : list) {
 				for(String str : goodsImages) {
@@ -93,6 +92,9 @@ public class GoodsModifyService {
 				}
 			}
 		}
+		// 파일 추가
+		String storeTotal = "";
+		String originalTotal = "";
 		if(!goodsCommand.getGoodsImages()[0].getOriginalFilename().isEmpty()) {
 			for(MultipartFile mf : goodsCommand.getGoodsImages() ) {
 				String originalFile = mf.getOriginalFilename();
@@ -120,6 +122,8 @@ public class GoodsModifyService {
 		dto.setGoodsImages(storeTotal);
 			
 		int i =goodsMapper.goodsUpdate(dto);
+		
+		// session에 있는 파일 삭제
 		if(i > 0) {
 			if(list != null) {
 				for(FileInfo fi : list ) {

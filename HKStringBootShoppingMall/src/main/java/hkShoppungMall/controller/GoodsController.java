@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import hkShoppungMall.command.FileInfo;
 import hkShoppungMall.command.GoodsCommand;
+import hkShoppungMall.domain.GoodsDTO;
 import hkShoppungMall.service.goods.FileDelService;
 import hkShoppungMall.service.goods.GoodsAutoNum;
 import hkShoppungMall.service.goods.GoodsDeleteService;
@@ -82,6 +83,9 @@ public class GoodsController {
 			BindingResult result, HttpSession session, Model model) {
 		goodsModifyService.execute( goodsCommand, session, result, model);
 		if(result.hasErrors()) {
+			GoodsDTO dto = goodsDetailService.execute(model, goodsCommand.getGoodsNum());
+			model.addAttribute("goodsCommand", dto);
+			model.addAttribute("error", "필수항목을 모두 입력해 주세요.");
 			session.removeAttribute("fileList");
 			return "thymeleaf/goods/goodsUpdate";
 		}
