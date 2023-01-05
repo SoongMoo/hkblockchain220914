@@ -57,7 +57,7 @@ $(function(){
 	<tr th:each=" goodsCommand  , idx :  ${list}">
 		<th>[[${idx.count}]]</th>
 		<th><a th:href="|goodsDetail/${goodsCommand.goodsNum}|">[[${goodsCommand.goodsNum}]]</a></th>
-		<th></th>
+		<th><img th:src="|/goods/upload/${goodsCommand.goodsMain}|" width="30px" /></th>
 		<th>[[${goodsCommand.goodsName}]]</th>
 		<th>[[${goodsCommand.goodsPrice}]]</th>
 		<th>[[${goodsCommand.visitCount}]]</th>

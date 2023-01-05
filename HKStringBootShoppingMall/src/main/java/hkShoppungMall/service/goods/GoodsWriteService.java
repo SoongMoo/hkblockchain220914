@@ -59,12 +59,11 @@ public class GoodsWriteService {
 		dto.setGoodsMain(storeFileName); // 새로운 파일명
 		dto.setGoodsMainOrg(originalFile); // 원래 파일명
 		if (!goodsCommand.getGoodsImages()[0].getOriginalFilename().isEmpty()) {
+			String originalTotal = "";// 이숭무.png.png-이숭무1.png.png-이숭무2.png.png
+			String storeTotal = "";
 			// MultipartFile mf1 = goodsCommand.getGoodsImages()[0]
 			// MultipartFile mf1 = goodsCommand.getGoodsImages()[1]
 			// MultipartFile mf1 = goodsCommand.getGoodsImages()[2]
-			String originalTotal = "";
-			String storeTotal = "";
-			// 이숭무.png.png-이숭무1.png.png-이숭무2.png.png
 			for (MultipartFile mf1 : goodsCommand.getGoodsImages()) {
 				//// 파일명 만들기 ////
 				// 이숭무.png.png
@@ -89,9 +88,7 @@ public class GoodsWriteService {
 			dto.setGoodsImages(storeTotal);
 			dto.setGoodsOriginal(originalTotal);
 		}
-
 		int i = goodsMapper.goodsInsert(dto);
 		System.out.println(i + "개가 삽입되었습니다.");
-
 	}
 }

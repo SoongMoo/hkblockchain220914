@@ -6,7 +6,32 @@
 <link href="/static/css/memberLayout.css" rel="stylesheet" >
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript">
-
+function fileDel(orgFile1, strFile1, btn, kind1 ){
+	$.ajax({
+		type : "post",
+		url : "fileDel",
+		dataType : "text",
+		data: {"orgFile":orgFile1,"strFile":strFile1,"kind":kind1},
+		success:function(result){
+			if(result == 1){
+				$(btn).text("삭제 취소");
+				if(kind1 == 'main'){
+					$("#main").css("display","none");
+					$("#mainFile").css("display","");
+				}
+			}else{
+				$(btn).text("삭제");
+				if(kind1 == 'main'){
+					$("#main").css("display","");
+					$("#mainFile").css("display","none");
+				}
+			}
+		},
+		error:function(){
+			
+		}
+	});
+}
 </script>
 </head>
 <body>
@@ -22,7 +47,7 @@
 		</ul>
 	</div>
 <div id="MemberInfo">
-<form action="goodsModify" method="post" th:object="${goodsCommand}" >
+<form action="goodsModify" method="post" th:object="${goodsCommand}" enctype="multipart/form-data">
 <table border=1>
 	<tr><th>제품 번호</th>
 		<td><input type="text" name="goodsNum" th:value="${goodsCommand.goodsNum}" readonly="readonly" /><br/>
@@ -52,6 +77,30 @@
 		<th>배송비</th>
 		<td><input type="number" name="deliveryCost" th:value="${goodsCommand.deliveryCost}"/><br/>
 		<span th:if="${#fields.hasErrors('deliveryCost')}" th:errors="*{deliveryCost}"></span>
+		</td>
+	</tr>
+	<tr>
+		<td>등록된 메인 이미지</td>
+		<td><span th:if="${#fields.hasErrors('goodsMain')}" th:errors="*{goodsMain}"></span><br />
+			<span id="main">[[${goodsCommand.goodsMainOrg}]]</span>
+			<input type="file" id="mainFile" name="goodsMain" style="display:none;" />
+		<button type="button" th:attr="onclick=|fileDel('${goodsCommand.goodsMainOrg}',
+														'${goodsCommand.goodsMain}',
+														this,
+														'main');|">삭제</button>
+		</td>
+	</tr>
+	<tr>
+		<td>등록된 이미지</td>
+		<td>
+			<div th:each = " file, idx :  ${#strings.arraySplit(goodsCommand.goodsOriginal,'-')}">
+			[[${file}]]
+			<button type="button" th:attr="onclick=|fileDel('${file}',
+										'${#strings.arraySplit(goodsCommand.goodsImages,'-')[idx.index]}',
+										this,
+										'img');|">삭제</button><br />
+			</div>
+			<input type="file"  name="goodsImages"  />
 		</td>
 	</tr>
 	<tr>

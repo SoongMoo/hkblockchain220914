@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import hkShoppungMall.command.FileInfo;
 import hkShoppungMall.command.GoodsCommand;
+import hkShoppungMall.service.goods.FileDelService;
 import hkShoppungMall.service.goods.GoodsAutoNum;
 import hkShoppungMall.service.goods.GoodsDeleteService;
 import hkShoppungMall.service.goods.GoodsDetailService;
@@ -67,8 +69,9 @@ public class GoodsController {
 	}
 	@RequestMapping(value = "goodsModify", method = RequestMethod.GET)
 	public String goodsModify(
-			@RequestParam(value = "goodsNum") String goodsNum,
+			@RequestParam(value = "goodsNum") String goodsNum, HttpSession session,
 			Model model) {
+		session.removeAttribute("fileList");
 		goodsDetailService.execute(model, goodsNum);
 		return "thymeleaf/goods/goodsUpdate";
 	}
@@ -76,8 +79,8 @@ public class GoodsController {
 	GoodsModifyService goodsModifyService;
 	@RequestMapping(value = "goodsModify", method = RequestMethod.POST)
 	public String goodsModify(@Validated  GoodsCommand goodsCommand, 
-			BindingResult result, HttpSession session) {
-		goodsModifyService.execute( goodsCommand, session);
+			BindingResult result, HttpSession session, Model model) {
+		goodsModifyService.execute( goodsCommand, session, result, model);
 		if(result.hasErrors()) {
 			return "thymeleaf/goods/goodsUpdate";
 		}
@@ -91,6 +94,13 @@ public class GoodsController {
 			) {
 		goodsDeleteService.execute(goodsNum);
 		return "redirect:../goodsList";		
+	}
+	@Autowired
+	FileDelService fileDelService;
+	@RequestMapping(value = "fileDel")
+	public String fileDel(FileInfo fileInfo, HttpSession session, Model model) {
+		fileDelService.execute(fileInfo, session, model);
+		return "thymeleaf/goods/delPage";
 	}
 }
 

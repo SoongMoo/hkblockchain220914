@@ -43,7 +43,9 @@ concat('goods',nvl(max(substr(goods_num,6)),10000)+1)from goods
 <sql id="baseColumns">
 GOODS_NUM goodsNum , GOODS_NAME goodsName , GOODS_PRICE goodsPrice ,
 GOODS_CONTENT goodsContent , DELIVERY_COST deliveryCost, 
-VISIT_COUNT visitCount
+VISIT_COUNT visitCount, 
+GOODS_MAIN goodsMain, GOODS_MAIN_ORG goodsMainOrg, 
+GOODS_IMAGES goodsImages, GOODS_ORIGINAL goodsOriginal
 </sql>
 <select id="goodsList" resultType="goodsDTO" parameterType="string">
 select <include refid="baseColumns" />
