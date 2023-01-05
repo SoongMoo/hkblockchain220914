@@ -82,6 +82,7 @@ public class GoodsController {
 			BindingResult result, HttpSession session, Model model) {
 		goodsModifyService.execute( goodsCommand, session, result, model);
 		if(result.hasErrors()) {
+			session.removeAttribute("fileList");
 			return "thymeleaf/goods/goodsUpdate";
 		}
 		return "redirect:goodsDetail/"+goodsCommand.getGoodsNum();
