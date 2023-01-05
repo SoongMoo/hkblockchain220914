@@ -17,7 +17,7 @@ import hkShoppungMall.command.LoginCommand;
 @SpringBootApplication
 @Controller
 @MapperScan(value = {"hkShoppungMall"})
-public class HkStringBootShoppingMallApplication extends SpringBootServletInitializer{
+public class HkStringBootShoppingMallApplication {
 	/*
 	@ModelAttribute
 	public LoginCommand getLoginCommand() {
@@ -28,10 +28,6 @@ public class HkStringBootShoppingMallApplication extends SpringBootServletInitia
 	public static void main(String[] args) {
 		SpringApplication.run(HkStringBootShoppingMallApplication.class, args);
 	}
-	@Override
-	 protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-	        return application.sources(HkStringBootShoppingMallApplication.class);
-	    }
 	
 	@RequestMapping("/")
 	public String index(
