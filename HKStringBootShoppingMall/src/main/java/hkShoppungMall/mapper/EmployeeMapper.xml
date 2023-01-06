@@ -24,7 +24,7 @@
 	where emp_id = #{empId}
 </update>
 <sql id="empNum">
-concat('emp',nvl(max(substr(goods_num,4)),10000)+1)from employees
+select concat('emp',nvl(max(substr(emp_num,4)),10000)+1)from employees
 </sql>
 <insert id="employeeInsert" parameterType="empDTO">
 	insert into employees(emp_num,

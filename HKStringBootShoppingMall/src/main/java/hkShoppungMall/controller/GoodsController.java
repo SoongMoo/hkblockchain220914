@@ -1,14 +1,23 @@
 package hkShoppungMall.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import hkShoppungMall.command.FileInfo;
 import hkShoppungMall.command.GoodsCommand;
@@ -20,6 +29,7 @@ import hkShoppungMall.service.goods.GoodsDetailService;
 import hkShoppungMall.service.goods.GoodsListService;
 import hkShoppungMall.service.goods.GoodsModifyService;
 import hkShoppungMall.service.goods.GoodsWriteService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -36,14 +46,31 @@ public class GoodsController {
 	@RequestMapping("goodsList")
 	public String goodsList(
 			@RequestParam(value = "goodsWord", required = false ) String goodsWord,
+			@RequestParam(value="page" , required = false, defaultValue = "1") int page,
 			Model model) {
-		goodsListService.execute(model, goodsWord);
+		goodsListService.execute(model, goodsWord, page);
 		return "thymeleaf/goods/goodsList";
+	}
+	@RequestMapping(value = "goodsList3")
+	public String goodsList3() {
+		return "redirect:goodsList2";
+	}
+	@RequestMapping(value="goodsList2")
+	public ModelAndView goodsList2(
+			@RequestParam(value = "goodsWord", required = false ) String goodsWord,
+			@RequestParam(value="page" , required = false, defaultValue = "1") int page,
+			Model model) {	
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("jsonView");	
+		goodsListService.execute(model, goodsWord, page);
+		return mav;
 	}
 	@RequestMapping(value="goodsRegist", method = RequestMethod.GET)
 	public String goodsRegist(GoodsCommand goodsCommand) {
 		goodsAutoNum.execute(goodsCommand);
 		return "thymeleaf/goods/goodsForm";
+		//return "thymeleaf/goods/goodsForm2";
+		//return "thymeleaf/goods/goodsForm3";
 	}
 	@RequestMapping(value = "goodsRegist" , method = RequestMethod.POST)
 	public String goodsRegist(@Validated GoodsCommand goodsCommand,
@@ -58,6 +85,59 @@ public class GoodsController {
 		goodsWriteService.execute(goodsCommand, session);
 		return "redirect:goodsList";
 	}
+	@RequestMapping(value = "goodsRegist1", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> goodsRegist(
+			MultipartHttpServletRequest request,HttpSession session){
+		GoodsCommand goodsCommand = new GoodsCommand();
+		goodsCommand.setDeliveryCost(Integer.parseInt(request.getParameter("deliveryCost")));
+		goodsCommand.setGoodsContent(request.getParameter("goodsContent"));
+		goodsCommand.setGoodsName(request.getParameter("goodsName"));
+		goodsCommand.setGoodsNum(request.getParameter("goodsNum"));
+		goodsCommand.setGoodsPrice(Integer.parseInt(request.getParameter("goodsPrice")));
+		
+		MultipartFile goodsMain = request.getFile("goodsMain");
+		goodsCommand.setGoodsMain(goodsMain);
+		
+		// html로 부터 가져온 데이터는 리스트로 받는다. 
+		List<MultipartFile> goodsImages = request.getFiles("goodsImages");
+		Integer size = goodsImages.size(); // 리스트 사이즈 만큼 배열의 크기를 만들기 위해서 
+		// 리스트를 배열로 변환
+		MultipartFile [] mf = new MultipartFile[size]; // 리스크 크기 만큼 배열 생성
+		for(int i = 0; i < size ; i++) {
+			mf[i] = goodsImages.get(i);
+		}
+		goodsCommand.setGoodsImages(mf);
+		goodsWriteService.execute(goodsCommand, session);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("SUCCESS", true);		
+		return result;
+	}
+	@RequestMapping(value = "goodsRegist2" , method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> goodsRegist( GoodsCommand goodsCommand, HttpSession session) {
+		goodsWriteService.execute(goodsCommand, session);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("SUCCESS", true);		
+		return result;
+	}
+	@RequestMapping(value = "goodsRegist3" , method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> goodsRegist(
+			@RequestBody Map<String, Object> param
+			){
+		Map<String, Object> head = (Map<String, Object>)param.get("head");
+		Map<String, Object> body = (Map<String, Object>)param.get("body");
+		System.out.println(head.get("screen_id"));		
+		System.out.println(body.get("goodsNum"));
+		System.out.println(body.get("goodsName"));
+		System.out.println(body.get("goodsPrice"));
+		System.out.println(body.get("goodsContent"));
+		System.out.println(body.get("deliveryCost"));
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("SUCCESS", true);		
+		result.put("result_code", 200);
+		return result;
+	}
+	
 	@Autowired
 	GoodsDetailService goodsDetailService;
 	@RequestMapping("goodsDetail/{goodsNum}")
@@ -96,8 +176,8 @@ public class GoodsController {
 	@RequestMapping("goodsDelete/{goodsNum}")
 	public String goodsDelete(
 			@PathVariable(value = "goodsNum")String goodsNum
-			) {
-		goodsDeleteService.execute(goodsNum);
+			, HttpServletRequest request) {
+		goodsDeleteService.execute(goodsNum, request);
 		return "redirect:../goodsList";		
 	}
 	@Autowired

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.codehaus.plexus.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,7 +57,8 @@ public class GoodsWriteService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		dto.setGoodsMain(storeFileName); // 새로운 파일명
+		// 새로운 파일명
+		dto.setGoodsMain(storeFileName);
 		dto.setGoodsMainOrg(originalFile); // 원래 파일명
 		if (!goodsCommand.getGoodsImages()[0].getOriginalFilename().isEmpty()) {
 			String originalTotal = "";// 이숭무.png.png-이숭무1.png.png-이숭무2.png.png
@@ -90,5 +92,6 @@ public class GoodsWriteService {
 		}
 		int i = goodsMapper.goodsInsert(dto);
 		System.out.println(i + "개가 삽입되었습니다.");
+		
 	}
 }

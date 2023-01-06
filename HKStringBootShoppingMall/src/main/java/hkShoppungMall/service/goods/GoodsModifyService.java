@@ -69,17 +69,18 @@ public class GoodsModifyService {
 		}
 		
 		// 서브이미지는 여러개의 
-		// 디비로 부터 받은 파일정보를 리스트에 저장 
+		// 디비로 부터 받은 파일정보를 리스트에 저장
 		String [] images = lib.getGoodsImages().split("-");
 		String [] original = lib.getGoodsOriginal().split("-");
 		List<String> goodsImages = new ArrayList<String>();
 		List<String> goodsOriginal = new ArrayList<String>();
-		for(String str : images) { 	
+		for(String str : images) { 
 			goodsImages.add(str);	
 		}
 		for(String str: original) { 
 			goodsOriginal.add(str); 
 		}
+		
 		// 디비로 부터 받은 파일 정보에서 session에 있는 파일정보 제거
 		if(list != null) {
 			for(FileInfo  fi : list) {
@@ -109,11 +110,10 @@ public class GoodsModifyService {
 				}catch(Exception e) {e.printStackTrace();}
 			}
 		}
-		
+		// 수정된 정보와 추가된 파일정보를 합치기
 		for(String str : goodsImages) {
 			storeTotal += str  +"-";
 		}
-		System.out.println(storeTotal);
 		for(String str : goodsOriginal) {
 			originalTotal += str  +"-";
 		}
@@ -133,7 +133,6 @@ public class GoodsModifyService {
 			}
 			
 		}
-		
 	}
 }
 

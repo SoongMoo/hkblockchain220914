@@ -7,11 +7,22 @@
 select 
 concat('goods',nvl(max(substr(goods_num,6)),10000)+1)from goods	
 </select>
+<select id="count" parameterType="string" resultType="int">
+select count(*) from goods
+	<where>
+		<if test="goodsWord != null">
+			GOODS_NAME like '%'||#{goodsWord}||'%'
+			or GOODS_CONTENT like '%'||#{goodsWord}||'%'
+			or GOODS_NUM like '%'||#{goodsWord}||'%'
+		</if>
+	</where>
+</select>
 <insert id="goodsInsert" parameterType="goodsDTO">
 	insert into goods(GOODS_NUM , GOODS_NAME , GOODS_PRICE,
 						  GOODS_CONTENT, DELIVERY_COST, VISIT_COUNT
-						<if test="goodsMain != null">
-								,goods_Main
+						,goods_Main,goods_Main_Org
+						<if test="imageCn != null">
+						,image_cn
 						</if>
 						<if test="goodsImages != null">
 							,goods_images
@@ -19,14 +30,12 @@ concat('goods',nvl(max(substr(goods_num,6)),10000)+1)from goods
 						<if test="goodsOriginal != null">
 							,goods_Original
 						</if>
-						<if test="goodsMainOrg != null">
-							,goods_Main_Org
-						</if>
-						  ,EMP_NUM,GOODS_REGI_DATE,EMP_UPT_DATE,EMP_UPT_NUM)
+					  ,EMP_NUM,GOODS_REGI_DATE,EMP_UPT_DATE,EMP_UPT_NUM)
 	values(#{goodsNum},#{goodsName},
 		       #{goodsPrice},#{goodsContent},#{deliveryCost},0
-		        <if test="goodsMain != null">
-					,#{goodsMain}
+				,#{goodsMain},#{goodsMainOrg}
+				<if test="imageCn != null">
+				,#{imageCn}
 				</if>
 				<if test="goodsImages != null">
 					,#{goodsImages}
@@ -34,10 +43,7 @@ concat('goods',nvl(max(substr(goods_num,6)),10000)+1)from goods
 				<if test="goodsOriginal != null">
 					,#{goodsOriginal}
 				</if>
-				<if test="goodsMainOrg != null">
-					,#{goodsMainOrg}
-				</if>
-		       ,#{empNum}, sysdate, null, null)
+				  ,#{empNum}, sysdate, null, null)
 	
 </insert>
 <sql id="baseColumns">
@@ -47,17 +53,25 @@ VISIT_COUNT visitCount,
 GOODS_MAIN goodsMain, GOODS_MAIN_ORG goodsMainOrg, 
 GOODS_IMAGES goodsImages, GOODS_ORIGINAL goodsOriginal
 </sql>
-<select id="goodsList" resultType="goodsDTO" parameterType="string">
-select <include refid="baseColumns" />
-from goods
-<where>
-<if test="goodsWord != null">
-	GOODS_NAME like '%'||#{goodsWord}||'%'
-	or GOODS_CONTENT like '%'||#{goodsWord}||'%'
-	or GOODS_NUM like '%'||#{goodsWord}||'%'
-</if>
-</where>
+<select id="goodsList" resultType="goodsDTO" parameterType="startEndPageDTO">
+select *
+from (select rownum rn, <include refid="baseColumns" />
+	from goods
+	<where>
+	<if test="goodsWord != null">
+		GOODS_NAME like '%'||#{goodsWord}||'%'
+		or GOODS_CONTENT like '%'||#{goodsWord}||'%'
+		or GOODS_NUM like '%'||#{goodsWord}||'%'
+	</if>
+	</where>
+	ORDER BY goods_Num DESC
+)
+	<if test="startRow != null">
+	where rn between #{startRow} and #{endRow}
+	</if>
 </select>
+
+
 <select id="goodsSelectOne" parameterType="string" resultType="goodsDTO">
 select <include refid="baseColumns" />
 from goods

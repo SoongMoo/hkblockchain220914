@@ -20,6 +20,8 @@ public class GoodsDTO {
 	Timestamp empUptDate;
 	String empUptNum;
 	
+	byte[] imageCn;
+	String imageDataUrl;
 	
 	String goodsImages; //content 이미지에 대한 storeFileName 
 	String goodsOriginal; // content 이미지에 대한 originalFileName 
