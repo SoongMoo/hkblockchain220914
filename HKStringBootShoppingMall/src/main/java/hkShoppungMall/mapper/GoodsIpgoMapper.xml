@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="hkShoppungMall.mapper.GoodsIpgoMapper">
+<sql id="baseColumns">
+GOODS_NUM , GOODS_NAME , GOODS_PRICE ,GOODS_CONTENT , DELIVERY_COST , 
+VISIT_COUNT , GOODS_MAIN , GOODS_MAIN_ORG , GOODS_IMAGES , GOODS_ORIGINAL ,
+EMP_NUM, GOODS_REGI_DATE, EMP_UPT_DATE, EMP_UPT_NUM
+</sql>
+	<resultMap type="goodsDTO" id="goodsMap">
+		<id column="GOODS_NUM" jdbcType="VARCHAR" javaType="string" property="goodsNum"/>
+		<result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName"/>
+		<result column="GOODS_PRICE" jdbcType="BIGINT" property="goodsPrice"/>
+		<result column="GOODS_CONTENT" jdbcType="VARCHAR" property="goodsContent"/>
+		<result column="DELIVERY_COST" jdbcType="BIGINT" property="deliveryCost"/>
+		<result column="VISIT_COUNT" jdbcType="BIGINT" property="visitCount"/>
+		<result column="GOODS_MAIN" jdbcType="VARCHAR" property="goodsMain"/>
+		<result column="GOODS_MAIN_ORG" jdbcType="VARCHAR" property="goodsMainOrg"/>
+		<result column="GOODS_IMAGES" jdbcType="VARCHAR" property="goodsImages"/>
+		<result column="GOODS_ORIGINAL" jdbcType="VARCHAR" property="goodsOriginal"/>
+		<result column="EMP_NUM" jdbcType="VARCHAR" property="empNum"/>
+		<result column="GOODS_REGI_DATE" jdbcType="TIMESTAMP" property="goodsRegidate"/>
+		<result column="EMP_UPT_DATE" jdbcType="TIMESTAMP" property="empUptDate"/>
+		<result column="EMP_UPT_NUM" jdbcType="VARCHAR" property="empUptNum"/>
+	</resultMap>
+	<select id="selectItem" parameterType="startEndPageDTO" resultMap="goodsMap">
+select * 
+from (
+ select rownum rn, <include refid="baseColumns" />
+		from goods
+		<if test="goodsWord != null">
+		where GOODS_NUM like '%'||#{goodsWord}||'%'
+		or GOODS_Name like '%'||#{goodsWord}||'%'
+		or GOODS_CONTENT like '%'||#{goodsWord}||'%'
+		</if>
+		order by GOODS_NUM desc
+)
+	<if test="startRow != null">
+	where rn between #{startRow} and #{endRow}
+	</if>
+</select>
+<insert id="ipgoInsert" parameterType="goodsIpgoDTO">
+insert into goodsipgo(IPGO_DATE,GOODS_NUM,IPGO_QTY,MADE_DATE)
+values(#{ipgoDate},#{goodsNum},#{ipgoQty},#{madeDate})
+</insert>
+<resultMap type="goodsIpgoDTO" id="goodsIpgoMap">
+	<id column="IPGO_DATE" jdbcType="DATE" property="ipgoDate"/>
+	<id column="GOODS_NUM" jdbcType="VARCHAR" property="goodsNum"/>
+	<result column="IPGO_QTY" jdbcType="BIGINT" property="ipgoQty"/>
+	<result column="MADE_DATE" jdbcType="TIMESTAMP" property="madeDate"/>
+</resultMap>
+<select id="ipgoSelect" resultMap="goodsIpgoMap" parameterType="startEndPageDTO">
+select *
+from (select rownum rn, IPGO_DATE ,GOODS_NUM ,IPGO_QTY  ,MADE_DATE 
+ from goodsipgo
+ )
+	<if test="startRow != null">
+	where rn between #{startRow} and #{endRow}
+	</if>
+</select>
+<select id="goodsIpgoCount" resultType="integer">
+	select count(*) from goodsipgo
+</select>
+<!-- 1대 1 -->
+<resultMap type="goodsIpgoGoodsDTO" id="goodsIpgoGoodsMap">
+	<association property="goodsDTO" javaType="goodsDTO" resultMap="goodsMap"></association>
+	<association property="goodsIpgoDTO" javaType="goodsIpgoDTO"  resultMap="goodsIpgoMap"></association>
+</resultMap>
+<select id="ipgoDetail" parameterType="goodsIpgoDTO" resultMap="goodsIpgoGoodsMap" >
+	select g.GOODS_NUM , GOODS_NAME, GOODS_PRICE, GOODS_CONTENT, DELIVERY_COST, VISIT_COUNT, 
+		   IPGO_DATE, IPGO_QTY, MADE_DATE
+	from goods g, goodsipgo i
+	where g.GOODS_NUM = i.GOODS_NUM 
+	and g.GOODS_NUM = #{goodsNum} and i.IPGO_DATE = #{ipgoDate}
+</select>
+
+
+</mapper>
+
+
+
+

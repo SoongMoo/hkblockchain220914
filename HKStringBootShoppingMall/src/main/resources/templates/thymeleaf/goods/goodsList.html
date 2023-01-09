@@ -73,7 +73,9 @@ $(function(){
 	</th:block>
 	
 	<th:block th:each=" i : ${#numbers.sequence(startPage, endPage)}" >		
-			[ <a th:href="@{goodsList(page=${i },goodsWord=${goodsWord})}">[[${i }]]</a> ] 
+			[ <a th:href="@{goodsList(page=${i }
+									,goodsWord=${goodsWord}
+									)}">[[${i }]]</a> ] 
  	</th:block>
 	
 	<th:block th:if="${page >= maxpage}">

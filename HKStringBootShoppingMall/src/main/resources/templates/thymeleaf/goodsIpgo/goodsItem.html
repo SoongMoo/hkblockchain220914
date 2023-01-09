@@ -8,8 +8,10 @@
 function itemSend(goodsNum){
 	//opener.document.getElementById('num').value = goodsNum; 
 	$(opener.document).find("#num").val(goodsNum);
+	//var val = $(opener.document).find("#num").val();
 	window.self.close();
 }
+
 </script>
 </head>
 <body>
@@ -17,7 +19,7 @@ function itemSend(goodsNum){
 <table width="600" >
 <tr><th>
 <form action="goodsItem" method="post" >
-	상품명 : <input type="search" name="goodsWord" size="50"/> <input type="submit" value="검색" />
+	상품명 : <input type="search" name="goodsWord" id="goodsWord" size="50"/> <input type="submit" value="검색" />
 </form>
 </th></tr>
 </table>
@@ -30,38 +32,32 @@ function itemSend(goodsNum){
 	<tr>
 		<th>상품 번호</th><th>상품명</th><th>가격</th><th>조회수</th>
 	</tr>
-	<th:block th:each="goodsCommand : ${list}">
-	<tr>
+
+	<tr th:each="goodsCommand : ${list}">
 		<th><a th:href="|javascript:itemSend('${goodsCommand.goodsNum}')|">[[${goodsCommand.goodsNum}]]</a></th>
 			<th>[[${goodsCommand.goodsName}]]</th>
 			<th>[[${goodsCommand.goodsPrice}]]</th>
-			<th>[[${goodsCommand.vistCount}]]</th>
+			<th>[[${goodsCommand.visitCount}]]</th>
 	</tr>
+		<tr><td colspan=7>
+	<th:block th:if="${page <= 1}">
+	[이전]
 	</th:block>
-	<tr>
-		<th colspan="4">
-			<th:block th:if="${page <=1}">
-				[이전]
-			</th:block>	
-			<th:block>
-				<a th:if="${page >1}">
-				<a th:href="@{goodsItem(page=${page -1},goodsWord=${goodsWord})}">[이전]</a>
-			</th:block>
-			<th:block>
-				<th:bloc th:each=" i : ${#numbers.sequence(startPage , endPage)}">
-					[<a th:href="@{goodsItem(page=${i},goodsWord=${goodsWord})}">[[${i}]]</a>]
-				</th:block>
-			<th:block th:if="${page < maxPage }">
- 			<a th:href="@{goodsItem(page=${page + 1 },goodsWord=${goodsWord})}">[이후]</a>
- 			</th:block>
- 			<th:block th:if="${page >= maxPage }">
- 			[이후]
- 			</th:block>		
-		
-		</th>
-		
+	<th:block th:if="${page > 1}">
+	<a th:href="@{goodsItem(page=${page-1},goodsWord=${goodsWord})}">[이전]</a>
+	</th:block>
 	
-	</tr>
+	<th:block th:each=" i : ${#numbers.sequence(startPage, endPage)}" >		
+			[ <a th:href="@{goodsItem(page=${i },goodsWord=${goodsWord})}">[[${i }]]</a> ] 
+ 	</th:block>
+	
+	<th:block th:if="${page >= maxPage}">
+	[이후]
+	</th:block>
+	<th:block th:if="${page < maxPage}">
+	<a th:href="@{goodsItem(page=${page+1},goodsWord=${goodsWord})}">[이후]</a>
+	</th:block>
+	</td></tr>
 </table>
 </body>
 </html>

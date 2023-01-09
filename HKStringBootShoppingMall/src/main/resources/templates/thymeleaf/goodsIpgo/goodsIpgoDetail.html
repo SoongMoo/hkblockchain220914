@@ -18,15 +18,15 @@
 </ul>
 </div>
 <div id="MemberInfo">
-제품번호 : <br />
-제품명 : <br />
-가격 : <br />
-내용 : <br />
-배송비 : <br />
-조회수 : <br />
-입고 일 :  <br />
-입고 수량 : <br />
-제조일 : <br />
+제품번호 : [[${goodsIpgoGoodsCommand.goodsDTO.goodsNum}]]<br />
+제품명 : [[${goodsIpgoGoodsCommand.goodsDTO.goodsName}]]<br />
+가격 : [[${goodsIpgoGoodsCommand.goodsDTO.goodsPrice}]]<br />
+내용 : [[${goodsIpgoGoodsCommand.goodsDTO.goodsContent}]]<br />
+배송비 : [[${goodsIpgoGoodsCommand.goodsDTO.deliveryCost}]]<br />
+조회수 : [[${goodsIpgoGoodsCommand.goodsDTO.visitCount}]]<br />
+입고 일 :  [[${#dates.format(goodsIpgoGoodsCommand.goodsIpgoDTO.ipgoDate,'yyyy-MM-dd')}]]<br />
+입고 수량 : [[${goodsIpgoGoodsCommand.goodsIpgoDTO.ipgoQty}]]<br />
+제조일 : [[${goodsIpgoGoodsCommand.goodsIpgoDTO.madeDate}]]<br />
 <a href="goodsIpgoModify">수정</a>||
 <a href="goodsIpgoDelete">삭제</a>
 </div>

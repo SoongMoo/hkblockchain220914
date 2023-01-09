@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
 				.setCachePeriod(14400);
 	}
 
-	@Bean("jsonView")
+	@Bean(value = "jsonView")
     public MappingJackson2JsonView jsonView() {
         return new MappingJackson2JsonView();
     }

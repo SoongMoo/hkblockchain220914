@@ -34,14 +34,16 @@ $(function(){
 	<table border="1" width="600">
 		<tr><th>순서</th><th>상품번호</th><th>입고일</th><th>수량</th><th>제조일</th>
 			<th><input type="submit" value="삭제" /></th></tr>
-		<tr >
-		    <th></th>
-			<th><a href="goodsIpgoDetail"></a></th>
-			<th></th>
-			<th></th>
-			<th></th>
+		<tr th:each="goodsCommand , idx : ${list}">
+			<th>[[${idx.count}]]</th>
+			<th><a th:href="@{goodsIpgoDetail(goodsNum=${goodsCommand.goodsNum},
+											  ipgoDate=${#dates.format(goodsCommand.ipgoDate, 'yyyy-MM-dd')})}">[[${goodsCommand.goodsNum}]]</a></th>
+			<th>[[${#dates.format(goodsCommand.ipgoDate, 'yyyy-MM-dd')}]]</th>
+			<th>[[${goodsCommand.ipgoQty}]]</th>
+			<th>[[${#dates.format(goodsCommand.madeDate,'yyyy-MM-dd')}]]</th>
 			<th><input type="checkbox"  name="delete" /></th>
 		</tr>
+
 	</table>
 </form>
 </div>
