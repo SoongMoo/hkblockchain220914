@@ -75,8 +75,6 @@ from (select rownum rn, IPGO_DATE ,GOODS_NUM ,IPGO_QTY  ,MADE_DATE
 	where g.GOODS_NUM = i.GOODS_NUM 
 	and g.GOODS_NUM = #{goodsNum} and i.IPGO_DATE = #{ipgoDate}
 </select>
-
-
 </mapper>
 
 
