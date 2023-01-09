@@ -9,7 +9,7 @@
 $(function(){  // 
 	$("#btn").click(function(){
 		var jsonData = {
-				"head" : {
+				"head" :{
 					"screen_id": "174"
 				},
 				"body" :  {
@@ -20,28 +20,28 @@ $(function(){  //
 				    "deliveryCost" :$("#deliveryCost").val()	
 				}    
 		}
-		var option={
+		var option = {
 				type: "POST",
-				url:"goodsRegist3",
-				dataType="json",
-				contentType: "application/json", //JSON형태로 전달
-				data :JSON.stringify(jsonData) ,
-				success:function(result){
-					if(result.SUCCESS == true){
-						alert("성공");
-						alert(result.result_code);
+			    dataType : 'json', //JSON형태로 전달도 가능합니다.
+			    url:"goodsRegist3",
+			    data: JSON.stringify(jsonData),
+			    contentType: "application/json",
+			    success: function(result) {
+			    	console.log(result);
+			    	if (result.SUCCESS == true) {
+			         	alert("성공");
+			         	alert(result.result_code);
 						location.href="goodsList";
-					}else{
-						alert("실패 : 억울해...");
-						return false;
-					}
-				},
-				error: function(res){
-			    	console.log(res);
+			        } else {
+			         	alert("실패 : 억울해...");
+			        }
+			    },
+			    error: function(){
 			        alert("에러가 발생했습니다.");
 			    }
 		}
-		$.ajax(option);
+		$.ajax(option); //옵션값대로 ajax비동기 동작을 시키고
+	    return false;
 	});
 });
 </script>

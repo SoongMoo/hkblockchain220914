@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,16 +8,6 @@
 <title>Insert title here</title>
 <link href="/static/css/memberLayout.css" rel="stylesheet" >
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$("#frm").submit(function(){
-		if($("input:checkbox[id=delete]:checked").length < 1 ){
-			alert("하나 이상 테크를 하세요.");
-			return false;
-		}
-	});
-});
-</script>
 </head>
 <body>
 <div id="wrapper">
@@ -45,7 +38,7 @@ $(function(){
 <table border=1 width="600" >
 	<tr>
 		<th colspan="6">상품 리스트</th>
-		<th width = "100">상품 개수 : [[${count}]]</th>
+		<th width = "100">상품 개수 : ${count}</th>
 	</tr>
 	<tr>
 		<th>번호</th><th>상품 번호</th>
@@ -55,34 +48,17 @@ $(function(){
 		<th>상품명</th><th>가격</th><th>조회수</th>
 		<th><input type="submit" value="삭제"/></th>
 	</tr>
-	<tr th:each=" goodsCommand  , idx :  ${list}">
-		<th>[[${(page -1) * limit + idx.count}]]</th>
-		<th><a th:href="|goodsDetail/${goodsCommand.goodsNum}|">[[${goodsCommand.goodsNum}]]</a></th>
-		<th><img th:src="|/goods/upload/${goodsCommand.goodsMain}|" width="30px" /></th>
-		<th>[[${goodsCommand.goodsName}]]</th>
-		<th>[[${goodsCommand.goodsPrice}]]</th>
-		<th>[[${goodsCommand.visitCount}]]</th>
+	<c:forEach items="${list }" var="goodsCommand" varStatus="idx">
+	<tr >
+		<th>${(page -1) * limit + idx.count}</th>
+		<th><a href="goodsDetail/${goodsCommand.goodsNum}">${goodsCommand.goodsNum}</a></th>
+		<th><img src="/goods/upload/${goodsCommand.goodsMain}" width="30px" /></th>
+		<th>${goodsCommand.goodsName}</th>
+		<th>${goodsCommand.goodsPrice}</th>
+		<th>${goodsCommand.visitCount}</th>
 		<th><input type="checkbox" id="delete"  name="delete"/></th>
 	</tr>
-	<tr><td colspan=7>
-	<th:block th:if="${page <= 1}">
-	[이전]
-	</th:block>
-	<th:block th:if="${page > 1}">
-	<a th:href="@{goodsList(page=${page-1},goodsWord=${goodsWord})}">[이전]</a>
-	</th:block>
-	
-	<th:block th:each=" i : ${#numbers.sequence(startPage, endPage)}" >		
-			[ <a th:href="@{goodsList(page=${i },goodsWord=${goodsWord})}">[[${i }]]</a> ] 
- 	</th:block>
-	
-	<th:block th:if="${page >= maxpage}">
-	[이후]
-	</th:block>
-	<th:block th:if="${page < maxpage}">
-	<a th:href="@{goodsList(page=${page+1},goodsWord=${goodsWord})}">[이후]</a>
-	</th:block>
-	</td></tr>
+	</c:forEach>
 </table>
 </form>
 </div>

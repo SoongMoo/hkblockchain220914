@@ -6,12 +6,17 @@
 </head>
 <body>
 <span th:if="${session.authInfo != null}">
-<a href="/login/logout">로그아웃</a><br />
-<a href="/member/memberList">회원 관리</a><br/>
-<a href="/employee/empList">직원 관리</a><br />
-<a href="/goods/goodsList">상품 관리</a><br />
-<a href="/goods/goodsList3">상품 관리2</a><br />
-<a href="/mypage/memberDetail">내 정보 보기</a>
+	<a href="/login/logout">로그아웃</a><br />
+	<span th:if="${session.authInfo.grade == 'emp'}">
+	<a href="/member/memberList">회원 관리</a><br/>
+	<a href="/employee/empList">직원 관리</a><br />
+	<a href="/goods/goodsList">상품 관리</a><br />
+	<a href="/goods/goodsList3">상품 관리2</a><br />
+	<a href="/mypage/empDetail">내 정보 보기</a>
+	</span>
+	<span th:if="${session.authInfo.grade == 'mem'}">
+	<a href="/mypage/memberDetail">내 정보 보기</a>
+	</span>
 </span>
 <span th:if="${session.authInfo == null}">
 <form action="/login/loginPro" name="frm" id="frm" method="post" th:object="${loginCommand}" >
@@ -20,7 +25,7 @@
 	<td colspan="3">
 		자동 로그인 <input type="checkbox" name="autoLogin" />
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		아이디 저장 <input type="checkbox" name="idStore"  >
+		아이디 저장 <input type="checkbox" name="idStore" th:checked="${loginCommand.idStore != null && loginCommand.idStore}"/>
 	</td>
 </tr>
 <tr>

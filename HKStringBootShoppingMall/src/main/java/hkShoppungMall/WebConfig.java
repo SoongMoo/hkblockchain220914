@@ -1,10 +1,18 @@
 package hkShoppungMall;
 
+import java.util.Collections;
+
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.SessionCookieConfig;
+import jakarta.servlet.SessionTrackingMode;
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
 	
@@ -15,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer{
         		.addResourceLocations("/view/")
         		.setCachePeriod(14400);
 	}
-	@Bean(name="jsonView")
+	@Bean
     public MappingJackson2JsonView jsonView() {
         return new MappingJackson2JsonView();
     }

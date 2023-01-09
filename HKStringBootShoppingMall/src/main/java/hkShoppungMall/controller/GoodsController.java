@@ -56,12 +56,12 @@ public class GoodsController {
 		return "redirect:goodsList2";
 	}
 	@RequestMapping(value="goodsList2")
-	public ModelAndView goodsList2(
+	public @ResponseBody ModelAndView goodsList2(
 			@RequestParam(value = "goodsWord", required = false ) String goodsWord,
 			@RequestParam(value="page" , required = false, defaultValue = "1") int page,
 			Model model) {	
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("jsonView");	
+		mav.setViewName("goods/goodsList2");	
 		goodsListService.execute(model, goodsWord, page);
 		return mav;
 	}
@@ -71,6 +71,7 @@ public class GoodsController {
 		return "thymeleaf/goods/goodsForm";
 		//return "thymeleaf/goods/goodsForm2";
 		//return "thymeleaf/goods/goodsForm3";
+		//return "thymeleaf/goods/goodsForm4";
 	}
 	@RequestMapping(value = "goodsRegist" , method = RequestMethod.POST)
 	public String goodsRegist(@Validated GoodsCommand goodsCommand,
@@ -131,7 +132,6 @@ public class GoodsController {
 		System.out.println(body.get("goodsPrice"));
 		System.out.println(body.get("goodsContent"));
 		System.out.println(body.get("deliveryCost"));
-		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("SUCCESS", true);		
 		result.put("result_code", 200);

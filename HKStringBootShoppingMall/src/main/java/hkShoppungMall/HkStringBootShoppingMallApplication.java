@@ -1,18 +1,19 @@
 package hkShoppungMall;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import hkShoppungMall.command.LoginCommand;
+import hkShoppungMall.service.CookiesService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @SpringBootApplication
 @Controller
@@ -28,13 +29,14 @@ public class HkStringBootShoppingMallApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HkStringBootShoppingMallApplication.class, args);
 	}
-	
+	@Autowired
+	CookiesService  cookiesService;
 	@RequestMapping("/")
-	public String index(
-			/*LoginCommand loginCommand*/
+	public String index(LoginCommand loginCommand,
 			/*@ModelAttribute(value="loginCommand") LoginCommand loginCommand,*/
-			Model model) {
-		model.addAttribute("loginCommand",new LoginCommand());
+			Model model,HttpServletRequest request) {
+		cookiesService.executeMain(request,model);
+		//model.addAttribute("loginCommand",new LoginCommand());
 		return "thymeleaf/index";
 	}
 	

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import hkShoppungMall.command.LoginCommand;
 import hkShoppungMall.service.login.LoginService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -22,15 +24,20 @@ public class LoginController {
 	}
 	@RequestMapping(value = "/login/loginPro", method = RequestMethod.POST)
 	public String loginPro(@Validated LoginCommand loginCommand,
-			BindingResult result, HttpSession session) {
+			BindingResult result, HttpSession session, HttpServletResponse response) {
 		if(result.hasErrors()) {
 			return "thymeleaf/index";
 		}
-		String path = loginService.execute(loginCommand, result, session);
+		String path = loginService.execute(loginCommand, result, session, response);
 		return path; 
 	}
 	@RequestMapping(value = "/login/logout")
-	public String logout(HttpSession session){
+	public String logout(HttpSession session, HttpServletResponse response){
+		Cookie cookie = new Cookie("autoLogin", "");
+		cookie.setPath("/");
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
+		
 		session.invalidate();
 		return "redirect:/";
 	}
