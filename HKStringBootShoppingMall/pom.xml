@@ -70,11 +70,14 @@
 
 		<!--  jstl, form spring fmt core functions  -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>glassfish-jstl</artifactId>
+			<version>11.0.12</version>
+		</dependency>
 		<!-- jsp파일 서버 재시작 없이 바로 적용하기  spring boot auto restart -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -179,10 +182,18 @@
 			<version>1.9.13</version>
 		</dependency>
 		<!-- jsonView 사용 -->
+		<!--
 		<dependency>
 			<groupId>net.sf.json-lib</groupId>
 			<artifactId>json-lib-ext-spring</artifactId>
 			<version>1.0.2</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.3</version>
+			<classifier>jdk15</classifier>
 		</dependency>
 		<!-- gson -->
 		<dependency>

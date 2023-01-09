@@ -56,12 +56,13 @@ public class GoodsController {
 		return "redirect:goodsList2";
 	}
 	@RequestMapping(value="goodsList2")
-	public @ResponseBody ModelAndView goodsList2(
+	public ModelAndView goodsList2(
 			@RequestParam(value = "goodsWord", required = false ) String goodsWord,
 			@RequestParam(value="page" , required = false, defaultValue = "1") int page,
 			Model model) {	
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("goods/goodsList2");	
+		//mav.setViewName("jsonView");
+		mav.setViewName("goods/goodsList");
 		goodsListService.execute(model, goodsWord, page);
 		return mav;
 	}

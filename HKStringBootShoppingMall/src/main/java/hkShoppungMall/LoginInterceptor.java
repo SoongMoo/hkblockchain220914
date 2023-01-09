@@ -3,14 +3,13 @@ package hkShoppungMall;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import hkShoppungMall.domain.AuthInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor{
