@@ -75,6 +75,15 @@ from (select rownum rn, IPGO_DATE ,GOODS_NUM ,IPGO_QTY  ,MADE_DATE
 	where g.GOODS_NUM = i.GOODS_NUM 
 	and g.GOODS_NUM = #{goodsNum} and i.IPGO_DATE = #{ipgoDate}
 </select>
+	<update id="goodsIpgoUpdate" parameterType="goodsIpgoDTO">
+		 update goodsIpgo
+		 set  IPGO_QTY =${ipgoQty} , MADE_DATE =#{madeDate}
+		 where goods_Num = #{goodsNum} and IPGO_DATE = #{ipgoDate}
+	</update>
+<delete id="goodsIpgoDelete" parameterType="hkShoppungMall.command.GoodsCommand">
+		delete from goodsIpgo 
+		where GOODS_NUM = #{goodsNum} and IPGO_DATE =#{ipgoDate}
+	</delete>
 </mapper>
 
 

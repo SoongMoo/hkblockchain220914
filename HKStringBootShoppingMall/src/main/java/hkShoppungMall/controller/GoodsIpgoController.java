@@ -1,5 +1,6 @@
 package hkShoppungMall.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import hkShoppungMall.command.GoodsIpgoCommand;
+import hkShoppungMall.service.goodsIpgo.GoodsIpgoDeleteService;
 import hkShoppungMall.service.goodsIpgo.GoodsIpgoDetailService;
 import hkShoppungMall.service.goodsIpgo.GoodsIpgoListService;
 import hkShoppungMall.service.goodsIpgo.GoodsIpgoService;
+import hkShoppungMall.service.goodsIpgo.GoodsIpgoUpdateService;
 import hkShoppungMall.service.goodsIpgo.GoodsItemService;
 
 @Controller
@@ -74,8 +77,30 @@ public class GoodsIpgoController {
 		goodsIpgoDetailService.execute(goodsNum, ipgoDate, model);
 		return "thymeleaf/goodsIpgo/goodsIpgoDetail";
 	}
-	
-	
+	@RequestMapping(value="goodsIpgoModify" , method = RequestMethod.GET)
+	public String goodsIpgoModify(@RequestParam(value = "goodsNum") String goodsNum,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")Date ipgoDate, 
+			Model model) {
+		goodsIpgoDetailService.execute(goodsNum,ipgoDate, model);
+		return "thymeleaf/goodsIpgo/goodsIpgoUpdate";
+	}
+	@Autowired
+	GoodsIpgoUpdateService goodsIpgoUpdateService;
+	@RequestMapping(value ="goodsIpgoModify" , method = RequestMethod.POST)
+	public String goodsIpgoModify(GoodsIpgoCommand goodsIpgoCommand) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String ipgoDate = sdf.format(goodsIpgoCommand.getIpgoDate());
+		goodsIpgoUpdateService.execute(goodsIpgoCommand);
+		return "redirect:goodsIpgoDetail?goodsNum="+goodsIpgoCommand.getGoodsNum()
+									  +"&ipgoDate="+ipgoDate; // 2023-12-04
+	}
+	@Autowired
+	GoodsIpgoDeleteService goodsIpgoDeleteService;
+	@RequestMapping(value = "goodsIpgoDelete" , method = RequestMethod.GET)
+	public String goodsIpgoDelete(GoodsIpgoCommand goodsIpgoCommand) {
+		goodsIpgoDeleteService.execute(goodsIpgoCommand);
+		return "redirect:goodsIpgoList";
+	}
 }
 
 

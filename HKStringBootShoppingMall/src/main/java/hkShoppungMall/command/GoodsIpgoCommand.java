@@ -15,7 +15,7 @@ public class GoodsIpgoCommand {
 	
 	@NotNull (message = "입고일을 입력해주세요")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	Date ipgoDate;
+	Date ipgoDate; // Tue Jan 10 00:00:00 KST 2023
 	
 	@NotNull (message = "입고 수량을 입력해주세요")
 	Integer ipgoQty;
