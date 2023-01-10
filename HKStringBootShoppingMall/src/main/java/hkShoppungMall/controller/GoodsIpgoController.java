@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import hkShoppungMall.command.GoodsIpgoCommand;
 import hkShoppungMall.service.goodsIpgo.GoodsIpgoDeleteService;
+import hkShoppungMall.service.goodsIpgo.GoodsIpgoDelsService;
 import hkShoppungMall.service.goodsIpgo.GoodsIpgoDetailService;
 import hkShoppungMall.service.goodsIpgo.GoodsIpgoListService;
 import hkShoppungMall.service.goodsIpgo.GoodsIpgoService;
@@ -101,6 +102,15 @@ public class GoodsIpgoController {
 		goodsIpgoDeleteService.execute(goodsIpgoCommand);
 		return "redirect:goodsIpgoList";
 	}
+	@Autowired
+	GoodsIpgoDelsService goodsIpgoDelsService;
+	@RequestMapping(value = "goodsIpgodels" , method=RequestMethod.POST)
+	public String goodsIpgodels(
+			@RequestParam(value="delete") String [] deletes) {
+		goodsIpgoDelsService.execute(deletes);
+		return "redirect:goodsIpgoList";
+	}
+	
 }
 
 

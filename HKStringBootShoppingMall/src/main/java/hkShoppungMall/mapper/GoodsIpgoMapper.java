@@ -19,4 +19,5 @@ public interface GoodsIpgoMapper {
 	public GoodsIpgoGoodsDTO ipgoDetail(GoodsIpgoDTO idto);
 	public Integer goodsIpgoUpdate(GoodsIpgoDTO dto);
 	public Integer goodsIpgoDelete(GoodsIpgoCommand goodsIpgoCommand);
+	public Integer goodsIpgoDels(List<String[]> condition);
 }

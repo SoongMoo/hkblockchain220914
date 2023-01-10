@@ -138,7 +138,7 @@ public class GoodsController {
 		result.put("result_code", 200);
 		return result;
 	}
-	
+
 	@Autowired
 	GoodsDetailService goodsDetailService;
 	@RequestMapping("goodsDetail/{goodsNum}")

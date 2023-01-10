@@ -30,20 +30,24 @@ $(function(){
 </div>
 <div id="MemberInfo">
 <h2>입고현황</h2>
+<input type="button" id="btn" >버튼 </input>
 <form action="goodsIpgodels" method="post" id="frm">
 	<table border="1" width="600">
 		<tr><th>순서</th><th>상품번호</th><th>입고일</th><th>수량</th><th>제조일</th>
-			<th><input type="submit" value="삭제" /></th></tr>
-		<tr th:each="goodsCommand , idx : ${list}">
+			<th><input type="submit" value="삭제"  /></th></tr>
+		<tr th:each="goodsIpgoCommand , idx : ${list}">
 			<th>[[${idx.count}]]</th>
-			<th><a th:href="@{goodsIpgoDetail(goodsNum=${goodsCommand.goodsNum},
-											  ipgoDate=${#dates.format(goodsCommand.ipgoDate, 'yyyy-MM-dd')})}">[[${goodsCommand.goodsNum}]]</a></th>
-			<th>[[${#dates.format(goodsCommand.ipgoDate, 'yyyy-MM-dd')}]]</th>
-			<th>[[${goodsCommand.ipgoQty}]]</th>
-			<th>[[${#dates.format(goodsCommand.madeDate,'yyyy-MM-dd')}]]</th>
-			<th><input type="checkbox"  name="delete" /></th>
+			<th><a th:href="@{goodsIpgoDetail(goodsNum=${goodsIpgoCommand.goodsNum},
+									ipgoDate=${#dates.format(goodsIpgoCommand.ipgoDate,'yyyy-MM-dd')})}">
+											  [[${goodsIpgoCommand.goodsNum}]]
+				</a></th>
+			<th>[[${#dates.format(goodsIpgoCommand.ipgoDate, 'yyyy-MM-dd')}]]</th>
+			<th>[[${goodsIpgoCommand.ipgoQty}]]</th>
+			<th>[[${#dates.format(goodsIpgoCommand.madeDate,'yyyy-MM-dd')}]]</th>
+			<th><input type="checkbox"  name="delete" 
+			th:value="${goodsIpgoCommand.goodsNum + '`' + 
+						#dates.format(goodsIpgoCommand.ipgoDate,'yyyy-MM-dd')}"/></th>
 		</tr>
-
 	</table>
 </form>
 </div>

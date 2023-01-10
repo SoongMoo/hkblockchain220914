@@ -84,6 +84,17 @@ from (select rownum rn, IPGO_DATE ,GOODS_NUM ,IPGO_QTY  ,MADE_DATE
 		delete from goodsIpgo 
 		where GOODS_NUM = #{goodsNum} and IPGO_DATE =#{ipgoDate}
 	</delete>
+	
+	<delete id="goodsIpgoDels" parameterType="hashMap">
+		delete from goodsIpgo
+		where (GOODS_NUM, IPGO_DATE) in 
+		<foreach collection="condition" item="nums" index="index" open="(" close=")" separator=",">	
+				<foreach collection="nums" item="num" index="index" open="(" close=")" separator=",">
+						#{num} 
+				</foreach>
+		</foreach>
+	</delete>
+	
 </mapper>
 
 
