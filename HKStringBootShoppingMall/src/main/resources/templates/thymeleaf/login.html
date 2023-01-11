@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="/login/item.login" name="frm" id="frm" method="post" th:object="${loginCommand}" >
+<table border="1"  align="center">
+<tr>
+	<td>아이디</td>
+	<td>
+		<input type="text" name="userId" id="userId" /><br >
+		<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" ></span>
+	</td>
+	<td rowspan=2>
+						<!-- src="/static/images/img1.jpg" -->
+		<input type="image" src="/static/images/img1.jpg" width="80" height="80" >
+	</td>
+</tr>
+	<tr>
+		<td>비밀번호</td>
+		<td>
+			<input type="password" name="userPw" id="userPw" ><br />
+		<span th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}" ></span>	
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <sql id="baseColumns1">
 member_Num ,member_Id ,member_Pw ,member_Name , member_addr,
 member_regist ,gender,member_phone ,member_birth, 
-member_email
+member_email, MEMBER_OK
 </sql>
 <sql id="AutoNum">
 	select nvl(max(substr(member_NUM,3)),100000) + 1 from member
@@ -17,9 +17,9 @@ values(concat('hk',( <include refid="AutoNum" /> )),
 </insert>
 <resultMap type="memDTO" id="memberConstructorMap">
 	<constructor >
-		<idArg column="member_Num" javaType="string"/>
-		<arg column="member_Num" javaType="string" />
-		<arg column="member_Pw" javaType="string" />
+		<idArg column="MEMBER_NUM" javaType="string"/>
+		<arg column="MEMBER_ID" javaType="string" />
+		<arg column="MEMBER_PW" javaType="string" />
 		<arg column="member_Name" javaType="string" />
 		<arg column="member_addr" javaType="string" />
 		<arg column="member_regist" javaType="java.sql.Timestamp" />
@@ -30,9 +30,10 @@ values(concat('hk',( <include refid="AutoNum" /> )),
 		<arg column="member_ok" javaType="string" />
 	</constructor>
 </resultMap>
-<select id="selectMember"  parameterType="string"  resultMap="memberConstructorMap" > 
+<select id="selectMember" parameterType="string" resultMap="memberConstructorMap">
 	select <include refid="baseColumns1" />
 	from member
 	where member_id = #{memberId}
+
 </select>
 </mapper>

@@ -70,7 +70,7 @@
 <table align="center">
 	<tr>
 		<th:block th:each="goodsDTO , idx   : ${list}">
-			<td ><a href="@{/corner/prodInfo(goodsNum=${goodsDTO.goodsNum})}">
+			<td ><a th:href="@{/corner/prodInfo(goodsNum=${goodsDTO.goodsNum})}">
 				<img th:src="|/goods/upload/${goodsDTO.goodsMain}|" width="150px"/><br />
 				[[${goodsDTO.goodsName}]]<br />
 				가격 : [[${#numbers.formatCurrency(goodsDTO.goodsPrice)}]]

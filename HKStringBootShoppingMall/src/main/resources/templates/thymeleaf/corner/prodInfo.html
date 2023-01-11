@@ -5,31 +5,45 @@
 <title>Insert title here</title>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script>
-
+$(function(){
+	$("#qty").click(function(){
+		$("#tot").html( [[${goodsCommand.goodsPrice }]] * $("#qty").val());
+	});
+	$("#wishBtn").click(function(){
+		if([[${session.authInfo == null}]]){
+			alert("xdbxcbxzcb");
+			window.open("/login/item.login","login", "width=300, height=200, top=100, left=100");
+		}
+	});
+})
 </script>
 </head>
 <body>
 <form action="checkout" name="frm" method="post">
-
 <table width="800" align = "center" >
-	<tr><td colspan="2" > 상품 설명입니다.</td></tr>
+	<tr><td colspan="2" > [[${goodsCommand.goodsName}]] 상품 설명입니다.</td></tr>
 	<tr><td rowspan="6">
-			<img height="500" width="500"  />
+			<img height="500" width="500"  th:src="|/goods/upload/${goodsCommand.goodsMain}|"/>
 		</td>
-		<td width="300"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		<td width="300"> [[${goodsCommand.goodsName}]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 						관심상품<img src="/static/images/left_arrow.png" id="wishBtn"/></td>
 	</tr>
-	<tr><td align="left">가격 : 원</td></tr>
-	<tr><td align="left">배송비 : 원</td></tr>
+	<tr><td align="left">가격 : [[${#numbers.formatCurrency(goodsCommand.goodsPrice)}]]원</td></tr>
+	<tr><td align="left">배송비 : <span th:if="${goodsCommand.deliveryCost == 0}" th:text="무료배송"></span>
+								<span th:if="${goodsCommand.deliveryCost > 0}" th:text="${#numbers.formatCurrency(goodsCommand.deliveryCost) +'원'}"></span></td></tr>
 	<tr><td align="left"><input type="number" size = "3" min = "1" name="purchaseQty" value="1" id="qty" /> 원</td></tr>
-	<tr><td align = "left">총 상품금액 &nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;<span id="tot"></span>원</td></tr>
+	<tr><td align = "left">총 상품금액 &nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;<span id="tot">[[${goodsCommand.goodsPrice }]]</span>원</td></tr>
 	
 	<tr><td align = "center"><input type="button" value="장바구니" id="cartAdd" /> <input type="submit" value="바로구매" /></td></tr>
 	
 	<tr><td colspan = "2">
 		제품 상세 설명
 		<p>
+		<span th:utext="${#strings.replace(goodsCommand.goodsContent, newLineChar,'&lt;br /&gt;')}"></span>
 		</p>
+		<th:block th:each="goodsImage : ${#strings.arraySplit(goodsCommand.goodsImages,'-')}">
+			<img th:src="|/goods/upload/${goodsImage}|" />
+		</th:block>
 	</td></tr>
 </table>
 </form>

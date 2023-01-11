@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
 @Alias(value = "memDTO")
 public class MemberDTO {
 	String memberNum;

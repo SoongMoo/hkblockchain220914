@@ -1,5 +1,6 @@
 package hkShoppungMall.service.memberShip;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class MemberInfoService {
+	@Autowired
 	MemberShipMapper memberShipMapper;
 	public void execute(Model model, HttpSession session) {
 		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
