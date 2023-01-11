@@ -17,7 +17,7 @@ values(concat('hk',( <include refid="AutoNum" /> )),
 </insert>
 <resultMap type="memDTO" id="memberConstructorMap">
 	<constructor >
-		<idArg column="MEMBER_NUM" javaType="string"/>
+		<idArg column="MEMBER_NUM" javaType="string" />
 		<arg column="MEMBER_ID" javaType="string" />
 		<arg column="MEMBER_PW" javaType="string" />
 		<arg column="member_Name" javaType="string" />
@@ -34,6 +34,5 @@ values(concat('hk',( <include refid="AutoNum" /> )),
 	select <include refid="baseColumns1" />
 	from member
 	where member_id = #{memberId}
-
 </select>
 </mapper>

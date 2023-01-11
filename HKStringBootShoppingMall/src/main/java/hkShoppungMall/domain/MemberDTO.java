@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Alias(value = "memDTO")
 public class MemberDTO {
 	String memberNum;
@@ -24,4 +25,7 @@ public class MemberDTO {
 	Date memberBirth;
 	String memberEmail;
 	String memberOk;
+	
+	
+	
 }

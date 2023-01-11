@@ -13,7 +13,49 @@ $(function(){
 		if([[${session.authInfo == null}]]){
 			alert("xdbxcbxzcb");
 			window.open("/login/item.login","login", "width=300, height=200, top=100, left=100");
+		}else{
+			$.ajax({
+				type: "POST",
+				url: "goodsWishAdd",
+				dataType:"text",
+				data : {"goodsNum" : "[[${goodsCommand.goodsNum}]]"},
+				success:function(result){
+					if(result.trim() == "1"){
+						$("#wishBtn").attr("src", "/static/images/right_arrow.png");
+						alert("관심상품에 등록되었습니다.")
+					}else if(result.trim() == "0"){
+						$("#wishBtn").attr("src", "/static/images/left_arrow.png");
+						alert("관심상품에 삭제되었습니다.")
+					}
+				},
+				error: function(){
+					alert('로그인 아웃 되었습니다.\n다시 로그인 해 주세요.');
+					location.href="/";
+					return false;
+				}
+			});
 		}
+	});
+	$("#cartAdd").click(function(){
+		$.ajax({
+			type : "POST",
+			url : "goodsCartAdd",
+			dataType : "text",
+			data : {"goodsNum":"[[${goodsCommand.goodsNum}]]","goodsQty": $("#qty").val() },
+			success : function(result){
+				if(result.trim() == "1"){
+					if(confirm("계속쇼핑하시려면 '아니오'를 누르시오")){
+						location.href="goodsCartList";
+					}
+				}else{
+					alert("장바구니에 담기지 않았습니다.\n다시 시도 해주세요.")
+				}
+			},
+			error : function(){
+				alert('에러가 나왔다 홀홀홀~');
+				return;
+			}
+		});
 	});
 })
 </script>
@@ -25,13 +67,20 @@ $(function(){
 	<tr><td rowspan="6">
 			<img height="500" width="500"  th:src="|/goods/upload/${goodsCommand.goodsMain}|"/>
 		</td>
-		<td width="300"> [[${goodsCommand.goodsName}]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-						관심상품<img src="/static/images/left_arrow.png" id="wishBtn"/></td>
+		<td width="300">[[${goodsCommand.goodsName}]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						관심상품
+						<th:block th:if="${wish.trim() == '0'}">
+						<img src="/static/images/left_arrow.png" id="wishBtn"/>
+						</th:block>
+						<th:block th:if="${wish.trim() == '1'}">
+						<img src="/static/images/right_arrow.png" id="wishBtn"/>
+						</th:block>
+						</td>
 	</tr>
 	<tr><td align="left">가격 : [[${#numbers.formatCurrency(goodsCommand.goodsPrice)}]]원</td></tr>
 	<tr><td align="left">배송비 : <span th:if="${goodsCommand.deliveryCost == 0}" th:text="무료배송"></span>
 								<span th:if="${goodsCommand.deliveryCost > 0}" th:text="${#numbers.formatCurrency(goodsCommand.deliveryCost) +'원'}"></span></td></tr>
-	<tr><td align="left"><input type="number" size = "3" min = "1" name="purchaseQty" value="1" id="qty" /> 원</td></tr>
+	<tr><td align="left"><input type="number" size = "3" min = "1" name="purchaseQty" value="1" id="qty" /> 개</td></tr>
 	<tr><td align = "left">총 상품금액 &nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;<span id="tot">[[${goodsCommand.goodsPrice }]]</span>원</td></tr>
 	
 	<tr><td align = "center"><input type="button" value="장바구니" id="cartAdd" /> <input type="submit" value="바로구매" /></td></tr>
