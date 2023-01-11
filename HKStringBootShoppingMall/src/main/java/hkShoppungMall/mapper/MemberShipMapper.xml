@@ -15,4 +15,24 @@ values(concat('hk',( <include refid="AutoNum" /> )),
 		#{memberId},#{memberPw},#{memberName},#{memberAddr},sysdate,
 		#{gender},#{memberPhone},#{memberBirth},#{memberEmail})
 </insert>
+<resultMap type="memDTO" id="memberConstructorMap">
+	<constructor >
+		<idArg column="member_Num" javaType="string"/>
+		<arg column="member_Num" javaType="string" />
+		<arg column="member_Pw" javaType="string" />
+		<arg column="member_Name" javaType="string" />
+		<arg column="member_addr" javaType="string" />
+		<arg column="member_regist" javaType="java.sql.Timestamp" />
+		<arg column="gender" javaType="string" />
+		<arg column="member_phone" javaType="string" />
+		<arg column="member_birth" javaType="java.util.Date" />
+		<arg column="member_email" javaType="string" />
+		<arg column="member_ok" javaType="string" />
+	</constructor>
+</resultMap>
+<select id="selectMember"  parameterType="string"  resultMap="memberConstructorMap" > 
+	select <include refid="baseColumns1" />
+	from member
+	where member_id = #{memberId}
+</select>
 </mapper>

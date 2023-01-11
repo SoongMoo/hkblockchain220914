@@ -61,8 +61,8 @@ public class GoodsController {
 			@RequestParam(value="page" , required = false, defaultValue = "1") int page,
 			Model model) {	
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("jsonView");
-		//mav.setViewName("goods/goodsList"); // jsp파일
+		//mav.setViewName("jsonView");
+		mav.setViewName("goods/goodsList"); // jsp파일
 		goodsListService.execute(model, goodsWord, page);
 		return mav;
 	}

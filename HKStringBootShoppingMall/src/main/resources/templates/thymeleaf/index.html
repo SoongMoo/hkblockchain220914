@@ -7,15 +7,25 @@
 <body>
 <span th:if="${session.authInfo != null}">
 	<a href="/login/logout">로그아웃</a><br />
-	<span th:if="${session.authInfo.grade == 'emp'}">
-	<a href="/member/memberList">회원 관리</a><br/>
-	<a href="/employee/empList">직원 관리</a><br />
-	<a href="/goods/goodsList">상품 관리</a><br />
-	<a href="/goods/goodsList3">상품 관리2</a><br />
-	<a href="/mypage/empDetail">내 정보 보기</a>
-	</span>
-	<span th:if="${session.authInfo.grade == 'mem'}">
-	<a href="/mypage/memberDetail">내 정보 보기</a>
+	<span th:switch="${session.authInfo.grade}">
+		<th:block th:case="emp">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/member/memberList">회원 관리</a></li>
+				<li><a href="/employee/empList">직원 관리</a></li>
+				<li><a href="/goods/goodsList">상품 관리</a></li>
+				<li><a href="/goods/goodsList3">상품 관리2</a></li>
+				<li><a href="/mypage/empDetail">내 정보 보기</a></li>
+			</ul>
+		</th:block>
+		<th:block th:case="mem">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/cart/orderList" >주문목록</a></li>
+				<li><a href="/cart/goodsCartList" >장바구니</a></li>
+				<li><a href="/mypage/memberDetail">내 정보 보기</a></li>
+			</ul>
+		</th:block>
 	</span>
 </span>
 <span th:if="${session.authInfo == null}">
@@ -57,8 +67,18 @@
 </table>
 </form>
 </span>
-
-
-
+<table align="center">
+	<tr>
+		<th:block th:each="goodsDTO , idx   : ${list}">
+			<td ><a href="@{/corner/prodInfo(goodsNum=${goodsDTO.goodsNum})}">
+				<img th:src="|/goods/upload/${goodsDTO.goodsMain}|" width="150px"/><br />
+				[[${goodsDTO.goodsName}]]<br />
+				가격 : [[${#numbers.formatCurrency(goodsDTO.goodsPrice)}]]
+				</a>
+			</td>		
+			<th:block th:if="${idx.count % 3 == 0 }"  th:utext="'</tr><tr>'" />
+		</th:block>
+	</tr>
+</table>
 </body>
 </html>

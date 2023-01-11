@@ -48,7 +48,7 @@ public class FindPwService {
 							+ "안녕하세요 숭무쇼핑몰입니다. <br />'"
 							+ findPasswordCommand.getUserId() + "'님의 "
 							+ "임시 비밀번호는  <strong><b>["+ tampPw + "]</b></strong> 입니다. <br />"
-							+ "반드시 로인인 후 비밀번호를 변경해 주세요. "
+							+ "반드시 로그인 후 비밀번호를 변경해 주세요. "
 							+ "</body></html>";
 			String subject = "임시비밀번호";
 			emailSendService.mailSend(content, subject, "administrator@gmail.com"

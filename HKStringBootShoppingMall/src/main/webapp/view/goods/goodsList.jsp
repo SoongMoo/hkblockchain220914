@@ -15,6 +15,7 @@
 <div id="wrapper">
 	<div id="leftMenu">
 		<ul>
+			<li><a href="/">Home</a></li>
 			<li><a href="goodsList">상품 리스트</a></li>
 			<li><a href="goodsList2">상품 리스트2</a></li>
 			<li><a href="goodsRegist">상품 등록</a></li>
