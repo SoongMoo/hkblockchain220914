@@ -10,5 +10,8 @@ public class StartEndPageDTO {
 	Long startRow;
 	Long endRow;
 	
+	String sort;
+	String col;
+	
 	String goodsWord;
 }

@@ -53,18 +53,24 @@ VISIT_COUNT visitCount,
 GOODS_MAIN goodsMain, GOODS_MAIN_ORG goodsMainOrg, 
 GOODS_IMAGES goodsImages, GOODS_ORIGINAL goodsOriginal
 </sql>
+<sql id="dtoColumns"> 
+goodsNum , goodsName, goodsPrice, goodsContent, deliveryCost, visitCount,
+goodsMain, goodsMainOrg, goodsImages, goodsOriginal
+</sql>
 <select id="goodsList" resultType="goodsDTO" parameterType="startEndPageDTO">
-select *
-from (select rownum rn, <include refid="baseColumns" />
-	from goods
-	<where>
-	<if test="goodsWord != null">
-		GOODS_NAME like '%'||#{goodsWord}||'%'
-		or GOODS_CONTENT like '%'||#{goodsWord}||'%'
-		or GOODS_NUM like '%'||#{goodsWord}||'%'
-	</if>
-	</where>
-	ORDER BY goods_Num DESC
+select * from (
+	select rownum rn, <include refid="dtoColumns" />
+	from (select  <include refid="baseColumns" />
+		from goods
+		<where>
+		<if test="goodsWord != null">
+			GOODS_NAME like '%'||#{goodsWord}||'%'
+			or GOODS_CONTENT like '%'||#{goodsWord}||'%'
+			or GOODS_NUM like '%'||#{goodsWord}||'%'
+		</if>
+		</where>
+			ORDER BY ${col} ${sort}
+		)
 )
 	<if test="startRow != null">
 	where rn between #{startRow} and #{endRow}

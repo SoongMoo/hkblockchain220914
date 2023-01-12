@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import hkShoppungMall.domain.CartDTO;
 import hkShoppungMall.domain.CartGoodsDTO;
+import hkShoppungMall.domain.GoodsDTO;
 import hkShoppungMall.domain.WishDTO;
 
 @Repository
@@ -36,4 +37,17 @@ public class CornerRepository {
 		statement = namespace + ".goodsCartQtyDown";
 		return sqlSession.update(statement, cart) ;
 	}
+	public String cartGoodsQty(CartDTO cart) {
+		statement = namespace + ".cartGoodsQty";
+		return sqlSession.selectOne(statement, cart) ;
+	}
+	public Integer goodsCartDels(CartDTO cart) {
+		statement = namespace + ".goodsCartDels";
+		return sqlSession.delete(statement, cart) ;
+	}
+	public List<GoodsDTO> goodsList(String memberNum){
+		statement = namespace + ".goodsList";
+		return sqlSession.selectList(statement, memberNum) ;
+	}
+
 }

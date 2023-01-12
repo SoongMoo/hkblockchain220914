@@ -45,26 +45,30 @@ public class GoodsController {
 	GoodsListService goodsListService;
 	@RequestMapping("goodsList")
 	public String goodsList(
-			@RequestParam(value = "goodsWord", required = false ) String goodsWord,
+			@RequestParam(value = "goodsWord", required = false, defaultValue = "" ) String goodsWord,
 			@RequestParam(value="page" , required = false, defaultValue = "1") int page,
+			@RequestParam(value="sort" , required = false, defaultValue = "desc") String sort,
+			@RequestParam(value="column" , required = false, defaultValue = "goods_num") String column,
 			Model model) {
-		goodsListService.execute(model, goodsWord, page);
+		goodsListService.execute(model, goodsWord, page, sort, column);
 		return "thymeleaf/goods/goodsList";
-	}
-	@RequestMapping(value = "goodsList3")
-	public String goodsList3() {
-		return "redirect:goodsList2";
 	}
 	@RequestMapping(value="goodsList2")
 	public @ResponseBody ModelAndView goodsList2(
 			@RequestParam(value = "goodsWord", required = false ) String goodsWord,
 			@RequestParam(value="page" , required = false, defaultValue = "1") int page,
+			@RequestParam(value="sort" , required = false, defaultValue = "desc") String sort,
+			@RequestParam(value="column" , required = false, defaultValue = "goods_num") String column,
 			Model model) {	
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("jsonView");
 		mav.setViewName("goods/goodsList"); // jsp파일
-		goodsListService.execute(model, goodsWord, page);
+		goodsListService.execute(model, goodsWord, page, sort, column);
 		return mav;
+	}
+	@RequestMapping(value = "goodsList3")
+	public String goodsList3() {
+		return "redirect:goodsList2";
 	}
 	@RequestMapping(value="goodsRegist", method = RequestMethod.GET)
 	public String goodsRegist(GoodsCommand goodsCommand) {

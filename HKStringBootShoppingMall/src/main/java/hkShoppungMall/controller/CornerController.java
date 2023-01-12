@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import hkShoppungMall.service.corner.GoodsCartAddService;
+import hkShoppungMall.service.corner.GoodsCartDelsService;
 import hkShoppungMall.service.corner.GoodsCartListService;
 import hkShoppungMall.service.corner.GoodsCartQtyDownService;
 import hkShoppungMall.service.corner.GoodsWishCheckService;
+import hkShoppungMall.service.corner.GoodsWishListService;
 import hkShoppungMall.service.corner.GoodsWishService;
 import hkShoppungMall.service.goods.GoodsDetailService;
 import jakarta.servlet.http.HttpSession;
@@ -58,12 +60,27 @@ public class CornerController {
 	@Autowired
 	GoodsCartQtyDownService goodsCartQtyDownService;
 	@RequestMapping("goodsCartQtyDown")
-	public String goodsCartQtyDown(
+	public @ResponseBody String goodsCartQtyDown(
 			@RequestParam(value = "goodsNum") String goodsNum,
 			HttpSession session
 			) {
-		goodsCartQtyDownService.execute(goodsNum, session);
-		return "redirect:goodsCartList";
+		return goodsCartQtyDownService.execute(goodsNum, session);
+	}
+	
+	@Autowired
+	GoodsCartDelsService goodsCartDelsService;
+	@RequestMapping(value = "cartdel")
+	public @ResponseBody String cartdel(
+			@RequestParam(value = "goodsNum[]") String[] goodsNum
+			, HttpSession session) {
+		return goodsCartDelsService.execute(goodsNum, session);
+	}
+	@Autowired
+	GoodsWishListService goodsWishListService;
+	@RequestMapping("wishList")
+	public String wishList(HttpSession session, Model model) {
+		goodsWishListService.execute(session, model);
+		return "thymeleaf/corner/wishList";
 	}
 }
 

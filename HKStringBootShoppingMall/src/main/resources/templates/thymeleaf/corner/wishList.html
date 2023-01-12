@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table>
+<tr><td>번호</td><td>이미지</td>
+	<td>상품이름</td>
+	<td>가격</td></tr>
+<tr  th:each=" goodsDTO , idx : ${list}">
+	<td>[[${idx.count}]]</td>
+	<td><img th:src="|/goods/upload/${goodsDTO.goodsMain}|" width="50" /></td>
+	<td><a th:href="|/goods/goodsDetail/${goodsDTO.goodsNum}|">[[${goodsDTO.goodsName}]]</a></td>
+	<td>[[${goodsDTO.goodsPrice}]]</td>
+</tr>
+</table>
+</body>
+</html>

@@ -11,19 +11,17 @@ import hkShoppungMall.repository.CornerRepository;
 import jakarta.servlet.http.HttpSession;
 
 @Service
-public class GoodsCartQtyDownService {
+public class GoodsCartDelsService {
 	@Autowired
 	MemberShipMapper memberShipMapper;
 	@Autowired
 	CornerRepository cornerRepository;
-	public String execute(String goodsNum, HttpSession session) {
-		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
-		MemberDTO memberDTO =  memberShipMapper.selectMember(authInfo.getUserId());
+	public String execute(String[] goodsNum ,  HttpSession session) {
+		AuthInfo authInfo  = (AuthInfo)session.getAttribute("authInfo");
+		MemberDTO memDTO = memberShipMapper.selectMember(authInfo.getUserId());
 		CartDTO  dto = new CartDTO();
-		dto.setGoodsNum(goodsNum);
-		dto.setMemberNum(memberDTO.getMemberNum());
-		cornerRepository.goodsCartQtyDown(dto);
-		
-		return cornerRepository.cartGoodsQty(dto);
+		dto.setGoodsNums(goodsNum);
+		dto.setMemberNum(memDTO.getMemberNum());
+		return cornerRepository.goodsCartDels(dto).toString();
 	}
 }

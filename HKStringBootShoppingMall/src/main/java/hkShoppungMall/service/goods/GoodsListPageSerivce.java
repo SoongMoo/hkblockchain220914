@@ -15,7 +15,10 @@ public class GoodsListPageSerivce {
 	@Autowired
 	GoodsMapper goodsMapper;
 	public void execute(Model model) {
-		List<GoodsDTO> list = goodsMapper.goodsList(new StartEndPageDTO());
+		StartEndPageDTO dto = new StartEndPageDTO();
+		dto.setSort("desc");
+		dto.setCol("goods_num");
+		List<GoodsDTO> list = goodsMapper.goodsList(dto);
 		model.addAttribute("list", list);
 	}
 }

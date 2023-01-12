@@ -54,8 +54,34 @@
 		where MEMBER_NUM =  #{memberNum} and GOODS_NUM = #{goodsNum}
 	
 	</update>
+	<select id="cartGoodsQty" parameterType="cartDTO" resultType="string">
+		select CART_QTY from cart
+		where MEMBER_NUM =  #{memberNum} and GOODS_NUM = #{goodsNum}
+	</select>
 	
-	
+	<delete id="goodsCartDels" parameterType="cartDTO" >
+		delete from cart
+		where MEMBER_NUM =  #{memberNum} 
+		and	GOODS_NUM in
+		<foreach collection="goodsNums" item="goodsNum" index="index"
+			open="(" close=")" separator=",">
+			#{goodsNum}
+		</foreach>	
+	</delete>
+<sql id="baseColumns">
+GOODS_NUM goodsNum , GOODS_NAME goodsName , GOODS_PRICE goodsPrice ,
+GOODS_CONTENT goodsContent , DELIVERY_COST deliveryCost, 
+VISIT_COUNT visitCount, 
+GOODS_MAIN goodsMain, GOODS_MAIN_ORG goodsMainOrg, 
+GOODS_IMAGES goodsImages, GOODS_ORIGINAL goodsOriginal
+</sql>
+	<select id="goodsList" parameterType="string" resultType="goodsDTO">
+	select <include refid="baseColumns"></include> 	
+	from goods
+	where goods_num in(
+	select goods_num from wish where member_num = #{memberNum}
+	)
+	</select>
 	
 	
 	

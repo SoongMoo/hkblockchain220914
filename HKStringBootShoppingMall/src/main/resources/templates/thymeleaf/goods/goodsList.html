@@ -36,7 +36,7 @@ $(function(){
 <table width="600" >
 <tr><th>
 <form action="goodsList" method="get" >
-	상품 조회 : <input type="search" name="goodsWord" size="50"/> 
+	상품 조회 : <input type="search" name="goodsWord" size="50" th:value="${goodsWord}"/> 
 	<input type="submit" value="검색" />
 </form>
 </th></tr>
@@ -49,11 +49,12 @@ $(function(){
 		<th width = "100">상품 개수 : [[${count}]]</th>
 	</tr>
 	<tr>
-		<th>번호</th><th>상품 번호</th>
-		
+		<th>번호</th>
+		<th><a th:href="@{goodsList(sort=${sort},column=goods_num,goodsWord=${goodsWord})}">상품 번호<a></th>
 		<th>이미지</th>
-		
-		<th>상품명</th><th>가격</th><th>조회수</th>
+		<th>상품명</th>
+		<th><a th:href="@{goodsList(sort=${sort},column=GOODS_PRICE,goodsWord=${goodsWord})}">가격</a></th>
+		<th>조회수</th>
 		<th><input type="submit" value="삭제"/></th>
 	</tr>
 	<tr th:each=" goodsCommand  , idx :  ${list}">
@@ -70,20 +71,22 @@ $(function(){
 	[이전]
 	</th:block>
 	<th:block th:if="${page > 1}">
-	<a th:href="@{goodsList(page=${page-1},goodsWord=${goodsWord})}">[이전]</a>
+	<a th:href="@{goodsList(page=${page-1},goodsWord=${goodsWord}
+						   ,sort=${sort},column=${column})}">[이전]</a>
 	</th:block>
 	
 	<th:block th:each=" i : ${#numbers.sequence(startPage, endPage)}" >		
 			[ <a th:href="@{goodsList(page=${i }
 									,goodsWord=${goodsWord}
-									)}">[[${i }]]</a> ] 
+									,sort=${sort},column=${column})}">[[${i }]]</a> ] 
  	</th:block>
 	
-	<th:block th:if="${page >= maxpage}">
+	<th:block th:if="${page >= maxPage}">
 	[이후]
 	</th:block>
-	<th:block th:if="${page < maxpage}">
-	<a th:href="@{goodsList(page=${page+1},goodsWord=${goodsWord})}">[이후]</a>
+	<th:block th:if="${page < maxPage}">
+	<a th:href="@{goodsList(page=${page+1},goodsWord=${goodsWord}
+							,sort=${sort},column=${column}}">[이후]</a>
 	</th:block>
 	</td></tr>
 </table>

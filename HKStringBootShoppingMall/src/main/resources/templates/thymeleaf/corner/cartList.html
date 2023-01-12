@@ -40,19 +40,74 @@ function goodsCartAdd(goodsNum){
 		}
 	});
 }
-function checkQty(goodsNum, qty){
-	if(qty  > 1){
-		location.href="goodsCartQtyDown?goodsNum="+goodsNum;
+function checkQty(goodsNum, thisVal){
+	var val = $(thisVal).next().val();
+	if( val > 1){
+		$.ajax({
+			type : "POST",
+			dataType : "text",
+			url : "goodsCartQtyDown",
+			data : {"goodsNum" : goodsNum},
+			success : function(result){
+				$("#"+goodsNum).text(result);
+			},
+			error : function(){
+				alert('에러가 나왔다 홀홀홀~');
+				return;
+			}
+		});
 	}else{
 		alert("최소 수량은 1이어야 합니다.");
 		return false;
 	}
 }
+function del1(){
+	var chk_arr = [];
+	$("input[name=prodCk]:checked").each(function(){
+		chk_arr.push($(this).val());
+	});
+	$.ajax({
+		url: "cartdel" ,
+		type : "post",
+		dataType:"text",
+		data :{"goodsNum" :chk_arr}, // chk_arr는 배열.//////
+		success : function (result) {
+			if(result > "0"){
+				location.reload();
+			}else{
+				alert("삭제가 안되었습니다.");
+			}
+		},
+		error : function () {
+			alert("에러 에러 ");
+			return false;
+		}
+	});
+}
+function del(goodsNum){
+	$.ajax({
+		url: "cartdel" ,
+		type : "post",
+		dataType:"text",
+		data :{"goodsNum[]" :goodsNum}, // chk_arr는 배열.//////
+		success : function (result) {
+			if(result > "0"){
+				location.reload();
+			}else{
+				alert("삭제가 안되었습니다.");
+			}
+		},
+		error : function () {
+			alert("에러 에러 ");
+			return false;
+		}
+	});
+	// location.href='cartdel?'+encodeURI('goodsNum[]=')+ goodsNum; 
+}
 </script>
 </head>
 <body>
 <form action="goodsBuy" method="post" >
-
 <table width="600" align = "center">
 	<tr><td><input type="checkbox" id="checkBoxs" checked="checked" /></td>
 		<td>이미지</td><td>제품이름</td><td>수량</td><td>합계금액</td><td>배송비</td>
@@ -64,16 +119,15 @@ function checkQty(goodsNum, qty){
 				th:value="${cartGoodsDTO.goodsDTO.goodsNum}"/></td>
 	<td><img th:src="|/goods/upload/${cartGoodsDTO.goodsDTO.goodsMain}|" height ="50"/></td>
 	<td>[[${cartGoodsDTO.goodsDTO.goodsName}]]</td>
-	<td> <a th:href="|javascript:checkQty('${cartGoodsDTO.goodsDTO.goodsNum}','${cartGoodsDTO.cartDTO.cartQty}')|"> - </a>
-			[[${cartGoodsDTO.cartDTO.cartQty}]]
+	<td> <a th:href="|javascript:checkQty('${cartGoodsDTO.goodsDTO.goodsNum}',this)|">-</a>
+		 <span th:id="${cartGoodsDTO.goodsDTO.goodsNum}">[[${cartGoodsDTO.cartDTO.cartQty}]]</span>
 		 <a th:href="|javascript:goodsCartAdd('${cartGoodsDTO.goodsDTO.goodsNum}')|"> + </a> </td>
 	<td></td>
 	<td>[[${cartGoodsDTO.totalPrice}]]</td>
 	<td>[[${cartGoodsDTO.goodsDTO.deliveryCost}]]</td>
 	<td><input type="button"  value="삭제" 
-		th:attr="onclick=|javascript:location.href='cartDel?goodsNum=${cartGoodsDTO.goodsDTO.goodsNum}';|"/></td>
+		th:attr="onclick=|del('${cartGoodsDTO.goodsDTO.goodsNum}');|"/></td>
 	</tr>
-	
 	<tr><td colspan="6" align="center">
 		<input type="submit" value="구매하기"/>
 	</td></tr>
