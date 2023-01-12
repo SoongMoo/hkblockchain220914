@@ -5,27 +5,75 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
- 
+$(function(){
+	$("#checkBoxs").click(function(){
+		if($("#checkBoxs").prop("checked")){
+			$("input[name=prodCk]").prop("checked",true);
+		}else{
+			$("input[name=prodCk]").prop("checked",false);
+		}
+	});
+	$("input[name=prodCk]").click(function(){
+		var tot = $("input[name=prodCk]").length;
+		var checked =  $("input[name=prodCk]:checked").length;
+		if(tot != checked) $("#checkBoxs").prop("checked", false);
+		else $("#checkBoxs").prop("checked", true);
+	});
+}); 
+
+function goodsCartAdd(goodsNum){
+	$.ajax({
+		type : "POST",
+		url : "goodsCartAdd",
+		dataType : "text",
+		data : {"goodsNum" : goodsNum , "goodsQty" : 1},
+		success : function(result){
+			if(result.trim() == "1"){
+				location.reload();
+			}else{
+				alert("수량이 추가하지 않았습니다.");
+			}
+		},
+		error : function(){
+			alert('에러가 나왔다 홀홀홀~');
+			return;
+		}
+	});
+}
+function checkQty(goodsNum, qty){
+	if(qty  > 1){
+		location.href="goodsCartQtyDown?goodsNum="+goodsNum;
+	}else{
+		alert("최소 수량은 1이어야 합니다.");
+		return false;
+	}
+}
 </script>
 </head>
 <body>
 <form action="goodsBuy" method="post" >
+
 <table width="600" align = "center">
-	<tr><td><input type="checkbox" id="checkBoxs" checked="checked" /></td><td>이미지</td><td>제품이름</td><td>수량</td><td>합계금액</td><td>배송비</td>
+	<tr><td><input type="checkbox" id="checkBoxs" checked="checked" /></td>
+		<td>이미지</td><td>제품이름</td><td>수량</td><td>합계금액</td><td>배송비</td>
 		<td><input type="button"  value="선택 상품 삭제" onclick="del1();"/></td>
 	</tr>
-	<tr th:each="dto : ${lists}" >
-	<td><input type="checkbox" name="prodCk" checked="checked" id="prodCk"/></td>
-	<td><img th:src="|/goods/upload/|" height ="50"/></td>
-	<td></td>
 	
-	<td> <a href=""> - </a>
-			[[]]
-		 <a href=""> + </a> </td>
+	<tr th:each=" cartGoodsDTO  : ${list}" >
+	<td><input type="checkbox" name="prodCk" checked="checked" id="prodCk" 
+				th:value="${cartGoodsDTO.goodsDTO.goodsNum}"/></td>
+	<td><img th:src="|/goods/upload/${cartGoodsDTO.goodsDTO.goodsMain}|" height ="50"/></td>
+	<td>[[${cartGoodsDTO.goodsDTO.goodsName}]]</td>
+	<td> <a th:href="|javascript:checkQty('${cartGoodsDTO.goodsDTO.goodsNum}','${cartGoodsDTO.cartDTO.cartQty}')|"> - </a>
+			[[${cartGoodsDTO.cartDTO.cartQty}]]
+		 <a th:href="|javascript:goodsCartAdd('${cartGoodsDTO.goodsDTO.goodsNum}')|"> + </a> </td>
 	<td></td>
-	<td></td>
-	<td><input type="button" attr=" value="삭제" /></td>
+	<td>[[${cartGoodsDTO.totalPrice}]]</td>
+	<td>[[${cartGoodsDTO.goodsDTO.deliveryCost}]]</td>
+	<td><input type="button"  value="삭제" 
+		th:attr="onclick=|javascript:location.href='cartDel?goodsNum=${cartGoodsDTO.goodsDTO.goodsNum}';|"/></td>
 	</tr>
+	
 	<tr><td colspan="6" align="center">
 		<input type="submit" value="구매하기"/>
 	</td></tr>

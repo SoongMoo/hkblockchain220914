@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import hkShoppungMall.service.corner.GoodsCartAddService;
+import hkShoppungMall.service.corner.GoodsCartListService;
+import hkShoppungMall.service.corner.GoodsCartQtyDownService;
 import hkShoppungMall.service.corner.GoodsWishCheckService;
 import hkShoppungMall.service.corner.GoodsWishService;
 import hkShoppungMall.service.goods.GoodsDetailService;
@@ -47,8 +49,30 @@ public class CornerController {
 			HttpSession session){
 		return goodsCartAddService.execute(goodsNum, goodsQty, session);
 	}
+	@Autowired
+	GoodsCartListService goodsCartListService;
 	@RequestMapping("goodsCartList")
-	public String goodsCartList() {
-		
+	public String goodsCartList(Model model, HttpSession session) {
+		return goodsCartListService.execute(model, session);
+	}
+	@Autowired
+	GoodsCartQtyDownService goodsCartQtyDownService;
+	@RequestMapping("goodsCartQtyDown")
+	public String goodsCartQtyDown(
+			@RequestParam(value = "goodsNum") String goodsNum,
+			HttpSession session
+			) {
+		goodsCartQtyDownService.execute(goodsNum, session);
+		return "redirect:goodsCartList";
 	}
 }
+
+
+
+
+
+
+
+
+
+
