@@ -47,5 +47,8 @@ public class CornerController {
 			HttpSession session){
 		return goodsCartAddService.execute(goodsNum, goodsQty, session);
 	}
-	
+	@RequestMapping("goodsCartList")
+	public String goodsCartList() {
+		
+	}
 }

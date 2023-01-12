@@ -9,7 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import hkShoppungMall.command.LoginCommand;
 import hkShoppungMall.service.CookiesService;
@@ -20,12 +22,10 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 @MapperScan(value = {"hkShoppungMall"})
 public class HkStringBootShoppingMallApplication {
-	/*
 	@ModelAttribute
 	public LoginCommand getLoginCommand() {
 		return new LoginCommand();
 	}
-	*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(HkStringBootShoppingMallApplication.class, args);
@@ -35,7 +35,7 @@ public class HkStringBootShoppingMallApplication {
 	@Autowired
 	GoodsListPageSerivce goodsListPageSerivce;
 	@RequestMapping("/")
-	public String index(LoginCommand loginCommand,
+	public String index(/*LoginCommand loginCommand,*/
 			/*@ModelAttribute(value="loginCommand") LoginCommand loginCommand,*/
 			Model model,HttpServletRequest request) {
 		cookiesService.executeMain(request,model);
@@ -51,4 +51,9 @@ public class HkStringBootShoppingMallApplication {
 	}
 	// PasswordEncoder passwordEncoder 
 	//                    = new BCryptPasswordEncoder();
+	
+	@Bean(value = "jsonView")
+    public MappingJackson2JsonView jsonView() {
+        return new MappingJackson2JsonView();
+    }
 }

@@ -1,10 +1,13 @@
 package hkShoppungMall;
 
-import org.springframework.context.annotation.Bean;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -17,8 +20,18 @@ public class WebConfig implements WebMvcConfigurer {
 				.setCachePeriod(14400);
 	}
 
-	@Bean(value = "jsonView")
-    public MappingJackson2JsonView jsonView() {
-        return new MappingJackson2JsonView();
-    }
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		// TODO Auto-generated method stub
+//		List<String> list = new ArrayList<String>();
+//		list.add("/static/**/*");
+//		list.add("/register/**/*");
+//		list.add("/help/**/*");
+//		list.add("/login/**/*");
+//		list.add("/corner/**/*");
+//		registry.addInterceptor(new InteceptorConfig())
+//						.addPathPatterns("/*")
+//						.excludePathPatterns(list);
+//	}
+
 }
