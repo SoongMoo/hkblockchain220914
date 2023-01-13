@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import hkShoppungMall.domain.CartDTO;
 import hkShoppungMall.domain.CartGoodsDTO;
+import hkShoppungMall.domain.PaymentDTO;
+import hkShoppungMall.domain.PaymentPurchaseGoodsDTO;
 import hkShoppungMall.domain.PurchaseDTO;
 import hkShoppungMall.domain.PurchaseListDTO;
 
@@ -32,5 +34,17 @@ public class PuchaseRepository {
 	public Integer purchaseListInsert(PurchaseListDTO purchaseListDTO) {
 		statement = namespace + ".purchaseListInsert";
 		return sqlSession.insert(statement, purchaseListDTO) ;
+	}
+	public List<PaymentPurchaseGoodsDTO> purchaseList(String memberNum){
+		statement = namespace + ".purchaseList";
+		return sqlSession.selectList(statement, memberNum) ;
+	}
+	public Integer payment(PaymentDTO paymentDTO) {
+		statement = namespace + ".payment";
+		return sqlSession.insert(statement, paymentDTO) ;
+	}
+	public Integer purchaseStatus(String purchaseNum) {
+		statement = namespace + ".purchaseStatus";
+		return sqlSession.update(statement, purchaseNum) ;
 	}
 }

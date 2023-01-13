@@ -25,7 +25,7 @@ public class GoodsOrderService {
 	PuchaseRepository puchaseRepository;
 	@Autowired
 	CornerRepository cornerRepository;
-	public void execute(PurchaseCommand purchaseCommand, HttpSession session) {
+	public String execute(PurchaseCommand purchaseCommand, HttpSession session) {
 		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
 		MemberDTO memberDTO = memberShipMapper.selectMember(authInfo.getUserId());
 		Integer num = puchaseRepository.selectNum();
@@ -58,7 +58,7 @@ public class GoodsOrderService {
 			cartDTO.setMemberNum(memberDTO.getMemberNum());
 			cornerRepository.goodsCartDels(cartDTO);
 		}
-			
+		return purchaseNum;
 		
 	}
 }
