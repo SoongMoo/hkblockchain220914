@@ -72,13 +72,13 @@ $(function(){
 	</th:block>
 	<th:block th:if="${page > 1}">
 	<a th:href="@{goodsList(page=${page-1},goodsWord=${goodsWord}
-						   ,sort=${sort},column=${column})}">[이전]</a>
+						   ,pageSort=${pageSort},column=${column})}">[이전]</a>
 	</th:block>
 	
 	<th:block th:each=" i : ${#numbers.sequence(startPage, endPage)}" >		
 			[ <a th:href="@{goodsList(page=${i }
 									,goodsWord=${goodsWord}
-									,sort=${sort},column=${column})}">[[${i }]]</a> ] 
+									,pageSort=${pageSort},column=${column})}">[[${i }]]</a> ] 
  	</th:block>
 	
 	<th:block th:if="${page >= maxPage}">
@@ -86,7 +86,7 @@ $(function(){
 	</th:block>
 	<th:block th:if="${page < maxPage}">
 	<a th:href="@{goodsList(page=${page+1},goodsWord=${goodsWord}
-							,sort=${sort},column=${column}}">[이후]</a>
+							,pageSort=${pageSort},column=${column}}">[이후]</a>
 	</th:block>
 	</td></tr>
 </table>

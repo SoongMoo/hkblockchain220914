@@ -49,8 +49,9 @@ public class GoodsController {
 			@RequestParam(value="page" , required = false, defaultValue = "1") int page,
 			@RequestParam(value="sort" , required = false, defaultValue = "desc") String sort,
 			@RequestParam(value="column" , required = false, defaultValue = "goods_num") String column,
+			@RequestParam(value="pageSort" , required = false) String pageSort,
 			Model model) {
-		goodsListService.execute(model, goodsWord, page, sort, column);
+		goodsListService.execute(model, goodsWord, page, sort, column, pageSort);
 		return "thymeleaf/goods/goodsList";
 	}
 	@RequestMapping(value="goodsList2")
@@ -59,11 +60,12 @@ public class GoodsController {
 			@RequestParam(value="page" , required = false, defaultValue = "1") int page,
 			@RequestParam(value="sort" , required = false, defaultValue = "desc") String sort,
 			@RequestParam(value="column" , required = false, defaultValue = "goods_num") String column,
+			@RequestParam(value="pageSort" , required = false) String pageSort,
 			Model model) {	
 		ModelAndView mav = new ModelAndView();
 		//mav.setViewName("jsonView");
 		mav.setViewName("goods/goodsList"); // jsp파일
-		goodsListService.execute(model, goodsWord, page, sort, column);
+		goodsListService.execute(model, goodsWord, page, sort, column, pageSort);
 		return mav;
 	}
 	@RequestMapping(value = "goodsList3")

@@ -83,13 +83,3 @@ public class CornerController {
 		return "thymeleaf/corner/wishList";
 	}
 }
-
-
-
-
-
-
-
-
-
-

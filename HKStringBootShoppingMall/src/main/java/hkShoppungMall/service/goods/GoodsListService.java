@@ -15,7 +15,7 @@ import hkShoppungMall.service.StartEndPageService;
 public class GoodsListService {
 	@Autowired
 	GoodsMapper goodsMapper; // 2
-	public void execute(Model model, String goodsWord, int page,String sort,String column) {
+	public void execute(Model model, String goodsWord, int page,String sort,String column, String pageSort) {
 		int limit = 2; // 한페이지에 보여줄 item의 갯수
 		int limitPage = 10 ; // 1~10페이지, 11~20페이지,...
 		Long startRow = ((long)page - 1) * limit + 1;
@@ -27,10 +27,21 @@ public class GoodsListService {
 		dto.setGoodsWord(goodsWord);
 		dto.setCol(column);
 		dto.setSort(sort);
+
+		if(pageSort == null && sort != null) {
+			dto.setSort(sort);
+			pageSort = sort;
+		}else if(pageSort != null && sort == null) {
+			dto.setSort(pageSort);
+		}
 		
+		System.out.println(dto.getSort());
 		if(sort.equals("desc")) sort = "asc";
 		else sort = "desc";
+
 		
+		
+		model.addAttribute("pageSort", pageSort);
 		model.addAttribute("column", column);
 		model.addAttribute("sort", sort);
 		

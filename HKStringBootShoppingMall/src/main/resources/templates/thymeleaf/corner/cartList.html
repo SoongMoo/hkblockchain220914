@@ -40,9 +40,8 @@ function goodsCartAdd(goodsNum){
 		}
 	});
 }
-function checkQty(goodsNum, thisVal){
-	var val = $(thisVal).next().val();
-	if( val > 1){
+function checkQty(goodsNum){
+	if( $("#"+goodsNum).text() > 1){
 		$.ajax({
 			type : "POST",
 			dataType : "text",
@@ -107,7 +106,7 @@ function del(goodsNum){
 </script>
 </head>
 <body>
-<form action="goodsBuy" method="post" >
+<form action="/puchase/goodsBuy" method="post" >
 <table width="600" align = "center">
 	<tr><td><input type="checkbox" id="checkBoxs" checked="checked" /></td>
 		<td>이미지</td><td>제품이름</td><td>수량</td><td>합계금액</td><td>배송비</td>
@@ -119,7 +118,7 @@ function del(goodsNum){
 				th:value="${cartGoodsDTO.goodsDTO.goodsNum}"/></td>
 	<td><img th:src="|/goods/upload/${cartGoodsDTO.goodsDTO.goodsMain}|" height ="50"/></td>
 	<td>[[${cartGoodsDTO.goodsDTO.goodsName}]]</td>
-	<td> <a th:href="|javascript:checkQty('${cartGoodsDTO.goodsDTO.goodsNum}',this)|">-</a>
+	<td> <a th:href="|javascript:checkQty('${cartGoodsDTO.goodsDTO.goodsNum}')|">-</a>
 		 <span th:id="${cartGoodsDTO.goodsDTO.goodsNum}">[[${cartGoodsDTO.cartDTO.cartQty}]]</span>
 		 <a th:href="|javascript:goodsCartAdd('${cartGoodsDTO.goodsDTO.goodsNum}')|"> + </a> </td>
 	<td></td>
