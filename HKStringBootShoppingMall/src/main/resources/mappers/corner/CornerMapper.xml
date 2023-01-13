@@ -61,12 +61,16 @@
 	
 	<delete id="goodsCartDels" parameterType="cartDTO" >
 		delete from cart
-		where MEMBER_NUM =  #{memberNum} 
-		and	GOODS_NUM in
-		<foreach collection="goodsNums" item="goodsNum" index="index"
-			open="(" close=")" separator=",">
-			#{goodsNum}
-		</foreach>	
+		<trim prefix="where" suffixOverrides="AND | OR" prefixOverrides="AND | OR">
+			and MEMBER_NUM =  #{memberNum} and 
+			<if test="goodsNums != null">
+				 GOODS_NUM in
+				<foreach collection="goodsNums" item="goodsNum" index="index"
+					open="(" close=")" separator=",">
+					#{goodsNum}
+				</foreach>
+			</if>	
+		</trim>
 	</delete>
 <sql id="baseColumns">
 GOODS_NUM goodsNum , GOODS_NAME goodsName , GOODS_PRICE goodsPrice ,

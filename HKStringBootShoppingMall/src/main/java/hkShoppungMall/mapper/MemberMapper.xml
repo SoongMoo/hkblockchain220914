@@ -77,7 +77,7 @@ member_birth memberBirth, member_email memberEmail
 	where emp_id = #{memberId}
 </select>
 <select id="memberNumGenerate" resultType="string">
-	select concat('hk',nvl(max(substr(member_num,3)),1000000)+ 1) 
+	select concat('mem',nvl(max(substr(member_num,4)),1000000)+ 1) 
 	from member
 </select>
 <insert id="memberInsert" 

@@ -15,22 +15,26 @@
 <p>
 <table width="700" align="center">
 	<tr><td>주문 상품 정보</td>	<td>수량/상품금액</td><td>배송비</td></tr>
-	<tr  >
+	<tr th:each=" dto : ${cartList}" >
 		<td>
-		<img src="/goods/upload/" height="60" />
-		
+		<img th:src="|/goods/upload/${dto.goodsDTO.goodsMain}|" height="60" />
+		[[${dto.goodsDTO.goodsName}]]
 		</td>
-		<td>개<br />
-			원</td>
+		<td>[[${dto.cartDTO.cartQty}]]개<br />
+			[[${dto.totalPrice}]]원</td>
 		<td>
-			<span  >무료배송</span>
-			<span  >2500원</span>
+			<span th:if="${dto.goodsDTO.deliveryCost == 0}" th:text="무료배송" ></span>
+			<span th:if="${dto.goodsDTO.deliveryCost > 0}" th:text="${dto.goodsDTO.deliveryCost + '원'}" ></span>
 		</td>
 	</tr>
 </table>
 </p>
 <p>
 <form action="goodsOrder" method="post">
+<input type="hidden" name="goodsNums" th:value="${goodsNums}" />
+<input type="hidden" name="goodsTotalPrice" th:value="${goodsTotalPrice}" />
+<input type="hidden" name="goodsTotalDelivery" th:value="${goodsTotalDelivery}" />
+<input type="hidden" name="totalPrice" th:value="${goodsTotalDelivery + goodsTotalPrice}" />
 <table width="700"  align="center" method="post">
 	<tr>
 		<td alignt="left">
@@ -56,9 +60,9 @@
 		<td alignt="right">
 			<table width="300">
 				<tr><th colspan=2>3.결제금액</th></tr>
-				<tr><td align="left">상품금액 : </td><td align = "right"> 원</td></tr>
-				<tr><td align="left">배송비 : </td><td align = "right"> 원</td></tr>
-				<tr><td align="left">총 결제 금액 : </td><td align = "right"> 원</td></tr>
+				<tr><td align="left">상품금액 : [[${goodsTotalPrice}]]</td><td align = "right"> 원</td></tr>
+				<tr><td align="left">배송비 : [[${goodsTotalDelivery}]]</td><td align = "right"> 원</td></tr>
+				<tr><td align="left">총 결제 금액 : [[${#numbers.formatCurrency(goodsTotalPrice + goodsTotalDelivery)}]]</td><td align = "right"> 원</td></tr>
 				<tr><td align="center"  colspan=2><input type="submit" value="결제하기"/></td></tr>
 			</table>
 		</td>

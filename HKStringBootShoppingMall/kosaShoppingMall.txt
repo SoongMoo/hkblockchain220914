@@ -333,8 +333,19 @@ add (EMP_num varchar2(20)
      REFERENCES  employees(emp_num) on delete set null );
 
 
+alter table purchase
+add (RECIEVE_NAME varchar2(100));
 
+alter table purchase
+modify (PURCHASE_NUM VARCHAR2(20));
 
+alter table purchase_list
+modify (PURCHASE_NUM VARCHAR2(20));
 
+alter table payment
+modify (PURCHASE_NUM VARCHAR2(20));
+
+alter table review
+modify (PURCHASE_NUM VARCHAR2(20));
 
 
