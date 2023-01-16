@@ -54,6 +54,10 @@ where c.goods_num = g.goods_num and c.goods_num = #{goodsNum}
 	<result column="TOTAL_PRICE" jdbcType="BIGINT" property="totalPrice"/>
 	<result column="PURCHASE_STATUS" jdbcType="VARCHAR" property="purchaseStatus"/>
 </association>
+<association property="deliveryDTO" javaType="deliveryDTO" >
+	<result column="DELIVERY_NUMBER" jdbcType="VARCHAR" property="deliveryNumber"/>
+	<result column="DELIVERY_COMPANY" jdbcType="VARCHAR" property="deliveryCompany"/>
+</association>
 <collection property="goodsDTOs" ofType="goodsDTO">
 	<id column="goods_Num" jdbcType="VARCHAR" property="goodsNum"/>
 	<result column="goods_Name" jdbcType="VARCHAR" property="goodsName"/>	
@@ -62,9 +66,11 @@ where c.goods_num = g.goods_num and c.goods_num = #{goodsNum}
 </resultMap>
 <select  id="purchaseList" parameterType="string" resultMap="paymentPurchaseGoodsMap">
 select CONFIRM_NUMBER, pu.PURCHASE_NUM, PURCHASE_DATE, TOTAL_PRICE, PURCHASE_STATUS,
+       DELIVERY_NUMBER, DELIVERY_COMPANY,
        g.goods_Num, goods_Name, goods_main
-from payment pa right outer join purchase pu
-on pa.PURCHASE_num = pu.PURCHASE_num join purchase_list pl
+from payment pa right outer join purchase pu 
+on pa.PURCHASE_num = pu.PURCHASE_num  left outer join  Delivery d
+on pa.PURCHASE_num = d.PURCHASE_num join purchase_list pl
 on pu.PURCHASE_num = pl.purchase_num join goods g
 on pl.goods_num = g.goods_num
 where pu.member_num = #{memberNum}

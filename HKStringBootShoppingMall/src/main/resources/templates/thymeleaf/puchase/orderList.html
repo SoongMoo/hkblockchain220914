@@ -24,6 +24,9 @@
 		<td><a th:if="${dto.purchaseDTO.purchaseStatus=='결제대기중'}" 
 			th:href="@{paymentOk(purchaseNum=${dto.purchaseDTO.purchaseNum},
 								 totalPrice=${dto.purchaseDTO.totalPrice})}">결제하기</a>
+			<a th:if="${dto.purchaseDTO.purchaseStatus=='결제완료' and dto.deliveryDTO == null}"
+				th:href="@{paymentCancel(purchaseNum=${dto.purchaseDTO.purchaseNum})}"
+			>결제취소</a>
 				</td>
 		</tr>
 	</tr>

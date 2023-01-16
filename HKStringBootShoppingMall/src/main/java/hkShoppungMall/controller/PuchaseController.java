@@ -13,6 +13,7 @@ import hkShoppungMall.service.puchase.DoPaymentService;
 import hkShoppungMall.service.puchase.GoodsBuyService;
 import hkShoppungMall.service.puchase.GoodsOrderService;
 import hkShoppungMall.service.puchase.OrderProcessListService;
+import hkShoppungMall.service.puchase.PaymentDelService;
 import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("puchase")
@@ -61,6 +62,13 @@ public class PuchaseController {
 		doPaymentService.execute(purchaseNum, totalPrice,cardNumber
 				,model,session );
 		return "thymeleaf/puchase/buyfinished";
+	}
+	@Autowired
+	PaymentDelService paymentDelService;
+	@RequestMapping("paymentCancel")
+	public String paymentCancel(@RequestParam(value = "purchaseNum")String purchaseNum) {
+		paymentDelService.execute(purchaseNum);
+		return "redirect:orderList";
 	}
 	
 	

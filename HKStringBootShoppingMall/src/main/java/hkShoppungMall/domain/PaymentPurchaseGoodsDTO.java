@@ -9,8 +9,10 @@ import lombok.Data;
 @Data
 @Alias("paymentPurchaseGoodsDTO")
 public class PaymentPurchaseGoodsDTO {
-	PaymentDTO paymentDTO; // 1
+	
 	PurchaseDTO purchaseDTO; // 1
+	PaymentDTO paymentDTO; // 1
+	DeliveryDTO deliveryDTO; // 1
 	
 	List<GoodsDTO> goodsDTOs; // n
 }

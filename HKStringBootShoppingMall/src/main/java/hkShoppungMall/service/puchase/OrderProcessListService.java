@@ -24,5 +24,6 @@ public class OrderProcessListService {
 		MemberDTO memberDTO = memberShipMapper.selectMember(authInfo.getUserId());
 		List<PaymentPurchaseGoodsDTO> list = puchaseRepository.purchaseList(memberDTO.getMemberNum());
 		model.addAttribute("list", list);
+		
 	}
 }
