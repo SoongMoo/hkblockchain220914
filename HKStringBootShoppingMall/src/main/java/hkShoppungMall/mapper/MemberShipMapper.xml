@@ -7,13 +7,13 @@ member_regist ,gender,member_phone ,member_birth,
 member_email, MEMBER_OK
 </sql>
 <sql id="AutoNum">
-	select nvl(max(substr(member_NUM,3)),100000) + 1 from member
+	select nvl(max(substr(member_NUM,4)),100000) + 1 from member
 </sql>
 <insert id="memberInsert" parameterType="memDTO">
 insert into member( <include refid="baseColumns1" /> )
-values(concat('hk',( <include refid="AutoNum" /> )),
+values(concat('mem',( <include refid="AutoNum" /> )),
 		#{memberId},#{memberPw},#{memberName},#{memberAddr},sysdate,
-		#{gender},#{memberPhone},#{memberBirth},#{memberEmail})
+		#{gender},#{memberPhone},#{memberBirth},#{memberEmail}, null)
 </insert>
 <resultMap type="memDTO" id="memberConstructorMap">
 	<constructor >
