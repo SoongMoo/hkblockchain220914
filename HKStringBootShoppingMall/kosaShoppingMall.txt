@@ -348,4 +348,5 @@ modify (PURCHASE_NUM VARCHAR2(20));
 alter table review
 modify (PURCHASE_NUM VARCHAR2(20));
 
-
+alter table DELIVERY
+modify (PURCHASE_NUM varchar2(20));

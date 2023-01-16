@@ -139,7 +139,11 @@ on pu.PURCHASE_num = pl.purchase_num join goods g
 on pl.goods_num = g.goods_num
 where pu.PURCHASE_NUM = #{purchaseNum}
 </select>
-
+<update id="deliveryStatus" parameterType="string">
+	update purchase
+	set purchase_Status = '배송중' 
+	where purchase_num = #{purchaseNum}
+</update>
 
 
 

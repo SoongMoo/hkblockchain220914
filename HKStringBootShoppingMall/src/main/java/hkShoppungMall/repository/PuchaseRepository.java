@@ -60,4 +60,10 @@ public class PuchaseRepository {
 		statement = namespace + ".purchaseDetail";
 		return sqlSession.selectList(statement, purchaseNum) ;
 	}
+	public Integer deliveryStatus(String purchaseNum) {
+		statement = namespace + ".deliveryStatus";
+		return sqlSession.update(statement, purchaseNum) ;
+	}
+	
+	
 }

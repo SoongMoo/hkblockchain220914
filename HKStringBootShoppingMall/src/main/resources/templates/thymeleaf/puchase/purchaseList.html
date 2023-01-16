@@ -31,7 +31,7 @@ function detail(purchaseNum){
 				</tr>
 				<tr th:each="dto : ${list}">
 					<td>[[${#dates.format(dto.purchaseDTO.purchaseDate,'yyyy-MM-dd')}]]
-					(<span th:if="${dto.purchaseDTO.purchaseStatus == '결제완료'}" th:text="${dto.paymentDTO.confirmNumber}"></span>
+					(<span th:if="${dto.purchaseDTO.purchaseStatus != '결제대기중' }" th:text="${dto.paymentDTO.confirmNumber}"></span>
 					 <span th:if="${dto.paymentDTO == null}" th:text="결제대기중"></span>)
 					</td>
 					<td>
@@ -42,7 +42,10 @@ function detail(purchaseNum){
 					</td>
 					<td><a th:href="|javascript:detail('${dto.purchaseDTO.purchaseNum}')|">주문	상세 보기</a><br />
 						결제 금액 :  [[${dto.purchaseDTO.totalPrice}]]<br />
-						[[${dto.purchaseDTO.purchaseStatus}]]
+						<span th:if="${dto.purchaseDTO.purchaseStatus != '배송중'}" th:text="${dto.purchaseDTO.purchaseStatus}"></span>
+						<span th:if="${dto.purchaseDTO.purchaseStatus == '배송중'}">
+							<a th:href="@{/delivery/deliveryOK(purchaseNum=${dto.purchaseDTO.purchaseNum})}" >배송중</a>
+						</span>
 						<a th:if="${dto.purchaseDTO.purchaseStatus == '결제완료' 
 									and dto.deliveryDTO == null}"
 						   th:href="@{/puchase/paymentCancel(purchaseNum=${dto.purchaseDTO.purchaseNum})}">결제취소</a>

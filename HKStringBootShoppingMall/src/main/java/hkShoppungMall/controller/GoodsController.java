@@ -211,6 +211,7 @@ public class GoodsController {
 			Model model
 			) {
 		purchaseDetailService.execute(purchaseNum, model);
+		model.addAttribute("newLineChar" , "\n");
 		return "thymeleaf/puchase/purchaseDetail";
 	}
 }
