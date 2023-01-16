@@ -87,4 +87,13 @@ order by pu.purchase_num desc
 	set purchase_Status = '결제완료' 
 	where purchase_num = #{purchaseNum}
 </update>
+<delete id="paymentDelete" parameterType="string">
+	delete from payment
+	where purchase_num = #{purchaseNum}
+</delete>
+<update id="purchaseStatusBack" parameterType="string">
+	update purchase
+	set purchase_Status = '결제대기중' 
+	where purchase_num = #{purchaseNum}
+</update>
 </mapper>

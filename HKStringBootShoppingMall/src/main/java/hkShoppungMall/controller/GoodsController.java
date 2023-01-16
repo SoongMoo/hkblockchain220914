@@ -194,6 +194,10 @@ public class GoodsController {
 		fileDelService.execute(fileInfo, session, model);
 		return "thymeleaf/goods/delPage";
 	}
+	@RequestMapping("purchaseList")
+	public String purchaseList() {
+		return "thymeleaf/purchase/purchaseList";
+	}
 }
 
 
