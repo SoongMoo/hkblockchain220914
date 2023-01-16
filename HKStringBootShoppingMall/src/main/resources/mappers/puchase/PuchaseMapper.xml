@@ -100,4 +100,51 @@ order by pu.purchase_num desc
 	set purchase_Status = '결제대기중' 
 	where purchase_num = #{purchaseNum}
 </update>
+<resultMap type="purchaseDetailDTO" id="purchaseDetailMap">
+	<association property="paymentDTO" javaType="paymentDTO">
+		<result column="CONFIRM_NUMBER" jdbcType="VARCHAR" property="confirmNumber"/>
+	</association>
+	<association property="purchaseDTO" javaType="purchaseDTO">
+		<id column="PURCHASE_NUM" jdbcType="VARCHAR" property="purchaseNum"/>
+		<result column="PURCHASE_DATE" jdbcType="DATE" property="purchaseDate"/>
+		<result column="TOTAL_PRICE" jdbcType="BIGINT" property="totalPrice"/>
+		<result column="PURCHASE_STATUS" jdbcType="VARCHAR" property="purchaseStatus"/>
+	</association>
+	<association property="deliveryDTO" javaType="deliveryDTO" >
+		<result column="DELIVERY_NUMBER" jdbcType="VARCHAR" property="deliveryNumber"/>
+		<result column="DELIVERY_COMPANY" jdbcType="VARCHAR" property="deliveryCompany"/>
+	</association>
+	<collection property="purchaseListGoodsDTOs" ofType="purchaseListGoodsDTO">
+		<association property="purchaseListDTO" javaType="purchaseListDTO">
+			<result column="PURCHASE_QTY" jdbcType="BIGINT" property="purchaseQty"/>
+			<result column="PURCHASE_PRICE" jdbcType="BIGINT" property="purchasePrice"/>
+		</association>
+		<association property="goodsDTO" javaType="goodsDTO">
+			<id column="goods_Num" jdbcType="VARCHAR" property="goodsNum"/>
+			<result column="goods_Name" jdbcType="VARCHAR" property="goodsName"/>
+			<result column="goods_main" jdbcType="VARCHAR" property="goodsMain"/>
+		</association>
+	</collection>
+</resultMap>
+<select id="purchaseDetail" parameterType="string" resultMap="purchaseDetailMap">
+select CONFIRM_NUMBER, 
+       pu.PURCHASE_NUM, PURCHASE_DATE, TOTAL_PRICE, PURCHASE_STATUS,
+       DELIVERY_NUMBER, DELIVERY_COMPANY,
+       PURCHASE_QTY, PURCHASE_PRICE,
+       g.goods_Num, goods_Name, goods_main
+from payment pa right outer join purchase pu 
+on pa.PURCHASE_num = pu.PURCHASE_num  left outer join  Delivery d
+on pa.PURCHASE_num = d.PURCHASE_num join purchase_list pl
+on pu.PURCHASE_num = pl.purchase_num join goods g
+on pl.goods_num = g.goods_num
+where pu.PURCHASE_NUM = #{purchaseNum}
+</select>
+
+
+
+
+
+
+
+
 </mapper>

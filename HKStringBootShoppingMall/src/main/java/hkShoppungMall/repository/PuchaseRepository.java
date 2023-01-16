@@ -11,6 +11,7 @@ import hkShoppungMall.domain.CartGoodsDTO;
 import hkShoppungMall.domain.PaymentDTO;
 import hkShoppungMall.domain.PaymentPurchaseGoodsDTO;
 import hkShoppungMall.domain.PurchaseDTO;
+import hkShoppungMall.domain.PurchaseDetailDTO;
 import hkShoppungMall.domain.PurchaseListDTO;
 
 @Repository
@@ -54,5 +55,9 @@ public class PuchaseRepository {
 	public Integer purchaseStatusBack(String purchaseNum) {
 		statement = namespace + ".purchaseStatusBack";
 		return sqlSession.update(statement, purchaseNum) ;
+	}
+	public List<PurchaseDetailDTO> purchaseDetail(String purchaseNum) {
+		statement = namespace + ".purchaseDetail";
+		return sqlSession.selectList(statement, purchaseNum) ;
 	}
 }

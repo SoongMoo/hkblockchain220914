@@ -7,10 +7,11 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("paymentPurchaseGoodsDTO")
-public class PaymentPurchaseGoodsDTO {
+@Alias("purchaseDetailDTO")
+public class PurchaseDetailDTO {
 	PurchaseDTO purchaseDTO; // 1
 	PaymentDTO paymentDTO; // 1
 	DeliveryDTO deliveryDTO; // 1
-	List<GoodsDTO> goodsDTOs; // n
+	
+	List<PurchaseListGoodsDTO> purchaseListGoodsDTOs;
 }

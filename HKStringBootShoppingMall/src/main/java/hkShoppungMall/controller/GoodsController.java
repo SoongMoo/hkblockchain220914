@@ -29,6 +29,7 @@ import hkShoppungMall.service.goods.GoodsDetailService;
 import hkShoppungMall.service.goods.GoodsListService;
 import hkShoppungMall.service.goods.GoodsModifyService;
 import hkShoppungMall.service.goods.GoodsWriteService;
+import hkShoppungMall.service.puchase.PurchaseDetailService;
 import hkShoppungMall.service.puchase.PurchaseListService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -201,6 +202,16 @@ public class GoodsController {
 	public String purchaseList(Model model) {
 		purchaseListService.execute(model);
 		return "thymeleaf/puchase/purchaseList";
+	}
+	@Autowired
+	PurchaseDetailService purchaseDetailService;
+	@RequestMapping("puchaseDetail")
+	public String puchaseDetail(
+			@RequestParam(value = "purchaseNum")String purchaseNum ,
+			Model model
+			) {
+		purchaseDetailService.execute(purchaseNum, model);
+		return "thymeleaf/puchase/purchaseDetail";
 	}
 }
 
