@@ -73,7 +73,11 @@ on pa.PURCHASE_num = pu.PURCHASE_num  left outer join  Delivery d
 on pa.PURCHASE_num = d.PURCHASE_num join purchase_list pl
 on pu.PURCHASE_num = pl.purchase_num join goods g
 on pl.goods_num = g.goods_num
-where pu.member_num = #{memberNum}
+<where>
+	<if test="memberNum != null">
+		pu.member_num = #{memberNum}
+	</if>
+</where>
 order by pu.purchase_num desc
 </select>
 <insert id="payment" parameterType="paymentDTO">

@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/static/css/memberLayout.css" rel="stylesheet" >
+<script>
+function detail(purchaseNum){
+	window.open("puchaseDetail?purchaseNum="+purchaseNum, 
+			"purchaseDetail","top='100',left='100',width=600,height=800");
+}
+</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -25,18 +30,22 @@
 					<td>주문상태</td>
 				</tr>
 				<tr th:each="dto : ${list}">
-					<td>[[${#dates.format(dto.purchaseDate,'yyyy-MM-dd' )}]] (<span
-						th:if="${dto.confirmNumber !=null}" th:text="${dto.confirmNumber}"></span>
-						<span th:if="${dto.confirmNumber == null}" th:text="입금대기중"></span>)
+					<td>[[${#dates.format(dto.purchaseDTO.purchaseDate,'yyyy-MM-dd')}]]
+					(<span th:if="${dto.purchaseDTO.purchaseStatus == '결제완료'}" th:text="${dto.paymentDTO.confirmNumber}"></span>
+					 <span th:if="${dto.paymentDTO == null}" th:text="결제대기중"></span>)
 					</td>
-					<td><img th:src="|/goods/upload/${dto.goodsMain}|" width="50" />[[${dto.goodsName}]]
-						/ [[${dto.purchaseNum}]]</td>
-					<td><a
-						th:href="@{puchaseDetail(purchaseNum=${dto.purchaseNum})}">주문	상세 보기</a><br />
-						결제 금액 : [[${dto.totalPrice }]] <br />
-						[[${dto.purchaseStatus}]] 
-						<a th:if="${dto.purchaseStatus == '결제완료' or dto.purchaseStatus == '상품준비중'}"
-						   th:href="@{/cart/paymentCancel(purchaseNum=${dto.purchaseNum })}">결제취소</a>
+					<td>
+						<th:block th:each="goodsDTO : ${dto.goodsDTOs}">
+						<img th:src="|/goods/upload/${goodsDTO.goodsMain}|" width="50" />[[${goodsDTO.goodsName}]]
+						</th:block> 
+						/ [[${dto.purchaseDTO.purchaseNum}]]
+					</td>
+					<td><a th:href="|javascript:detail('${dto.purchaseDTO.purchaseNum}')|">주문	상세 보기</a><br />
+						결제 금액 :  [[${dto.purchaseDTO.totalPrice}]]<br />
+						[[${dto.purchaseDTO.purchaseStatus}]]
+						<a th:if="${dto.purchaseDTO.purchaseStatus == '결제완료' 
+									and dto.deliveryDTO == null}"
+						   th:href="@{/puchase/paymentCancel(purchaseNum=${dto.purchaseDTO.purchaseNum})}">결제취소</a>
 					</td>
 				</tr>
 			</table>

@@ -29,6 +29,7 @@ import hkShoppungMall.service.goods.GoodsDetailService;
 import hkShoppungMall.service.goods.GoodsListService;
 import hkShoppungMall.service.goods.GoodsModifyService;
 import hkShoppungMall.service.goods.GoodsWriteService;
+import hkShoppungMall.service.puchase.PurchaseListService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -194,9 +195,12 @@ public class GoodsController {
 		fileDelService.execute(fileInfo, session, model);
 		return "thymeleaf/goods/delPage";
 	}
+	@Autowired
+	PurchaseListService purchaseListService;
 	@RequestMapping("purchaseList")
-	public String purchaseList() {
-		return "thymeleaf/purchase/purchaseList";
+	public String purchaseList(Model model) {
+		purchaseListService.execute(model);
+		return "thymeleaf/puchase/purchaseList";
 	}
 }
 
