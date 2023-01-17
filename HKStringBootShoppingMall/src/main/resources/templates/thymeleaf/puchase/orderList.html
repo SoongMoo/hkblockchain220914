@@ -21,7 +21,11 @@
 				<img th:src="|/goods/upload/${goodsDTO.goodsMain}|" width="50"/>
 			</th:block>
 			/ [[${dto.purchaseDTO.purchaseNum}]]
-		<td><a th:if="${dto.purchaseDTO.purchaseStatus=='결제대기중'}" 
+		<td><a th:href="@{/goods/puchaseDetail(purchaseNum=${dto.purchaseDTO.purchaseNum})}">주문 상세 보기</a><br />
+			결제 금액 : <span th:if="${dto.paymentDTO != null}" th:text="${dto.purchaseDTO.totalPrice}"></span><br />
+			[[${dto.purchaseDTO.purchaseStatus}]]<br />
+			
+			<a th:if="${dto.purchaseDTO.purchaseStatus=='결제대기중'}" 
 			th:href="@{paymentOk(purchaseNum=${dto.purchaseDTO.purchaseNum},
 								 totalPrice=${dto.purchaseDTO.totalPrice})}">결제하기</a>
 			<a th:if="${dto.purchaseDTO.purchaseStatus=='결제완료' and dto.deliveryDTO == null}"
