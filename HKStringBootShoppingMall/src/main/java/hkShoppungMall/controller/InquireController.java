@@ -1,13 +1,20 @@
 package hkShoppungMall.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import hkShoppungMall.service.inquire.InquireListService;
+import hkShoppungMall.service.inquire.InquireWriteService;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("inquire")
@@ -19,11 +26,38 @@ public class InquireController {
 			@RequestParam(value = "goodsNum") String goodsNum,
 			Model model) {
 		inquireListService.execute(goodsNum, model);
+		model.addAttribute("newLineChar", "\n");
 		return "thymeleaf/inquire/inquireList";
 	}
-	@RequestMapping("inquireWrite")
+	@RequestMapping(value="inquireWrite", method=RequestMethod.GET)
 	public String inquireWrite(
 			@ModelAttribute(value = "goodsNum") String goodsNum) {
 		return "thymeleaf/inquire/inquireWrite";
+	}
+	@Autowired
+	InquireWriteService inquireWriteService;
+	@RequestMapping(value="inquireWrite", method=RequestMethod.POST)
+	public void inquireWrite(
+			@RequestParam(value = "goodsNum") String goodsNum,
+			@RequestParam(value = "inquireKind") String inquireKind,
+			@RequestParam(value = "inquireSubject") String inquireSubject,
+			@RequestParam(value = "inquireContent") String inquireContent,
+			@RequestParam(value = "email1") String email1,
+			@RequestParam(value = "email2") String email2,
+			HttpServletResponse response, HttpSession session) {
+		inquireWriteService.execute(goodsNum,inquireKind,inquireSubject,inquireContent,
+				email1, email2, session);
+		try {
+			response.setContentType("text/html; charset=utf-8"); 
+			PrintWriter out = response.getWriter();
+			String str=  "<script language='javascript'>" 
+					  +  " opener.parent.inquire();"
+			          +  " window.self.close();"
+			          +  "</script>";
+			 out.print(str);
+			 out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

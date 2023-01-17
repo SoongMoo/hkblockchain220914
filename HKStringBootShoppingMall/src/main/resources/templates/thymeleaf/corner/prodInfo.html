@@ -5,7 +5,23 @@
 <title>Insert title here</title>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script>
+function inquire(){
+	$.ajax({
+		type : "POST",
+		url : "/inquire/inquireList",
+		dataType : "html",
+		data : {"goodsNum":"[[${goodsCommand.goodsNum}]]"},
+		success : function(result){
+			$("#notice").html(result);
+		},
+		error : function(){
+			alert('에러가 나왔다 홀홀홀~');
+			return;
+		}
+	});
+}
 $(function(){
+	/*
 	$("#inquire").click(function(){
 		$.ajax({
 			type : "POST",
@@ -21,6 +37,7 @@ $(function(){
 			}
 		});
 	});
+	*/
 	$("#descript").click(function(){
 		location.reload();
 	});
@@ -120,7 +137,7 @@ $(function(){
 	<tr><td colspan = "2">
 		<span id="descript">제품 상세 설명</span>   | 
 		<span id="review">리뷰</span>  | 
-		<span id="inquire">상품문의</span>
+		<span id="inquire"><a href="javascript:inquire()">상품문의</a></span>
 		<div id="notice">  
 		<p>
 		<span th:utext="${#strings.replace(goodsCommand.goodsContent, newLineChar,'&lt;br /&gt;')}"></span>

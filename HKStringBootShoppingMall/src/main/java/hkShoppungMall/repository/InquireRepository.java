@@ -18,4 +18,10 @@ public class InquireRepository {
 		statement = namespace + ".inquireList";
 		return sqlSession.selectList(statement, goodsNum) ;
 	}
+	public Integer inquireWrite(InquireDTO dto){
+		statement = namespace + ".inquireWrite";
+		return sqlSession.insert(statement, dto) ;
+	}
+	
+	
 }

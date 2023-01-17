@@ -19,15 +19,12 @@ $(function(){
 </head>
 <body>
 	<form method="post" action="inquireWrite" id="frmMain">
-	<input type="hidden" name="goodsNum" th:value="${goodsCommand.goodsNum}">
+	<input type="hidden" name="goodsNum" th:value="${goodsNum}">
 		<div id="body" class="withname">
 			<h1 class="fl"> 판매자에게 문의하기 </h1>
 			<hr>
 			<div id="maxzone" >
 				<div id="contents" >
-					<p class="product-seller">
-						<strong>상품명 : [[${goodsCommand.goodsName}]]</strong>
-					</p>
 					<div >
 						<table class="tbl-qna" >
 							<colgroup>
@@ -38,11 +35,11 @@ $(function(){
 								<tr>
 									<th>문의유형</th>
 									<td class="type">
-										<input type="radio" id="hchkQueryType1"	name="hchkQueryType" value="상품"/>상품(성능/사이즈) 
-										<input type="radio" id="hchkQueryType2" name="hchkQueryType" value="배송"/>배송
-										<input type="radio" id="hchkQueryType3" name="hchkQueryType" value="교환"/>교환
-										<input type="radio" id="hchkQueryType4" name="hchkQueryType" value="반품/취소/환불"/>반품/취소/환불 
-										<input type="radio" id="hchkQueryType5" name="hchkQueryType" value="기타"/>기타
+										<input type="radio" id="hchkQueryType1"	name="inquireKind" value="상품"/>상품(성능/사이즈) 
+										<input type="radio" id="hchkQueryType2" name="inquireKind" value="배송"/>배송
+										<input type="radio" id="hchkQueryType3" name="inquireKind" value="교환"/>교환
+										<input type="radio" id="hchkQueryType4" name="inquireKind" value="반품/취소/환불"/>반품/취소/환불 
+										<input type="radio" id="hchkQueryType5" name="inquireKind" value="기타"/>기타
 									</td>
 								</tr>
 								<tr class="cont">

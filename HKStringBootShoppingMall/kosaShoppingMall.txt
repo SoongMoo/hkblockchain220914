@@ -381,3 +381,5 @@ CREATE TABLE goods_inquire (
 
 alter table goods_inquire
 add (member_id varchar2(20));
+alter table goods_inquire
+add(ANSWER_EMAIL varchar2(20));

@@ -7,7 +7,7 @@
 <script>
 $(function(){
 	$("#inquire1").click(function(){
-		window.open("inquireWrite?goodsNum=[[${goodsNum}]]","문의하기",
+		window.open("/inquire/inquireWrite?goodsNum=[[${goodsNum}]]","문의하기",
 				"width=700, height=650, top=100, left=100");
 	});
 });
@@ -20,17 +20,17 @@ $(function(){
 			<td>작성자</td><td>작성일자</td></tr>
 		<th:block th:each="dto, idx : ${list}">
 		<tr><td>[[${idx.count}]]</td>
-			<td><span id="ingu + ${idx.count}">답변 열기</span></td></tr>
+			<td colspan=3 align="right"><span id="ingu + ${idx.count}">답변 열기</span></td></tr>
 		<tr>
 			<td>검토중</td><td>[[${dto.inquireKind}]]</td>
-			<td>[[${dto.memberId}]]</td><td>[[${dto.inquireDate}]]
+			<td>[[${dto.memberId}]]</td><td>[[${#dates.format(dto.inquireDate,'yyyy-MM-dd')}]]
 			<th:block th:if="${session.authInfo.userId == dto.memberId}">
 				<input type="button"  th:attr="onclick=|inquireUpdate('${dto.inquireNum}');|" value="수정 하기">
 				<input type="button"  th:attr="onclick=|inquireDelete('${dto.inquireNum}');|" value="삭제 하기">
 			</th:block>
 			</td>
 		<tr>
-		<tr><td colspan="4">[[${dto.inquireContent}]]</td></tr>
+		<tr><td colspan="4"><span th:utext='${#strings.replace(dto.inquireContent, newLineChar, "&lt;br /&gt;")}'></span></td></tr>
 		<tr th:if="${dto.inquireAnswer != null}" style="display:none;" th:id="ing + ${dto.inquireNum}">
 			<td colspan="4">[[${dto.inquireDate}]] <br />
 				[[${dto.inquireAnswer}]]</td>

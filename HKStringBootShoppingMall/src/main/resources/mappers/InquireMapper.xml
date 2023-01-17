@@ -4,7 +4,7 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hkShoppungMall.repository.InquireRepository">
 <select id="inquireList" parameterType="string" resultType="inquireDTO">
-	select INQUIRE_NUM inquireNum   , goods_num goodsNum
+	select INQUIRE_NUM inquireNum   , goods_num goodsNum,
 				 INQUIRE_KIND inquireKind , INQUIRE_SUBJECT  inquireSubject,
 				 INQUIRE_CONTENT inquireContent, 
 				 INQUIRE_DATE inquireDate ,
@@ -14,4 +14,12 @@
 	where goods_num = #{goodsNum}
 	order by inquireNum desc
 </select>
+	<insert id="inquireWrite" parameterType="inquireDTO">
+		insert into goods_inquire ( inquire_kind, inquire_subject ,  
+    		inquire_content, member_num, inquire_date, goods_num , ANSWER_EMAIL, member_id)
+	
+							values (#{inquireKind}, #{inquireSubject},
+		  #{inquireContent}, #{memberNum}, sysdate,  #{goodsNum}, #{answerEmail}, #{memberId})
+	
+	</insert>
 </mapper>
