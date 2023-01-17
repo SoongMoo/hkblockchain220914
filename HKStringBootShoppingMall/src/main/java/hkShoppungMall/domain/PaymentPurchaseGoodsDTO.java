@@ -1,5 +1,6 @@
 package hkShoppungMall.domain;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
@@ -13,4 +14,8 @@ public class PaymentPurchaseGoodsDTO {
 	PaymentDTO paymentDTO; // 1
 	DeliveryDTO deliveryDTO; // 1
 	List<GoodsDTO> goodsDTOs; // n
+	
+	Long reviewNum;
+	Date reviewDate;
+	String reviewContent;
 }

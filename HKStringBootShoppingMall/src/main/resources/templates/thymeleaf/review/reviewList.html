@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1" width="600" align="center" >
+	<tr><th>아이디 | 주문번호 </th><th>리뷰 쓴 날짜</th></tr>
+	<th:block  th:each="reviewDTO  : ${list}">
+		<tr><th>[[${reviewDTO.memberId}]] | [[${reviewDTO.purchaseNum}]] </th>
+			<th>[[${#dates.format(reviewDTO.reviewDate,'yyyy-MM-dd')}]]</th></tr>
+		<tr><td colspan="2">
+			<span th:utext="${#strings.replace(reviewDTO.reviewContent, newLineChar, '&lt;br /&gt;')}"></span>
+		</td></tr>
+	</th:block>
+</table>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package hkShoppungMall.service.puchase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,6 @@ public class PurchaseDetailService {
 	public void execute(String purchaseNum , Model model) {
 		List<PurchaseDetailDTO> list = puchaseRepository.purchaseDetail(purchaseNum);
 		model.addAttribute("list", list);
+		List<String> list1 = new ArrayList<String>();
 	}
 }

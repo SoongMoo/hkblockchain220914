@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hkShoppungMall.repository.InquireRepository">
+<select id="inquireList" parameterType="string" resultType="inquireDTO">
+	select INQUIRE_NUM inquireNum   , goods_num goodsNum
+				 INQUIRE_KIND inquireKind , INQUIRE_SUBJECT  inquireSubject,
+				 INQUIRE_CONTENT inquireContent, 
+				 INQUIRE_DATE inquireDate ,
+				 INQUIRE_ANSWER inquireAnswer, ANSWER_DATE answerDate,
+				 member_id memberId
+	from goods_inquire
+	where goods_num = #{goodsNum}
+	order by inquireNum desc
+</select>
+</mapper>

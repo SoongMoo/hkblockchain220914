@@ -350,3 +350,34 @@ modify (PURCHASE_NUM VARCHAR2(20));
 
 alter table DELIVERY
 modify (PURCHASE_NUM varchar2(20));
+
+drop table review;
+create table review(
+    REVIEW_NUM NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+    GOODS_NUM VARCHAR2(10) NOT NULL,
+    PURCHASE_NUM VARCHAR2(20) NOT NULL,
+    REVIEW_DATE DATE,
+    REVIEW_CONTENT VARCHAR2(2000)
+);
+alter table review
+add( constraint review_num_goods_num_pk primary key (review_num,goods_num, PURCHASE_NUM));
+
+alter table review
+add (constraint review_goods_num_fk FOREIGN key (goods_num, PURCHASE_NUM)
+        REFERENCES purchase_list (goods_num, PURCHASE_NUM)  on delete CASCADE);
+        
+drop table goods_inquire;        
+CREATE TABLE goods_inquire (
+	inquire_num NUMBER GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1), /* 문의번호 */
+	goods_num VARCHAR2(10) NOT NULL, /* 상품 번호 */
+	member_Num VARCHAR2(10) NOT NULL, /* 회원번호 */
+	inquire_subject VARCHAR2(100), /* 문의 제목 */
+	inquire_content VARCHAR2(2000), /* 문의 내용 */
+	inquire_kind VARCHAR2(20), /* 문의 종류 */
+	inquire_answer VARCHAR2(2000), /* 문의 답글 */
+	inquire_date DATE, /* 문의 날짜 */
+	answer_date DATE /* 답변 날짜 */
+);        
+
+alter table goods_inquire
+add (member_id varchar2(20));

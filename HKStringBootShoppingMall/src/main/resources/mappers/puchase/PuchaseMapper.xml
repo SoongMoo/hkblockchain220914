@@ -45,6 +45,11 @@ where c.goods_num = g.goods_num and c.goods_num = #{goodsNum}
                                 and c.member_num = #{memberNum}
 </insert>
 <resultMap type="paymentPurchaseGoodsDTO" id="paymentPurchaseGoodsMap">
+
+<id column="REVIEW_NUM" jdbcType="BIGINT" property="reviewNum"/>
+<result column="REVIEW_DATE" jdbcType="DATE" property="reviewDate"/>	
+<result column="REVIEW_CONTENT" jdbcType="VARCHAR" property="reviewContent"/>
+
 <association property="paymentDTO" javaType="paymentDTO">
 	<result column="CONFIRM_NUMBER" jdbcType="VARCHAR" property="confirmNumber"/>
 </association>
@@ -67,12 +72,14 @@ where c.goods_num = g.goods_num and c.goods_num = #{goodsNum}
 <select  id="purchaseList" parameterType="string" resultMap="paymentPurchaseGoodsMap">
 select CONFIRM_NUMBER, pu.PURCHASE_NUM, PURCHASE_DATE, TOTAL_PRICE, PURCHASE_STATUS,
        DELIVERY_NUMBER, DELIVERY_COMPANY,
-       g.goods_Num, goods_Name, goods_main
+       g.goods_Num, goods_Name, goods_main,
+       REVIEW_DATE, REVIEW_CONTENT,REVIEW_NUM
 from payment pa right outer join purchase pu 
 on pa.PURCHASE_num = pu.PURCHASE_num  left outer join  Delivery d
 on pa.PURCHASE_num = d.PURCHASE_num join purchase_list pl
 on pu.PURCHASE_num = pl.purchase_num join goods g
-on pl.goods_num = g.goods_num
+on pl.goods_num = g.goods_num left outer join review r
+on pl.goods_num = r.goods_num and pl.PURCHASE_num = r.PURCHASE_num
 <where>
 	<if test="memberNum != null">
 		pu.member_num = #{memberNum}
@@ -80,6 +87,7 @@ on pl.goods_num = g.goods_num
 </where>
 order by pu.purchase_num desc
 </select>
+
 <insert id="payment" parameterType="paymentDTO">
 	insert into payment(PURCHASE_NUM,PAYMENT_KIND, PAYMENT_PRICE,PAYMENT_DATE, 
 			CONFIRM_NUMBER, CARD_NUMBER )

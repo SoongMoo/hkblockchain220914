@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+		"-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hkShoppungMall.repository.ReviewRepository">
+
+<insert id="reviewWrite" parameterType="reviewDTO">
+insert into review( GOODS_NUM, purchase_num, REVIEW_DATE, REVIEW_CONTENT, member_id)
+values( #{goodsNum}, #{purchaseNum}, sysdate,  #{reviewContent}, #{memberId})
+</insert>
+<delete id="reviewDelete" parameterType="string">
+	delete from review
+	where REVIEW_NUM = #{reviewNum}
+</delete>
+
+
+<resultMap type="goodsReviewDTO" id="reviewGoodsMap">
+<association property="goodsDTO" javaType="goodsDTO" >
+	<id column="GOODS_NUM"  jdbcType="VARCHAR" property="goodsNum" />
+	<result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName"/>
+	<result column="GOODS_MAIN" jdbcType="VARCHAR" property="goodsMain" />
+</association>
+<association property="reviewDTO" javaType="reviewDTO">
+	<id column="REVIEW_NUM"  jdbcType="BIGINT" property="reviewNum" />
+	<result column="REVIEW_DATE" jdbcType="DATE" property="reviewDate"/>
+	<result column="REVIEW_CONTENT" jdbcType="VARCHAR" property="reviewContent" />
+	<result column="PURCHASE_NUM" jdbcType="VARCHAR" property="purchaseNum"/>
+</association>
+</resultMap>
+<select id="reviewGoodsSelect" parameterType="string" resultMap="reviewGoodsMap">
+select g.GOODS_NUM goodsNum, GOODS_NAME , GOODS_MAIN, 
+	   REVIEW_NUM, REVIEW_DATE, REVIEW_CONTENT, PURCHASE_NUM
+from goods g, review r
+where g.goods_num = r.goods_num and REVIEW_NUM = #{reviewNum}
+</select>
+
+<update id="reviewUpdate" parameterType="reviewDTO">
+update review
+set review_content = #{reviewContent}
+where review_num = #{reviewNum}
+</update>
+<select id="goodsReviewList" parameterType="string" resultType="reviewDTO">
+	select PURCHASE_NUM purchaseNum, REVIEW_DATE reviewDate, 
+			REVIEW_CONTENT reviewContent, MEMBER_ID memberId
+	from review 
+	where GOODS_NUM = #{goodsNum}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<resultMap type="goodsReviewDTO" id="reviewGoodsMap1">
+	<association property="goodsDTO" javaType="goodsDTO" column="goodsNum" select="goods"/>
+	<association property="reviewDTO" javaType="reviewDTO" column="reviewNum" select="review"/>
+</resultMap>
+<select id="reviewGoodsSelect1" parameterType="string" resultMap="reviewGoodsMap1">
+select GOODS_NUM goodsNum, REVIEW_NUM reviewNum
+from   review r
+where  REVIEW_NUM = #{reviewNum}
+</select>
+<select id="goods" parameterType="string">
+select GOODS_NUM goodsNum, GOODS_NAME goodsName, GOODS_MAIN goodsMain
+from goods
+where  goods_num = #{goodsNum}
+</select>
+<select id="review" parameterType="string">
+select  REVIEW_NUM reviewNum, REVIEW_DATE reviewDate, 
+		REVIEW_CONTENT reviewContent, PURCHASE_NUM purchaseNum
+from review
+where REVIEW_NUM = #{reviewNum}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -6,6 +6,39 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script>
 $(function(){
+	$("#inquire").click(function(){
+		$.ajax({
+			type : "POST",
+			url : "/inquire/inquireList",
+			dataType : "html",
+			data : {"goodsNum":"[[${goodsCommand.goodsNum}]]"},
+			success : function(result){
+				$("#notice").html(result);
+			},
+			error : function(){
+				alert('에러가 나왔다 홀홀홀~');
+				return;
+			}
+		});
+	});
+	$("#descript").click(function(){
+		location.reload();
+	});
+	$("#review").click(function(){
+		$.ajax({
+			type : "POST",
+			url : "/review/reviewList",
+			dataType : "html",
+			data : {"goodsNum":"[[${goodsCommand.goodsNum}]]"},
+			success : function(result){
+				$("#notice").html(result);
+			},
+			error : function(){
+				alert('에러가 나왔다 홀홀홀~');
+				return;
+			}
+		});
+	});
 	$("#qty").click(function(){
 		$("#tot").html( [[${goodsCommand.goodsPrice }]] * $("#qty").val());
 	});
@@ -85,22 +118,19 @@ $(function(){
 	<tr><td align = "center"><input type="button" value="장바구니" id="cartAdd" /> <input type="submit" value="바로구매" /></td></tr>
 	
 	<tr><td colspan = "2">
-		제품 상세 설명
+		<span id="descript">제품 상세 설명</span>   | 
+		<span id="review">리뷰</span>  | 
+		<span id="inquire">상품문의</span>
+		<div id="notice">  
 		<p>
 		<span th:utext="${#strings.replace(goodsCommand.goodsContent, newLineChar,'&lt;br /&gt;')}"></span>
 		</p>
 		<th:block th:each="goodsImage : ${#strings.arraySplit(goodsCommand.goodsImages,'-')}">
 			<img th:src="|/goods/upload/${goodsImage}|" />
 		</th:block>
+		</div>
 	</td></tr>
 </table>
 </form>
-<table width="800" align = "center" ><tr><td >
-<ul>
- <li><span id="review">리뷰</span></li> 
- <li><span id="inquire" onclick="inquier();">상품문의</span></li>
-</ul>
-<span id="notice" ></span>
-</td></tr></table>
 </body>
 </html>

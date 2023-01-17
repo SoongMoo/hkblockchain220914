@@ -31,7 +31,16 @@
 			<a th:if="${dto.purchaseDTO.purchaseStatus=='결제완료' and dto.deliveryDTO == null}"
 				th:href="@{paymentCancel(purchaseNum=${dto.purchaseDTO.purchaseNum})}"
 			>결제취소</a>
-				</td>
+			<th:block th:each="goodsDTO , idx : ${dto.goodsDTOs}">
+				<a th:if="${dto.reviewNum == null and dto.purchaseDTO.purchaseStatus == '배송완료'}" 
+				th:href="@{/review/goodsReview(goodsNum=${goodsDTO.goodsNum},
+									purchaseNum=${dto.purchaseDTO.purchaseNum})}">리뷰등록</a>
+				<div th:if="${dto.reviewNum != null and dto.purchaseDTO.purchaseStatus == '배송완료'}">
+					<a th:href="@{/review/goodsReviewUpdate(reviewNum=${dto.reviewNum})}">리뷰 수정</a> | 
+					<a th:href="@{/review/goodsReviewDelete(reviewNum=${dto.reviewNum})}">리뷰 삭제</a>
+				</div>
+			</th:block>
+			</td>
 		</tr>
 	</tr>
 </table>
