@@ -75,12 +75,12 @@ select GOODS_NUM goodsNum, REVIEW_NUM reviewNum
 from   review r
 where  REVIEW_NUM = #{reviewNum}
 </select>
-<select id="goods" parameterType="string">
+<select id="goods" parameterType="string" resultType="goodsDTO">
 select GOODS_NUM goodsNum, GOODS_NAME goodsName, GOODS_MAIN goodsMain
 from goods
 where  goods_num = #{goodsNum}
 </select>
-<select id="review" parameterType="string">
+<select id="review" parameterType="string" resultType="reviewDTO">
 select  REVIEW_NUM reviewNum, REVIEW_DATE reviewDate, 
 		REVIEW_CONTENT reviewContent, PURCHASE_NUM purchaseNum
 from review

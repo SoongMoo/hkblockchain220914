@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import hkShoppungMall.domain.GoodsDTO;
 import hkShoppungMall.domain.GoodsReviewDTO;
 import hkShoppungMall.domain.ReviewDTO;
 
@@ -25,7 +26,7 @@ public class ReviewRepository {
 		return sqlSession.delete(statement, reviewNum) ;
 	}
 	public GoodsReviewDTO reviewGoodsSelect(String reviewNum) {
-		statement = namespace + ".reviewGoodsSelect";
+		statement = namespace + ".reviewGoodsSelect1";
 		return sqlSession.selectOne(statement, reviewNum) ;
 	}
 	public Integer reviewUpdate(ReviewDTO dto) {
@@ -35,5 +36,13 @@ public class ReviewRepository {
 	public List<ReviewDTO> goodsReviewList(String goodsNum) {
 		statement = namespace + ".goodsReviewList";
 		return sqlSession.selectList(statement, goodsNum) ;
+	}
+	public GoodsDTO goods(String goodsNum) {
+		statement = namespace + ".goodsReviewList";
+		return sqlSession.selectOne(statement, goodsNum) ;
+	}
+	public ReviewDTO review(String reviewNum) {
+		statement = namespace + ".goodsReviewList";
+		return sqlSession.selectOne(statement, reviewNum) ;
 	}
 }

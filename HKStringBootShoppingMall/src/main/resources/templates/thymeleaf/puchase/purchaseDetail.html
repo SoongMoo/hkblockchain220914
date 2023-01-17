@@ -70,7 +70,6 @@ $(function(){
 					<td>[[${list[0].deliveryDTO.deliveryNumber}]]</td></tr>
 			</table>
 			</div>
-			
 			<div th:if="${list[0].paymentDTO != null and session.authInfo.grade == 'emp'}">
 			<form action="/delivery/deliveryAction" method="post" >
 			<input type="hidden" name="purchaseNum" th:value="${list[0].purchaseDTO.purchaseNum}"/>
