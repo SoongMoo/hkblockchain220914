@@ -12,7 +12,8 @@ $(function(){
 	});
 });
 function inquireUpdate(inquireNum){
-	window.open();
+	window.open("/inquire/inquireUpdate?inquireNum="+inquireNum,"",
+			"width=700, height=650, top=100, left=100");
 }
 function inquireDelete(inquireNum){
 	$.ajax({

@@ -359,6 +359,10 @@ create table review(
     REVIEW_DATE DATE,
     REVIEW_CONTENT VARCHAR2(2000)
 );
+
+alter table review
+add (MEMBER_ID               VARCHAR2(20));
+
 alter table review
 add( constraint review_num_goods_num_pk primary key (review_num,goods_num, PURCHASE_NUM));
 

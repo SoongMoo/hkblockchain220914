@@ -14,16 +14,32 @@
 	where goods_num = #{goodsNum}
 	order by inquireNum desc
 </select>
-	<insert id="inquireWrite" parameterType="inquireDTO">
-		insert into goods_inquire ( inquire_kind, inquire_subject ,  
+	<insert id="inquireWrite" useGeneratedKeys="false" parameterType="inquireDTO">
+	MERGE into goods_inquire d1
+	USING ( select * from goods_inquire where INQUIRE_NUM = #{inquireNum} ) d2 
+	on (d1.INQUIRE_NUM = d2.INQUIRE_NUM)
+	When MATCHED THEN
+		update set inquire_kind = #{inquireKind},
+			   		inquire_subject = #{inquireSubject}, 
+			   		inquire_content = #{inquireContent}, 
+			   		ANSWER_EMAIL = #{answerEmail}
+	When not MATCHED THEN
+		insert ( inquire_kind, inquire_subject ,  
     		inquire_content, member_num, inquire_date, goods_num , ANSWER_EMAIL, member_id)
-	
-							values (#{inquireKind}, #{inquireSubject},
+		values (#{inquireKind}, #{inquireSubject},
 		  #{inquireContent}, #{memberNum}, sysdate,  #{goodsNum}, #{answerEmail}, #{memberId})
-	
 	</insert>
 <delete id="inquireDelete" parameterType="string">
 	delete from goods_inquire
 	where inquire_num = #{inquireNum}
 </delete>
+<select id="inquireSelect" parameterType="string" resultType="inquireDTO">
+	select INQUIRE_NUM  inquireNum ,  INQUIRE_SUBJECT inquireSubject ,  
+		   INQUIRE_CONTENT inquireContent ,  INQUIRE_KIND inquireKind , 
+		   INQUIRE_ANSWER inquireAnswer , INQUIRE_DATE inquireDate , 
+		   ANSWER_DATE answerDate , ANSWER_EMAIL answerEmail,
+		   member_id memberId
+	from goods_inquire
+	where INQUIRE_NUM =#{inquireNum}
+</select>
 </mapper>

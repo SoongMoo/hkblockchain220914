@@ -3,7 +3,7 @@ package hkShoppungMall;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -19,19 +19,24 @@ public class WebConfig implements WebMvcConfigurer {
 				.addResourceLocations("/view/")
 				.setCachePeriod(14400);
 	}
-
-//	@Override
-//	public void addInterceptors(InterceptorRegistry registry) {
-//		// TODO Auto-generated method stub
-//		List<String> list = new ArrayList<String>();
-//		list.add("/static/**/*");
-//		list.add("/register/**/*");
-//		list.add("/help/**/*");
-//		list.add("/login/**/*");
-//		list.add("/corner/**/*");
-//		registry.addInterceptor(new InteceptorConfig())
-//						.addPathPatterns("/*")
-//						.excludePathPatterns(list);
-//	}
+	  @Bean
+	    public InteceptorConfig inteceptorConfig() {
+	        return new InteceptorConfig();
+	    }
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		// TODO Auto-generated method stub
+		
+		//List<String> list = new ArrayList<String>();
+		//list.add("/static/**/*");
+		//list.add("/register/**/*");
+		//list.add("/help/**/*");
+		//list.add("/login/**/*");
+		//list.add("/corner/**/*");
+		//String [] list = {"/static/**/*","/register/**/*","/help/**/*","/login/**/*","/corner/**/*" };
+		//registry.addInterceptor(inteceptorConfig())
+		//				.addPathPatterns("/*")
+		//				.excludePathPatterns(list);
+	}
 
 }

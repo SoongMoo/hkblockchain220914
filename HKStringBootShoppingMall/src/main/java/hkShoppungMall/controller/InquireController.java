@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import hkShoppungMall.service.inquire.GoodsInquireDeleteService;
 import hkShoppungMall.service.inquire.InquireListService;
+import hkShoppungMall.service.inquire.InquireModifyService;
 import hkShoppungMall.service.inquire.InquireWriteService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -70,4 +71,43 @@ public class InquireController {
 		System.out.println("inquireNum : " +inquireNum);
 		return goodsInquireDeleteService.execute(inquireNum).toString();
 	}
+	@Autowired
+	InquireModifyService inquireModifyService;
+	@RequestMapping(value="inquireUpdate", method=RequestMethod.GET)
+	public String inquireUpdate(
+			@RequestParam(value="inquireNum") String inquireNum,Model model) {
+		inquireModifyService.execute(inquireNum, model);
+		return "thymeleaf/inquire/inquireUpdate";
+	}
+	@RequestMapping(value="inquireUpdate", method=RequestMethod.POST)
+	public void inquireUpdate(@RequestParam(value = "goodsNum") String goodsNum,
+			@RequestParam(value = "inquireNum") String inquireNum,
+			@RequestParam(value = "inquireKind") String inquireKind,
+			@RequestParam(value = "inquireSubject") String inquireSubject,
+			@RequestParam(value = "inquireContent") String inquireContent,
+			@RequestParam(value = "email1") String email1,
+			@RequestParam(value = "email2") String email2,
+			HttpServletResponse response,HttpSession session) {
+		inquireModifyService.execute(goodsNum,inquireNum, inquireKind,inquireSubject,inquireContent,
+				email1, email2,session);
+		
+		try {
+			response.setContentType("text/html; charset=utf-8"); 
+			PrintWriter out = response.getWriter();
+			String str=  "<script language='javascript'>" 
+					  +  " opener.parent.inquire();"
+			          +  " window.self.close();"
+			          +  "</script>";
+			 out.print(str);
+			 out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
+	
+	
 }
