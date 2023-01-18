@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import hkShoppungMall.domain.GoodsDTO;
 import hkShoppungMall.domain.InquireDTO;
+import hkShoppungMall.domain.InquireGoodsDTO;
 
 @Repository
 public class InquireRepository {
@@ -30,5 +32,20 @@ public class InquireRepository {
 		statement = namespace + ".inquireSelect";
 		return sqlSession.selectOne(statement, inquireNum) ;
 	}
-	
+	public InquireGoodsDTO inquireGoodsSelect(String inquireNum) {
+		statement = namespace + ".inquireGoodsSelect";
+		return sqlSession.selectOne(statement, inquireNum) ;
+	}
+	public GoodsDTO goods(String goodsNum) {
+		statement = namespace + ".goods";
+		return sqlSession.selectOne(statement, goodsNum) ;
+	}
+	public Integer inquireAnswer(InquireDTO dto) {
+		statement = namespace + ".inquireAnswer";
+		return sqlSession.update(statement, dto) ;
+	}
+	public Integer inquireUpdate(InquireDTO dto){
+		statement = namespace + ".inquireUpdate";
+		return sqlSession.update(statement, dto) ;
+	}
 }

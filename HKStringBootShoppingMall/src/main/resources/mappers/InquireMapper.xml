@@ -11,20 +11,21 @@
 				 INQUIRE_ANSWER inquireAnswer, ANSWER_DATE answerDate,
 				 member_id memberId
 	from goods_inquire
+	<if test="goodsNum != null">
 	where goods_num = #{goodsNum}
+	</if>
 	order by inquireNum desc
 </select>
+<update id="inquireUpdate" parameterType="inquireDTO" >
+	update goods_inquire
+	set inquire_kind = #{inquireKind},
+		inquire_subject = #{inquireSubject}, 
+		inquire_content = #{inquireContent}, 
+		ANSWER_EMAIL = #{answerEmail}
+	where INQUIRE_NUM = #{inquireNum}
+</update>
 	<insert id="inquireWrite" useGeneratedKeys="false" parameterType="inquireDTO">
-	MERGE into goods_inquire d1
-	USING ( select * from goods_inquire where INQUIRE_NUM = #{inquireNum} ) d2 
-	on (d1.INQUIRE_NUM = d2.INQUIRE_NUM)
-	When MATCHED THEN
-		update set inquire_kind = #{inquireKind},
-			   		inquire_subject = #{inquireSubject}, 
-			   		inquire_content = #{inquireContent}, 
-			   		ANSWER_EMAIL = #{answerEmail}
-	When not MATCHED THEN
-		insert ( inquire_kind, inquire_subject ,  
+		insert into goods_inquire( inquire_kind, inquire_subject ,  
     		inquire_content, member_num, inquire_date, goods_num , ANSWER_EMAIL, member_id)
 		values (#{inquireKind}, #{inquireSubject},
 		  #{inquireContent}, #{memberNum}, sysdate,  #{goodsNum}, #{answerEmail}, #{memberId})
@@ -33,6 +34,21 @@
 	delete from goods_inquire
 	where inquire_num = #{inquireNum}
 </delete>
+
+<resultMap type="InquireGoodsDTO" id="InquireGoodsMap">
+<association property="inquireDTO" javaType="inquireDTO" column="inquireNum" select="inquireSelect" />
+<association property="goodsDTO" javaType="goodsDTO" column="goodsNum" select="goods"/>
+</resultMap>
+<select id="inquireGoodsSelect" parameterType="string" resultMap="InquireGoodsMap">
+select GOODS_NUM goodsNum, INQUIRE_NUM inquireNum
+from goods_inquire
+where INQUIRE_NUM = #{inquireNum}
+</select>
+<select id="goods" parameterType="string" resultType="goodsDTO">
+select <include refid="baseColumns" />
+from goods
+where GOODS_NUM = #{goodsNum}
+</select>
 <select id="inquireSelect" parameterType="string" resultType="inquireDTO">
 	select INQUIRE_NUM  inquireNum ,  INQUIRE_SUBJECT inquireSubject ,  
 		   INQUIRE_CONTENT inquireContent ,  INQUIRE_KIND inquireKind , 
@@ -42,4 +58,22 @@
 	from goods_inquire
 	where INQUIRE_NUM =#{inquireNum}
 </select>
+<sql id="baseColumns">
+GOODS_NUM goodsNum , GOODS_NAME goodsName , GOODS_PRICE goodsPrice ,
+GOODS_CONTENT goodsContent , DELIVERY_COST deliveryCost, 
+VISIT_COUNT visitCount, 
+GOODS_MAIN goodsMain, GOODS_MAIN_ORG goodsMainOrg, 
+GOODS_IMAGES goodsImages, GOODS_ORIGINAL goodsOriginal
+</sql>
+<update id="inquireAnswer" parameterType="inquireDTO">
+	update goods_inquire
+	set INQUIRE_ANSWER = #{inquireAnswer},
+		ANSWER_DATE = sysdate
+	where INQUIRE_NUM = #{inquireNum}
+</update>
+
+
+
+
+
 </mapper>

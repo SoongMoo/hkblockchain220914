@@ -14,20 +14,19 @@
 		<li><a href="goodsIpgoList">상품 입고 현황</a></li>
 		<li><a href="goodsIpgo">상품 입고</a></li>
 		<li><a href="purchaseList">주문 내역</a></li>
-		<li><a href="goodsQuestion">상품 문의</a></li>
+		<li><a href="/inquire/goodsQuestion">상품 문의</a></li>
 	</ul>
 </div>
 <div id="MemberInfo">
 	<table width="600" border=1>
 		<tr><td>상품명</td><td>종류</td><td>제목</td><td>작성자</td><td>상태</td></tr>
-		
-		<tr >
-			<td></td>
-				<td></td>
-				<td><a th:href="|goodsInquireDetail/|">/a></td>
-				<td></td>
-			<td >답변 준비중</td>
-			<td >답변완료</td>
+		<tr th:each=" inquireDTO : ${list}">
+			<td>[[${inquireDTO.goodsNum}]]</td>
+			<td>[[${inquireDTO.inquireKind}]]</td>
+			<td><a th:href="|goodsInquireDetail/${inquireDTO.inquireNum}|">[[${inquireDTO.inquireSubject}]]</a></td>
+			<td>[[${inquireDTO.inquireKind}]]</td>
+			<td th:if="${inquireDTO.inquireAnswer == null}">답변 준비중</td>
+			<td th:if="${inquireDTO.inquireAnswer != null}">답변완료</td>
 		</tr>
 	</table>
 </div>

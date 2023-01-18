@@ -9,4 +9,5 @@ import hkShoppungMall.domain.MemberDTO;
 public interface MemberShipMapper {
 	public Integer memberInsert(MemberDTO dto);
 	public MemberDTO selectMember(String memberId);
+	public Integer updatePassword(MemberDTO dto);
 }

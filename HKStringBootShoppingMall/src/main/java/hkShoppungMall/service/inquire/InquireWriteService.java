@@ -14,11 +14,12 @@ public class InquireWriteService {
 	MemberShipMapper memberShipMapper;
 	@Autowired
 	InquireRepository inquireRepository;
-	public void execute(String goodsNum, String inquireKind, String inquireSubject, String inquireContent,
+	public void execute(Integer inquireNum, String goodsNum, String inquireKind, String inquireSubject, String inquireContent,
 			String email1, String email2, HttpSession session ) {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		String memberNum =(memberShipMapper.selectMember(authInfo.getUserId()).getMemberNum());
 		InquireDTO dto = new InquireDTO();
+		dto.setInquireNum(inquireNum);
 		dto.setGoodsNum(goodsNum);
 		dto.setInquireContent(inquireContent);
 		dto.setInquireKind(inquireKind);

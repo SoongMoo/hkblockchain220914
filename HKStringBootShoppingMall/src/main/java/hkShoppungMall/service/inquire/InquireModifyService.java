@@ -32,6 +32,6 @@ public class InquireModifyService {
 		dto.setAnswerEmail(email1 +"@"+email2);
 		dto.setMemberNum(memberNum);
 		dto.setMemberId(authInfo.getUserId());
-		inquireRepository.inquireWrite(dto);
+		inquireRepository.inquireUpdate(dto);
 	}
 }
