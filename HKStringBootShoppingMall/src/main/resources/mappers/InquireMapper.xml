@@ -22,4 +22,8 @@
 		  #{inquireContent}, #{memberNum}, sysdate,  #{goodsNum}, #{answerEmail}, #{memberId})
 	
 	</insert>
+<delete id="inquireDelete" parameterType="string">
+	delete from goods_inquire
+	where inquire_num = #{inquireNum}
+</delete>
 </mapper>

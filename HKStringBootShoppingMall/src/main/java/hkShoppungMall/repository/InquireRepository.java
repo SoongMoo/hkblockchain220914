@@ -22,6 +22,9 @@ public class InquireRepository {
 		statement = namespace + ".inquireWrite";
 		return sqlSession.insert(statement, dto) ;
 	}
-	
+	public Integer inquireDelete(String inquireNum) {
+		statement = namespace + ".inquireDelete";
+		return sqlSession.delete(statement, inquireNum) ;
+	}
 	
 }

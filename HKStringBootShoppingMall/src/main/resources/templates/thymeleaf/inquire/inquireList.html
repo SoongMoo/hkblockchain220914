@@ -11,6 +11,28 @@ $(function(){
 				"width=700, height=650, top=100, left=100");
 	});
 });
+function inquireUpdate(inquireNum){
+	window.open();
+}
+function inquireDelete(inquireNum){
+	$.ajax({
+		type:"post",
+		dataType:"text",
+		url: "/inquire/inquireDelete",
+		data : {"inquireNum": inquireNum },
+		success:function(result){
+			if(result == "1"){
+				inquire();
+			}else{
+				alert("삭제되지 않았습니다.")
+			}
+		},
+		error:function(){
+			alert("오류입니다.");
+			return false;
+		}
+	});
+}
 </script>
 </head>
 <body>

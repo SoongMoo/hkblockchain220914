@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import hkShoppungMall.service.inquire.GoodsInquireDeleteService;
 import hkShoppungMall.service.inquire.InquireListService;
 import hkShoppungMall.service.inquire.InquireWriteService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -59,5 +61,13 @@ public class InquireController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	@Autowired
+	GoodsInquireDeleteService goodsInquireDeleteService ;
+	@RequestMapping("inquireDelete")
+	public @ResponseBody String inquireDelete(
+			@RequestParam(value="inquireNum") String inquireNum) {
+		System.out.println("inquireNum : " +inquireNum);
+		return goodsInquireDeleteService.execute(inquireNum).toString();
 	}
 }
