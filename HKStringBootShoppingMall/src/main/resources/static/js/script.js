@@ -152,6 +152,10 @@ function setVote(idx, name){
 }
 function setVote_cancel(){
 	getDefault();
+	if(!isVote){
+		alert('투표를 안했습니다.');
+		return;
+	}
 	if(account_address == ""){
 		alert("주소를 입력해주세요.");
 		return;
