@@ -60,11 +60,13 @@ function open1(id, id1){
 		<tr>
 			<td>검토중</td><td>[[${dto.inquireKind}]]</td>
 			<td>[[${dto.memberId}]]</td><td>[[${#dates.format(dto.inquireDate,'yyyy-MM-dd')}]]
+			<th:block th:if="${session.authInfo != null}">
 			<th:block th:if="${session.authInfo.userId == dto.memberId}">
 				<th:block th:if="${dto.inquireAnswer == null}">
 				<input type="button"  th:attr="onclick=|inquireUpdate('${dto.inquireNum}');|" value="수정 하기">
 				</th:block>
 				<input type="button"  th:attr="onclick=|inquireDelete('${dto.inquireNum}');|" value="삭제 하기">
+			</th:block>
 			</th:block>
 			</td>
 		<tr>

@@ -36,7 +36,7 @@
 </delete>
 
 <resultMap type="InquireGoodsDTO" id="InquireGoodsMap">
-<association property="inquireDTO" javaType="inquireDTO" column="inquireNum" select="inquireSelect" />
+<association property="inquireDTO" javaType="inquireDTO" column="inquireNum"  select="inquireSelect" />
 <association property="goodsDTO" javaType="goodsDTO" column="goodsNum" select="goods"/>
 </resultMap>
 <select id="inquireGoodsSelect" parameterType="string" resultMap="InquireGoodsMap">

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="hkShoppungMall.mapper.VotingMapper">
+<insert id="insertCandidate" parameterType="candidatesDTO">
+	insert into candidates( NAME, VOTE )
+	values(#{name},#{vote})
+</insert>
+<select id="candidatesSelect" resultType="candidatesDTO">
+	select IDX, NAME, VOTE
+	from candidates
+</select>
+<select id="selectVotingSum" resultType="int">
+	select nvl(sum(VOTE), 0) 
+	from candidates
+</select>
+<update id="candidateUpdate" parameterType="int">
+	update candidates
+	set VOTE = VOTE + 1
+	where idx = #{idx}
+</update>
+<insert id="voteInsert" parameterType="votersDTO">
+	insert into voters(ACCOUNT, CANDIDATE_IDX, TX_ID, V_DATE )
+	values(#{account},#{candidate_idx},#{tx_id},sysdate)
+</insert>
+</mapper>

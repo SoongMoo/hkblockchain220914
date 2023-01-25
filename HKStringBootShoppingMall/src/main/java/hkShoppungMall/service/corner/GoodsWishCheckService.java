@@ -18,10 +18,14 @@ public class GoodsWishCheckService {
 	MemberShipMapper memberShipMapper;
 	public void execute(String goodsNum, HttpSession session, 
 			Model model) {
-		String userId = ((AuthInfo)session.getAttribute("authInfo")).getUserId();
-		WishDTO dto = new WishDTO();
-		dto.setGoodsNum(goodsNum);
-		dto.setMemberNum(memberShipMapper.selectMember(userId).getMemberNum());
-		model.addAttribute("wish", cornerRepository.wishCount(dto));
+		if(session.getAttribute("authInfo") != null) {
+			String userId = ((AuthInfo)session.getAttribute("authInfo")).getUserId();
+			WishDTO dto = new WishDTO();
+			dto.setGoodsNum(goodsNum);
+			dto.setMemberNum(memberShipMapper.selectMember(userId).getMemberNum());
+			model.addAttribute("wish", cornerRepository.wishCount(dto));
+		}else {
+			model.addAttribute("wish", "0");
+		}
 	}
 }

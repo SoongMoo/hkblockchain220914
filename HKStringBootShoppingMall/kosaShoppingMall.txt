@@ -387,3 +387,18 @@ alter table goods_inquire
 add (member_id varchar2(20));
 alter table goods_inquire
 add(ANSWER_EMAIL varchar2(20));
+
+
+create table candidates(
+    idx number GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+    name varchar2(30),
+    vote number
+);
+
+create table voters(
+    v_id number GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1), 
+    account varchar2(30), 
+    candidate_idx number,
+    tx_id varchar2(100),
+    v_date date
+);
