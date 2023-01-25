@@ -82,7 +82,7 @@ var abi = [
 ]
 
 var isVote = false;
-const contract_address = "0x1E1DA99fA9B218Bcb93eA9B8e3F461f4cdFF8F56";
+const contract_address = "0x6818645B4Dc0048E949eF1C228984e48536898E7";
 
 window.addEventListener("load", function() {
 	window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
@@ -123,7 +123,7 @@ function setVote(idx, name){
 	getDefault();
 	
 	if(isVote){
-		alert('이미 투표를 하였습니다.');
+		alert('Contract에 이미 투표를 하였습니다.');
 		return;
 	}
 	if(account_address == ""){
@@ -132,22 +132,26 @@ function setVote(idx, name){
 	}
 	voting.setVote(name, { gas: 200000 }, function(e, r) {
 			vote_transaction_id = r;
-			$.ajax({
-				url: '/voteWrite',
-				type: 'post',
-				data:{'idx': idx,'name':name,'account':account_address,'tx_id':r},
-				success: function(resp) {
-					console.log('resp :: ' + resp);
-					if(resp){
-						location.href="vote?account="+account_address;
-					}else{
-						alert("디비 : 이미 투표하였습니다.");
-					}
-				},
-				error:function(){
-					alert("서버오류");
-				}							
-			});
+			console.log("vote_transaction_id :: " +r);
+			if(r){
+				$.ajax({
+					url: '/voteWrite',
+					type: 'post',
+					data:{'idx': idx,'name':name,'account':account_address,'tx_id':r},
+					success: function(resp) {
+						console.log('resp :: ' + resp);
+						if(resp){
+							alert("성공입니다.");
+							location.href="vote?account="+account_address;
+						}else{
+							alert("디비 : 이미 투표하였습니다.");
+						}
+					},
+					error:function(){
+						alert("서버오류");
+					}							
+				});
+			}
 	});
 }
 function setVote_cancel(){

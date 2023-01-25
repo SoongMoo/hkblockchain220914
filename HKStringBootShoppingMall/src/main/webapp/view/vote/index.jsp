@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<link rel="stylesheet" href="webjars/bootstrap/4.1.0/css/bootstrap.min.css">
+
 <script type="text/javascript"
 	src="webjars/jquery/3.3.1-1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>
