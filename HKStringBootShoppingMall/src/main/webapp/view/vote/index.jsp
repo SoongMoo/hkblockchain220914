@@ -11,10 +11,10 @@
 <script type="text/javascript"
 	src="webjars/jquery/3.3.1-1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>
-
 <script type="text/javascript" src="/static/js/script.js"></script>
 </head>
 <body>
+지갑 : <input type="text" name = "account" id="voteAccount" /><br />
 	<table width="640">
 		<tr>
 			<td align="center">투표</td>
@@ -53,7 +53,7 @@
 					<c:if test="${list.vote > 0  }" >
 						<div class="progress-bar" role="progressbar" 
 							style="width:${list.vote / candidates_sum_vote * 100}%; 
-									max-width:${list.vote / candidates_sum_vote * 100}%; "
+								   max-width:${list.vote / candidates_sum_vote * 100}%; "
 							aria-valuenow:"${list.vote / candidates_sum_vote * 100}" 
 							aria-valuemin="0" 
 							aria-valuemax="${list.vote / candidates_sum_vote * 100}" >

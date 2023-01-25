@@ -226,7 +226,6 @@ auctionContract.options.address = contractAddress;
 var bidder; // auction_owner
 web3.eth.getAccounts().then(function(acc){  // 가나슈에 있는 계정을 가지고 오기
 	console.log(acc);
-	getVoter = acc[0];
 	bidder= acc[1]; // 현재 접속한 계정 , 경매자
 	auctionContract.methods.auction_end().call().then((result)=>{
 		document.getElementById("auction_end").innerHTML = result;

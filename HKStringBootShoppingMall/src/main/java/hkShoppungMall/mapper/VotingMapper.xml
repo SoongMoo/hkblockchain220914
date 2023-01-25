@@ -6,7 +6,7 @@
 <mapper namespace="hkShoppungMall.mapper.VotingMapper">
 <insert id="insertCandidate" parameterType="candidatesDTO">
 	insert into candidates( NAME, VOTE )
-	values(#{name},#{vote})
+	values(#{name},0)
 </insert>
 <select id="candidatesSelect" resultType="candidatesDTO">
 	select IDX, NAME, VOTE
@@ -25,4 +25,20 @@
 	insert into voters(ACCOUNT, CANDIDATE_IDX, TX_ID, V_DATE )
 	values(#{account},#{candidate_idx},#{tx_id},sysdate)
 </insert>
+<delete id="candidateDelete" parameterType="int" >
+	delete from candidates
+	where idx = #{idx}
+</delete>
+<delete id="votersCandidateDelete" parameterType="int">
+	delete from voters
+	where candidate_idx = #{idx}
+</delete>
+
+<select id="select_voting_account" parameterType="string" resultType="int">
+	select count(*) from voters
+	where account = #{account}
+</select>
+
+
+
 </mapper>

@@ -59,18 +59,32 @@ public class DappController {
 			e.printStackTrace();
 		}
 	}
+	@RequestMapping("voteRemoveCandidate")
+	@ResponseBody
+	public  boolean removeCandidate(
+			@RequestParam(value = "idx") int idx) {
+		votingMapper.votersCandidateDelete(idx);
+		int i = votingMapper.candidateDelete(idx);
+		if ( i >= 1) return true;
+		return false;
+	}
 	@RequestMapping(value="voteWrite", method=RequestMethod.POST)
-	public void voteWrite(@RequestParam(value="idx")int idx,
+	public boolean voteWrite(@RequestParam(value="idx")int idx,
 			@RequestParam(value="name")String name,
 			@RequestParam(value="account")String account,
 			@RequestParam(value="tx_id")String tx_id) {
 		System.out.println(account +"계정이 "+name + "에 투표를 시도합니다.");
-		votingMapper.candidateUpdate(idx);
-		VotersDTO dto = new VotersDTO();
-		dto.setAccount(account);
-		dto.setCandiddate_idx(idx);
-		dto.setTx_id(tx_id);
-		votingMapper.voteInsert(dto);
-		System.out.println(account + "계정의 투표가 완료되었습니다.");
+		Integer i = votingMapper.select_voting_account(account);
+		if(i != 1 ) {
+			votingMapper.candidateUpdate(idx);
+			VotersDTO dto = new VotersDTO();
+			dto.setAccount(account);
+			dto.setCandiddate_idx(idx);
+			dto.setTx_id(tx_id);
+			votingMapper.voteInsert(dto);
+			System.out.println(account + "계정의 투표가 완료되었습니다.");
+			return true;			
+		}
+		return false;
 	}
 }

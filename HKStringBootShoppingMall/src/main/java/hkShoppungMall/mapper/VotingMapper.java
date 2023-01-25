@@ -14,4 +14,7 @@ public interface VotingMapper {
 	public Integer selectVotingSum();
 	public Integer candidateUpdate(int idx);
 	public Integer voteInsert(VotersDTO dto);
+	public Integer candidateDelete(int idx);
+	public Integer votersCandidateDelete(int idx);
+	public Integer select_voting_account(String account);
 }
