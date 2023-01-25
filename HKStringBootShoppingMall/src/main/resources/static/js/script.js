@@ -69,7 +69,12 @@ var abi = [
 			}
 		],
 		"name": "setVote",
-		"outputs": [],
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -77,25 +82,33 @@ var abi = [
 ]
 
 var isVote = false;
-const contract_address = "0x073b389008440cbf09d367A7228e3b0C8Bd0dAC2";
+const contract_address = "0x1E1DA99fA9B218Bcb93eA9B8e3F461f4cdFF8F56";
 
 window.addEventListener("load", function() {
 	window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
-	web3.eth.defaultAccount = web3.eth.accounts[0]; 
+	// web3.eth.defaultAccount = web3.eth.accounts[0]; 
+	
+	console.log("web3.eth.accounts :: " + web3.eth.accounts);
 	voting = web3.eth.contract(abi).at(contract_address);
-	getDefault();
+	//getDefault();
 })
 
+
 function getDefault() {
+	account_address = $("#voteAccount").val();
+	web3.eth.defaultAccount = account_address ;
 	//계정
+	/*
 	web3.eth.getAccounts(function(e, r) {
-		console.log(r)
+		console.log("account :: " + r)
 		account_address = r[0];
+		
 		console.log("account : " + account_address);
 	});
+	*/
 	//투표 여부
 	voting.getVoter(function(e, r) {
-		vote_tf = r;
+		isVote = r;
 		console.log('Smart Contract Vote :: ' + r);
 		if (r) {
 			voting.getCandidate(function(e1,r1) {
@@ -107,12 +120,16 @@ function getDefault() {
 }
 
 function setVote(idx, name){
+	getDefault();
 	
-	if(vote_tf){
+	if(isVote){
 		alert('이미 투표를 하였습니다.');
 		return;
 	}
-	
+	if(account_address == ""){
+		alert("주소를 입력해주세요.");
+		return;
+	}
 	voting.setVote(name, { gas: 200000 }, function(e, r) {
 			vote_transaction_id = r;
 			$.ajax({
@@ -122,16 +139,52 @@ function setVote(idx, name){
 				success: function(resp) {
 					console.log('resp :: ' + resp);
 					if(resp){
-						location.reload();
+						location.href="vote?account="+account_address;
 					}else{
 						alert("디비 : 이미 투표하였습니다.");
 					}
 				},
 				error:function(){
-					alert("사버오류");
+					alert("서버오류");
 				}							
 			});
-	};
+	});
 }
+function setVote_cancel(){
+	getDefault();
+	if(account_address == ""){
+		alert("주소를 입력해주세요.");
+		return;
+	}
+	if (confirm('투표를 취소 하시겠습니까?')) {
+		voting.setVote_cancel({gas:200000},function(e, r){
+			vote_transaction_id = r;
+			console.log('vote_transaction_id :: ' + r);
+			if(r){
+				$.ajax({
+					url: '/vote_cancel',
+					type: 'post',
+					data: { account: account_address },
+					success: function(resp) {
+						console.log('resp :: ' + resp);
+						location.href="vote?account="+account_address;
+					},
+					error:function(){
+						alert("서버오류");
+					}
+				});
+			}
+		});
+	}
+}
+
+
+
+
+
+
+
+
+
 
 

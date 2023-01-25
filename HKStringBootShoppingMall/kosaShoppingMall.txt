@@ -402,3 +402,5 @@ create table voters(
     tx_id varchar2(100),
     v_date date
 );
+alter table voters
+modify (account varchar2(50), candidate_idx number);

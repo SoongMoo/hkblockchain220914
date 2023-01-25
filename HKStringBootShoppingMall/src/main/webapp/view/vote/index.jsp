@@ -14,7 +14,7 @@
 <script type="text/javascript" src="/static/js/script.js"></script>
 </head>
 <body>
-지갑 : <input type="text" name = "account" id="voteAccount" /><br />
+지갑 : <input type="text" name = "account" id="voteAccount" value="${account }" /><br />
 	<table width="640">
 		<tr>
 			<td align="center">투표</td>

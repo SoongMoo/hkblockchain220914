@@ -38,7 +38,15 @@
 	select count(*) from voters
 	where account = #{account}
 </select>
-
+<delete id="deleteVoteMe" parameterType="string">
+	delete from voters
+	where account = #{account}
+</delete>
+<update id="candidateDown" parameterType="string">
+	update candidates
+	set VOTE = VOTE - 1
+	where idx = (select candidate_idx from voters where account = #{account})
+</update>
 
 
 </mapper>

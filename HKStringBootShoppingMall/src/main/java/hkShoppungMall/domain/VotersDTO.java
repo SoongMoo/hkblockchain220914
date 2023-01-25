@@ -11,7 +11,7 @@ import lombok.Data;
 public class VotersDTO {
 	int v_id;
 	String account;
-	int candiddate_idx;
+	int candidate_idx;
 	Date v_date;
 	String tx_id;
 }

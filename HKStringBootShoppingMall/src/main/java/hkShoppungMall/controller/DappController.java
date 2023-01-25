@@ -29,11 +29,15 @@ public class DappController {
 	@Autowired
 	VotingMapper votingMapper;
 	@RequestMapping(value="vote")
-	public String vote(Model model) {
+	public String vote(
+			@RequestParam(value = "account", required = false ) String account
+			,Model model) {
+		
 		List<CandidatesDTO> candidates_list =  votingMapper.candidatesSelect();
 		int candidates_sum_vote = votingMapper.selectVotingSum();
 		model.addAttribute("candidates_list", candidates_list);
 		model.addAttribute("candidates_sum_vote", candidates_sum_vote);
+		model.addAttribute("account", account);
 		return"vote/index";
 	}
 	@RequestMapping("candidate")
@@ -68,6 +72,8 @@ public class DappController {
 		if ( i >= 1) return true;
 		return false;
 	}
+	
+	@ResponseBody
 	@RequestMapping(value="voteWrite", method=RequestMethod.POST)
 	public boolean voteWrite(@RequestParam(value="idx")int idx,
 			@RequestParam(value="name")String name,
@@ -79,12 +85,25 @@ public class DappController {
 			votingMapper.candidateUpdate(idx);
 			VotersDTO dto = new VotersDTO();
 			dto.setAccount(account);
-			dto.setCandiddate_idx(idx);
+			dto.setCandidate_idx(idx);
 			dto.setTx_id(tx_id);
 			votingMapper.voteInsert(dto);
 			System.out.println(account + "계정의 투표가 완료되었습니다.");
 			return true;			
 		}
 		return false;
+	}
+	
+	@RequestMapping("vote_cancel")
+	public @ResponseBody boolean vote_cancel(
+			@RequestParam(value = "account") String account) {
+		try {
+			votingMapper.candidateDown(account);
+			votingMapper.deleteVoteMe(account);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

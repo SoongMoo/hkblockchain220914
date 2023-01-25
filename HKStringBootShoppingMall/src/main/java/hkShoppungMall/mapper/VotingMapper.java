@@ -17,4 +17,6 @@ public interface VotingMapper {
 	public Integer candidateDelete(int idx);
 	public Integer votersCandidateDelete(int idx);
 	public Integer select_voting_account(String account);
+	public Integer deleteVoteMe(String account);
+	public Integer candidateDown(String account);
 }
