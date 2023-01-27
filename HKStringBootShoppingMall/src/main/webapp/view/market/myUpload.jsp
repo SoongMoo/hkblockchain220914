@@ -20,13 +20,15 @@ Unique ID <br />
 <span class="tokenID"></span>(tokenID)
 <br />
 <hr />
-<input type="file" name="captureFile" id="captureFile" multiple="multiple" /><button type="button" id="UPLOADIMG">UPLOADIMG</button><BR />
+<input type="file" name="captureFile" id="captureFile" multiple="multiple" />
+<button type="button" id="UPLOADIMG">UPLOADIMG</button><BR />
 <img src="" id="uploadedImg" width="300" />
 Data URI : <span id="Data_URI"></span>     <br />
 <hr />
 <button id="submit">Submit</button><br />
 <div id="isRegistered" style="display:none">
-<button id="transferToCA" style="display:none" >TransferToCA</button></div>
+<button id="transferToCA" style="display:none" >TransferToCA</button>
+</div>
 <hr />
 
 

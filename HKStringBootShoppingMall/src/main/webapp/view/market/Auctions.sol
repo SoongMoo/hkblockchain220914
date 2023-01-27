@@ -5,7 +5,7 @@ import "./MyNFT.sol";
 contract Auctions {
 	// 상태 변수
 	Auction[] public auctions; //Auction을 저장하는 전체 배열
- 	mapping(address => uint[]) public auctionOwner; // 각 소유자 어드래스가 가지고 있는 tokenId릐 배열을 매핑
+ 	mapping(address => uint[]) public auctionOwner; // 각 소유자 어드래스를 가지고 있는 tokenId릐 배열을 매핑
 
 	struct Auction {  // 옥션의 구조체
 	  string name; // 제목

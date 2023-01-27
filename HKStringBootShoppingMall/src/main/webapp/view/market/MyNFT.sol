@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 import "github/district0x/memefactory-contracts/contracts/token/ERC721Token.sol";
-
+/// ERC721Token와 ERC721에 있는 tokenURI도 모두 string으로 변경
 contract MyNFT is ERC721Token { // ERC721Token을 상속
     constructor (string _name, string _symbol) public
         ERC721Token(_name, _symbol) {} // 생성자로서 토큰의 이름과 심볼을 지정
