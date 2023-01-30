@@ -10,4 +10,5 @@ import hkShoppungMall.domain.AuctionDTO;
 public interface AutionMapper {
 	public Integer createAution(AuctionDTO dto);
 	public List<AuctionDTO> auctionSelectAll();
+	public Integer finalizeAuction(AuctionDTO dto);
 }

@@ -11,5 +11,10 @@
 	select TITLE,PRICE,METADATA,TOKENID, OWNER,ACTIVE
 	from auction
 </select>
+<update id="finalizeAuction" parameterType="auctionDTO">
+	update auction
+	set owner = #{owner}
+	where tokenId = #{tokenId}
+</update>
 
 </mapper>

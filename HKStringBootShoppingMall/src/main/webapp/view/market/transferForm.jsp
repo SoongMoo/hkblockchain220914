@@ -10,6 +10,7 @@
 <script type="text/javascript" src="/static/js/transFrom.js"></script>
 </head>
 <body>
+<input type="hidden" id="auctionId" >
 <input type="hidden" id="ownerAddress" value="${ownerAddress }"/>
 <input type="hidden" id="tokenId" name="tokenId" value="${tokenId }"/>
 안녕하세요<br />
@@ -21,7 +22,8 @@
         <div>Owner: <span id="owner"></span></div>
  </div>
  To Address<br />
- <input type="text"  size="200" id = "toAddress" required="required"/><br />
+ <input type="text"  size="200" id = "toAddress" name="toAddress" required="required" 
+ 	value="${myAccount }" readonly="readonly"/><br />
  <button type="button" onclick="finalizeAuction()" >Finalize</button>
 </body>
 </html>

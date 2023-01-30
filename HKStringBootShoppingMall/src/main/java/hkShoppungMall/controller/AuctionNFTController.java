@@ -1,8 +1,8 @@
 package hkShoppungMall.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.aot.hint.annotation.Reflective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import hkShoppungMall.domain.AuctionDTO;
+import hkShoppungMall.domain.AuthInfo;
+import hkShoppungMall.domain.MemberDTO;
 import hkShoppungMall.mapper.AutionMapper;
+import hkShoppungMall.mapper.MemberShipMapper;
 import hkShoppungMall.service.nft.AutionUploadService;
 import jakarta.servlet.http.HttpSession;
 
@@ -67,13 +70,29 @@ public class AuctionNFTController {
 		if(i != 1) return false;
 		return true;
 	}
+	@Autowired
+	MemberShipMapper memberShipMapper;
 	@RequestMapping("transferForm")
 	public String transferForm(@RequestParam(value="owner") String owner,
 			@RequestParam(value="tokenId") String tokenId,
-			Model model) {
+			Model model, HttpSession session) {
+		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
+		MemberDTO dto = memberShipMapper.selectMember(authInfo.getUserId());
+		String myAccount = dto.getAccountAddress();
+		model.addAttribute("myAccount", myAccount);
 		model.addAttribute("tokenId", tokenId);
 		model.addAttribute("ownerAddress", owner);
 		return "market/transferForm";
+	}
+	@RequestMapping("finalizeAuction")
+	public @ResponseBody void  finalizeAuction(
+			@RequestParam(value="toAddress") String owner,
+			@RequestParam(value="tokenId") String tokenId
+			) {
+		AuctionDTO dto = new AuctionDTO();
+		dto.setOwner(owner);
+		dto.setTokenId(tokenId);
+		autionMapper.finalizeAuction(dto);
 	}
 }
 

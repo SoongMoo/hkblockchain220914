@@ -753,6 +753,7 @@ function getAuctionById(value){
 		console.log(result);
 		onsole.log(result[3]['c']);
 		if(result[3]['c'] == tokenId){
+			$("#auctionId").val(value);
 			$("#title").text(result[0]);
 			$("#tokenId").text(result[3]['c']);
 			$("#price").text(web3.fromWei(result[1], 'ether'));
@@ -760,3 +761,49 @@ function getAuctionById(value){
 		}
 	} );
 }
+function finalizeAuction(){
+	if(!$("#toAddress").val()){
+		alert("toAddress를 입력해 주세요");
+		return;
+	}
+	ciAuctions.finalizeAuction($("#auctionId").val(),$("#toAddress").val()
+						,{from: account, gas: GAS_AMOUNT}
+						, (error, result) => {
+		console.log(error);
+		$.ajax({
+			url: "finalizeAuction",
+			type: 'post',
+			data: {'tokenId' : $("#tokenId").val()
+					'account' : $("#toAddress").val()},
+			success: function(){
+				alert("소유권이 정상적으로 변경되었습니다.");
+				location.href="/main";
+			},
+			error: function(){
+						alert("서버 오류");
+			}
+		});					
+	} );
+	/*
+	watchFinalized(function(error, result){
+          if(!error) alert("Auction finalized...!")
+    });
+	*/
+}
+
+function watchFinalized(cb) {
+      const currentBlock = getCurrentBlock()
+      const eventWatcher = ciAuctions.AuctionFinalized({}, {fromBlock: currentBlock - 1, toBlock: 'latest'})
+      eventWatcher.watch(cb)
+}
+
+function getCurrentBlock() {
+      return new Promise((resolve, reject ) => {
+        web3.eth.getBlockNumber((err, blocknumber) => {
+            if(!err) resolve(blocknumber)
+            reject(err)
+        })
+      })
+}
+
+
