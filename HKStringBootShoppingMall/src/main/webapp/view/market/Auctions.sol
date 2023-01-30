@@ -60,7 +60,7 @@ contract Auctions {
 		// NFT컨트랙트 어드래스(repoAddress) , tokenId, 현재 컨트랙트 어드래스address(this)와 받는 어드래스 _to를 approveAndTransfer함수에 전달 
 		// 받는 어드래스에 소유권이 승인되고 잔달되는 함수, 완료되면 해당 옥션 상태를 종료로 바꾼다. 
 		// AuctionFinalized 이벤트 송출
-		if(approveAndTransfer(address(this), _to, myAuction.repoAddress, myAuction.tokenId)){
+		if(approveAndTransfer(myAuction.owner, _to, myAuction.repoAddress, myAuction.tokenId)){
 		    auctions[_auctionId].active = false;
 		    auctions[_auctionId].finalized = true;
 		    emit AuctionFinalized(msg.sender, _auctionId);

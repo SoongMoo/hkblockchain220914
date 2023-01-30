@@ -25,7 +25,7 @@ public class MemberDTO {
 	Date memberBirth;
 	String memberEmail;
 	String memberOk;
-	
+	String accountAddress;
 	
 	
 }

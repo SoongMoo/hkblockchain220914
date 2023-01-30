@@ -404,3 +404,20 @@ create table voters(
 );
 alter table voters
 modify (account varchar2(50), candidate_idx number);
+
+
+alter table member
+add (account_address varchar2(100));
+/* 0x5fE25B607FC5aABa234EE2b2B1939ee4Ce1e3A62 */
+
+
+
+create table auction(
+    title varchar2(100) not null,     
+    price number not null,
+     metadata varchar2(200) not null,
+     tokenId number not null,
+     owner varchar2(200) not null,
+     active char(1),
+     finalized char(1)
+);

@@ -7,7 +7,7 @@
 <body>
 <a href="/auction">자동차 경매</a>
 <a href="/vote">투표하기</a>
-<a href="/market">NTF Market</a>
+
 <span th:if="${session.authInfo != null}">
 	<a href="/login/logout">로그아웃</a><br />
 	<span th:switch="${session.authInfo.grade}">
@@ -28,6 +28,7 @@
 				<li><a href="/corner/goodsCartList" >장바구니</a></li>
 				<li><a href="/mypage/memberDetail">내 정보 보기</a></li>
 				<li><a href="/corner/wishList">관심 목록</a></li>
+				<a href="/market">NTF Market</a>
 			</ul>
 		</th:block>
 	</span>

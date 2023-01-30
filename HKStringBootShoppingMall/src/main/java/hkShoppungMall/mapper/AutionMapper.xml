@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hkShoppungMall.mapper.AutionMapper">
+<insert id="createAution" parameterType="auctionDTO">
+	insert into auction (TITLE,PRICE,METADATA,TOKENID, OWNER,ACTIVE )
+	values(#{title},#{price},#{metaData},#{tokenId},#{owner},#{active})
+</insert>
+<select id="auctionSelectAll" resultType="auctionDTO">
+	select TITLE,PRICE,METADATA,TOKENID, OWNER,ACTIVE
+	from auction
+</select>
+
+</mapper>

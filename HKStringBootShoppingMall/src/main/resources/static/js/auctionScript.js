@@ -457,6 +457,41 @@ const AUCTIONS_ABI = [
 		"constant": false,
 		"inputs": [
 			{
+				"name": "_repoAddress",
+				"type": "address"
+			},
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			},
+			{
+				"name": "_auctionTitle",
+				"type": "string"
+			},
+			{
+				"name": "_metadata",
+				"type": "string"
+			},
+			{
+				"name": "_price",
+				"type": "uint256"
+			}
+		],
+		"name": "createAuction",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "_auctionId",
 				"type": "uint256"
 			},
@@ -472,46 +507,61 @@ const AUCTIONS_ABI = [
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "fallback"
+	},
+	{
+		"anonymous": false,
 		"inputs": [
 			{
+				"indexed": false,
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
 				"name": "_auctionId",
 				"type": "uint256"
 			}
 		],
-		"name": "getAuctionById",
+		"name": "AuctionFinalized",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_auctionId",
+				"type": "uint256"
+			}
+		],
+		"name": "AuctionCreated",
+		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "auctionOwner",
 		"outputs": [
 			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "price",
+				"name": "",
 				"type": "uint256"
-			},
-			{
-				"name": "metadata",
-				"type": "string"
-			},
-			{
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"name": "repoAddress",
-				"type": "address"
-			},
-			{
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"name": "active",
-				"type": "bool"
-			},
-			{
-				"name": "finalized",
-				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -566,44 +616,61 @@ const AUCTIONS_ABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
-				"name": "_repoAddress",
-				"type": "address"
-			},
-			{
-				"name": "_tokenId",
-				"type": "uint256"
-			},
-			{
-				"name": "_auctionTitle",
-				"type": "string"
-			},
-			{
-				"name": "_metadata",
-				"type": "string"
-			},
-			{
-				"name": "_price",
+				"name": "_auctionId",
 				"type": "uint256"
 			}
 		],
-		"name": "createAuction",
+		"name": "getAuctionById",
 		"outputs": [
 			{
-				"name": "",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"name": "metadata",
+				"type": "string"
+			},
+			{
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"name": "repoAddress",
+				"type": "address"
+			},
+			{
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"name": "active",
+				"type": "bool"
+			},
+			{
+				"name": "finalized",
 				"type": "bool"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "getCount",
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "getAuctionsCountOfOwner",
 		"outputs": [
 			{
 				"name": "",
@@ -635,17 +702,8 @@ const AUCTIONS_ABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "auctionOwner",
+		"inputs": [],
+		"name": "getCount",
 		"outputs": [
 			{
 				"name": "",
@@ -655,72 +713,15 @@ const AUCTIONS_ABI = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_owner",
-				"type": "address"
-			}
-		],
-		"name": "getAuctionsCountOfOwner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "fallback"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_owner",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_auctionId",
-				"type": "uint256"
-			}
-		],
-		"name": "AuctionFinalized",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_owner",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_auctionId",
-				"type": "uint256"
-			}
-		],
-		"name": "AuctionCreated",
-		"type": "event"
 	}
 ]
 
 
+
 const GAS_AMOUNT=500000;
 
-const MYNFT_CA = "0x922d90fFe03abaE20f01DB0e508bb8396cF876b1";
-const AUCTIONS_CA = "0x2e584C2A2c6Fbef9FAfd84742A5bC52645fC929D";
+const MYNFT_CA = "0x67Aae6bB31F54042b57DD1dA96c1E127DB1EE17B";
+const AUCTIONS_CA = "0xA0cf300fa4879e509143B1a7B2B96F562cB98AC2";
 
 data = [{
 			account:null,
@@ -738,12 +739,13 @@ auction = {
 window.addEventListener("load", function() {
 	window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 	console.log("account : " + web3.eth.accounts);
-	web3.eth.defaultAccount = web3.eth.accounts[0];
+	web3.eth.defaultAccount = $("#accountAddress").val();
+	console.log($("#accountAddress").val());
 	getDefault();
 });
 function getDefault() {
 	web3.eth.getAccounts(function(e, r) {
-		data[0].account = r[0];
+		data[0].account = $("#accountAddress").val();
 		console.log("data.account : " + data[0].account);
 	});
 	data[0].contractInstance = web3.eth.contract(MYNFT_ABI).at(MYNFT_CA);
@@ -821,9 +823,28 @@ $(function() {
 								{from:data[0]['account']
 								,gas: GAS_AMOUNT}
 								,function(error, transactionHash){
-									console.log("txhash", transactionHash);
-									alert(transactionHash);
-								});
+									
+				$.ajax({
+					url:"createAution",
+					type: 'post',
+					data: {'title': $('#auctionTitle').val()
+						 , 'price': $('#auctionPrice').val()
+						 , 'metadata': data[0]['dataURI']
+						 , 'tokenId' : data[0]['tokenId']
+						 , 'owner' : data[0]['account']
+						 , 'active':'T'
+						 , 'finalized' : 'F' },
+					success: function(result){
+						console.log("txhash", transactionHash);
+						alert(transactionHash);
+						location.reload();
+					},
+					error: function(){
+						alert("서버 오류");
+					}
+				});				
+				
+		});
 		/*
 		watchCreated(function (error, result){
 			if (!error) alert("Creation completed...!")

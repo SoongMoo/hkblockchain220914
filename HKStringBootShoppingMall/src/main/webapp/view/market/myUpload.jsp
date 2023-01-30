@@ -13,6 +13,7 @@
 
 </head>
 <body>
+<input type="hidden" id="accountAddress" value="${accountAddress }" />
 <p>
 Upload Page
 </p>

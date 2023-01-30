@@ -4,7 +4,7 @@
 <sql id="baseColumns1">
 member_Num ,member_Id ,member_Pw ,member_Name , member_addr,
 member_regist ,gender,member_phone ,member_birth, 
-member_email, MEMBER_OK
+member_email, MEMBER_OK , ACCOUNT_ADDRESS
 </sql>
 <sql id="AutoNum">
 	select nvl(max(substr(member_NUM,4)),100000) + 1 from member
@@ -28,6 +28,7 @@ values(concat('mem',( <include refid="AutoNum" /> )),
 		<arg column="member_birth" javaType="java.util.Date" />
 		<arg column="member_email" javaType="string" />
 		<arg column="member_ok" javaType="string" />
+		<arg column="ACCOUNT_ADDRESS" javaType="string" />
 	</constructor>
 </resultMap>
 <select id="selectMember" parameterType="string" resultMap="memberConstructorMap">
