@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>    
+
+
 안녕하세요.<br />
 <table id="table">
 	<tr>

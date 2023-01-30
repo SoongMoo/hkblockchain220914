@@ -724,5 +724,39 @@ const GAS_AMOUNT=500000;
 const MYNFT_CA = "0x67Aae6bB31F54042b57DD1dA96c1E127DB1EE17B";
 const AUCTIONS_CA = "0xA0cf300fa4879e509143B1a7B2B96F562cB98AC2";
 
-const account = "0x7f72c88c9641113f7e1c114b498841461f348905";
+var account; 
+var tokenId;
 
+
+window.addEventListener("load", function() {
+	window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+	web3.eth.defaultAccount = account; //web3.eth.accounts[0]
+	ciMyNFT = web3.eth.contract(MYNFT_ABI).at(MYNFT_CA);
+	ciAuctions = web3.eth.contract(AUCTIONS_ABI).at(AUCTIONS_CA);
+	getMyAuctions();
+});
+function getMyAuctions() {
+	console.log($("#ownerAddress").val());
+	account = $("#ownerAddress").val() ;
+	tokenId = $("#tokenId").val();
+	ciAuctions.getAuctionsOf(account,{ from: account, gas: GAS_AMOUNT }
+			,function(error, result){
+		result.forEach((num, index, array )=>{
+			console.log(num);
+			getAuctionById(Number(num));
+		});
+	});
+}
+function getAuctionById(value){
+	ciAuctions.getAuctionById(value,{ from: account, gas: GAS_AMOUNT }
+			,function(error, result){
+		console.log(result);
+		onsole.log(result[3]['c']);
+		if(result[3]['c'] == tokenId){
+			$("#title").text(result[0]);
+			$("#tokenId").text(result[3]['c']);
+			$("#price").text(web3.fromWei(result[1], 'ether'));
+			$("#owner").text(result[5]);
+		}
+	} );
+}

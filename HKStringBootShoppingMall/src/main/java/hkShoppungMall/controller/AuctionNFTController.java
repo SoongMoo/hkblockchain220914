@@ -68,7 +68,11 @@ public class AuctionNFTController {
 		return true;
 	}
 	@RequestMapping("transferForm")
-	public String transferForm() {
+	public String transferForm(@RequestParam(value="owner") String owner,
+			@RequestParam(value="tokenId") String tokenId,
+			Model model) {
+		model.addAttribute("tokenId", tokenId);
+		model.addAttribute("ownerAddress", owner);
 		return "market/transferForm";
 	}
 }
