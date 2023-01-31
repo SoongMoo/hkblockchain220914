@@ -457,41 +457,6 @@ const AUCTIONS_ABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_repoAddress",
-				"type": "address"
-			},
-			{
-				"name": "_tokenId",
-				"type": "uint256"
-			},
-			{
-				"name": "_auctionTitle",
-				"type": "string"
-			},
-			{
-				"name": "_metadata",
-				"type": "string"
-			},
-			{
-				"name": "_price",
-				"type": "uint256"
-			}
-		],
-		"name": "createAuction",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
 				"name": "_auctionId",
 				"type": "uint256"
 			},
@@ -507,61 +472,46 @@ const AUCTIONS_ABI = [
 		"type": "function"
 	},
 	{
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "fallback"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_owner",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_auctionId",
-				"type": "uint256"
-			}
-		],
-		"name": "AuctionFinalized",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_owner",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_auctionId",
-				"type": "uint256"
-			}
-		],
-		"name": "AuctionCreated",
-		"type": "event"
-	},
-	{
 		"constant": true,
 		"inputs": [
 			{
-				"name": "",
-				"type": "address"
-			},
-			{
-				"name": "",
+				"name": "_auctionId",
 				"type": "uint256"
 			}
 		],
-		"name": "auctionOwner",
+		"name": "getAuctionById",
 		"outputs": [
 			{
-				"name": "",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"name": "price",
 				"type": "uint256"
+			},
+			{
+				"name": "metadata",
+				"type": "string"
+			},
+			{
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"name": "repoAddress",
+				"type": "address"
+			},
+			{
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"name": "active",
+				"type": "bool"
+			},
+			{
+				"name": "finalized",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -616,61 +566,44 @@ const AUCTIONS_ABI = [
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
-				"name": "_auctionId",
+				"name": "_repoAddress",
+				"type": "address"
+			},
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			},
+			{
+				"name": "_auctionTitle",
+				"type": "string"
+			},
+			{
+				"name": "_metadata",
+				"type": "string"
+			},
+			{
+				"name": "_price",
 				"type": "uint256"
 			}
 		],
-		"name": "getAuctionById",
+		"name": "createAuction",
 		"outputs": [
 			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "price",
-				"type": "uint256"
-			},
-			{
-				"name": "metadata",
-				"type": "string"
-			},
-			{
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"name": "repoAddress",
-				"type": "address"
-			},
-			{
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"name": "active",
-				"type": "bool"
-			},
-			{
-				"name": "finalized",
+				"name": "",
 				"type": "bool"
 			}
 		],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "_owner",
-				"type": "address"
-			}
-		],
-		"name": "getAuctionsCountOfOwner",
+		"inputs": [],
+		"name": "getCount",
 		"outputs": [
 			{
 				"name": "",
@@ -702,8 +635,17 @@ const AUCTIONS_ABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "getCount",
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "auctionOwner",
 		"outputs": [
 			{
 				"name": "",
@@ -713,11 +655,69 @@ const AUCTIONS_ABI = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "getAuctionsCountOfOwner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "fallback"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_auctionId",
+				"type": "uint256"
+			}
+		],
+		"name": "AuctionFinalized",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_auctionId",
+				"type": "uint256"
+			}
+		],
+		"name": "AuctionCreated",
+		"type": "event"
 	}
 ]
 
 const GAS_AMOUNT=500000;
 
-const MYNFT_CA = "0x2e9667491b1D2FDfEFD898Ad8439D9944F650680";
-const AUCTIONS_CA = "0x73e05aF140Aa27E28B5EAB25C8e5Ab8fc8cA063E";
+const MYNFT_CA = "0x7A447d7838D47Ed31f54A1b088B3A96Df103e417";
+const AUCTIONS_CA = "0x0711239C43919A96fbf84b6a69e234DEc20B0845";
 

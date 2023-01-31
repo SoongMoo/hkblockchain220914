@@ -17,8 +17,8 @@
 			<td>title: ${dto.title } <br />
 				price: ${dto.price } <br />
 				<a href="transferForm?owner=${dto.owner }&tokenId=${dto.tokenId }" >
-				<img src="https://gateway.ipfs.io/ipfs/${metaData }" with="100px"/><br />
-				</a>
+				<img src="https://gateway.ipfs.io/ipfs/${dto.metaData }" with="100px"/><br />
+				</a> 
 				tokenId:${dto.tokenId } <br />
 				owner: ${dto.owner } <br />
 				active: ${dto.active } <br /></td>

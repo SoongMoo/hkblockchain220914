@@ -45,7 +45,7 @@ function finalizeAuction(){
 	ciAuctions.finalizeAuction($("#auctionId").val(),$("#toAddress").val()
 						,{from: account, gas: GAS_AMOUNT}
 						, (error, result) => {
-		console.log(error);
+		console.log(result);
 		$.ajax({
 			url: "finalizeAuction",
 			type: 'post',
