@@ -7,7 +7,8 @@
 <title>transferForm.jsp</title>
 <script type="text/javascript" src="webjars/jquery/3.3.1-1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>
-<script type="text/javascript" src="/static/js/transFrom.js"></script>
+<script type="text/javascript" src="/static/js/transferFrom.js"></script>
+<script type="text/javascript" src="/static/js/marketConfig.js"></script>
 </head>
 <body>
 <input type="hidden" id="auctionId" >
@@ -22,7 +23,7 @@
         <div>Owner: <span id="owner"></span></div>
  </div>
  To Address<br />
- <input type="text"  size="200" id = "toAddress" name="toAddress" required="required" 
+ <input type="text"  size="200" id = "toAddress" required="required" 
  	value="${myAccount }" readonly="readonly"/><br />
  <button type="button" onclick="finalizeAuction()" >Finalize</button>
 </body>

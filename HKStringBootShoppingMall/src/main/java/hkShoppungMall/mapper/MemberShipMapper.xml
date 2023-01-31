@@ -13,7 +13,7 @@ member_email, MEMBER_OK , ACCOUNT_ADDRESS
 insert into member( <include refid="baseColumns1" /> )
 values(concat('mem',( <include refid="AutoNum" /> )),
 		#{memberId},#{memberPw},#{memberName},#{memberAddr},sysdate,
-		#{gender},#{memberPhone},#{memberBirth},#{memberEmail}, null)
+		#{gender},#{memberPhone},#{memberBirth},#{memberEmail}, null, #{accountAddress})
 </insert>
 <resultMap type="memDTO" id="memberConstructorMap">
 	<constructor >

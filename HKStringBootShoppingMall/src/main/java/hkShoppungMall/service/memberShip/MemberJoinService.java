@@ -35,6 +35,7 @@ public class MemberJoinService {
 		dto.setMemberName(memberCommand.getMemberName());
 		dto.setMemberPhone(memberCommand.getMemberPhone());
 		dto.setMemberPw(passwordEncoder.encode(memberCommand.getMemberPw()));
+		dto.setAccountAddress(memberCommand.getAccountAddress());
 		memberShipMapper.memberInsert(dto);
 		model.addAttribute("memberName", dto.getMemberName());
 		

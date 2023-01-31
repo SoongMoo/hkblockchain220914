@@ -8,6 +8,7 @@
 <script type="text/javascript" src="webjars/jquery/3.3.1-1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>
 <script type="text/javascript" src="/static/js/myWallet.js"></script>
+<script type="text/javascript" src="/static/js/marketConfig.js"></script>
 </head>
 <body>
   <div class="containWrap">      

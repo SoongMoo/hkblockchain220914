@@ -41,6 +41,8 @@ public class MemberCommand {
 	@NotBlank(message = "이메일을 입력하여 주세요.")
 	String memberEmail;	
 	
+	String accountAddress;
+	
 	public boolean isMemberPwEqualsMemberPwCon() {
 		return memberPw.equals(memberPwCon);
 	}
