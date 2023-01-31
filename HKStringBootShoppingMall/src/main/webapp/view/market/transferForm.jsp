@@ -19,7 +19,7 @@
         <h3>Auction Info</h3>
         <div>Title: <span id="title"></span></div>
         <div>Price: <span id="price"></span> Ether</div>
-        <div>TokenId: <span id="tokenId"></span></div>
+        <div>TokenId: <span id="tokenId">${tokenId }</span></div>
         <div>Owner: <span id="owner"></span></div>
  </div>
  To Address<br />

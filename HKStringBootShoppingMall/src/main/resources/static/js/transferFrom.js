@@ -32,7 +32,6 @@ function getAuctionById(value){
 		if(result[3]['c'] == tokenId){
 			$("#auctionId").val(value);
 			$("#title").text(result[0]);
-			$("#tokenId").text(result[3]['c']);
 			$("#price").text(web3.fromWei(result[1], 'ether'));
 			$("#owner").text(result[5]);
 		}
