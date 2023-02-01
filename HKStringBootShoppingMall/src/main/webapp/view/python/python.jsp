@@ -8,6 +8,8 @@
 </head>
 <body>
 ${pyobj }<br />
-<img src="/python/default.png" />
+<img src="/python/default1.png" /><br />
+<img src="/python/histogrape1.png" /><br />
 </body>
 </html>
+

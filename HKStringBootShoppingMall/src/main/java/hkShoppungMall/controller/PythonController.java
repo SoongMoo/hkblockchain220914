@@ -28,9 +28,7 @@ public class PythonController {
 		
 		try {
 			Process process  = Runtime.getRuntime().exec("cmd /c python src/main/webapp/view/python/matplotlibTest.py");
-			new BufferedReader(
-			        new InputStreamReader(process.getInputStream()));
-			/*
+			//new BufferedReader( new InputStreamReader(process.getInputStream()));
 			BufferedReader reader = new BufferedReader(
 			        new InputStreamReader(process.getInputStream()));
 			String line = null;
@@ -41,7 +39,6 @@ public class PythonController {
 			}
 			String result = sb.toString();
 			System.out.println(result);
-			*/
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
