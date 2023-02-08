@@ -99,6 +99,7 @@ public class MemberConteroller {
 	}
 	@RequestMapping(value="memberRegist", method = RequestMethod.POST)
 	public String memberWrite(@Validated MemberCommand memberCommand,
+			@RequestParam(value="fileName", required = false) String fileName,
 			BindingResult result) {
 		if(result.hasErrors()) {
 			return "thymeleaf/member/memberForm";
@@ -118,6 +119,7 @@ public class MemberConteroller {
 		} 
 		
 		Integer i = memberRegistService.execute(memberCommand);
+		memberRegistService.createPdf(memberCommand, fileName);
 		if(i != null)
 			return "redirect:memberList";
 		else return "thymeleaf/member/memberForm";

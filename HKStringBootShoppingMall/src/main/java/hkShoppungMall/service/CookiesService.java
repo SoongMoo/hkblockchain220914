@@ -33,7 +33,5 @@ public class CookiesService {
 			}
 		}
 	}
-	public void executeGoods() {
-		
-	}
+
 }
