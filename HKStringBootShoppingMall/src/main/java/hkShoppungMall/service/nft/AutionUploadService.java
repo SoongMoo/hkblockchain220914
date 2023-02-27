@@ -16,6 +16,7 @@ public class AutionUploadService {
 		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
 		String accountAddress = 
 				(memberShipMapper.selectMember(authInfo.getUserId())).getAccountAddress();
+		System.out.println("accountAddress : " + accountAddress);
 		model.addAttribute("accountAddress", accountAddress);		
 	}
 }

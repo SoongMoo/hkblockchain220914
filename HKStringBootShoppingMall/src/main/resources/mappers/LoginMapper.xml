@@ -14,5 +14,12 @@
 	from employees
 	where emp_id = #{userId}
 </select>
+<select id="addressLogin" parameterType="string" resultType="authInfo">
+	select member_id userId , member_email userEmail ,
+		   member_pw  userPw, member_phone phone, 
+		   member_Ok memberOk, 'mem' grade
+	from member
+	where ACCOUNT_ADDRESS = #{address}
+</select>
 </mapper>
 

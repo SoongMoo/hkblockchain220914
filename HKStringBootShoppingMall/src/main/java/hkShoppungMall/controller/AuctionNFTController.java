@@ -45,7 +45,8 @@ public class AuctionNFTController {
 		return "redirect:upload";
 	}
 	@RequestMapping("wallet")
-	public String wallet() {
+	public String wallet(HttpSession session, Model model) {
+		autionUploadService.execute(session,model);
 		return "market/myWallet";
 	}
 	@RequestMapping("createAution")
@@ -93,6 +94,17 @@ public class AuctionNFTController {
 		dto.setOwner(owner);
 		dto.setTokenId(tokenId);
 		autionMapper.finalizeAuction(dto);
+	}
+	@RequestMapping("sessionValue")
+	public @ResponseBody String sessionValue(HttpSession session) {
+		System.out.println((String)session.getAttribute("privateKey"));
+		return (String)session.getAttribute("privateKey");
+	}
+	@RequestMapping("sessionPrivateKey")
+	public @ResponseBody void sessionPrivateKey(
+			@RequestParam(value="privateKey") String privateKey,
+			HttpSession session) {
+		session.setAttribute("privateKey", privateKey);
 	}
 }
 

@@ -143,7 +143,7 @@ alter table cart
 add (constraint member_num_goods_num_pk PRIMARY key (member_num,goods_num));
 
 alter table wish
-add constraint member_num_goods_num_pk primary key (member_num,goods_num) ;
+add constraint wish_member_num_goods_num_pk primary key (member_num,goods_num) ;
 
 alter table member
 add (constraint member_num_pk primary key (member_num),
@@ -389,21 +389,23 @@ alter table goods_inquire
 add(ANSWER_EMAIL varchar2(20));
 
 
+drop table candidates;
 create table candidates(
     idx number GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
     name varchar2(30),
     vote number
 );
 
+drop table voters;
 create table voters(
     v_id number GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1), 
     account varchar2(30), 
-    candidate_idx number,
+    candidates_idx number,
     tx_id varchar2(100),
     v_date date
 );
 alter table voters
-modify (account varchar2(50), candidate_idx number);
+modify (account varchar2(50), candidates_idx number);
 
 
 alter table member

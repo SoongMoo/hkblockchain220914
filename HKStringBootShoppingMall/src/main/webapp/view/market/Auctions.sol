@@ -14,8 +14,9 @@ contract Auctions {
 	  uint256 tokenId; // 토큰 아이디
 	  address repoAddress; // nft 컨트랙트 어드레스
 	  address owner; // 소유자				
-	  bool active; //활성화 여부
-	  bool finalized; //판매 종료여부
+	  string v;
+	  string r;
+	  string s;
 	}
 
 	function() public {
@@ -32,7 +33,7 @@ contract Auctions {
 	}
 
     // 먼저 contractIsNFTOwner함수를 이용해서 해당 토큰이 auctions 컨트랙트 어드레스의 소유인지 확인
-	function createAuction(address _repoAddress, uint256 _tokenId, string _auctionTitle, string _metadata, uint256 _price) public contractIsNFTOwner(_repoAddress, _tokenId) returns(bool) {
+	function createAuction(address _repoAddress, uint256 _tokenId, string _auctionTitle, string _metadata, uint256 _price, string _v, string _r, string _s) public contractIsNFTOwner(_repoAddress, _tokenId) returns(bool) {
 		uint auctionId = auctions.length;
 		Auction memory newAuction;
 		newAuction.name = _auctionTitle;
@@ -41,8 +42,9 @@ contract Auctions {
 		newAuction.tokenId = _tokenId;
 		newAuction.repoAddress = _repoAddress;
 		newAuction.owner = msg.sender;
-		newAuction.active = true;
-        newAuction.finalized = false;
+		newAuction.v = _v;
+		newAuction.r = _r;
+		newAuction.s = _s;
 
 		// 새 옥션을 배열에 추가 
 		auctions.push(newAuction);
@@ -60,9 +62,11 @@ contract Auctions {
 		// NFT컨트랙트 어드래스(repoAddress) , tokenId, 현재 컨트랙트 어드래스address(this)와 받는 어드래스 _to를 approveAndTransfer함수에 전달 
 		// 받는 어드래스에 소유권이 승인되고 잔달되는 함수, 완료되면 해당 옥션 상태를 종료로 바꾼다. 
 		// AuctionFinalized 이벤트 송출
-		if(approveAndTransfer(myAuction.owner, _to, myAuction.repoAddress, myAuction.tokenId)){
-		    auctions[_auctionId].active = false;
-		    auctions[_auctionId].finalized = true;
+		if(approveAndTransfer(address(this) , _to, myAuction.repoAddress, myAuction.tokenId)){
+			
+			delete auctionOwner[auctions[_auctionId].owner];
+			auctions[_auctionId].owner = _to;
+			auctionOwner[_to].push(_auctionId);
 		    emit AuctionFinalized(msg.sender, _auctionId);
 		}
 	}
@@ -96,8 +100,10 @@ contract Auctions {
 		uint256 tokenId,
 		address repoAddress,
 		address owner,
-		bool active,
-		bool finalized) {
+		string v,
+		string r,
+		string s
+		) {
 		Auction memory auc = auctions[_auctionId];
 		return (
 			auc.name,
@@ -106,8 +112,11 @@ contract Auctions {
 			auc.tokenId,
 			auc.repoAddress,
 			auc.owner,
-			auc.active,
-			auc.finalized);
+			auc.v,
+			auc.r,
+			auc.s
+
+		);
 	}
 
 	event AuctionCreated(address _owner, uint _auctionId);

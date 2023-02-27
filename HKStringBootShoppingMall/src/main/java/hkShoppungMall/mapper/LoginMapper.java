@@ -9,4 +9,5 @@ import hkShoppungMall.domain.AuthInfo;
 public interface LoginMapper {
 	//   result type      id     parameter type
 	public AuthInfo loginSelect(String userId );
+	public AuthInfo addressLogin(String address);
 }

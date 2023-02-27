@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 
 <script type="text/javascript" src="webjars/jquery/3.3.1-1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/web3@0.19.0/dist/web3.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script type="text/javascript" src="/static/js/auctionScript.js"></script>
 <script type="text/javascript" src="/static/js/marketConfig.js"></script>
 </head>
@@ -25,6 +25,8 @@ Unique ID <br />
 <button type="button" id="UPLOADIMG">UPLOADIMG</button><BR />
 <img src="" id="uploadedImg" width="300" />
 Data URI : <span id="Data_URI"></span>     <br />
+<hr />
+인증서 가져오기 : <input type="file" onchange="onFileSelected(event)">
 <hr />
 <button id="submit">Submit</button><br />
 <div id="isRegistered" style="display:none">

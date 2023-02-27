@@ -56,8 +56,9 @@ public class MemberRegistService {
 	public void createPdf(MemberCommand memberCommand, String fileName) {
 		String result = ""; 
 		try {
+			String RealPath = "src/main/resources/static/download/img" ;
 			Document document = new Document(); // pdf문서를 처리하는 객체
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(fileName));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(RealPath + "/"  + fileName));
 			document.open(); 
 			BaseFont baseFont = BaseFont.createFont("src/main/resources/static/font/NanumBarunGothic.ttf", BaseFont.IDENTITY_H,
                     BaseFont.EMBEDDED);

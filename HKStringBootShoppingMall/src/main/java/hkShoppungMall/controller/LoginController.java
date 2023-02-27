@@ -10,8 +10,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hkShoppungMall.command.LoginCommand;
+import hkShoppungMall.domain.AuthInfo;
+import hkShoppungMall.mapper.LoginMapper;
 import hkShoppungMall.service.login.LoginService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -44,6 +48,25 @@ public class LoginController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	// 인증서를 이용한 로그인 
+	@Autowired
+	LoginMapper loginMapper;
+	@RequestMapping(value = "/login/privateLogin", method = RequestMethod.POST)
+	public @ResponseBody String privateLogin(@RequestParam(value = "address") String address,
+			@RequestParam(value = "privateKey") String privateKey
+			,HttpSession session) {
+		AuthInfo authInfo = loginMapper.addressLogin(address);
+		if(authInfo != null) {
+			session.setAttribute("authInfo", authInfo);
+			session.setAttribute("privateKey", privateKey);
+			return "1";
+		}else {
+			return "0";
+		}
+	}	
+	
+	// 로그인 하지 않은 상태에서 구매시 로그인 페이지 열기
 	@RequestMapping(value="/login/item.login", method = RequestMethod.GET)
 	public String item(LoginCommand loginCommand) {
 		return "thymeleaf/login";

@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="webjars/jquery/3.3.1-1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<script type="text/javascript" src="/static/js/index.js"></script>
 </head>
 <body>
 <a href="/auction">자동차 경매</a>
@@ -74,8 +77,10 @@
 	</tr>
 </table>
 </form>
-</span>
 
+<p>개인키 로그인</p>
+인증서 : <input type="file" onchange="onFileSelected(event)">
+</span>
 <table align="center">
 	<tr>
 		<th:block th:each="goodsDTO , idx   : ${list}">

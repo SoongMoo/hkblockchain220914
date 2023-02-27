@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Service
 public class FileDownLoad {
 	public void fileDownLoad(String path, String fileName, String ofileName ,HttpServletRequest request, HttpServletResponse response) {
-		String RealPath = request.getServletContext().getRealPath(path);
+		String RealPath = "src/main/resources/static/download/img" ;  //request.getServletContext().getRealPath(path);
 		String originalFileName = ofileName;
 		try {
 			originalFileName = URLEncoder.encode(originalFileName,"UTF-8");
