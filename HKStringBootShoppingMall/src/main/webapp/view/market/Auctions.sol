@@ -56,7 +56,7 @@ contract Auctions {
 	}
 
     // 옥션을 소유자에게 전달하는 함수
-	function finalizeAuction(uint _auctionId, address _to) public {
+	function finalizeAuction(uint _auctionId, address _to, string _v, string _r, string _s) public {
 		// _auctionId를 가지고 옥션에 접근, memory는 휘발성으로 잠시메모리에 저장
 		Auction memory myAuction = auctions[_auctionId];
 		// NFT컨트랙트 어드래스(repoAddress) , tokenId, 현재 컨트랙트 어드래스address(this)와 받는 어드래스 _to를 approveAndTransfer함수에 전달 
@@ -66,6 +66,9 @@ contract Auctions {
 			
 			delete auctionOwner[auctions[_auctionId].owner];
 			auctions[_auctionId].owner = _to;
+			auctions[_auctionId].v = _v;
+			auctions[_auctionId].r = _r;
+			auctions[_auctionId].s = _s;
 			auctionOwner[_to].push(_auctionId);
 		    emit AuctionFinalized(msg.sender, _auctionId);
 		}

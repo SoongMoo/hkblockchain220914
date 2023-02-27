@@ -501,24 +501,6 @@ const AUCTIONS_ABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_auctionId",
-				"type": "uint256"
-			},
-			{
-				"name": "_to",
-				"type": "address"
-			}
-		],
-		"name": "finalizeAuction",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [
 			{
@@ -618,6 +600,36 @@ const AUCTIONS_ABI = [
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_auctionId",
+				"type": "uint256"
+			},
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_v",
+				"type": "string"
+			},
+			{
+				"name": "_r",
+				"type": "string"
+			},
+			{
+				"name": "_s",
+				"type": "string"
+			}
+		],
+		"name": "finalizeAuction",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -739,5 +751,5 @@ const AUCTIONS_ABI = [
 const GAS_AMOUNT=500000;
 
 const MYNFT_CA = "0x1D27A240FA4F6eecfD2B602DaF6D83FfE76C123a";
-const AUCTIONS_CA = "0xCC16f7AE96C79C3a21116b35f7bC6fe26365549f";
+const AUCTIONS_CA = "0x9bE7F22d13Cfa2E87703CF686258151555e71819";
 

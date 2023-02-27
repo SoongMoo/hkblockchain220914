@@ -74,19 +74,21 @@ function getAuctionById(target) {
 					const messageHash = web3.utils.sha3(message);
 					const signature = web3.eth.accounts.sign(messageHash, privateKey);
 					const signature1 = {
-							messageHash: signature.messageHash,
+						  messageHash: signature.messageHash,
 						  v: signature.v,
 						  r: signature.r,
 						  s: signature.s
 					};
 					const signerAddress = web3.eth.accounts.recover(signature1);
-					if (signerAddress === web3.eth.accounts.recover(messageHash, result[6], result[7], result[8])) {
+					if (signerAddress == web3.eth.accounts.recover(messageHash, result[6], result[7], result[8])) {
 						$("#title").text(result[0]);
 						$("#tokenId").text(result[3]);
 						$("#price").text(web3.utils.fromWei(result[1], 'ether'));
 						$("#owner").text(result[5]);
+						$("#metadata").text(result[2]);
 					} else {
-						console.log('서명이 유효하지 않습니다.');
+						alert('서명이 유효하지 않습니다. 다시 로그인 하여주세요');
+						location.href="/login/logout";
 					}
 				},
 				error: function(res) {
@@ -96,6 +98,16 @@ function getAuctionById(target) {
 			});
 		});
 }
+function onFileSelected1(event){
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function(event) {
+    console.log(event.target.result);
+    privateKey = event.target.result;
+  };
+  reader.readAsText(file);
+}
 function finalizeAuction(){
 	if(!$("#toAddress").val()){
 		alert("toAddress를 입력해 주세요");
@@ -103,7 +115,17 @@ function finalizeAuction(){
 	}
     console.log('$("#selectedAuction").val() : ' + $("#selectedAuction").val());
     console.log('$("#toAddress").val() : ' + $("#toAddress").val());
-    ciAuctions.methods.finalizeAuction($("#selectedAuction").val(), $("#toAddress").val()).send(
+    
+    
+	const message = $("#metadata").text();
+
+	// 메시지 해시 생성
+	const messageHash = web3.utils.sha3(message);
+
+	// 서명 생성
+	const signature = web3.eth.accounts.sign(messageHash, privateKey);
+
+    ciAuctions.methods.finalizeAuction($("#selectedAuction").val(), $("#toAddress").val(), signature.v,signature.r,signature.s).send(
     	{from: account, gas: GAS_AMOUNT}).then((result) => {        
           console.log(result)
     })

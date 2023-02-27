@@ -38,8 +38,12 @@
         <div>Price: <span id="price"></span> Ether</div>
         <div>TokenId: <span id="tokenId"></span></div>
         <div>Owner: <span id="owner"></span></div>
+        <div>Metadata: <span id="metadata"></span></div>
       </div>
       To Address<br />
+       <hr />
+		인증서 가져오기 : <input type="file" onchange="onFileSelected1(event)">
+	   <hr />
       <input type="text"  size="200" id = "toAddress" required="required"/><br />
 
       <button type="button" onclick="finalizeAuction()" >Finalize</button>
