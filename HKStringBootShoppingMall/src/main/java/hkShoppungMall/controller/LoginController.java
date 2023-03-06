@@ -53,13 +53,12 @@ public class LoginController {
 	@Autowired
 	LoginMapper loginMapper;
 	@RequestMapping(value = "/login/privateLogin", method = RequestMethod.POST)
-	public @ResponseBody String privateLogin(@RequestParam(value = "address") String address,
-			@RequestParam(value = "privateKey") String privateKey
-			,HttpSession session) {
+	public @ResponseBody String privateLogin(
+			@RequestParam(value = "address") String address,
+			HttpSession session) {
 		AuthInfo authInfo = loginMapper.addressLogin(address);
 		if(authInfo != null) {
 			session.setAttribute("authInfo", authInfo);
-			session.setAttribute("privateKey", privateKey);
 			return "1";
 		}else {
 			return "0";

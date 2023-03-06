@@ -24,11 +24,13 @@
           </p>
         </div>
       </v-card>
-      <c:if test="${empty privateKey }">
+
      	<hr />
+     	<div id="privateId">
 		인증서 가져오기 : <input type="file" onchange="onFileSelected(event)">
 		<hr />
-      </c:if>
+		</div>
+
       
       <h2>Transfer</h2>
       <select id="selectedAuction"  label="Asset" onchange="getAuctionById(this)"></select>

@@ -91,52 +91,55 @@ $(function() {
 		transferToCA(data[0]['contractInstance'], data[0]['account'], data[0]['tokenId']);
 	});
 	
-	$("#createAution").click(function(){
+	$("#createAution").click(function() {
 		if (!data[0]['tokenId']) {
 			alert("Check for tokenId")
 			return
-		}				
-				const message = $("#Data_URI").text();
-				
-				// 메시지 해시 생성
-				const messageHash = web3.utils.sha3(message);
-				
-				// 서명 생성
-				const signature = web3.eth.accounts.sign(messageHash, privateKey);
-				
-				// 결과 출력
-				console.log("signature.messageHash : " + signature.messageHash);
-				console.log("signature.v : " + signature.v);
-				console.log("signature.r : " + signature.r);
-				console.log("signature.s : " + signature.s);
-		const price = web3.utils.toWei($("#auctionPrice").val(),'ether');
-		auction.contractInstance.methods.createAuction(MYNFT_CA,data[0]['tokenId'], $("#auctionTitle").val() 
-								,data[0]['dataURI'],price, signature.v, signature.r, signature.s)
-								.send({from:data[0]['account'],gas: GAS_AMOUNT})
-								.then( (transactionHash) => {
-				if(transactionHash){					
+		}
+		const message = $("#Data_URI").text();
+
+		// 메시지 해시 생성
+		const messageHash = web3.utils.sha3(message);
+
+		// 서명 생성
+		const signature = web3.eth.accounts.sign(messageHash, privateKey);
+
+		// 결과 출력
+		console.log("signature.messageHash : " + signature.messageHash);
+		console.log("signature.v : " + signature.v);
+		console.log("signature.r : " + signature.r);
+		console.log("signature.s : " + signature.s);
+		const price = web3.utils.toWei($("#auctionPrice").val(), 'ether');
+		auction.contractInstance.methods.createAuction(MYNFT_CA, data[0]['tokenId'], $("#auctionTitle").val()
+			, data[0]['dataURI'], price, signature.v, signature.r, signature.s)
+			.send({ from: data[0]['account'], gas: GAS_AMOUNT })
+			.then((transactionHash) => {
+				if (transactionHash) {
 					$.ajax({
-						url:"createAution",
+						url: "createAution",
 						type: 'post',
-						data: {'title': $('#auctionTitle').val()
-							 , 'price': $('#auctionPrice').val()
-							 , 'metadata': data[0]['dataURI']
-							 , 'tokenId' : data[0]['tokenId']
-							 , 'owner' : data[0]['account']
-							 , 'active':'T'
-							 , 'finalized' : 'F' },
-						success: function(result){
+						data: {
+							'title': $('#auctionTitle').val()
+							, 'price': $('#auctionPrice').val()
+							, 'metadata': data[0]['dataURI']
+							, 'tokenId': data[0]['tokenId']
+							, 'owner': data[0]['account']
+							, 'active': 'T'
+							, 'finalized': 'F'
+						},
+						success: function(result) {
+							console.log("result", result);
 							console.log("txhash", transactionHash);
 							alert(transactionHash);
 							location.reload();
 						},
-						error: function(){
+						error: function() {
 							alert("서버 오류");
 						}
-					});		
-				}		
-				
-		});
+					});
+				}
+
+			});
 		/*
 		watchCreated(function (error, result){
 			if (!error) alert("Creation completed...!")

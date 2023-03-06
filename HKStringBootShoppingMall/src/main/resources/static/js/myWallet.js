@@ -31,7 +31,6 @@ function getMyAuctions() {
 	   });
 }
 
-let metadata;
 let privateKey;
 
 function onFileSelected(event){
@@ -39,16 +38,8 @@ function onFileSelected(event){
   const reader = new FileReader();
 
   reader.onload = function(event) {
-    console.log(event.target.result);
-    $.ajax({
-		url: 'sessionPrivateKey',
-		type: "POST",
-		data: {"privateKey" : event.target.result},
-		success:function(result){
-			console.log(result);
-			location.reload();
-		}
-	});
+    privateKey = event.target.result;
+    console.log(privateKey);
   };
   reader.readAsText(file);
 }
@@ -58,44 +49,29 @@ function getAuctionById(target) {
 	ciAuctions.methods.getAuctionById(target.value).call({ from: account, gas: GAS_AMOUNT }).then(
 		(result) => {
 			console.log("result : " + result[2]);
-			$.ajax({
-				url: 'sessionValue',
-				type: "POST",
-				success: function(response) {
-					console.log(response);
-					if(response == ""){
-						alert("인증서가 존재하지 않습니다.");
-						location.reload();
-						return false;
-					}
-					console.log(response)
-					const privateKey = response.trim();
-					const message = result[2];
-					const messageHash = web3.utils.sha3(message);
-					const signature = web3.eth.accounts.sign(messageHash, privateKey);
-					const signature1 = {
-						  messageHash: signature.messageHash,
-						  v: signature.v,
-						  r: signature.r,
-						  s: signature.s
-					};
-					const signerAddress = web3.eth.accounts.recover(signature1);
-					if (signerAddress == web3.eth.accounts.recover(messageHash, result[6], result[7], result[8])) {
-						$("#title").text(result[0]);
-						$("#tokenId").text(result[3]);
-						$("#price").text(web3.utils.fromWei(result[1], 'ether'));
-						$("#owner").text(result[5]);
-						$("#metadata").text(result[2]);
-					} else {
-						alert('서명이 유효하지 않습니다. 다시 로그인 하여주세요');
-						location.href="/login/logout";
-					}
-				},
-				error: function(res) {
-					console.log(res);
-					alert("에러가 발생했습니다.");
-				}
-			});
+
+			const privateKey1 = privateKey;
+			const message = result[2];
+			const messageHash = web3.utils.sha3(message);
+			const signature = web3.eth.accounts.sign(messageHash, privateKey1);
+			const signature1 = {
+				messageHash: signature.messageHash,
+				v: signature.v,
+				r: signature.r,
+				s: signature.s
+			};
+			const signerAddress = web3.eth.accounts.recover(signature1);
+			if (signerAddress == web3.eth.accounts.recover(messageHash, result[6], result[7], result[8])) {
+				$("#title").text(result[0]);
+				$("#tokenId").text(result[3]);
+				$("#price").text(web3.utils.fromWei(result[1], 'ether'));
+				$("#owner").text(result[5]);
+				$("#metadata").text(result[2]);
+				$("#privateId").css("display","none")
+			} else {
+				alert('서명이 유효하지 않습니다');
+				location.reload();
+			}
 		});
 }
 function onFileSelected1(event){
