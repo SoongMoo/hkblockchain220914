@@ -24,7 +24,10 @@ function getMyAuctions() {
 					select_option += "<option>"+currentElement+"</option>";
 				});
 			$("#selectedAuction").html(select_option);
-		});
+		})
+		.catch((error) => {
+                    console.log('error: ' + error);
+        });
 		web3.eth.getBalance(account, function (error, result){        
 		        balance = web3.utils.fromWei(result, 'ether');
 		        $("#balanceVal").text(balance);
@@ -72,7 +75,9 @@ function getAuctionById(target) {
 				alert('서명이 유효하지 않습니다');
 				location.reload();
 			}
-		});
+		}).catch((error) => {
+                    console.log('error: ' + error);
+        });
 }
 function onFileSelected1(event){
   const file = event.target.files[0];
@@ -104,7 +109,9 @@ function finalizeAuction(){
     ciAuctions.methods.finalizeAuction($("#selectedAuction").val(), $("#toAddress").val(), signature.v,signature.r,signature.s).send(
     	{from: account, gas: GAS_AMOUNT}).then((result) => {        
           console.log(result)
-    })
+    }).catch((error) => {
+                    console.log('error: ' + error);
+    });
 	
 /*
 	watchFinalized(function(error, result){
