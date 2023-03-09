@@ -13,7 +13,7 @@ public class PaymentDTO {
 	String purchaseNum;
 	String paymentKind;
 	String paymentPrice;
-	Date paymentDate;
+	String paymentDate;
 	String confirmNumber;
 	String cardNumber;
 }

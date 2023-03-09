@@ -30,7 +30,7 @@ select concat('emp',nvl(max(substr(emp_num,4)),10000)+1)from employees
 	insert into employees(emp_num,
 		emp_id, emp_pw, emp_name,emp_addr,
 							emp_phone ,emp_email  )
-	values((<include refid="empNum" />)	),
+	values((<include refid="empNum" />),
 	#{empId},#{empPw},#{empName},#{empAddr},#{empPhone},#{empEmail})
 </insert>
 <delete id="employeeDelete" parameterType="string">

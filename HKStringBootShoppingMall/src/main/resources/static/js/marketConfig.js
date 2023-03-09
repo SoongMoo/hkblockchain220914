@@ -452,7 +452,7 @@ const MYNFT_ABI = [
 	}
 ]
 
-const AUCTIONS_ABI = [
+const AUCTIONS_ABI =[
 	{
 		"constant": false,
 		"inputs": [
@@ -501,50 +501,91 @@ const AUCTIONS_ABI = [
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
 				"name": "_auctionId",
 				"type": "uint256"
+			},
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_v",
+				"type": "string"
+			},
+			{
+				"name": "_r",
+				"type": "string"
+			},
+			{
+				"name": "_s",
+				"type": "string"
 			}
 		],
-		"name": "getAuctionById",
+		"name": "finalizeAuction",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "fallback"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_auctionId",
+				"type": "uint256"
+			}
+		],
+		"name": "AuctionCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_auctionId",
+				"type": "uint256"
+			}
+		],
+		"name": "AuctionFinalized",
+		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "auctionOwner",
 		"outputs": [
 			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "price",
+				"name": "",
 				"type": "uint256"
-			},
-			{
-				"name": "metadata",
-				"type": "string"
-			},
-			{
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"name": "repoAddress",
-				"type": "address"
-			},
-			{
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"name": "v",
-				"type": "string"
-			},
-			{
-				"name": "r",
-				"type": "string"
-			},
-			{
-				"name": "s",
-				"type": "string"
 			}
 		],
 		"payable": false,
@@ -603,39 +644,65 @@ const AUCTIONS_ABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
 				"name": "_auctionId",
 				"type": "uint256"
+			}
+		],
+		"name": "getAuctionById",
+		"outputs": [
+			{
+				"name": "name",
+				"type": "string"
 			},
 			{
-				"name": "_to",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"name": "metadata",
+				"type": "string"
+			},
+			{
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"name": "repoAddress",
 				"type": "address"
 			},
 			{
-				"name": "_v",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"name": "v",
 				"type": "string"
 			},
 			{
-				"name": "_r",
+				"name": "r",
 				"type": "string"
 			},
 			{
-				"name": "_s",
+				"name": "s",
 				"type": "string"
 			}
 		],
-		"name": "finalizeAuction",
-		"outputs": [],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "getCount",
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "getAuctionsCountOfOwner",
 		"outputs": [
 			{
 				"name": "",
@@ -667,17 +734,8 @@ const AUCTIONS_ABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "address"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "auctionOwner",
+		"inputs": [],
+		"name": "getCount",
 		"outputs": [
 			{
 				"name": "",
@@ -687,69 +745,11 @@ const AUCTIONS_ABI = [
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_owner",
-				"type": "address"
-			}
-		],
-		"name": "getAuctionsCountOfOwner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "fallback"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_owner",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_auctionId",
-				"type": "uint256"
-			}
-		],
-		"name": "AuctionCreated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "_owner",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "_auctionId",
-				"type": "uint256"
-			}
-		],
-		"name": "AuctionFinalized",
-		"type": "event"
 	}
 ]
 
 const GAS_AMOUNT=500000;
 
-const MYNFT_CA = "0x1D27A240FA4F6eecfD2B602DaF6D83FfE76C123a";
-const AUCTIONS_CA = "0x9bE7F22d13Cfa2E87703CF686258151555e71819";
+const MYNFT_CA = "0x36b3a0d36C3aEDaEdd5ba53c76DF308836492558";
+const AUCTIONS_CA = "0x9380fFA99a605087E563556bc9b60B45a1521590";
 

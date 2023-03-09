@@ -54,14 +54,7 @@ contract Auctions {
 		emit AuctionCreated(msg.sender, auctionId);  // AuctionCreated 이벤트 송출
 		return true;
 	}
-	function deleteHouzz(uint _auctionId) public {
-	    // 호출자 검증
-	    require(msg.sender == auctions[_auctionId].owner, "Only the owner can delete the auction");
-	
-	    // 집 삭제
-	    auctions[_houzzId].owner = address(1);
-	    emit AuctionFinalized(msg.sender, _houzzId); // 상태 변경 로그 추가
-	}
+
     // 옥션을 소유자에게 전달하는 함수
 	function finalizeAuction(uint _auctionId, address _to, string _v, string _r, string _s) public {
 		// _auctionId를 가지고 옥션에 접근, memory는 휘발성으로 잠시메모리에 저장
@@ -71,7 +64,16 @@ contract Auctions {
 		// AuctionFinalized 이벤트 송출
 		if(approveAndTransfer(address(this) , _to, myAuction.repoAddress, myAuction.tokenId)){
 			
-			//delete auctionOwner[auctions[_auctionId].owner];
+			for (uint i = 0; i < auctionOwner[msg.sender].length; i++) {
+				if (auctionOwner[msg.sender][i] == _auctionId) {
+					for (uint j = i; j < auctionOwner[msg.sender].length-1; j++) {
+						auctionOwner[msg.sender][j] = auctionOwner[msg.sender][j+1];
+					}
+					uint[] storage myArray = auctionOwner[msg.sender];
+					myArray.length--;
+					break;
+				}
+			}
 			auctions[_auctionId].owner = _to;
 			auctions[_auctionId].v = _v;
 			auctions[_auctionId].r = _r;
@@ -102,6 +104,22 @@ contract Auctions {
 	function getAuctionsCountOfOwner(address _owner) public constant returns(uint) {
 		return auctionOwner[_owner].length;
 	}
+
+	function deleteAuction(uint _auctionId) public {
+	    // 호출자 검증
+	    require(msg.sender == auctions[_auctionId].owner, "Only the owner can delete the auction");
+	    for (uint i = 0; i < auctionOwner[msg.sender].length; i++) {
+				if (auctionOwner[msg.sender][i] == _auctionId) {
+					for (uint j = i; j < auctionOwner[msg.sender].length-1; j++) {
+						auctionOwner[msg.sender][j] = auctionOwner[msg.sender][j+1];
+					}
+					uint[] storage myArray = auctionOwner[msg.sender];
+					myArray.length--;
+					break;
+				}
+		}
+	}
+
 	// 특정 ID에 대한 옥션을 반환하는 함수 
 	function getAuctionById(uint _auctionId) public constant returns(
 		string name,
@@ -115,6 +133,7 @@ contract Auctions {
 		string s
 		) {
 		Auction memory auc = auctions[_auctionId];
+		
 		return (
 			auc.name,
 			auc.price,
@@ -125,7 +144,6 @@ contract Auctions {
 			auc.v,
 			auc.r,
 			auc.s
-
 		);
 	}
 

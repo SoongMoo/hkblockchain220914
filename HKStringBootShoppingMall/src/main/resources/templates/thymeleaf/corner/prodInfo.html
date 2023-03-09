@@ -110,7 +110,8 @@ $(function(){
 </script>
 </head>
 <body>
-<form action="checkout" name="frm" method="post">
+<form action="../puchase/buyItem" name="frm" method="post">
+<input type="hidden" name= "goodsNum" th:value="${goodsCommand.goodsNum}"/>
 <table width="800" align = "center" >
 	<tr><td colspan="2" > [[${goodsCommand.goodsName}]] 상품 설명입니다.</td></tr>
 	<tr><td rowspan="6">

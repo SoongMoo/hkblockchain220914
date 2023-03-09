@@ -41,4 +41,11 @@ values(concat('mem',( <include refid="AutoNum" /> )),
 	set member_pw = #{memberPw}
 	where member_id = #{memberId}
 </update>
+<select id="selectMemberNum" parameterType="string" resultType="authInfo">
+	select member_id userId , member_email userEmail ,
+		   member_pw  userPw, member_phone phone, 
+		   member_Ok memberOk, 'mem' grade
+	from member
+	where member_num = (select member_num from purchase  where purchase_num = #{purchaseNum});
+</select>	
 </mapper>
